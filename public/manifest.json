@@ -1,0 +1,18 @@
+{
+  "short_name": "Nagagold Online",
+  "name": "Nagagold Online",
+  "description": "Website untuk Transaksi Emas ",
+  "start_url": "/",
+  "background_color": "#008846",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#008846",
+  "shortcuts": [
+    {
+      "name": "Lihat Harga Emas Terkini",
+      "short_name": "Harga Emas",
+      "url": "/dashboard",
+      "description": "Lihat Harga Emas Terkini"
+    }
+  ]
+}
