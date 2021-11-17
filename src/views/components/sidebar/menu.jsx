@@ -103,6 +103,29 @@ const Menu = [
     ],
   },
   {
+    path: "/admin-pusat",
+    icon: "fa fa-th-large",
+    title: "Admin Pusat",
+    children: [
+      {
+        path: "/admin-pusat/tambah-jo",
+        title: "Tambah Job Order",
+      },
+      {
+        path: "/admin-pusat/kirim-jo",
+        title: "Kirim Job Order",
+      },
+      {
+        path: "/admin-pusat/terima-jo",
+        title: "Terima Job Order",
+      },
+      {
+        path: "/admin-pusat/close-jo",
+        title: "Close Job Order",
+      },
+    ],
+  },
+  {
     path: "/laporan",
     icon: "fa fa-book",
     title: "Laporan",

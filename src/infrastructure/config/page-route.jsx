@@ -31,6 +31,11 @@ import TerimaAmbilBatu from "../../views/pages/admin-berlian/tambah-ambil-batu";
 import KirimBatuProduksi from "../../views/pages/admin-berlian/kirim-batu-produksi";
 //admin bahan
 import TambahSaldoBahan from "../../views/pages/admin-bahan/tambah-saldo-bahan";
+import PembuatanJenisBahan from "../../views/pages/admin-bahan/pembuatan-jenis-bahan";
+import TerimaCOR from "../../views/pages/admin-bahan/terima-cor";
+import TerimaTukangPotong from "../../views/pages/admin-bahan/terima-tukang-potong";
+import KirimBahanAdmin from "../../views/pages/admin-bahan/kirim-bahan-admin";
+import TerimaBahanTukang from "../../views/pages/admin-bahan/terima-bahan-tukang";
 
 const routes = [
   // {
@@ -132,6 +137,31 @@ const routes = [
     path: "/admin-bahan/tambah-saldo-bahan",
     title: "Tambah Saldo Bahan",
     component: () => <TambahSaldoBahan />,
+  },
+  {
+    path: "/admin-bahan/pembuatan-jenis-bahan",
+    title: "Pembuatan Jenis Bahan",
+    component: () => <PembuatanJenisBahan />,
+  },
+  {
+    path: "/admin-bahan/terima-cor",
+    title: "Terima COR",
+    component: () => <TerimaCOR />,
+  },
+  {
+    path: "/admin-bahan/terima-tukang-potong",
+    title: "Terima Tukang Potong",
+    component: () => <TerimaTukangPotong />,
+  },
+  {
+    path: "/admin-bahan/kirim-bahan-admin",
+    title: "Kirim Bahan Admin",
+    component: () => <KirimBahanAdmin />,
+  },
+  {
+    path: "/admin-bahan/terima-bahan-tukang",
+    title: "Terima Bahan Tukang",
+    component: () => <TerimaBahanTukang />,
   },
   //Laporan
   {
