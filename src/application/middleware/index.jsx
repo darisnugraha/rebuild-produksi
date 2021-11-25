@@ -6,10 +6,12 @@ import stockadmin from "./stockadmin";
 import saldobahan from "./saldobahan";
 import kirimdesian from "./kirimdesian";
 import kirimsaldodivisi from "./kirimsaldodivisi";
+import dashboard from "./dashboard";
 
 const midd = [
   ...ui,
   ...login,
+  ...dashboard,
   ...laporanstockglobalproduksi,
   ...kirimsaldotahun,
   ...stockadmin,

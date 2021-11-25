@@ -2,6 +2,8 @@ const baseurl = process.env.REACT_APP_BACKEND_URL;
 
 const URL_LOGIN = `${baseurl}users/login`;
 
+const URL_GET_JO_OUTSTAND_ALL = `${baseurl}produksi/outstand/`;
+
 const URL_GET_ALL_LAPORAN_STOCK_GLOBAL_PRODUKSI = `${baseurl}`;
 const URL_ADD_LAPORAN_STOCK_GLOBAL_PRODUKSI = `${baseurl}stock/report-global`;
 const URL_DELETE_LAPORAN_STOCK_GLOBAL_PRODUKSI = `${baseurl}`;
@@ -34,6 +36,7 @@ const URL_UPDATE_KIRIM_SALDO_DIVISI = `${baseurl}`;
 
 const data = {
   URL_LOGIN,
+  URL_GET_JO_OUTSTAND_ALL,
   URL_GET_ALL_LAPORAN_STOCK_GLOBAL_PRODUKSI,
   URL_ADD_LAPORAN_STOCK_GLOBAL_PRODUKSI,
   URL_DELETE_LAPORAN_STOCK_GLOBAL_PRODUKSI,

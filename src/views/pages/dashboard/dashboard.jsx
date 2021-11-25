@@ -8,6 +8,7 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Row, Col, Empty, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { getAllDashboard } from "../../../application/actions/dashboard";
 import TableJoOutstand from "../../components/dashboard/table-jo-outstand";
 import TableSetorAbuTukangCor from "../../components/dashboard/table-abu-setor-tukang-cor";
 import TableSetorAbuTukangPotong from "../../components/dashboard/table-abu-setor-tukang-potong";
@@ -19,6 +20,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllDashboard);
     document.title = "Dashboard";
   }, [dispatch]);
 

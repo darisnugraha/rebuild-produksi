@@ -36,6 +36,8 @@ import TerimaCOR from "../../views/pages/admin-bahan/terima-cor";
 import TerimaTukangPotong from "../../views/pages/admin-bahan/terima-tukang-potong";
 import KirimBahanAdmin from "../../views/pages/admin-bahan/kirim-bahan-admin";
 import TerimaBahanTukang from "../../views/pages/admin-bahan/terima-bahan-tukang";
+//admin pusat
+import TambahJobOrder from "../../views/pages/admin-pusat/tambah-jo";
 
 const routes = [
   // {
@@ -163,6 +165,13 @@ const routes = [
     title: "Terima Bahan Tukang",
     component: () => <TerimaBahanTukang />,
   },
+  //admin pusat
+  {
+    path: "/admin-pusat/tambah-jo",
+    title: "Tambah Job Order",
+    component: () => <TambahJobOrder />,
+  },
+
   //Laporan
   {
     path: "/laporan/stock-global-produksi",
