@@ -1,12 +1,14 @@
 import React from "react";
 import { Table } from "antd";
+import { useSelector } from 'react-redux';
 import "antd/dist/antd.css";
+import OutstandJO from "../../../application/selectors/dashboard";
 
 const columns = [
   {
     title: "No. Job Order",
-    dataIndex: "no_jo",
-    key: "no_jo",
+    dataIndex: "no_job_order",
+    key: "no_job_order",
     align: "center",
   },
   {
@@ -30,8 +32,10 @@ const columns = [
 ];
 
 const TableJoOutstand = () => {
+  const dataOutstandJO = useSelector(OutstandJO.getAllDashboard);
+  console.log(dataOutstandJO);
   return (
-    <Table dataSource={[]} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table dataSource={dataOutstandJO} columns={columns} scroll={{ x: 500, y: 1500 }} />
   );
 };
 
