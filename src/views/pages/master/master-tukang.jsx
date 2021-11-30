@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterTukang from "../../components/master/master-tukang/button-add-master-tukang";
 import TableMasterTukang from "../../components/master/master-tukang/table-master-tukang";
+import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
 
 const MasterTukang = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterTukang);
     document.title = "Master Tukang";
   }, [dispatch]);
 

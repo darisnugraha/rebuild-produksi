@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterBatu from "../../components/master/master-batu/button-add-master-batu";
 import TableMasterBatu from "../../components/master/master-batu/table-master-batu";
+import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
 
 const MasterBatu = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterBatu);
     document.title = "Master Batu";
   }, [dispatch]);
 

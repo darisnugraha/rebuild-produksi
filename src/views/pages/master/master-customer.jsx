@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterCustomer from "../../components/master/master-customer/button-add-master-customer";
 import TableMasterCustomer from "../../components/master/master-customer/table-master-customer";
+import { getAllMasterCustomer } from "../../../application/actions/mastercustomer.jsx";
 
 const MasterCustomer = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterCustomer);
     document.title = "Master Customer";
   }, [dispatch]);
 

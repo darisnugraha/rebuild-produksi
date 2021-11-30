@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterKondisi from "../../components/master/master-kondisi/button-add-master-kondisi";
 import TableMasterKondisi from "../../components/master/master-kondisi/table-master-kondisi";
+import { getAllMasterKondisi } from "../../../application/actions/masterkondisi.jsx";
 
 const MasterKondisi = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterKondisi);
     document.title = "Master Kondisi";
   }, [dispatch]);
 

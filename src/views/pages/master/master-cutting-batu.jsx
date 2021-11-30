@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterCuttingBatu from "../../components/master/master-cutting-batu/button-add-master-cutting-batu";
 import TableMasterCuttingBatu from "../../components/master/master-cutting-batu/table-master-cutting-batu";
+import { getAllMasterCuttingBatu } from "../../../application/actions/mastercuttingbatu.jsx";
 
 const MasterCuttingBatu = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterCuttingBatu);
     document.title = "Master Cutting Batu";
   }, [dispatch]);
 

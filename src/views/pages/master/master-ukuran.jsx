@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterUkuran from "../../components/master/master-ukuran/button-add-master-ukuran";
 import TableMasterUkuran from "../../components/master/master-ukuran/table-master-ukuran";
+import { getAllMasterUkuran } from "../../../application/actions/masterukuran.jsx";
 
 const MasterUkuran = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterUkuran);
     document.title = "Master Ukuran";
   }, [dispatch]);
 

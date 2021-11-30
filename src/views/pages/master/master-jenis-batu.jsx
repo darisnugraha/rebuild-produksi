@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterJenisBatu from "../../components/master/master-jenis-batu/button-add-master-jenis-batu";
 import TableMasterJenisBatu from "../../components/master/master-jenis-batu/table-master-jenis-batu";
+import { getAllMasterJenisBatu } from "../../../application/actions/masterjenisbatu.jsx";
 
 const MasterJenisBatu = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterJenisBatu);
     document.title = "Master Jenis Batu";
   }, [dispatch]);
 

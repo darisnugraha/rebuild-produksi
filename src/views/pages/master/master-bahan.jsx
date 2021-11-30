@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterBahan from "../../components/master/master-bahan/button-add-master-bahan";
 import TableMasterBahan from "../../components/master/master-bahan/table-master-bahan";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
 const MasterBahan = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterBahan);
     document.title = "Master Bahan";
   }, [dispatch]);
 

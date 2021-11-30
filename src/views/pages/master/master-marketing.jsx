@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterMarketing from "../../components/master/master-marketing/button-add-master-marketing";
 import TableMasterMarketing from "../../components/master/master-marketing/table-master-marketing";
+import { getAllMasterMarketing } from "../../../application/actions/mastermarketing.jsx";
 
 const MasterMarketing = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterMarketing);
     document.title = "Master Marketing";
   }, [dispatch]);
 

@@ -12,6 +12,15 @@ import dashboard from "./dashboard";
 import masterjenis from "./masterjenis";
 import masterwarna from "./masterwarna";
 import masterjenisbahan from "./masterjenisbahan";
+import masterbatu from "./masterbatu";
+import mastercuttingbatu from "./mastercuttingbatu";
+import masterjenisbatu from "./masterjenisbatu";
+import masterkondisi from "./masterkondisi";
+import masterbahan from "./masterbahan";
+import mastermarketing from "./mastermarketing";
+import mastertukang from "./mastertukang";
+import mastercustomer from "./mastercustomer";
+import masterukuran from "./masterukuran";
 
 export default combineReducers({
   login,
@@ -20,6 +29,15 @@ export default combineReducers({
   masterjenis,
   masterwarna,
   masterjenisbahan,
+  masterbatu,
+  mastercuttingbatu,
+  masterjenisbatu,
+  masterkondisi,
+  masterbahan,
+  mastermarketing,
+  mastertukang,
+  mastercustomer,
+  masterukuran,
   laporanStockGlobalProduksi,
   kirimsaldotahun,
   stockadmin,
