@@ -21,6 +21,7 @@ import mastermarketing from "./mastermarketing";
 import mastertukang from "./mastertukang";
 import mastercustomer from "./mastercustomer";
 import masterukuran from "./masterukuran";
+import masteroriginal from "./masteroriginal";
 
 export default combineReducers({
   login,
@@ -38,6 +39,7 @@ export default combineReducers({
   mastertukang,
   mastercustomer,
   masterukuran,
+  masteroriginal,
   laporanStockGlobalProduksi,
   kirimsaldotahun,
   stockadmin,

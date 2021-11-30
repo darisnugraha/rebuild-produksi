@@ -19,6 +19,7 @@ import mastermarketing from "./mastermarketing";
 import mastertukang from "./mastertukang";
 import mastercustomer from "./mastercustomer";
 import masterukuran from "./masterukuran";
+import masteroriginal from "./masteroriginal";
 
 const midd = [
   ...ui,
@@ -36,6 +37,7 @@ const midd = [
   ...mastertukang,
   ...mastercustomer,
   ...masterukuran,
+  ...masteroriginal,
   ...laporanstockglobalproduksi,
   ...kirimsaldotahun,
   ...stockadmin,

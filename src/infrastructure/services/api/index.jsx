@@ -18,6 +18,7 @@ import MasterMarketing from "./mastermarketing";
 import MasterTukang from "./mastertukang";
 import MasterCustomer from "./mastercustomer";
 import MasterUkuran from "./masterukuran";
+import MasterOriginal from "./masteroriginal";
 
 const api = {
   login,
@@ -34,6 +35,7 @@ const api = {
   MasterTukang,
   MasterCustomer,
   MasterUkuran,
+  MasterOriginal,
   laporanStockGlobalProduksi,
   kirimsaldotahun,
   stockadmin,
