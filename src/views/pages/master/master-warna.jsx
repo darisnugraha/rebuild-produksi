@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterWarna from "../../components/master/master-warna/button-add-master-warna";
 import TableMasterWarna from "../../components/master/master-warna/table-master-warna";
+import { getAllMasterWarna } from "../../../application/actions/masterwarna.jsx";
 
 const MasterWarna = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterWarna);
     document.title = "Master Warna";
   }, [dispatch]);
 

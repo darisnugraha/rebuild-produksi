@@ -7,11 +7,17 @@ import saldobahan from "./saldobahan";
 import kirimdesian from "./kirimdesian";
 import kirimsaldodivisi from "./kirimsaldodivisi";
 import dashboard from "./dashboard";
+import masterjenis from "./masterjenis";
+import masterwarna from "./masterwarna";
+import masterjenisbahan from "./masterjenisbahan";
 
 const midd = [
   ...ui,
   ...login,
   ...dashboard,
+  ...masterjenis,
+  ...masterwarna,
+  ...masterjenisbahan,
   ...laporanstockglobalproduksi,
   ...kirimsaldotahun,
   ...stockadmin,

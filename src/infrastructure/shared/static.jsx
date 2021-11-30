@@ -3,6 +3,26 @@ const baseurl = process.env.REACT_APP_BACKEND_URL;
 const URL_LOGIN = `${baseurl}users/login`;
 
 const URL_GET_JO_OUTSTAND_ALL = `${baseurl}produksi/outstand/`;
+const URL_GET_OUTSTAND_ABU_CASTING_ALL = `${baseurl}produksi/dashboard/outstandabucasting/`;
+const URL_GET_OUTSTAND_ABU_POTONG_ALL = `${baseurl}produksi/dashboard/outstandabupotong/`;
+const URL_GET_OUTSTAND_ABU_TUKANG_ALL = `${baseurl}produksi/dashboard/outstandabutukang/`;
+const URL_GET_OUTSTAND_CASTING_ALL = `${baseurl}produksi/outstandcasting/`;
+const URL_GET_OUTSTAND_BAHAN_ALL = `${baseurl}produksi/outstandbahan/`;
+
+const URL_GET_ALL_MASTER_JENIS = `${baseurl}jenis/all`;
+const URL_ADD_MASTER_JENIS = `${baseurl}`;
+const URL_DELETE_MASTER_JENIS = `${baseurl}`;
+const URL_UPDATE_MASTER_JENIS = `${baseurl}`;
+
+const URL_GET_ALL_MASTER_WARNA = `${baseurl}warna/all`;
+const URL_ADD_MASTER_WARNA = `${baseurl}`;
+const URL_DELETE_MASTER_WARNA = `${baseurl}`;
+const URL_UPDATE_MASTER_WARNA = `${baseurl}`;
+
+const URL_GET_ALL_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan/all`;
+const URL_ADD_MASTER_JENIS_BAHAN = `${baseurl}`;
+const URL_DELETE_MASTER_JENIS_BAHAN = `${baseurl}`;
+const URL_UPDATE_MASTER_JENIS_BAHAN = `${baseurl}`;
 
 const URL_GET_ALL_LAPORAN_STOCK_GLOBAL_PRODUKSI = `${baseurl}`;
 const URL_ADD_LAPORAN_STOCK_GLOBAL_PRODUKSI = `${baseurl}stock/report-global`;
@@ -36,8 +56,30 @@ const URL_UPDATE_KIRIM_SALDO_DIVISI = `${baseurl}`;
 
 const data = {
   URL_LOGIN,
+  
   URL_GET_JO_OUTSTAND_ALL,
+  URL_GET_OUTSTAND_ABU_CASTING_ALL,
+  URL_GET_OUTSTAND_ABU_POTONG_ALL,
   URL_GET_ALL_LAPORAN_STOCK_GLOBAL_PRODUKSI,
+  URL_GET_OUTSTAND_ABU_TUKANG_ALL,
+  URL_GET_OUTSTAND_CASTING_ALL,
+  URL_GET_OUTSTAND_BAHAN_ALL,
+  
+  URL_GET_ALL_MASTER_JENIS,
+  URL_ADD_MASTER_JENIS,
+  URL_DELETE_MASTER_JENIS,
+  URL_UPDATE_MASTER_JENIS,
+  
+  URL_GET_ALL_MASTER_WARNA,
+  URL_ADD_MASTER_WARNA,
+  URL_DELETE_MASTER_WARNA,
+  URL_UPDATE_MASTER_WARNA,
+  
+  URL_GET_ALL_MASTER_JENIS_BAHAN,
+  URL_ADD_MASTER_JENIS_BAHAN,
+  URL_DELETE_MASTER_JENIS_BAHAN,
+  URL_UPDATE_MASTER_JENIS_BAHAN,
+
   URL_ADD_LAPORAN_STOCK_GLOBAL_PRODUKSI,
   URL_DELETE_LAPORAN_STOCK_GLOBAL_PRODUKSI,
   URL_UPDATE_LAPORAN_STOCK_GLOBAL_PRODUKSI,

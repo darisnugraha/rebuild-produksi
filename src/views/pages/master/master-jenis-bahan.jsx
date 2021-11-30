@@ -10,11 +10,13 @@ import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterJenisBahan from "../../components/master/master-jenis-bahan/button-add-master-jenis-bahan";
 import TableMasterJenisBahan from "../../components/master/master-jenis-bahan/table-master-jenis-bahan";
+import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan.jsx";
 
 const MasterJenisBahan = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterJenisBahan);
     document.title = "Master Jenis Bahan";
   }, [dispatch]);
 

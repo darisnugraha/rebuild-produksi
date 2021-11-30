@@ -1,31 +1,100 @@
 import React from "react";
-import { Table } from "antd";
+import { useState } from "react";
+import { Table, Button, Space, Input } from "antd";
+import { useSelector } from "react-redux";
 import "antd/dist/antd.css";
-
-const columns = [
-  {
-    title: "Kode Warna",
-    dataIndex: "kode_warna",
-    key: "kode_warna",
-    align: "center",
-  },
-  {
-    title: "Nama Warna",
-    dataIndex: "nama_warna",
-    key: "nama_warna",
-    align: "center",
-  },
-  {
-    title: "Action",
-    dataIndex: "",
-    key: "act",
-    align: "center",
-  },
-];
+import "antd-button-color/dist/css/style.css";
+import MasterWarna from "../../../../application/selectors/masterwarna";
 
 const TableMasterWarna = () => {
+  const dataMasterWarna = useSelector(MasterWarna.getAllMasterWarna);
+
+  const [dataSource, setDataSource] = useState(dataMasterWarna);
+  const [value, setValue] = useState("");
+  const [search, setSearch] = useState(false);
+
+  const SearchBar = (
+    <Input
+      placeholder="Search Bar"
+      value={value}
+      style={{ width: "20%" }}
+      onChange={(e) => {
+        const currValue = e.target.value;
+        setValue(currValue);
+        const filteredData = dataMasterWarna.filter(
+          (entry) =>
+            entry.nama_warna.includes(currValue.toUpperCase()) ||
+            entry.kode_warna.includes(currValue.toUpperCase())
+        );
+        setDataSource(filteredData);
+        setSearch(true);
+      }}
+    />
+  );
+
+  const columns = [
+    {
+      title: SearchBar,
+      align: "right",
+      children: [
+        {
+          title: "Kode Warna",
+          dataIndex: "kode_warna",
+          key: "kode_warna",
+          align: "center",
+        },
+        {
+          title: "Nama Warna",
+          dataIndex: "nama_warna",
+          key: "nama_warna",
+          align: "center",
+        },
+        {
+          title: "Action",
+          key: "act",
+          align: "center",
+          render: (text) => {
+            return (
+              <>
+                <Space>
+                  <Button
+                    className="ant-btn-warning"
+                    htmltype="button"
+                    danger
+                    // onClick={}
+                  >
+                    EDIT
+                  </Button>
+                  <Button
+                    type="primary"
+                    htmltype="button"
+                    danger
+                    // onClick={}
+                  >
+                    DELETE
+                  </Button>
+                </Space>
+              </>
+            );
+          },
+        },
+      ],
+    },
+  ];
+
+  const dataTable =
+    dataSource.length === 0
+      ? search
+        ? dataSource
+        : dataMasterWarna
+      : dataSource;
+
   return (
-    <Table dataSource={[]} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      scroll={{ x: 500, y: 1500 }}
+    />
   );
 };
 

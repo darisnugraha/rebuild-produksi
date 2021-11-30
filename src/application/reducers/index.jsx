@@ -9,11 +9,17 @@ import saldobahan from "./saldobahan";
 import kirimdesian from "./kirimdesian";
 import kirimsaldodivisi from "./kirimsaldodivisi";
 import dashboard from "./dashboard";
+import masterjenis from "./masterjenis";
+import masterwarna from "./masterwarna";
+import masterjenisbahan from "./masterjenisbahan";
 
 export default combineReducers({
   login,
   ui,
   dashboard,
+  masterjenis,
+  masterwarna,
+  masterjenisbahan,
   laporanStockGlobalProduksi,
   kirimsaldotahun,
   stockadmin,

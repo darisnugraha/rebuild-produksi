@@ -8,6 +8,7 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { getAllMasterJenis } from "../../../application/actions/masterjenis.jsx";
 import FormMasterJenis from "../../components/master/master-jenis/button-add-master-jenis";
 import TableMasterJenis from "../../components/master/master-jenis/table-master-jenis";
 
@@ -15,6 +16,7 @@ const MasterJenis = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterJenis);
     document.title = "Master Jenis";
   }, [dispatch]);
 

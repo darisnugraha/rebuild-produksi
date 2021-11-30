@@ -6,9 +6,16 @@ import {
   PanelHeader,
   PanelBody,
 } from "./../../components/panel/panel.jsx";
-import { Row, Col, Empty, Card } from "antd";
+import { Row, Col, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import { getAllDashboard } from "../../../application/actions/dashboard";
+import {
+  getAllDashboard,
+  getAllAbuCastingOutstand,
+  getAllAbuPotongOutstand,
+  getAllAbuTukangOutstand,
+  getAllCastingOutstand,
+  getAllBahanOutstand,
+} from "../../../application/actions/dashboard";
 import TableJoOutstand from "../../components/dashboard/table-jo-outstand";
 import TableSetorAbuTukangCor from "../../components/dashboard/table-abu-setor-tukang-cor";
 import TableSetorAbuTukangPotong from "../../components/dashboard/table-abu-setor-tukang-potong";
@@ -21,6 +28,11 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllDashboard);
+    dispatch(getAllAbuCastingOutstand);
+    dispatch(getAllAbuPotongOutstand);
+    dispatch(getAllAbuTukangOutstand);
+    dispatch(getAllCastingOutstand);
+    dispatch(getAllBahanOutstand);
     document.title = "Dashboard";
   }, [dispatch]);
 

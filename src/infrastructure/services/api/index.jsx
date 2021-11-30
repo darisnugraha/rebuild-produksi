@@ -6,10 +6,16 @@ import saldobahan from "./saldobahan";
 import kirimdesian from "./kirimdesian";
 import kirimsaldodivisi from "./kirimsaldodivisi";
 import dashboard from "./dashboard";
+import masterjenis from "./masterjenis";
+import MasterWarna from "./masterwarna";
+import MasterJenisBahan from "./masterjenisbahan";
 
 const api = {
   login,
   dashboard,
+  masterjenis,
+  MasterWarna,
+  MasterJenisBahan,
   laporanStockGlobalProduksi,
   kirimsaldotahun,
   stockadmin,

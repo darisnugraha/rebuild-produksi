@@ -1,6 +1,8 @@
 import React from "react";
 import { Table } from "antd";
+import { useSelector } from "react-redux";
 import "antd/dist/antd.css";
+import Dashboard from "../../../application/selectors/dashboard";
 
 const columns = [
   {
@@ -54,8 +56,9 @@ const columns = [
 ];
 
 const TableAbuSetorTukang = () => {
+  const dataAbuTukang = useSelector(Dashboard.getAllAbuTukangOutstand);
   return (
-    <Table dataSource={[]} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table dataSource={dataAbuTukang} columns={columns} scroll={{ x: 500, y: 1500 }} />
   );
 };
 
