@@ -1,13 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { Table, Button, Space, Input } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterWarna from "../../../../application/selectors/masterwarna";
+import FormTambahMasterWarna from "./form-master-warna";
+import { destroy } from "redux-form";
+import { getMasterWarnaByID, setEditFormMasterWarna } from "../../../../application/actions/masterwarna";
 
 const TableMasterWarna = () => {
+  const dispatch = useDispatch();
   const dataMasterWarna = useSelector(MasterWarna.getAllMasterWarna);
+  const visible = useSelector(MasterWarna.getIsVisibleMasterWarna);
 
   const [dataSource, setDataSource] = useState(dataMasterWarna);
   const [value, setValue] = useState("");
@@ -61,7 +66,9 @@ const TableMasterWarna = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(getMasterWarnaByID({ dataID: text.kode_warna }));
+                    }}
                   >
                     EDIT
                   </Button>
@@ -90,11 +97,23 @@ const TableMasterWarna = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterWarna
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterWarna"));
+          dispatch(setEditFormMasterWarna(false));
+        }}
+      />
+    </>
   );
 };
 

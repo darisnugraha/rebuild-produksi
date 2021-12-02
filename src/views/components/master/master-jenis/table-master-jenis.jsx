@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table, Button, Space, Input } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { destroy } from "redux-form";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterJenis from "../../../../application/selectors/masterjenis";
+import {
+  getMasterJenisByID,
+  setEditFormMasterJenis,
+} from "../../../../application/actions/masterjenis";
+import FormTambahMasterJenis from "./form-master-jenis";
 
 const TableMasterJenis = () => {
+  const dispatch = useDispatch();
   const dataMasterJenis = useSelector(MasterJenis.getAllMasterJenis);
+  const visible = useSelector(MasterJenis.getIsVisibleMasterJenis);
 
   const [dataSource, setDataSource] = useState(dataMasterJenis);
   const [value, setValue] = useState("");
@@ -60,7 +68,9 @@ const TableMasterJenis = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(getMasterJenisByID({ dataID: text.kode_jenis }));
+                    }}
                   >
                     EDIT
                   </Button>
@@ -81,14 +91,31 @@ const TableMasterJenis = () => {
     },
   ];
 
-  const dataTable = dataSource.length === 0 ? search ? dataSource : dataMasterJenis : dataSource;
+  const dataTable =
+    dataSource.length === 0
+      ? search
+        ? dataSource
+        : dataMasterJenis
+      : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterJenis
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterJenis"));
+          dispatch(setEditFormMasterJenis(false));
+        }}
+      />
+    </>
   );
 };
 
