@@ -4,12 +4,7 @@ import React from "react";
 import Login from "../../views/pages/auth/login/login";
 import Dashboard from "../../views/pages/dashboard/dashboard";
 //laporan
-import StockGlobalProduksi from "../../views/pages/laporan/stock-global-produksi";
-import KirimSaldoTahunan from "../../views/pages/laporan/kirim-saldo-tahunan";
-import SaldoBahan from "../../views/pages/laporan/saldo-bahan";
-import StockAdmin from "../../views/pages/laporan/stock-admin";
-import KirimDesian from "../../views/pages/laporan/kirim-desian";
-import KirimSaldoDivisi from "../../views/pages/laporan/kirim-saldo-divisi";
+
 //notfound
 import NotFound from "../../views/pages/notfound";
 //master
@@ -173,36 +168,6 @@ const routes = [
   },
 
   //Laporan
-  {
-    path: "/laporan/stock-global-produksi",
-    title: "Laporan Stock Global Produksi",
-    component: () => <StockGlobalProduksi />,
-  },
-  {
-    path: "/laporan/kirim-saldo-tahunan",
-    title: "Laporan Kirim dan Saldo per Tahun",
-    component: () => <KirimSaldoTahunan />,
-  },
-  {
-    path: "/laporan/saldo-bahan",
-    title: "Laporan Saldo Bahan",
-    component: () => <SaldoBahan />,
-  },
-  {
-    path: "/laporan/stock-admin",
-    title: "Laporan Stock Admin",
-    component: () => <StockAdmin />,
-  },
-  {
-    path: "/laporan/kirim-desian",
-    title: "Laporan Kirim per Desian",
-    component: () => <KirimDesian />,
-  },
-  {
-    path: "/laporan/kirim-saldo-divisi",
-    title: "Laporan Kirim dan Saldo per Divisi",
-    component: () => <KirimSaldoDivisi />,
-  },
   {
     path: "/notfound",
     title: "404 Not Found Page",

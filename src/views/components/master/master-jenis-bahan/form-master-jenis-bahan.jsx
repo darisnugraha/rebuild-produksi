@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
+import { Form, Row, Col, Select, Modal } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
@@ -34,12 +34,11 @@ const maptostate = (state) => {
 
 let FormTambahMasterJenisBahan = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
+  // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataMasterWarna = useSelector(MasterWarna.getAllMasterWarna);
-
   const isEdit = useSelector(MasterJenisBahan.getIsEditMasterJenisBahan);
-  const dataEdit = useSelector(MasterJenisBahan.getDataEditMasterJenisBahan);
 
   return (
     <Modal

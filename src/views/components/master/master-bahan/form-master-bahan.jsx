@@ -29,6 +29,7 @@ const maptostate = (state) => {
 
 let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
+  // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterBahan.getIsEditMasterBahan);
@@ -43,7 +44,7 @@ let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
       onCancel={onCancel}
       onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field

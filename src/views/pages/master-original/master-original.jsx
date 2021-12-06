@@ -6,7 +6,7 @@ import {
   PanelHeader,
   PanelBody,
 } from "./../../components/panel/panel.jsx";
-import { Card, Divider } from "antd";
+import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import TableMasterOriginal from "../../components/master-original/table-master-original";
 import { getAllMasterOriginal } from "../../../application/actions/masteroriginal.jsx";

@@ -40,10 +40,10 @@ const maptostate = (state) => {
 
 let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
+  // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterBatu.getIsEditMasterBatu);
-  const dataEdit = useSelector(MasterBatu.getDataEditMasterBatu);
   const dataMasterJenisBatu = useSelector(
     MasterJenisBatu.getAllMasterJenisBatu
   );

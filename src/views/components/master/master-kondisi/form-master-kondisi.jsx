@@ -25,6 +25,7 @@ const maptostate = (state) => {
 
 let FormTambahMasterKondisi = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
+  // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterKondisi.getIsEditMasterKondisi);
