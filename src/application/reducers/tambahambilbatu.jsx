@@ -30,6 +30,8 @@ const tambahambilbatu = (state = initialState, action) => {
         dataBatu: [],
         isAdd: action.payload,
         isVisible: action.payload,
+        beratTambahAmbilBatu: 0,
+        jumlah: 0,
       };
     case SET_AMBIL_BATU_ON:
     case SET_AMBIL_BATU_OFF:
@@ -38,6 +40,8 @@ const tambahambilbatu = (state = initialState, action) => {
         dataBatu: [],
         isTake: action.payload,
         isVisible: action.payload,
+        beratTambahAmbilBatu: 0,
+        jumlah: 0,
       };
     case SET_DATA_TAMBAH_AMBIL_BATU:
       return {
