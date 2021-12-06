@@ -16,6 +16,7 @@ import mastertukang from "./mastertukang";
 import mastercustomer from "./mastercustomer";
 import masterukuran from "./masterukuran";
 import masteroriginal from "./masteroriginal";
+import tambahambilbatu from "./tambahambilbatu";
 
 export default combineReducers({
   login,
@@ -34,5 +35,6 @@ export default combineReducers({
   mastercustomer,
   masterukuran,
   masteroriginal,
+  tambahambilbatu,
   form: formReducer,
 });

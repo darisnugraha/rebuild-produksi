@@ -4,15 +4,23 @@ import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterBatu from "../../../../application/selectors/masterbatu";
+import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
+import {
+  getTambahAmbilBatuByID,
+  setAmbilBatuForm,
+  setTambahBatuForm,
+} from "../../../../application/actions/tambahambilbatu";
+import FormTambahAmbilBatu from "./form-tambah-ambil-batu";
+import { destroy } from "redux-form";
 
 const TableMasterTambahAmbilBatu = () => {
-  // eslint-disable-next-line
   const dispatch = useDispatch();
   const dataMasterBatu = useSelector(MasterBatu.getAllMasterBatu);
 
   const [dataSource, setDataSource] = useState(dataMasterBatu);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const visible = useSelector(TambahAmbilBatu.getIsVisibleTambahAmbilBatu);
 
   const SearchBar = (
     <Input
@@ -97,7 +105,14 @@ const TableMasterTambahAmbilBatu = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={() => {}}
+                    onClick={() => {
+                      dispatch(
+                        getTambahAmbilBatuByID({
+                          dataID: text.kode_batu,
+                          btnType: "ADD",
+                        })
+                      );
+                    }}
                   >
                     TAMBAH
                   </Button>
@@ -105,7 +120,14 @@ const TableMasterTambahAmbilBatu = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getTambahAmbilBatuByID({
+                          dataID: text.kode_batu,
+                          btnType: "TAKE",
+                        })
+                      );
+                    }}
                   >
                     AMBIL
                   </Button>
@@ -119,11 +141,24 @@ const TableMasterTambahAmbilBatu = () => {
   ];
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahAmbilBatu
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahAmbilBatu"));
+          dispatch(setTambahBatuForm(false));
+          dispatch(setAmbilBatuForm(false));
+        }}
+      />
+    </>
   );
 };
 
