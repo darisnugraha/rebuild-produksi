@@ -1,37 +1,61 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal, Select } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterCustomer from "../../../../application/selectors/mastercustomer";
 
+const { Option } = Select;
 
-const FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.mastercustomer.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_customer: state.mastercustomer.dataEdit[0]?.kode_customer,
+        nama_customer: state.mastercustomer.dataEdit[0]?.nama_customer,
+        nama_toko: state.mastercustomer.dataEdit[0]?.nama_toko,
+        alamat: state.mastercustomer.dataEdit[0]?.alamat,
+        negara: state.mastercustomer.dataEdit[0]?.negara,
+        lokasi: state.mastercustomer.dataEdit[0]?.lokasi,
+        no_hp: state.mastercustomer.dataEdit[0]?.no_hp,
+        email: state.mastercustomer.dataEdit[0]?.email,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_customer: "",
+        nama_customer: "",
+        nama_toko: "",
+        alamat: "",
+        negara: "",
+        lokasi: "",
+        no_hp: "",
+        email: "",
+      },
+    };
+  }
+};
+
+let FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterCustomer.getIsEditMasterCustomer);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Customer"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Customer" : "Tambah Master Customer"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -41,6 +65,7 @@ const FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Customer"
+              disabled={isEdit ? true : false}
             />
           </Col>
           <Col offset={1}>
@@ -106,12 +131,19 @@ const FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
           <Col offset={1}>
             <Field
               name="lokasi"
-              type="text"
               label={<span style={{ fontSize: "13px" }}>Lokasi</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Lokasi"
-            />
+              style={{ width: "100px" }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Lokasi"
+              onBlur={(e) => e.preventDefault()}
+            >
+              <Option value="lokal" key="lokal">
+                <span style={{ fontSize: "13px" }}>Lokal</span>
+              </Option>
+              <Option value="export" key="export">
+                <span style={{ fontSize: "13px" }}>Export</span>
+              </Option>
+            </Field>
           </Col>
         </Row>
       </Form>
@@ -119,17 +151,8 @@ const FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterCustomer = reduxForm({
   form: "FormTambahMasterCustomer",
-  initialValues: {
-    kode_customer: "kode_customer",
-    nama_customer: "nama_customer",
-    nama_toko: "nama_toko",
-    alamat: "alamat",
-    no_hp: "no_hp",
-    email: "email",
-    negara: "negara",
-    lokasi: "lokasi",
-
-  },
+  enableReinitialize: true,
 })(FormTambahMasterCustomer);
+export default connect(maptostate, null)(FormTambahMasterCustomer);

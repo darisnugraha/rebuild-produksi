@@ -1,41 +1,53 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterBahan from "../../../../application/selectors/masterbahan";
 
+const maptostate = (state) => {
+  if (state.masterbahan.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_bahan: state.masterbahan.dataEdit[0]?.kode_bahan,
+        nama_bahan: state.masterbahan.dataEdit[0]?.nama_bahan,
+        kadar: state.masterbahan.dataEdit[0]?.kadar,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_bahan: "",
+        nama_bahan: "",
+        kadar: "",
+      },
+    };
+  }
+};
 
-const FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterBahan.getIsEditMasterBahan);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Bahan"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Jenis" : "Tambah Master Jenis"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
       <Form layout="vertical">
         <Row>
           <Col offset={1}>
             <Field
-              name="kode_bahan"
+              name="nama_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
               component={styleAntd.AInput}
@@ -45,7 +57,7 @@ const FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_bahan"
+              name="kadar"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Bahan</span>}
               component={styleAntd.AInput}
@@ -59,10 +71,8 @@ const FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterBahan = reduxForm({
   form: "FormTambahMasterBahan",
-  initialValues: {
-    kode_bahan: "kode_bahan",
-    nama_bahan: "nama_bahan",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterBahan);
+export default connect(maptostate, null)(FormTambahMasterBahan);

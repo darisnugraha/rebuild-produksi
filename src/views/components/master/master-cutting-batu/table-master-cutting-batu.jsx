@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterCuttingBatu from "../../../../application/selectors/mastercuttingbatu";
+import { destroy } from "redux-form";
+import {
+  getMasterCuttingBatuByID,
+  setEditFormMasterCuttingBatu,
+} from "../../../../application/actions/mastercuttingbatu";
+import FormTambahMasterCuttingBatu from "./form-master-cutting-batu";
 
 const TableMasterCuttingBatu = () => {
+  const dispatch = useDispatch();
   const dataMasterCuttingBatu = useSelector(
     MasterCuttingBatu.getAllMasterCuttingBatu
   );
+  const visible = useSelector(MasterCuttingBatu.getIsVisibleMasterCuttingBatu);
 
   const [dataSource, setDataSource] = useState(dataMasterCuttingBatu);
   const [value, setValue] = useState("");
@@ -62,7 +70,11 @@ const TableMasterCuttingBatu = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getMasterCuttingBatuByID({ dataID: text.kode_cutting_batu })
+                      );
+                    }}
                   >
                     EDIT
                   </Button>
@@ -91,11 +103,23 @@ const TableMasterCuttingBatu = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterCuttingBatu
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterCuttingBatu"));
+          dispatch(setEditFormMasterCuttingBatu(false));
+        }}
+      />
+    </>
   );
 };
 

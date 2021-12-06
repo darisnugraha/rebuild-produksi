@@ -25,7 +25,7 @@ const maptostate = (state) => {
       initialValues: {
         kode_jenis_bahan: "",
         nama_jenis_bahan: "",
-        kode_warna: "",
+        kode_warna: state.masterwarna.feedback[0]?.kode_warna,
         kadar: "",
       },
     };
@@ -51,18 +51,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCreate, onCancel }, prop) => {
       onCancel={onCancel}
       onOk={() => {}}
     >
-      <Form
-        layout="vertical"
-        form={form}
-        initialValues={{
-          kode_jenis_bahan: isEdit ? dataEdit[0]?.kode_jenis_bahan : "",
-          nama_jenis_bahan: isEdit ? dataEdit[0]?.nama_jenis_bahan : "",
-          warna_jenis_bahan: isEdit
-            ? dataEdit[0]?.kode_warna
-            : dataMasterWarna[0]?.kode_warna,
-          kadar: isEdit ? dataEdit[0]?.kadar : "",
-        }}
-      >
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -87,25 +76,18 @@ let FormTambahMasterJenisBahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="warna_jenis_bahan"
-              type="select"
+              name="kode_warna"
               label={<span style={{ fontSize: "13px" }}>Warna</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Warna"
+              // defaultValue="bg"
               onBlur={(e) => e.preventDefault()}
-              selectedValue={
-                isEdit
-                  ? dataEdit[0]?.kode_warna
-                  : dataMasterWarna[0]?.kode_warna
-              }
             >
-              {dataMasterWarna.map((element) => {
+              {dataMasterWarna.map((list) => {
                 return (
-                  <Option value={element.kode_warna} key={element.kode_warna}>
-                    <span style={{ fontSize: "13px" }}>
-                      {element.nama_warna}
-                    </span>
+                  <Option value={list.kode_warna} key={list.kode_warna}>
+                    <span style={{ fontSize: "13px" }}>{list.nama_warna}</span>
                   </Option>
                 );
               })}

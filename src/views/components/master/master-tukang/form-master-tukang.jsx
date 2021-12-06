@@ -1,36 +1,51 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterTukang from "../../../../application/selectors/mastertukang";
 
-const FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.mastertukang.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_tukang: state.mastertukang.dataEdit[0]?.kode_staff,
+        nama_tukang: state.mastertukang.dataEdit[0]?.nama_staff,
+        no_hp: state.mastertukang.dataEdit[0]?.no_hp,
+        email: state.mastertukang.dataEdit[0]?.email,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_tukang: "",
+        nama_tukang: "",
+        no_hp: "",
+        email: "",
+      },
+    };
+  }
+};
+
+let FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterTukang.getIsEditMasterTukang);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Tukang"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Tukang" : "Tambah Master Tukang"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -40,6 +55,7 @@ const FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Tukang"
+              disabled={isEdit ? true : false}
             />
           </Col>
           <Col offset={1}>
@@ -78,12 +94,8 @@ const FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterTukang = reduxForm({
   form: "FormTambahMasterTukang",
-  initialValues: {
-    kode_tukang: "kode_tukang",
-    nama_tukang: "nama_tukang",
-    no_hp: "no_hp",
-    email: "email",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterTukang);
+export default connect(maptostate, null)(FormTambahMasterTukang);

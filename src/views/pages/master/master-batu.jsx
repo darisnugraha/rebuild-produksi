@@ -11,12 +11,16 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterBatu from "../../components/master/master-batu/button-add-master-batu";
 import TableMasterBatu from "../../components/master/master-batu/table-master-batu";
 import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
+import { getAllMasterJenisBatu } from "../../../application/actions/masterjenisbatu.jsx";
+import { getAllMasterCuttingBatu } from "../../../application/actions/mastercuttingbatu";
 
 const MasterBatu = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterBatu);
+    dispatch(getAllMasterJenisBatu);
+    dispatch(getAllMasterCuttingBatu);
     document.title = "Master Batu";
   }, [dispatch]);
 

@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Input, Space, Table, Button } from "antd";
+import { destroy } from "redux-form";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterJenisBatu from "../../../../application/selectors/masterjenisbatu";
+import FormTambahMasterJenisBatu from "./form-master-jenis-batu";
+import {
+  getMasterJenisBatuByID,
+  setEditFormMasterJenisBatu,
+} from "../../../../application/actions/masterjenisbatu";
 
 const TableMasterJenisBatu = () => {
+  const dispatch = useDispatch();
   const dataMasterJenisBatu = useSelector(
     MasterJenisBatu.getAllMasterJenisBatu
   );
+
+  const visible = useSelector(MasterJenisBatu.getIsVisibleMasterJenisBatu);
 
   const [dataSource, setDataSource] = useState(dataMasterJenisBatu);
   const [value, setValue] = useState("");
@@ -62,7 +71,13 @@ const TableMasterJenisBatu = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getMasterJenisBatuByID({
+                          dataID: text.kode_jenis_batu,
+                        })
+                      );
+                    }}
                   >
                     EDIT
                   </Button>
@@ -91,11 +106,23 @@ const TableMasterJenisBatu = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterJenisBatu
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterJenisBatu"));
+          dispatch(setEditFormMasterJenisBatu(false));
+        }}
+      />
+    </>
   );
 };
 

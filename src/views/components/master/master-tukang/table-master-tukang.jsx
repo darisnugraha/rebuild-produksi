@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { destroy } from "redux-form";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterTukang from "../../../../application/selectors/mastertukang";
+import FormTambahMasterTukang from "./form-master-tukang";
+import {
+  getMasterTukangByID,
+  setEditFormMasterTukang,
+} from "../../../../application/actions/mastertukang";
 
 const TableMasterTukang = () => {
+  const dispatch = useDispatch();
   const dataMasterTukang = useSelector(MasterTukang.getAllMasterTukang);
+  const visible = useSelector(MasterTukang.getIsVisibleMasterTukang);
 
   const [dataSource, setDataSource] = useState(dataMasterTukang);
   const [value, setValue] = useState("");
@@ -74,7 +82,13 @@ const TableMasterTukang = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getMasterTukangByID({
+                          dataID: text.kode_tukang,
+                        })
+                      );
+                    }}
                   >
                     EDIT
                   </Button>
@@ -103,11 +117,23 @@ const TableMasterTukang = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterTukang
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterTukang"));
+          dispatch(setEditFormMasterTukang(false));
+        }}
+      />
+    </>
   );
 };
 

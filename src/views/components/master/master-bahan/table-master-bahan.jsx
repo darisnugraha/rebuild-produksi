@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterBahan from "../../../../application/selectors/masterbahan";
+import {
+  getMasterBahanByID,
+  setEditFormMasterBahan,
+} from "../../../../application/actions/masterbahan";
+import FormTambahMasterBahan from "./form-master-bahan";
+import { destroy } from "redux-form";
 
 const TableMasterBahan = () => {
+  const dispatch = useDispatch();
   const dataMasterBahan = useSelector(MasterBahan.getAllMasterBahan);
 
   const [dataSource, setDataSource] = useState(dataMasterBahan);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const visible = useSelector(MasterBahan.getIsVisibleMasterBahan);
 
   const SearchBar = (
     <Input
@@ -60,7 +68,13 @@ const TableMasterBahan = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getMasterBahanByID({
+                          dataID: text.kode_bahan,
+                        })
+                      );
+                    }}
                   >
                     EDIT
                   </Button>
@@ -89,11 +103,23 @@ const TableMasterBahan = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterBahan
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterBahan"));
+          dispatch(setEditFormMasterBahan(false));
+        }}
+      />
+    </>
   );
 };
 

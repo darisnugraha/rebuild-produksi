@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { destroy } from "redux-form";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterBatu from "../../../../application/selectors/masterbatu";
+import FormTambahMasterBatu from "./form-master-batu";
+import {
+  getMasterBatuByID,
+  setEditFormMasterBatu,
+} from "../../../../application/actions/masterbatu";
 
 const TableMasterBatu = () => {
+  const dispatch = useDispatch();
   const dataMasterBatu = useSelector(MasterBatu.getAllMasterBatu);
+  const visible = useSelector(MasterBatu.getIsVisibleMasterBatu);
 
   const [dataSource, setDataSource] = useState(dataMasterBatu);
   const [value, setValue] = useState("");
@@ -88,7 +96,9 @@ const TableMasterBatu = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(getMasterBatuByID({ dataID: text.kode_batu }));
+                    }}
                   >
                     EDIT
                   </Button>
@@ -117,11 +127,23 @@ const TableMasterBatu = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterBatu
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterBatu"));
+          dispatch(setEditFormMasterBatu(false));
+        }}
+      />
+    </>
   );
 };
 

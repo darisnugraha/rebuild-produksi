@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { destroy } from "redux-form";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterMarketing from "../../../../application/selectors/mastermarketing";
+import {
+  getMasterMarketingByID,
+  setEditFormMasterMarketing,
+} from "../../../../application/actions/mastermarketing";
+import FormTambahMasterMarketing from "./form-master-marketing";
 
 const TableMasterMarketing = () => {
+  const dispatch = useDispatch();
   const dataMasterMarketing = useSelector(
     MasterMarketing.getAllMasterMarketing
   );
+  const visible = useSelector(MasterMarketing.getIsVisibleMasterMarketing);
 
   const [dataSource, setDataSource] = useState(dataMasterMarketing);
   const [value, setValue] = useState("");
@@ -37,57 +45,69 @@ const TableMasterMarketing = () => {
 
   const columns = [
     {
-      title: "Kode Marketing",
-      dataIndex: "kode_marketing",
-      key: "kode_marketing",
-      align: "center",
-    },
-    {
-      title: "Nama Marketing",
-      dataIndex: "nama_marketing",
-      key: "nama_marketing",
-      align: "center",
-    },
-    {
-      title: "No HP",
-      dataIndex: "no_hp",
-      key: "no_hp",
-      align: "center",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-      align: "center",
-    },
-    {
-      title: "Action",
-      key: "act",
-      align: "center",
-      render: (text) => {
-        return (
-          <>
-            <Space>
-              <Button
-                className="ant-btn-warning"
-                htmltype="button"
-                danger
-                // onClick={}
-              >
-                EDIT
-              </Button>
-              <Button
-                type="primary"
-                htmltype="button"
-                danger
-                // onClick={}
-              >
-                DELETE
-              </Button>
-            </Space>
-          </>
-        );
-      },
+      title: SearchBar,
+      align: "right",
+      children: [
+        {
+          title: "Kode Marketing",
+          dataIndex: "kode_marketing",
+          key: "kode_marketing",
+          align: "center",
+        },
+        {
+          title: "Nama Marketing",
+          dataIndex: "nama_marketing",
+          key: "nama_marketing",
+          align: "center",
+        },
+        {
+          title: "No HP",
+          dataIndex: "no_hp",
+          key: "no_hp",
+          align: "center",
+        },
+        {
+          title: "Email",
+          dataIndex: "email",
+          key: "email",
+          align: "center",
+        },
+        {
+          title: "Action",
+          key: "act",
+          align: "center",
+          render: (text) => {
+            return (
+              <>
+                <Space>
+                  <Button
+                    className="ant-btn-warning"
+                    htmltype="button"
+                    danger
+                    onClick={() => {
+                      dispatch(
+                        getMasterMarketingByID({
+                          dataID: text.kode_marketing,
+                        })
+                      );
+                    }}
+                  >
+                    EDIT
+                  </Button>
+                  <Button
+                    type="primary"
+                    htmltype="button"
+                    danger
+                    // onClick={}
+                  >
+                    DELETE
+                  </Button>
+                </Space>
+              </>
+            );
+          },
+        },
+      ],
     },
   ];
 
@@ -99,11 +119,23 @@ const TableMasterMarketing = () => {
       : dataSource;
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterMarketing
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterMarketing"));
+          dispatch(setEditFormMasterMarketing(false));
+        }}
+      />
+    </>
   );
 };
 

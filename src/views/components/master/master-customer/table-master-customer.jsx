@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { destroy } from "redux-form";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterCustomer from "../../../../application/selectors/mastercustomer";
+import FormTambahMasterCustomer from "./form-master-customer";
+import {
+  getMasterCustomerByID,
+  setEditFormMasterCustomer,
+} from "../../../../application/actions/mastercustomer";
 
 const TableMasterCustomer = () => {
+  const dispatch = useDispatch();
+  const visible = useSelector(MasterCustomer.getIsVisibleMasterCustomer);
   const dataMasterCustomer = useSelector(MasterCustomer.getAllMasterCustomer);
 
   const [dataSource, setDataSource] = useState(dataMasterCustomer);
@@ -109,7 +117,13 @@ const TableMasterCustomer = () => {
                     className="ant-btn-warning"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      dispatch(
+                        getMasterCustomerByID({
+                          dataID: text.kode_customer,
+                        })
+                      );
+                    }}
                   >
                     EDIT
                   </Button>
@@ -131,11 +145,23 @@ const TableMasterCustomer = () => {
   ];
 
   return (
-    <Table
-      dataSource={dataTable}
-      columns={columns}
-      scroll={{ x: 500, y: 1500 }}
-    />
+    <>
+      <Table
+        dataSource={dataTable}
+        columns={columns}
+        scroll={{ x: 500, y: 1500 }}
+      />
+      <FormTambahMasterCustomer
+        visible={visible}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(destroy("FormTambahMasterCustomer"));
+          dispatch(setEditFormMasterCustomer(false));
+        }}
+      />
+    </>
   );
 };
 

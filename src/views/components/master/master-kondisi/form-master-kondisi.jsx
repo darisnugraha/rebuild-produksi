@@ -1,37 +1,45 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterKondisi from "../../../../application/selectors/masterkondisi";
 
+const maptostate = (state) => {
+  if (state.masterjenisbatu.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kondisi: state.masterkondisi.dataEdit[0]?.kondisi,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kondisi: "",
+      },
+    };
+  }
+};
 
-const FormTambahMasterKondisi = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterKondisi = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterKondisi.getIsEditMasterKondisi);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Kondisi"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Kondisi" : "Tambah Master Kondisi"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -49,9 +57,8 @@ const FormTambahMasterKondisi = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterKondisi = reduxForm({
   form: "FormTambahMasterKondisi",
-  initialValues: {
-    kondisi: "kondisi",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterKondisi);
+export default connect(maptostate, null)(FormTambahMasterKondisi);

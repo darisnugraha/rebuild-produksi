@@ -2,6 +2,9 @@ import {
   setDataMasterCustomerSuccess,
   setDataMasterCustomerFailed,
   GET_ALL_MASTER_CUSTOMER,
+  GET_MASTER_CUSTOMER_ID,
+  setEditFormMasterCustomer,
+  setDataMasterCustomerEdit,
 } from "../actions/mastercustomer";
 
 const masteCustomerGetAll =
@@ -22,6 +25,24 @@ const masteCustomerGetAll =
     }
   };
 
-const data = [masteCustomerGetAll];
+const masteCustomerGetDataID =
+  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_MASTER_CUSTOMER_ID) {
+      dispatch(setEditFormMasterCustomer(true));
+      const dataMasterCustomer = getState().mastercustomer.feedback;
+      const dataMasterCustomerFilter = dataMasterCustomer.filter((item) => {
+        return item.kode_customer === action.payload;
+      });
+      dispatch(
+        setDataMasterCustomerEdit({ dataEdit: dataMasterCustomerFilter })
+      );
+    }
+  };
+
+const data = [masteCustomerGetAll, masteCustomerGetDataID];
 
 export default data;

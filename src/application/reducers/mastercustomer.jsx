@@ -2,12 +2,17 @@
 import {
   SET_DATA_MASTER_CUSTOMER_SUCCESS,
   SET_DATA_MASTER_CUSTOMER_FAILED,
+  SET_EDIT_FORM_ON,
+  SET_EDIT_FORM_OFF,
+  SET_DATA_MASTER_CUSTOMER_EDIT,
 } from "../actions/mastercustomer";
 
 const initialState = {
   feedback: [],
   error: null,
   isEdit: false,
+  isVisible: false,
+  dataEdit: [],
 };
 
 const mastercustomer = (state = initialState, action) => {
@@ -21,6 +26,19 @@ const mastercustomer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.data,
+      };
+    case SET_EDIT_FORM_ON:
+    case SET_EDIT_FORM_OFF:
+      return {
+        ...state,
+        dataEdit: [],
+        isEdit: action.payload,
+        isVisible: action.payload,
+      };
+    case SET_DATA_MASTER_CUSTOMER_EDIT:
+      return {
+        ...state,
+        dataEdit: action.payload.data,
       };
     default:
       return state;

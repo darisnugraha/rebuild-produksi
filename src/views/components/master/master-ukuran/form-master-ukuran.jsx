@@ -1,41 +1,51 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal } from "antd";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterUkuran from "../../../../application/selectors/masterukuran";
 
+const maptostate = (state) => {
+  if (state.masterukuran.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_ukuran: state.masterukuran.dataEdit[0]?.kode_ukuran,
+        nama_ukuran: state.masterukuran.dataEdit[0]?.nama_ukuran,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_ukuran: "",
+        nama_ukuran: "",
+      },
+    };
+  }
+};
 
-const FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterUkuran.getIsEditMasterUkuran);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Ukuran"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Ukuran" : "Tambah Master Ukuran"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
-              name="ukuran"
+              name="nama_ukuran"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Ukuran</span>}
               component={styleAntd.AInput}
@@ -49,9 +59,8 @@ const FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterUkuran = reduxForm({
   form: "FormTambahMasterUkuran",
-  initialValues: {
-    ukuran: "ukuran",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterUkuran);
+export default connect(maptostate, null)(FormTambahMasterUkuran);

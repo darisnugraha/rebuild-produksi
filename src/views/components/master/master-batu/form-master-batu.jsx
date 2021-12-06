@@ -1,38 +1,67 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Select, Modal } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterBatu from "../../../../application/selectors/masterbatu";
+import MasterJenisBatu from "../../../../application/selectors/masterjenisbatu";
+import MasterCuttingBatu from "../../../../application/selectors/mastercuttingbatu";
 
 const { Option } = Select;
 
-const FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.masterbatu.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_batu: state.masterbatu.dataEdit[0]?.kode_batu,
+        nama_batu: state.masterbatu.dataEdit[0]?.nama_batu,
+        ukuran_batu: state.masterbatu.dataEdit[0]?.ukuran,
+        kode_jenis_batu: state.masterbatu.dataEdit[0]?.kode_jenis_batu,
+        kode_cutting_batu: state.masterbatu.dataEdit[0]?.kode_cutting_batu,
+        berat_batu: state.masterbatu.dataEdit[0]?.berat_batu,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_batu: "",
+        nama_batu: "",
+        ukuran_batu: "",
+        kode_jenis_batu: state.masterjenisbatu.feedback[0]?.kode_jenis_batu,
+        kode_cutting_batu:
+          state.mastercuttingbatu.feedback[0]?.kode_cutting_batu,
+        berat_batu: "",
+      },
+    };
+  }
+};
+
+let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterBatu.getIsEditMasterBatu);
+  const dataEdit = useSelector(MasterBatu.getDataEditMasterBatu);
+  const dataMasterJenisBatu = useSelector(
+    MasterJenisBatu.getAllMasterJenisBatu
+  );
+  const dataMasterCuttingBatu = useSelector(
+    MasterCuttingBatu.getAllMasterCuttingBatu
+  );
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Batu"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Batu" : "Tambah Master Batu"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -42,6 +71,7 @@ const FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Batu"
+              disabled={isEdit ? true : false}
             />
           </Col>
           <Col offset={1}>
@@ -71,15 +101,17 @@ const FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
               // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Jenis Batu"
-              defaultValue="satu"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="satu">
-                <span style={{ fontSize: "13px" }}>Batu 1</span>
-              </Option>
-              <Option value="dua">
-                <span style={{ fontSize: "13px" }}>Batu 2</span>
-              </Option>
+              {dataMasterJenisBatu.map((list) => {
+                return (
+                  <Option value={list.kode_jenis_batu} key={list.kode_jenis_batu}>
+                    <span style={{ fontSize: "13px" }}>
+                      {list.nama_jenis_batu}
+                    </span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -91,15 +123,18 @@ const FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
               // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Cutting Batu"
-              defaultValue="bg"
+              // defaultValue="bg"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="bg">
-                <span style={{ fontSize: "13px" }}>BG</span>
-              </Option>
-              <Option value="cl">
-                <span style={{ fontSize: "13px" }}>CL</span>
-              </Option>
+              {dataMasterCuttingBatu.map((list) => {
+                return (
+                  <Option value={list.kode_cutting_batu} key={list.kode_cutting_batu}>
+                    <span style={{ fontSize: "13px" }}>
+                      {list.nama_cutting_batu}
+                    </span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -118,14 +153,8 @@ const FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterBatu = reduxForm({
   form: "FormTambahMasterBatu",
-  initialValues: {
-    kode_batu: "kode_batu",
-    nama_batu: "nama_batu",
-    ukuran_batu: "ukuran_batu",
-    kode_jenis_batu: "kode_jenis_batu",
-    kode_cutting_batu: "kode_cutting_batu",
-    berat_batu: "berat_batu",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterBatu);
+export default connect(maptostate, null)(FormTambahMasterBatu);

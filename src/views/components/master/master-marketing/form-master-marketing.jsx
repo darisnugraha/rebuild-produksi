@@ -1,36 +1,51 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Button, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Row, Col, Modal } from "antd";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import MasterMarketing from "../../../../application/selectors/mastermarketing";
 
-const FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.mastermarketing.dataEdit !== undefined) {
+    return {
+      initialValues: {
+        kode_marketing: state.mastermarketing.dataEdit[0]?.kode_marketing,
+        nama_marketing: state.mastermarketing.dataEdit[0]?.nama_marketing,
+        no_hp: state.mastermarketing.dataEdit[0]?.no_hp,
+        email: state.mastermarketing.dataEdit[0]?.email,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_marketing: "",
+        nama_marketing: "",
+        no_hp: "",
+        email: "",
+      },
+    };
+  }
+};
+
+let FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const isEdit = useSelector(MasterMarketing.getIsEditMasterMarketing);
+
   return (
     <Modal
       visible={visible}
-      title="Tambah Master Marketing"
-      okText="Tambah"
+      title={isEdit ? "Edit Master Marketing" : "Tambah Master Marketing"}
+      okText={isEdit ? "Simpan" : "Tambah"}
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={() => {}}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -40,6 +55,7 @@ const FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Marketing"
+              disabled={isEdit ? true : false}
             />
           </Col>
           <Col offset={1}>
@@ -78,12 +94,8 @@ const FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahMasterMarketing = reduxForm({
   form: "FormTambahMasterMarketing",
-  initialValues: {
-    kode_marketing: "kode_marketing",
-    nama_marketing: "nama_marketing",
-    no_hp: "no_hp",
-    email: "email",
-  },
+  enableReinitialize: true,
 })(FormTambahMasterMarketing);
+export default connect(maptostate, null)(FormTambahMasterMarketing);
