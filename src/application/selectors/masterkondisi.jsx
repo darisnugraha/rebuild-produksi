@@ -8,6 +8,6 @@ const data = {
   getErrorMasterKondisi,
   getIsEditMasterKondisi,
   getIsVisibleMasterKondisi,
-  getIsVisibleMasterKondisi,
+  getDataEditMasterKondisi,
 };
 export default data;

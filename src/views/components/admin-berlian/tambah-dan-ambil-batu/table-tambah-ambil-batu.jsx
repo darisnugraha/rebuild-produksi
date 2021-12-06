@@ -6,6 +6,7 @@ import "antd-button-color/dist/css/style.css";
 import MasterBatu from "../../../../application/selectors/masterbatu";
 
 const TableMasterTambahAmbilBatu = () => {
+  // eslint-disable-next-line
   const dispatch = useDispatch();
   const dataMasterBatu = useSelector(MasterBatu.getAllMasterBatu);
 
