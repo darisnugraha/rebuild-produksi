@@ -64,7 +64,15 @@ const KirimBatuProduksi = () => {
                     <Button type="primary">Simpan</Button>
                   </div>
                   <div className="col-1">
-                    <Button type="danger">Batal</Button>
+                    <Button
+                      type="danger"
+                      onClick={() => {
+                        localStorage.removeItem("data_kirim_batu_produksi");
+                        window.location.reload();
+                      }}
+                    >
+                      Batal
+                    </Button>
                   </div>
                 </div>
               </div>

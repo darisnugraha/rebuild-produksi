@@ -5,6 +5,8 @@ import {
   SET_BERAT_BATU_SUCCESS,
   SET_COUNT_BERAT_KIRIM_BATU_PRODUKSI,
   COUNT_BERAT_KIRIM_BATU_PRODUKSI,
+  SET_DATA_KIRIM_BATU_SUCCESS,
+  SET_DATA_KIRIM_BATU_FAILED,
 } from "../actions/kirimbatuproduksi";
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
   dataBatu: [],
   jumlahKirim: 0,
   beratKirim: 0,
+  dataKirim: [],
+  errorKirim: false,
 };
 
 const kirimbatuproduksi = (state = initialState, action) => {
@@ -42,6 +46,16 @@ const kirimbatuproduksi = (state = initialState, action) => {
       return {
         ...state,
         jumlahKirim: action.payload,
+      };
+    case SET_DATA_KIRIM_BATU_SUCCESS:
+      return {
+        ...state,
+        dataKirim: action.payload.data,
+      };
+    case SET_DATA_KIRIM_BATU_FAILED:
+      return {
+        ...state,
+        errorKirim: action.payload.data,
       };
     default:
       return state;

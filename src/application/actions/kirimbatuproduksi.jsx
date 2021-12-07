@@ -17,6 +17,13 @@ export const COUNT_BERAT_KIRIM_BATU_PRODUKSI =
 export const SET_COUNT_BERAT_KIRIM_BATU_PRODUKSI =
   "[kirimbatuproduksi] set count berat kirim batu produksi";
 
+export const POST_DATA_KIRIM_BATU_LOKAL =
+  "[kirimbatuproduksi] post data kirim batu produksi";
+export const SET_DATA_KIRIM_BATU_SUCCESS =
+  "[kirimbatuproduksi] set data kirim batu produksi success";
+export const SET_DATA_KIRIM_BATU_FAILED =
+  "[kirimbatuproduksi] set data kirim batu produksi failed";
+
 export const getJOKirimBatuByID = ({ noJO }) => ({
   type: GET_DETAIL_JO_BY_ID,
   payload: { data: noJO },
@@ -50,4 +57,17 @@ export const countBeratKirimBatuProduksi = ({ jumlah }) => ({
 export const setCountBeratKirimBatuProduksi = (berat) => ({
   type: SET_COUNT_BERAT_KIRIM_BATU_PRODUKSI,
   payload: { data: berat },
+});
+
+export const addDataKirimBatu = {
+  type: POST_DATA_KIRIM_BATU_LOKAL,
+};
+
+export const setDataKirimBatuProduksiSuccess = ({ feedback }) => ({
+  type: SET_DATA_KIRIM_BATU_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataKirimBatuProduksiFailed = ({ error }) => ({
+  type: SET_DATA_KIRIM_BATU_FAILED,
+  payload: { data: error },
 });

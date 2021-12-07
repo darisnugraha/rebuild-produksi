@@ -6,6 +6,8 @@ import {
   setBeratBatuSuccess,
   COUNT_BERAT_KIRIM_BATU_PRODUKSI,
   setCountBeratKirimBatuProduksi,
+  POST_DATA_KIRIM_BATU_LOKAL,
+  setDataKirimBatuProduksiSuccess,
 } from "../actions/kirimbatuproduksi";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -49,7 +51,7 @@ const kirimbatuGetBeratBatu =
   };
 
 const countberatbatu =
-  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
@@ -65,6 +67,37 @@ const countberatbatu =
     }
   };
 
-const data = [kirimbatuproduksiGetJO, kirimbatuGetBeratBatu, countberatbatu];
+const simpanDataKirimBatuLocal =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === POST_DATA_KIRIM_BATU_LOKAL) {
+      const data = getState().form.FormTambahKirimBatuProduksi.values;
+      let datalocal = [];
+      if (
+        data.no_job_order === undefined &&
+        data.kode_jenis_batu === undefined
+      ) {
+        sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+      } else if (data.jumlah_kirim === 0 && data.berat_kirim === 0) {
+        sweetalert.default.Failed("Jumlah Kirim Minimal 1");
+      } else {
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        dispatch(setDataKirimBatuProduksiSuccess({ feedback: data }));
+        datalocal.push(data);
+        writeLocal("data_kirim_batu_produksi", datalocal);
+        window.location.reload();
+      }
+    }
+  };
+
+const data = [
+  kirimbatuproduksiGetJO,
+  kirimbatuGetBeratBatu,
+  countberatbatu,
+  simpanDataKirimBatuLocal,
+];
 
 export default data;

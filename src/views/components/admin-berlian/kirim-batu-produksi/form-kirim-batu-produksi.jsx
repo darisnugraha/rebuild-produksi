@@ -71,7 +71,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -145,7 +145,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
           <Col offset={1}>
             <Field
               name="jumlah_kirim"
-              type="text"
+              type="number"
               label={<span style={{ fontSize: "13px" }}>Jumlah Kirim</span>}
               component={styleAntd.AInput}
               className="form-item-group"

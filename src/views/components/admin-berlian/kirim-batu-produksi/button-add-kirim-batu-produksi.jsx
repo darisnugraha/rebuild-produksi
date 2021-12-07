@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import FormTambahKirimBatuProduksi from "./form-kirim-batu-produksi";
+import { useDispatch } from "react-redux";
+import { addDataKirimBatu } from "../../../../application/actions/kirimbatuproduksi";
 
 const ModalKirimBatuProduksi = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
 
   return (
     <div>
@@ -22,7 +20,10 @@ const ModalKirimBatuProduksi = () => {
       </Button>
       <FormTambahKirimBatuProduksi
         visible={visible}
-        onCreate={onCreate}
+        onCreate={() => {
+          dispatch(addDataKirimBatu);
+          setVisible(false);
+        }}
         onCancel={() => {
           setVisible(false);
         }}
