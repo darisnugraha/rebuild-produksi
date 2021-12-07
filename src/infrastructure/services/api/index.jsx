@@ -1,10 +1,4 @@
 import login from "./login";
-import laporanStockGlobalProduksi from "./laporanstockglobalproduksi";
-import kirimsaldotahun from "./kirimsaldotahun";
-import stockadmin from "./stockadmin";
-import saldobahan from "./saldobahan";
-import kirimdesian from "./kirimdesian";
-import kirimsaldodivisi from "./kirimsaldodivisi";
 import dashboard from "./dashboard";
 import masterjenis from "./masterjenis";
 import MasterWarna from "./masterwarna";
@@ -19,6 +13,7 @@ import MasterTukang from "./mastertukang";
 import MasterCustomer from "./mastercustomer";
 import MasterUkuran from "./masterukuran";
 import MasterOriginal from "./masteroriginal";
+import KirimBatuProduksi from "./kirimbatuproduksi";
 
 const api = {
   login,
@@ -36,12 +31,7 @@ const api = {
   MasterCustomer,
   MasterUkuran,
   MasterOriginal,
-  laporanStockGlobalProduksi,
-  kirimsaldotahun,
-  stockadmin,
-  saldobahan,
-  kirimdesian,
-  kirimsaldodivisi,
+  KirimBatuProduksi,
 };
 
 export default api;

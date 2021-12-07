@@ -8,6 +8,7 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card, Divider, Button } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { getAllMasterBatu } from "../../../application/actions/masterbatu";
 import FormKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/button-add-kirim-batu-produksi";
 import TableKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-kirim-batu-produksi";
 import TableHistoryKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-history-kirim-batu-produksi";
@@ -16,6 +17,7 @@ const KirimBatuProduksi = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterBatu);
     document.title = "Kirim Batu Produksi";
   }, [dispatch]);
 

@@ -11,20 +11,15 @@ const makeField =
     const typeInput = rest.type;
 
     if (typeInput === "select") {
-      const inputName = input.name;
       return (
         <FormItem
-          name={inputName}
           label={label}
           validateStatus={hasError ? "error" : "success"}
           hasFeedback={hasFeedback && hasError}
           help={hasError && meta.error}
+          {...input}
         >
-          <Component
-            {...rest}
-            defaultValue={{ selectedValue }}
-            children={children}
-          />
+          <Component {...rest} {...input} children={children} />
         </FormItem>
       );
     } else {
