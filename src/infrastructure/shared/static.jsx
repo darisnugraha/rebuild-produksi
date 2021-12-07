@@ -76,6 +76,11 @@ const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}`;
 
 const URL_GET_JO_BY_ID_KIRIM_BATU = `${baseurl}adm-mutasi-batu/get/jo-kirim-batu-proses/`;
 
+const URL_GET_ALL_SALDO_MURNI = `${baseurl}saldo-murni/get/bahan/all`;
+const URL_ADD_SALDO_MURNI = `${baseurl}`;
+const URL_DELETE_SALDO_MURNI = `${baseurl}`;
+const URL_UPDATE_SALDO_MURNI = `${baseurl}`;
+
 const data = {
   URL_LOGIN,
 
@@ -153,6 +158,11 @@ const data = {
   URL_UPDATE_MASTER_ORIGINAL,
 
   URL_GET_JO_BY_ID_KIRIM_BATU,
+
+  URL_GET_ALL_SALDO_MURNI,
+  URL_ADD_SALDO_MURNI,
+  URL_DELETE_SALDO_MURNI,
+  URL_UPDATE_SALDO_MURNI,
 };
 
 export default data;

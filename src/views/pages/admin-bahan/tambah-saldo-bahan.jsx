@@ -9,11 +9,13 @@ import {
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import TableTambahSaldoBahan from "../../components/admin-bahan/tambah-saldo-bahan/table-saldo-bahan";
+import { getAllSaldoMurni } from "../../../application/actions/saldomurni.jsx";
 
 const TambahSaldoBahan = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllSaldoMurni);
     document.title = "Tambah Saldo Bahan";
   }, [dispatch]);
 

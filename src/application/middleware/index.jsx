@@ -16,6 +16,7 @@ import masterukuran from "./masterukuran";
 import masteroriginal from "./masteroriginal";
 import tambahambilbatu from "./tambahambilbatu";
 import kirimbatuproduksi from "./kirimbatuproduksi";
+import saldomurni from "./saldomurni";
 
 const midd = [
   ...ui,
@@ -36,6 +37,7 @@ const midd = [
   ...masteroriginal,
   ...tambahambilbatu,
   ...kirimbatuproduksi,
+  ...saldomurni,
 ];
 
 export default midd;

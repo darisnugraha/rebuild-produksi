@@ -18,6 +18,7 @@ import masterukuran from "./masterukuran";
 import masteroriginal from "./masteroriginal";
 import tambahambilbatu from "./tambahambilbatu";
 import kirimbatuproduksi from "./kirimbatuproduksi";
+import saldomurni from "./saldomurni";
 
 export default combineReducers({
   login,
@@ -38,5 +39,6 @@ export default combineReducers({
   masteroriginal,
   tambahambilbatu,
   kirimbatuproduksi,
+  saldomurni,
   form: formReducer,
 });
