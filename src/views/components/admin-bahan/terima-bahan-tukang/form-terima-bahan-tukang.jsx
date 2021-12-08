@@ -1,18 +1,39 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Form, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import TerimaBahanTukang from "../../../../application/selectors/terimabahantukang";
 
 const { Option } = Select;
 
-const FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.terimabahantukang.feedback !== undefined) {
+    return {
+      initialValues: {
+        divisi_asal: state.terimabahantukang.feedback[0]?.kode_divisi,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        divisi_asal: "",
+      },
+    };
+  }
+};
+
+let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataDivisiAsal = useSelector(
+    TerimaBahanTukang.getAllDivisiAsalSaldoBahan
+  );
+
   return (
     <Modal
       visible={visible}
@@ -42,21 +63,15 @@ const FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Asal"
-              defaultValue="k34m"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="k34m">
-                <span style={{ fontSize: "13px" }}>K 34 Murni</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataDivisiAsal.map((item) => {
+                return (
+                  <Option value={item.kode_divisi} key={item.kode_divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -111,6 +126,7 @@ const FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="berat_bahan"
               type="text"
+              style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}
               className="form-item-group"
@@ -123,12 +139,8 @@ const FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTerimaBahanTukang = reduxForm({
   form: "FormTerimaBahanTukang",
-  initialValues: {
-    divisi_asal: "divisi_asal",
-    tukang_asal: "tukang_asal",
-    bahan: "bahan",
-    berat_bahan: "berat_bahan",
-  },
+  enableReinitialize: true,
 })(FormTerimaBahanTukang);
+export default connect(maptostate, null)(FormTerimaBahanTukang);

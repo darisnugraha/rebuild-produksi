@@ -20,6 +20,8 @@ import tambahambilbatu from "./tambahambilbatu";
 import kirimbatuproduksi from "./kirimbatuproduksi";
 import saldomurni from "./saldomurni";
 import pembuatanjenisbahan from "./pembuatanjenisbahan";
+import kirimbahanadmin from "./kirimbahanadmin";
+import terimabahantukang from "./terimabahantukang";
 
 export default combineReducers({
   login,
@@ -42,5 +44,7 @@ export default combineReducers({
   kirimbatuproduksi,
   saldomurni,
   pembuatanjenisbahan,
+  kirimbahanadmin,
+  terimabahantukang,
   form: formReducer,
 });

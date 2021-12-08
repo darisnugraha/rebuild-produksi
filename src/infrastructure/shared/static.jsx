@@ -88,6 +88,13 @@ const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
 const URL_DELETE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
 const URL_UPDATE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
 
+const URL_GET_ALL_DIVISI = `${baseurl}divisi/all`;
+
+const URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN = `${baseurl}saldo-bahan/get/divisi-all`;
+const URL_GET_STAFF_BY_DIVISI = `${baseurl}saldo-bahan/get/staff-by-divisi`;
+const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-bahan/get/bahan-by-staff`;
+const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-tukang-open`;
+
 const data = {
   URL_LOGIN,
 
@@ -177,6 +184,12 @@ const data = {
   URL_ADD_PEMBUATAN_JENIS_BAHAN,
   URL_DELETE_PEMBUATAN_JENIS_BAHAN,
   URL_UPDATE_PEMBUATAN_JENIS_BAHAN,
+
+  URL_GET_ALL_DIVISI,
+  URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN,
+  URL_GET_STAFF_BY_DIVISI,
+  URL_GET_BAHAN_BY_STAFF,
+  URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
 };
 
 export default data;

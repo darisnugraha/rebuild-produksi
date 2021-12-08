@@ -18,6 +18,8 @@ import tambahambilbatu from "./tambahambilbatu";
 import kirimbatuproduksi from "./kirimbatuproduksi";
 import saldomurni from "./saldomurni";
 import pembuatanjenisbahan from "./pembuatanjenisbahan";
+import kirimbahanadmin from "./kirimbahanadmin";
+import terimabahantukang from "./terimabahantukang";
 
 const midd = [
   ...ui,
@@ -40,6 +42,8 @@ const midd = [
   ...kirimbatuproduksi,
   ...saldomurni,
   ...pembuatanjenisbahan,
+  ...kirimbahanadmin,
+  ...terimabahantukang,
 ];
 
 export default midd;

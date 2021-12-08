@@ -16,6 +16,8 @@ import MasterOriginal from "./masteroriginal";
 import KirimBatuProduksi from "./kirimbatuproduksi";
 import SaldoMurni from "./saldomurni";
 import PembuatanJenisBahan from "./pembuatanjenisbahan";
+import KirimBahanAdmin from "./kirim-bahan-admin";
+import TerimaBahanTukang from "./terimabahantukang";
 
 const api = {
   login,
@@ -36,6 +38,8 @@ const api = {
   KirimBatuProduksi,
   SaldoMurni,
   PembuatanJenisBahan,
+  KirimBahanAdmin,
+  TerimaBahanTukang,
 };
 
 export default api;

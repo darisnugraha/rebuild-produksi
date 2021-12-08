@@ -9,11 +9,13 @@ import {
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormTerimaBahanTukang from "../../components/admin-bahan/terima-bahan-tukang/button-terima-bahan-tukang";
+import { getAllDivisiAsalSaldoBahan } from "../../../application/actions/terimabahantukang.jsx";
 
 const TerimaBahanTukang = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllDivisiAsalSaldoBahan);
     document.title = "Terima Bahan Tukang";
   }, [dispatch]);
 
