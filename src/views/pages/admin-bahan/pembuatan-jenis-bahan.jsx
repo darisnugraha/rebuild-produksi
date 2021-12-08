@@ -9,13 +9,17 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card, Divider, Button } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
 import FormPembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jenis-bahan/button-add-pembuatan-jenis-bahan";
 import TablePembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jenis-bahan/table-pembuatan-jenis-bahan";
+import { getAllSaldoBahanStock } from "../../../application/actions/pembuatanjenisbahan.jsx";
 
 const PembuatanJenisBahan = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterJenisBahan);
+    dispatch(getAllSaldoBahanStock);
     document.title = "Pembuatan Jenis Bahan";
   }, [dispatch]);
 

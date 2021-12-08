@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import FormTambahBahan from "./form-tambah-bahan";
 import FormTambahJenisBahan from "./form-pembuatan-jenis-bahan";
+import { useDispatch } from "react-redux";
+import {
+  addDetailBahan,
+  addDetailJenisBahan,
+} from "../../../../application/actions/pembuatanjenisbahan";
 
 const ModalBahan = () => {
+  const dispatch = useDispatch();
   const [visibletambahbahan, setVisibleTambahBahan] = useState(false);
   const [visiblejenisbahan, setVisibleJenisBahan] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisibleTambahBahan(false);
-    setVisibleJenisBahan(false);
-  };
 
   return (
     <div>
@@ -25,7 +25,9 @@ const ModalBahan = () => {
       </Button>
       <FormTambahJenisBahan
         visible={visiblejenisbahan}
-        onCreate={onCreate}
+        onCreate={() => {
+          dispatch(addDetailJenisBahan);
+        }}
         onCancel={() => {
           setVisibleJenisBahan(false);
         }}
@@ -41,7 +43,9 @@ const ModalBahan = () => {
       </Button>
       <FormTambahBahan
         visible={visibletambahbahan}
-        onCreate={onCreate}
+        onCreate={() => {
+          dispatch(addDetailBahan);
+        }}
         onCancel={() => {
           setVisibleTambahBahan(false);
         }}

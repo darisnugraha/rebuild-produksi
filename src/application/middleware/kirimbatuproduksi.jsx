@@ -77,11 +77,11 @@ const simpanDataKirimBatuLocal =
       const data = getState().form.FormTambahKirimBatuProduksi.values;
       let datalocal = [];
       if (
-        data.no_job_order === undefined &&
+        data.no_job_order === undefined ||
         data.kode_jenis_batu === undefined
       ) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
-      } else if (data.jumlah_kirim === 0 && data.berat_kirim === 0) {
+      } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
         sweetalert.default.Failed("Jumlah Kirim Minimal 1");
       } else {
         sweetalert.default.Success("Berhasil Menambahkan Data !");

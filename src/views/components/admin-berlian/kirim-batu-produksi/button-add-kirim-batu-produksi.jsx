@@ -22,7 +22,7 @@ const ModalKirimBatuProduksi = () => {
         visible={visible}
         onCreate={() => {
           dispatch(addDataKirimBatu);
-          setVisible(false);
+          // setVisible(false);
         }}
         onCancel={() => {
           setVisible(false);

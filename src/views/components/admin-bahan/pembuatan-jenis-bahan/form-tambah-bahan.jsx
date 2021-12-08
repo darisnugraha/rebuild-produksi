@@ -1,18 +1,37 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Form, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import PembuatanJenisBahan from "../../../../application/selectors/pembuatanjenisbahan";
 
 const { Option } = Select;
 
-const FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.pembuatanjenisbahan.feedback !== undefined) {
+    return {
+      initialValues: {
+        kode_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_bahan: "",
+      },
+    };
+  }
+};
+
+let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataSaldoBahan = useSelector(PembuatanJenisBahan.getAllSaldoBahanStock);
+
   return (
     <Modal
       visible={visible}
@@ -21,19 +40,9 @@ const FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={onCreate}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -42,21 +51,15 @@ const FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Bahan"
-              defaultValue="alloyaleredm"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="alloyaleredm">
-                <span style={{ fontSize: "13px" }}>Alloy Alered M</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataSaldoBahan.map((item) => {
+                return (
+                  <Option value={item.nama_bahan} key={item.nama_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -75,10 +78,8 @@ const FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTambahBahan = reduxForm({
   form: "FormTambahBahan",
-  initialValues: {
-    kode_bahan: "kode_bahan",
-    berat_bahan: "berat_bahan",
-  },
+  enableReinitialize: true,
 })(FormTambahBahan);
+export default connect(maptostate, null)(FormTambahBahan);

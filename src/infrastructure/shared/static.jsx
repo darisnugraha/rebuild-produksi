@@ -81,6 +81,13 @@ const URL_ADD_SALDO_MURNI = `${baseurl}`;
 const URL_DELETE_SALDO_MURNI = `${baseurl}`;
 const URL_UPDATE_SALDO_MURNI = `${baseurl}`;
 
+const URL_GET_ALL_SALDO_BAHAN_STOCK = `${baseurl}saldo-bahan/stock-bahan`;
+
+const URL_GET_ALL_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-murni/get/bahan/all`;
+const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
+const URL_DELETE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
+const URL_UPDATE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
+
 const data = {
   URL_LOGIN,
 
@@ -163,6 +170,13 @@ const data = {
   URL_ADD_SALDO_MURNI,
   URL_DELETE_SALDO_MURNI,
   URL_UPDATE_SALDO_MURNI,
+
+  URL_GET_ALL_SALDO_BAHAN_STOCK,
+
+  URL_GET_ALL_PEMBUATAN_JENIS_BAHAN,
+  URL_ADD_PEMBUATAN_JENIS_BAHAN,
+  URL_DELETE_PEMBUATAN_JENIS_BAHAN,
+  URL_UPDATE_PEMBUATAN_JENIS_BAHAN,
 };
 
 export default data;
