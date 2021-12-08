@@ -1,18 +1,41 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Form, Row, Col, Select, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import DataStaff from "../../../../application/selectors/mastertukang";
+import DataBahan from "../../../../application/selectors/masterbahan";
 
 const { Option } = Select;
 
-const FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.mastertukang.feedback !== undefined) {
+    return {
+      initialValues: {
+        kode_staff: state.mastertukang.feedback[0]?.kode_staff,
+        bahan_kembali: state.masterbahan.feedback[0]?.kode_bahan,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        kode_staff: state.mastertukang.feedback[0]?.kode_staff,
+        bahan_kembali: state.masterbahan.feedback[0]?.kode_bahan,
+      },
+    };
+  }
+};
+
+let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataStaff = useSelector(DataStaff.getAllMasterTukang);
+  const dataBahan = useSelector(DataBahan.getAllMasterBahan);
+
   return (
     <Modal
       visible={visible}
@@ -21,19 +44,9 @@ const FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      onOk={onCreate}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
@@ -42,21 +55,15 @@ const FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Staff"
-              defaultValue="k34m"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="k34m">
-                <span style={{ fontSize: "13px" }}>K 34 Murni</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataStaff.map((item) => {
+                return (
+                  <Option value={item.kode_staff} key={item.kode_staff}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_staff}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -76,21 +83,15 @@ const FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
-              defaultValue="k34m"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="k34m">
-                <span style={{ fontSize: "13px" }}>K 34 Murni</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataBahan.map((item) => {
+                return (
+                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
         </Row>
@@ -99,12 +100,8 @@ const FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormDataStaff = reduxForm({
   form: "FormDataStaff",
-  initialValues: {
-    kode_jenis_bahan: "kode_jenis_bahan",
-    berat_dibutuhkan: "berat_dibutuhkan",
-    berat_susut: "berat_susut",
-    no_pohon: "no_pohon",
-  },
+  enableReinitialize: true,
 })(FormDataStaff);
+export default connect(maptostate, null)(FormDataStaff);

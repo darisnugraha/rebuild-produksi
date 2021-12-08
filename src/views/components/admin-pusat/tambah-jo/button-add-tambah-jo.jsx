@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import FormDetailJO from "./form-detail-jo";
 import FormDataStaff from "./form-data-staff";
+import { useDispatch } from "react-redux";
+import {
+  addDataDetailJO,
+  addDataStaff,
+} from "../../../../application/actions/tambahjoborder";
 
 const ModalTambahJO = () => {
+  const dispatch = useDispatch();
   const [visibledetailjo, setVisibleDetailJO] = useState(false);
   const [visibledatastaff, setVisibleDataStaff] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisibleDetailJO(false);
-    setVisibleDataStaff(false);
-  };
 
   return (
     <div>
@@ -25,7 +25,9 @@ const ModalTambahJO = () => {
       </Button>
       <FormDataStaff
         visible={visibledatastaff}
-        onCreate={onCreate}
+        onCreate={() => {
+          dispatch(addDataStaff);
+        }}
         onCancel={() => {
           setVisibleDataStaff(false);
         }}
@@ -41,7 +43,9 @@ const ModalTambahJO = () => {
       </Button>
       <FormDetailJO
         visible={visibledetailjo}
-        onCreate={onCreate}
+        onCreate={() => {
+          dispatch(addDataDetailJO);
+        }}
         onCancel={() => {
           setVisibleDetailJO(false);
         }}

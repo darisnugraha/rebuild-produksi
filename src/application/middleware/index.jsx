@@ -20,6 +20,7 @@ import saldomurni from "./saldomurni";
 import pembuatanjenisbahan from "./pembuatanjenisbahan";
 import kirimbahanadmin from "./kirimbahanadmin";
 import terimabahantukang from "./terimabahantukang";
+import tambahjoborder from "./tambahjoborder";
 
 const midd = [
   ...ui,
@@ -44,6 +45,7 @@ const midd = [
   ...pembuatanjenisbahan,
   ...kirimbahanadmin,
   ...terimabahantukang,
+  ...tambahjoborder,
 ];
 
 export default midd;

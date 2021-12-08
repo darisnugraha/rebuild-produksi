@@ -9,6 +9,12 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card, Divider, Button } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { getAllMasterTukang } from "../../../application/actions/mastertukang";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan";
+import { getAllMasterMarketing } from "../../../application/actions/mastermarketing";
+import { getAllMasterCustomer } from "../../../application/actions/mastercustomer";
+import { getAllMasterOriginal } from "../../../application/actions/masteroriginal";
+import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
 import FormTambahJO from "../../components/admin-pusat/tambah-jo/button-add-tambah-jo";
 import TableTambahJO from "../../components/admin-pusat/tambah-jo/table-tambah-jo";
 
@@ -16,6 +22,13 @@ const TambahJO = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterTukang);
+    dispatch(getAllMasterBahan);
+    dispatch(getAllMasterMarketing);
+    dispatch(getAllMasterCustomer);
+    dispatch(getAllMasterOriginal);
+    dispatch(getAllMasterJenisBahan);
+
     document.title = "Tambah Job Order";
   }, [dispatch]);
 
@@ -65,7 +78,16 @@ const TambahJO = () => {
               <Button type="primary">Simpan</Button>
             </div>
             <div className="col-1">
-              <Button type="danger">Batal</Button>
+              <Button
+                type="danger"
+                onClick={() => {
+                  localStorage.removeItem("data_detail_jo");
+                  localStorage.removeItem("data_staff");
+                  window.location.reload();
+                }}
+              >
+                Batal
+              </Button>
             </div>
           </div>
         </PanelFooter>
