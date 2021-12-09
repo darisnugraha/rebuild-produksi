@@ -33,6 +33,7 @@ import KirimBahanAdmin from "../../views/pages/admin-bahan/kirim-bahan-admin";
 import TerimaBahanTukang from "../../views/pages/admin-bahan/terima-bahan-tukang";
 //admin pusat
 import TambahJobOrder from "../../views/pages/admin-pusat/tambah-jo";
+import KirimJO from "../../views/pages/job-order/kirim-jo";
 
 const routes = [
   // {
@@ -165,6 +166,13 @@ const routes = [
     path: "/admin-pusat/tambah-jo",
     title: "Tambah Job Order",
     component: () => <TambahJobOrder />,
+  },
+  {
+    path: "/admin-pusat/kirim-jo",
+    title: "Kirim Job Order",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <KirimJO />,
   },
 
   //Laporan

@@ -18,6 +18,7 @@ import SaldoMurni from "./saldomurni";
 import PembuatanJenisBahan from "./pembuatanjenisbahan";
 import KirimBahanAdmin from "./kirim-bahan-admin";
 import TerimaBahanTukang from "./terimabahantukang";
+import KirimJO from "./kirimjo";
 
 const api = {
   login,
@@ -40,6 +41,7 @@ const api = {
   PembuatanJenisBahan,
   KirimBahanAdmin,
   TerimaBahanTukang,
+  KirimJO,
 };
 
 export default api;

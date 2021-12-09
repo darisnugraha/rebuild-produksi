@@ -95,6 +95,8 @@ const URL_GET_STAFF_BY_DIVISI = `${baseurl}saldo-bahan/get/staff-by-divisi`;
 const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-bahan/get/bahan-by-staff`;
 const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-tukang-open`;
 
+const URL_GET_DETAIL_JO_BY_POST = `${baseurl}kirim-jo/get/detail-jo`;
+
 const data = {
   URL_LOGIN,
 
@@ -190,6 +192,8 @@ const data = {
   URL_GET_STAFF_BY_DIVISI,
   URL_GET_BAHAN_BY_STAFF,
   URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
+
+  URL_GET_DETAIL_JO_BY_POST,
 };
 
 export default data;
