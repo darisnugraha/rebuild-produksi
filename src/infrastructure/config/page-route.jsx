@@ -34,6 +34,9 @@ import TerimaBahanTukang from "../../views/pages/admin-bahan/terima-bahan-tukang
 //admin pusat
 import TambahJobOrder from "../../views/pages/admin-pusat/tambah-jo";
 import KirimJO from "../../views/pages/job-order/kirim-jo";
+import TerimaJO from "../../views/pages/job-order/terima-jo";
+import CloseJO from "../../views/pages/admin-pusat/close-jo";
+import TerimaBatu from "../../views/pages/batu/terima-batu";
 
 const routes = [
   // {
@@ -173,6 +176,25 @@ const routes = [
     menu: "Admin Pusat",
     divisi: "Admin",
     component: () => <KirimJO />,
+  },
+  {
+    path: "/admin-pusat/terima-jo",
+    title: "Terima Job Order",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <TerimaJO />,
+  },
+  {
+    path: "/admin-pusat/close-jo",
+    title: "Close Job Order",
+    component: () => <CloseJO />,
+  },
+  {
+    path: "/admin-pusat/terima-batu",
+    title: "Admin Terima Batu",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <TerimaBatu />,
   },
 
   //Laporan

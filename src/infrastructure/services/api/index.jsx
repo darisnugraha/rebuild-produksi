@@ -19,6 +19,7 @@ import PembuatanJenisBahan from "./pembuatanjenisbahan";
 import KirimBahanAdmin from "./kirim-bahan-admin";
 import TerimaBahanTukang from "./terimabahantukang";
 import KirimJO from "./kirimjo";
+import TerimaBatu from "./terimabatu";
 
 const api = {
   login,
@@ -42,6 +43,7 @@ const api = {
   KirimBahanAdmin,
   TerimaBahanTukang,
   KirimJO,
+  TerimaBatu,
 };
 
 export default api;

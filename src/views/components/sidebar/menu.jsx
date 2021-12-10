@@ -123,6 +123,10 @@ const Menu = [
         path: "/admin-pusat/close-jo",
         title: "Close Job Order",
       },
+      {
+        path: "/admin-pusat/terima-batu",
+        title: "Admin Terima Batu",
+      },
     ],
   },
 ];
