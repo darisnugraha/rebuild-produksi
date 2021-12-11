@@ -86,7 +86,11 @@ let FormKirimJO = ({ visible, onCreate, onCancel }, prop) => {
               {dataTukang.map((item) => {
                 return (
                   <Option value={item.kode_staff} key={item.kode_staff}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_staff}</span>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.kode_staff === item.nama_staff
+                        ? item.nama_staff
+                        : item.nama_staff + " (" + item.kode_staff + ")"}
+                    </span>
                   </Option>
                 );
               })}

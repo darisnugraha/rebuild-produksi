@@ -23,6 +23,7 @@ import terimabahantukang from "./terimabahantukang";
 import tambahjoborder from "./tambahjoborder";
 import kirimjo from "./kirimjo";
 import terimabatu from "./terimabatu";
+import terimabahan from "./terimabahan";
 
 const midd = [
   ...ui,
@@ -50,6 +51,7 @@ const midd = [
   ...tambahjoborder,
   ...kirimjo,
   ...terimabatu,
+  ...terimabahan,
 ];
 
 export default midd;

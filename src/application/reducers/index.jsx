@@ -25,6 +25,7 @@ import terimabahantukang from "./terimabahantukang";
 import tambahjoborder from "./tambahjoborder";
 import kirimjo from "./kirimjo";
 import terimabatu from "./terimabatu";
+import terimabahan from "./terimabahan";
 
 export default combineReducers({
   login,
@@ -52,5 +53,6 @@ export default combineReducers({
   tambahjoborder,
   kirimjo,
   terimabatu,
+  terimabahan,
   form: formReducer,
 });

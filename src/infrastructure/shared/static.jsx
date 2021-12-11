@@ -98,6 +98,8 @@ const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-bahan/get/saldo-k
 const URL_GET_DETAIL_JO_BY_POST = `${baseurl}kirim-jo/get/detail-jo`;
 const URL_GET_NO_KIRIM_BATU_BY_TANGGAL = `${baseurl}adm-mutasi-batu/get/kirim-batu-open/`;
 const URL_GET_DETAIL_KIRIM_BATU = `${baseurl}adm-mutasi-batu/no_batu_kirim/`;
+const URL_GET_BAHAN_TERIMA_BAHAN = `${baseurl}saldo-bahan/get/bahan`;
+const URL_GET_SALDO_KIRIM_BAHAN_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-open`;
 
 const data = {
   URL_LOGIN,
@@ -198,6 +200,8 @@ const data = {
   URL_GET_DETAIL_JO_BY_POST,
   URL_GET_NO_KIRIM_BATU_BY_TANGGAL,
   URL_GET_DETAIL_KIRIM_BATU,
+  URL_GET_BAHAN_TERIMA_BAHAN,
+  URL_GET_SALDO_KIRIM_BAHAN_OPEN,
 };
 
 export default data;

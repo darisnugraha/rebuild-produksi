@@ -127,6 +127,10 @@ const Menu = [
         path: "/admin-pusat/terima-batu",
         title: "Admin Terima Batu",
       },
+      {
+        path: "/admin-pusat/terima-bahan",
+        title: "Admin Terima Bahan",
+      },
     ],
   },
 ];
