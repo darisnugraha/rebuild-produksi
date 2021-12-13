@@ -21,6 +21,7 @@ import TerimaBahanTukang from "./terimabahantukang";
 import KirimJO from "./kirimjo";
 import TerimaBatu from "./terimabatu";
 import TerimaBahan from "./terimabahan";
+import KirimBahanAdminPusat from "./kirimbahanadminpusat";
 
 const api = {
   login,
@@ -46,6 +47,7 @@ const api = {
   KirimJO,
   TerimaBatu,
   TerimaBahan,
+  KirimBahanAdminPusat,
 };
 
 export default api;
