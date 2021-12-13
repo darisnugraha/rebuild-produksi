@@ -27,6 +27,7 @@ import kirimjo from "./kirimjo";
 import terimabatu from "./terimabatu";
 import terimabahan from "./terimabahan";
 import kirimbahanadminpusat from "./kirimbahanadminpusat";
+import kirimtambahan from "./kirimtambahan";
 
 export default combineReducers({
   login,
@@ -56,5 +57,6 @@ export default combineReducers({
   terimabatu,
   terimabahan,
   kirimbahanadminpusat,
+  kirimtambahan,
   form: formReducer,
 });

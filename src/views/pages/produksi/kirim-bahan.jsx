@@ -8,14 +8,15 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import FormKirimJO from "../../components/job-order/button-kirim-jo";
+import FormKirimBahanProduksi from "../../components/produksi/kirim-bahan/button-kirim-bahan";
 import { useLocation } from "react-router";
+import {
+  getAllStaffStockBahanDivisi,
+  getAllStockBahanDivisi,
+} from "../../../application/actions/kirimbahanadminpusat.jsx";
 import routes from "../../../infrastructure/config/page-route.jsx";
-import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
-import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
-import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
-const KirimJO = () => {
+const KirimBahanProduksi = () => {
   const dispatch = useDispatch();
   let locationLink = useLocation();
   const [pageTitleDisplay, setTitle] = useState("");
@@ -26,14 +27,13 @@ const KirimJO = () => {
     });
     setTitle(dataLocation[0].menu);
     localStorage.setItem("divisi", dataLocation[0].divisi);
-    document.title = dataLocation[0].menu + " Kirim JO";
+    document.title = dataLocation[0].menu + " Kirim Bahan";
   }, []);
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllDivisi);
-    dispatch(getAllMasterTukang);
-    dispatch(getAllMasterBahan);
+    dispatch(getAllStockBahanDivisi);
+    dispatch(getAllStaffStockBahanDivisi);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -48,18 +48,18 @@ const KirimJO = () => {
         <li className="breadcrumb-item">
           <Link to={locationLink}>{pageTitleDisplay}</Link>
         </li>
-        <li className="breadcrumb-item active">Kirim JO</li>
+        <li className="breadcrumb-item active">Kirim Bahan</li>
       </ol>
       <h1 className="page-header">
-        {pageTitleDisplay} <small>Kirim JO</small>
+        {pageTitleDisplay} <small>Kirim Bahan</small>
       </h1>
       <Panel>
-        <PanelHeader>Kirim JO</PanelHeader>
+        <PanelHeader>Kirim Bahan</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormKirimJO />
+                <FormKirimBahanProduksi />
               </div>
             </div>
           </Card>
@@ -69,4 +69,4 @@ const KirimJO = () => {
   );
 };
 
-export default KirimJO;
+export default KirimBahanProduksi;

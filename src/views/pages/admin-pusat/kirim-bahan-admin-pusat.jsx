@@ -20,6 +20,7 @@ const KirimBahanAdminPusat = () => {
     dispatch(pageLoadedLogin);
     dispatch(getAllStockBahanDivisi);
     dispatch(getAllStaffStockBahanDivisi);
+    localStorage.setItem("divisi", "Admin");
     document.title = "Kirim Bahan Admin";
   }, [dispatch]);
 

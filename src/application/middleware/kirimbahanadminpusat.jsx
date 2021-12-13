@@ -35,7 +35,7 @@ const getDataStaffStockBahanDivisi =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_STAFF_STOCK_BAHAN_DIVISI) {
-      const data = { divisi: "Admin" };
+      const data = { divisi: localStorage.getItem("divisi") };
       const response = await api.KirimBahanAdminPusat.getStaffStockBahanDivisi({
         dataKirim: data,
       });

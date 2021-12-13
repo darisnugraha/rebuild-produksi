@@ -105,6 +105,9 @@ const URL_GET_STOCK_BAHAN_DIVISI = `${baseurl}saldo-bahan/stock-bahan-divisi-all
 const URL_GET_STOCK_BAHAN_STAFF_DIVISI = `${baseurl}saldo-bahan/stock-bahan-staff-by-divisi`;
 const URL_GET_STOCK_BAHAN_BY_STAFF = `${baseurl}saldo-bahan/stock-bahan-divisi-by-staff`;
 
+const URL_GET_ASAL_STOCK_BAHAN = `${baseurl}saldo-bahan/asal-stock-bahan`;
+const URL_GET_STOCK_BAHAN_ADMIN = `${baseurl}saldo-bahan/stock-bahan-admin`;
+
 const data = {
   URL_LOGIN,
 
@@ -210,6 +213,9 @@ const data = {
   URL_GET_STOCK_BAHAN_DIVISI,
   URL_GET_STOCK_BAHAN_STAFF_DIVISI,
   URL_GET_STOCK_BAHAN_BY_STAFF,
+
+  URL_GET_ASAL_STOCK_BAHAN,
+  URL_GET_STOCK_BAHAN_ADMIN,
 };
 
 export default data;

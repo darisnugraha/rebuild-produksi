@@ -23,11 +23,11 @@ const TerimaJO = () => {
     });
     setTitle(dataLocation[0].menu);
     localStorage.setItem("divisi", dataLocation[0].divisi);
+    document.title = dataLocation[0].menu + " Terima JO";
   }, []);
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    document.title = "Terima JO";
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

@@ -24,12 +24,12 @@ const TerimaBahan = () => {
     });
     setTitle(dataLocation[0].menu);
     localStorage.setItem("divisi", dataLocation[0].divisi);
+    document.title = dataLocation[0].menu + " Terima Bahan";
   }, []);
 
   useEffect(() => {
     dispatch(getAllMasterTukang);
     dispatch(pageLoadedLogin);
-    document.title = "Terima Bahan";
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

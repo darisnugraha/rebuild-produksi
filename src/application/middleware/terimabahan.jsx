@@ -16,7 +16,9 @@ const getSaldoBahanTukang =
     next(action);
     if (action.type === GET_SALDO_BAHAN_TUKANG) {
       if (action.payload.data === null) {
-        const dataForm = getState().form.FormTerimaBahan.values;
+        const dataForm =
+          getState().form.FormTerimaBahan?.values ||
+          getState().form.FormTerimaTambahan?.values;
         delete dataForm.berat_bahan;
         delete dataForm.nama_bahan;
         dataForm.divisi = dataForm.divisi.toUpperCase();
@@ -45,7 +47,9 @@ const getSaldoBahanTukang =
           dispatch(setDataSaldoBahanTukangFailed({ error: response.error }));
         }
       } else {
-        const dataForm = getState().form.FormTerimaBahan.values;
+        const dataForm =
+          getState().form.FormTerimaBahan?.values ||
+          getState().form.FormTerimaTambahan?.values;
         delete dataForm.berat_bahan;
         delete dataForm.nama_bahan;
         dataForm.divisi = dataForm.divisi.toUpperCase();
@@ -85,7 +89,9 @@ const getDataSaldoKirimBahanOpenChange =
   async (action) => {
     next(action);
     if (action.type === GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE) {
-      const dataForm = getState().form.FormTerimaBahan.values;
+      const dataForm =
+        getState().form.FormTerimaBahan?.values ||
+        getState().form.FormTerimaTambahan?.values;
       if (dataForm.nama_bahan !== undefined) {
         delete dataForm.berat_bahan;
         dataForm.divisi = dataForm.divisi.toUpperCase();
