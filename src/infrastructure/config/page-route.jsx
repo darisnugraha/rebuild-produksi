@@ -45,6 +45,7 @@ import GabungJO from "../../views/pages/admin-pusat/gabung-jo";
 import TerimaTambahan from "../../views/pages/produksi/terima-tambahan";
 import TerimaBatuProduksi from "../../views/pages/produksi/terima-batu-produksi";
 import KirimBahanProduksi from "../../views/pages/produksi/kirim-bahan";
+import AbuTukangCOR from "../../views/pages/setor-abu/abu-tukang-cor";
 
 const routes = [
   // {
@@ -706,6 +707,12 @@ const routes = [
     menu: "Gudang QC VV",
     divisi: "Gudang QC VV",
     component: () => <KirimBahanProduksi />,
+  },
+  //Setor Abu
+  {
+    path: "/setor-abu/abu-tukang-cor",
+    title: "Abu Tukang COR",
+    component: () => <AbuTukangCOR />,
   },
   //Laporan
   {

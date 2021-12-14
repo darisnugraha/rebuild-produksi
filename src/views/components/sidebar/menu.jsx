@@ -486,6 +486,25 @@ const Menu = [
       },
     ],
   },
+  {
+    path: "/setor-abu",
+    icon: "fa fa-fire",
+    title: "Setor Abu",
+    children: [
+      {
+        path: "/setor-abu/abu-tukang-cor",
+        title: "Abu Tukang COR",
+      },
+      {
+        path: "/setor-abu/abu-tukang-potong",
+        title: "Abu Tukang Potong",
+      },
+      {
+        path: "/setor-abu/abu-tukang",
+        title: "Abu Tukang",
+      },
+    ],
+  },
 ];
 
 export default Menu;
