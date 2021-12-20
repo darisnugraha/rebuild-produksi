@@ -9,16 +9,16 @@ import {
 import { Card, Divider, Button } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import { getAllMasterBatu } from "../../../application/actions/masterbatu";
-import ButtonAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/button-abu-tukang-cor";
-import TableAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/table-abu-tukang-cor";
-import FormAbuTukangCor from "../../components/setor-abu/abu-tukang-cor/form-abu-tukang-cor.jsx";
+import ButtonAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/button-abu-tukang-potong";
+import TableAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/table-abu-tukang-potong";
+import FormAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/form-abu-tukang-potong.jsx";
 
-const AbuTukangCOR = () => {
+const AbuTukangPotong = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterBatu);
-    document.title = "Abu Tukang COR";
+    document.title = "Abu Tukang Potong";
   }, [dispatch]);
 
   return (
@@ -28,20 +28,20 @@ const AbuTukangCOR = () => {
           <Link to="/dashboard">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/setor-abu/abu-tukang-cor">Setor Abu</Link>
+          <Link to="/setor-abu/abu-tukang-potong">Setor Abu</Link>
         </li>
-        <li className="breadcrumb-item active">Abu Tukang COR</li>
+        <li className="breadcrumb-item active">Abu Tukang Potong</li>
       </ol>
       <h1 className="page-header">
-        Setor Abu <small>Abu Tukang COR</small>
+        Setor Abu <small>Abu Tukang Potong</small>
       </h1>
       <Panel>
-        <PanelHeader>Abu Tukang COR</PanelHeader>
+        <PanelHeader>Abu Tukang Potong</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row" style={{ marginLeft: "40%" }}>
               <div className="col-12">
-                <ButtonAbuTukangCOR />
+                <ButtonAbuTukangPotong />
               </div>
             </div>
             <div
@@ -52,14 +52,14 @@ const AbuTukangCOR = () => {
             >
               <div className="col-12">
                 <Divider orientation="left" style={{ fontSize: "14px" }}>
-                  Tabel Abu Tukang COR
+                  Tabel Abu Tukang Potong
                 </Divider>
               </div>
               <div className="col-12">
-                <TableAbuTukangCOR />
+                <TableAbuTukangPotong />
               </div>
               <div className="col-12" style={{ marginTop: "10px" }}>
-                <FormAbuTukangCor />
+                <FormAbuTukangPotong />
               </div>
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
@@ -86,4 +86,4 @@ const AbuTukangCOR = () => {
   );
 };
 
-export default AbuTukangCOR;
+export default AbuTukangPotong;

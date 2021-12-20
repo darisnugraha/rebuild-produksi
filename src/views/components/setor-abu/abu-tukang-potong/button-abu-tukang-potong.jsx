@@ -1,12 +1,13 @@
 import React from "react";
 import { Button } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
-import { getAllSetorOutstandCasting } from "../../../../application/actions/abutukangcor";
+import { getAllSetorOutstandPotong } from "../../../../application/actions/abutukangpotong";
+import { useSelector } from "react-redux";
 import ui from "../../../../application/selectors/ui";
 
-const ButtonAbuTukangCOR = () => {
+const ButtonAbuTukangPotong = () => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const isLoading = useSelector(ui.getBtnLoading);
@@ -16,7 +17,7 @@ const ButtonAbuTukangCOR = () => {
         type="primary"
         loading={isLoading}
         onClick={() => {
-          dispatch(getAllSetorOutstandCasting);
+          dispatch(getAllSetorOutstandPotong);
         }}
         className="ant-btn-success"
       >
@@ -26,4 +27,4 @@ const ButtonAbuTukangCOR = () => {
   );
 };
 
-export default ButtonAbuTukangCOR;
+export default ButtonAbuTukangPotong;
