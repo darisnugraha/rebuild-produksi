@@ -28,6 +28,7 @@ import kirimbahanadminpusat from "./kirimbahanadminpusat";
 import kirimtambahan from "./kirimtambahan";
 import abutukangcor from "./abutukangcor";
 import abutukanpotong from "./abutukangpotong";
+import abutukang from "./abutukang";
 
 const midd = [
   ...ui,
@@ -60,6 +61,7 @@ const midd = [
   ...kirimtambahan,
   ...abutukangcor,
   ...abutukanpotong,
+  ...abutukang,
 ];
 
 export default midd;

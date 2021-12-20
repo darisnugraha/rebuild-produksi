@@ -47,6 +47,7 @@ import TerimaBatuProduksi from "../../views/pages/produksi/terima-batu-produksi"
 import KirimBahanProduksi from "../../views/pages/produksi/kirim-bahan";
 import AbuTukangCOR from "../../views/pages/setor-abu/abu-tukang-cor";
 import AbuTukangPotong from "../../views/pages/setor-abu/abu-tukang-potong";
+import AbuTukang from "../../views/pages/setor-abu/abu-tukang";
 
 const routes = [
   // {
@@ -719,6 +720,11 @@ const routes = [
     path: "/setor-abu/abu-tukang-potong",
     title: "Abu Tukang Potong",
     component: () => <AbuTukangPotong />,
+  },
+  {
+    path: "/setor-abu/abu-tukang",
+    title: "Abu Tukang",
+    component: () => <AbuTukang />,
   },
   //Laporan
   {

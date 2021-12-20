@@ -25,6 +25,7 @@ import KirimBahanAdminPusat from "./kirimbahanadminpusat";
 import KirimTambahan from "./kirimtambahan";
 import AbuTukangCOR from "./abutukangcor";
 import AbuTukangPotong from "./abutukangpotong";
+import AbuTukang from "./abutukang";
 
 const api = {
   login,
@@ -54,6 +55,7 @@ const api = {
   KirimTambahan,
   AbuTukangCOR,
   AbuTukangPotong,
+  AbuTukang,
 };
 
 export default api;

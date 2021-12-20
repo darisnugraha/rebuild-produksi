@@ -110,6 +110,7 @@ const URL_GET_STOCK_BAHAN_ADMIN = `${baseurl}saldo-bahan/stock-bahan-admin`;
 
 const URL_GET_SETOR_OUTSTAND_CASTING = `${baseurl}produksi/setoroutstandcasting`;
 const URL_GET_SETOR_OUTSTAND_POTONG = `${baseurl}produksi/setoroutstandpotong`;
+const URL_GET_ABU_TUKANG = `${baseurl}kirim-jo/setorabu`;
 
 const data = {
   URL_LOGIN,
@@ -222,6 +223,7 @@ const data = {
 
   URL_GET_SETOR_OUTSTAND_CASTING,
   URL_GET_SETOR_OUTSTAND_POTONG,
+  URL_GET_ABU_TUKANG,
 };
 
 export default data;
