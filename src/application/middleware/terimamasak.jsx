@@ -1,29 +1,29 @@
 import {
-  setDataTerimaLeburSuccess,
-  setDataTerimaLeburFailed,
-  GET_TERIMA_LEBUR,
+  setDataTerimaMasakSuccess,
+  setDataTerimaMasakFailed,
+  GET_TERIMA_MASAK,
   SET_SUSUT,
   setDataSusutSuccess,
   setDataBeratTerima,
-} from "../actions/terimalebur";
+} from "../actions/terimamasak";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
-const getDataTerimaLebur =
+const getDataTerimaMasak =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_TERIMA_LEBUR) {
-      const response = await api.TerimaLebur.getTerimaLebur({
+    if (action.type === GET_TERIMA_MASAK) {
+      const response = await api.TerimaMasak.getTerimaMasak({
         data: action.payload.data,
       });
       log(response);
       if (response.value?.status === "berhasil") {
-        dispatch(setDataTerimaLeburSuccess({ feedback: response.value.data }));
+        dispatch(setDataTerimaMasakSuccess({ feedback: response.value.data }));
       } else {
         sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataTerimaLeburFailed({ error: response.error }));
+        dispatch(setDataTerimaMasakFailed({ error: response.error }));
       }
     }
   };
@@ -36,7 +36,7 @@ const setBeratSusut =
     next(action);
     if (action.type === SET_SUSUT) {
       let berat_murni =
-        getState().terimalebur.feedback[0]?.tot_berat_murni || 0;
+        getState().terimamasak.feedback[0]?.tot_berat_murni || 0;
       let berat_terima = action.payload.data || 0;
       let susut = 0;
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
@@ -45,6 +45,6 @@ const setBeratSusut =
     }
   };
 
-const data = [getDataTerimaLebur, setBeratSusut];
+const data = [getDataTerimaMasak, setBeratSusut];
 
 export default data;

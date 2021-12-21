@@ -119,6 +119,7 @@ const URL_GET_TERIMA_LEBUR = `${baseurl}lebur/get/lebur-by-no-kirim/`;
 
 const URL_GET_HISTORY_KIRIM_MASAK = `${baseurl}masak-bahan/get/history-kirim-masak`;
 const URL_GET_DATA_TERIMA_LEBUR = `${baseurl}masak-bahan/get/lebur-by-no-terima/`;
+const URL_GET_KIRIM_MASAK = `${baseurl}masak-bahan/get/by-no-kirim/`;
 
 const data = {
   URL_LOGIN,
@@ -240,6 +241,7 @@ const data = {
 
   URL_GET_HISTORY_KIRIM_MASAK,
   URL_GET_DATA_TERIMA_LEBUR,
+  URL_GET_KIRIM_MASAK,
 };
 
 export default data;

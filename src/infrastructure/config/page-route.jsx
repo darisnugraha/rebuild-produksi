@@ -51,6 +51,7 @@ import AbuTukang from "../../views/pages/setor-abu/abu-tukang";
 import KirimLebur from "../../views/pages/lebur/kirim-lebur";
 import TerimaLebur from "../../views/pages/lebur/terima-lebur";
 import KirimMasak from "../../views/pages/masak-bahan/kirim-masak";
+import TerimaMasak from "../../views/pages/masak-bahan/terima-masak";
 
 const routes = [
   // {
@@ -745,6 +746,11 @@ const routes = [
     path: "/masak/kirim-masak",
     title: "Kirim Masak Bahan",
     component: () => <KirimMasak />,
+  },
+  {
+    path: "/masak/terima-masak",
+    title: "Terima Masak Bahan",
+    component: () => <TerimaMasak />,
   },
   //Laporan
   {

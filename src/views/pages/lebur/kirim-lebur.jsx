@@ -67,7 +67,7 @@ const KirimLebur = () => {
                     <Button
                       type="danger"
                       onClick={() => {
-                        localStorage.removeItem("data_kirim_batu_produksi");
+                        localStorage.removeItem("data_kirim_lebur");
                         window.location.reload();
                       }}
                     >
