@@ -31,6 +31,7 @@ import abutukanpotong from "./abutukangpotong";
 import abutukang from "./abutukang";
 import kirimlebur from "./kirimlebur";
 import terimalebur from "./terimalebur";
+import kirimmasak from "./kirimmasak";
 
 const midd = [
   ...ui,
@@ -66,6 +67,7 @@ const midd = [
   ...abutukang,
   ...kirimlebur,
   ...terimalebur,
+  ...kirimmasak,
 ];
 
 export default midd;

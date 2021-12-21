@@ -28,6 +28,7 @@ import AbuTukangPotong from "./abutukangpotong";
 import AbuTukang from "./abutukang";
 import KirimLebur from "./kirimlebur";
 import TerimaLebur from "./terimalebur";
+import KirimMasak from "./kirimmasak";
 
 const api = {
   login,
@@ -60,6 +61,7 @@ const api = {
   AbuTukang,
   KirimLebur,
   TerimaLebur,
+  KirimMasak,
 };
 
 export default api;

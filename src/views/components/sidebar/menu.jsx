@@ -520,6 +520,21 @@ const Menu = [
       },
     ],
   },
+  {
+    path: "/masak",
+    icon: "fa fa-magic",
+    title: "Masak Bahan",
+    children: [
+      {
+        path: "/masak/kirim-masak",
+        title: "Kirim Masak",
+      },
+      {
+        path: "/masak/terima-masak",
+        title: "Terima Masak",
+      },
+    ],
+  },
 ];
 
 export default Menu;

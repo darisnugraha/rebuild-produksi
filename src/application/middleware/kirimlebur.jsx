@@ -127,7 +127,10 @@ const setDataLocalKirimLebur =
   async (action) => {
     next(action);
     if (action.type === SET_LOCAL_DATA_KIRIM_LEBUR) {
-      if (getLocal("data_kirim_lebur") === undefined) {
+      if (
+        getLocal("data_kirim_lebur") === undefined ||
+        getLocal("data_kirim_lebur") === null
+      ) {
         const data = getState().form.FormTambahKirimLebur.values;
         let dataLocal = [];
         if (
@@ -143,6 +146,7 @@ const setDataLocalKirimLebur =
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_lebur", dataLocal);
+          window.location.reload();
         }
       } else {
         let dataLocal = getLocal("data_kirim_lebur");
@@ -160,6 +164,7 @@ const setDataLocalKirimLebur =
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_lebur", dataLocal);
+          window.location.reload();
         }
       }
     }

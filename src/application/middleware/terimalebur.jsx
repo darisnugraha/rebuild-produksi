@@ -35,16 +35,13 @@ const setBeratSusut =
   async (action) => {
     next(action);
     if (action.type === SET_SUSUT) {
-      let berat_murni = getState().terimalebur.feedback[0]?.tot_berat_murni;
-      let berat_terima = action.payload.data;
+      let berat_murni =
+        getState().terimalebur.feedback[0]?.tot_berat_murni || 0;
+      let berat_terima = action.payload.data || 0;
       let susut = 0;
-      if (berat_murni === undefined) {
-        sweetalert.default.Failed("Isi No Kirim Terlebih Dahulu !");
-      } else {
-        susut = parseFloat(berat_murni) - parseFloat(berat_terima);
-        dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
-        dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
-      }
+      susut = parseFloat(berat_murni) - parseFloat(berat_terima);
+      dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
+      dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
     }
   };
 
