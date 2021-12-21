@@ -488,7 +488,7 @@ const Menu = [
   },
   {
     path: "/setor-abu",
-    icon: "fa fa-fire",
+    icon: "fa fa-tree",
     title: "Setor Abu",
     children: [
       {
@@ -502,6 +502,21 @@ const Menu = [
       {
         path: "/setor-abu/abu-tukang",
         title: "Abu Tukang",
+      },
+    ],
+  },
+  {
+    path: "/lebur",
+    icon: "fa fa-fire",
+    title: "Lebur",
+    children: [
+      {
+        path: "/lebur/kirim-lebur",
+        title: "Kirim Lebur",
+      },
+      {
+        path: "/lebur/terima-lebur",
+        title: "Terima Lebur",
       },
     ],
   },

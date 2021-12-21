@@ -112,6 +112,11 @@ const URL_GET_SETOR_OUTSTAND_CASTING = `${baseurl}produksi/setoroutstandcasting`
 const URL_GET_SETOR_OUTSTAND_POTONG = `${baseurl}produksi/setoroutstandpotong`;
 const URL_GET_ABU_TUKANG = `${baseurl}kirim-jo/setorabu`;
 
+const URL_GET_HISTORY_KIRIM_LEBUR = `${baseurl}lebur/get/history-kirim-lebur`;
+const URL_GET_ALL_SALDO_BAHAN_OPEN = `${baseurl}lebur/get/saldo-bahan-all-open`;
+const URL_GET_ALL_SALDO_BAHAN = `${baseurl}lebur/get/saldo-bahan`;
+const URL_GET_TERIMA_LEBUR = `${baseurl}lebur/get/lebur-by-no-kirim/`;
+
 const data = {
   URL_LOGIN,
 
@@ -224,6 +229,11 @@ const data = {
   URL_GET_SETOR_OUTSTAND_CASTING,
   URL_GET_SETOR_OUTSTAND_POTONG,
   URL_GET_ABU_TUKANG,
+
+  URL_GET_HISTORY_KIRIM_LEBUR,
+  URL_GET_ALL_SALDO_BAHAN_OPEN,
+  URL_GET_ALL_SALDO_BAHAN,
+  URL_GET_TERIMA_LEBUR,
 };
 
 export default data;
