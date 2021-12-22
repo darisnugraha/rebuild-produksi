@@ -5,7 +5,11 @@ import {
   GET_MASTER_JENIS_ID,
   setEditFormMasterJenis,
   setDataMasterJenisEdit,
+  ADD_MASTER_JENIS,
+  DELETE_MASTER_JENIS,
+  EDIT_MASTER_JENIS,
 } from "../actions/masterjenis";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
 const masterjenisGetAllData =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -39,6 +43,69 @@ const masterjenisGetDataID =
     }
   };
 
-const data = [masterjenisGetAllData, masterjenisGetDataID];
+const addDataMasterJenis =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_MASTER_JENIS) {
+      const data = getState().form.FormTambahMasterJenis.values;
+      const response = await api.masterjenis.addMasterJenis(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed("Terjadi Kesalahan Saat Menambahkan Data !");
+      }
+    }
+  };
+
+const deleteDataMasterJenis =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_MASTER_JENIS) {
+      const data = {
+        kode_jenis: action.payload.data,
+      };
+      const response = await api.masterjenis.deleteMasterJenis(data);
+      log(response);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menghapus Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed("Terjadi Kesalahan Saat Menghapus Data !");
+      }
+    }
+  };
+
+const editDataMasterJenis =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === EDIT_MASTER_JENIS) {
+      const data = getState().form.FormTambahMasterJenis.values;
+      const response = await api.masterjenis.editMasterJenis(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Merubah Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed("Terjadi Kesalahan Saat Merubah Data !");
+      }
+    }
+  };
+
+const data = [
+  masterjenisGetAllData,
+  masterjenisGetDataID,
+  addDataMasterJenis,
+  deleteDataMasterJenis,
+  editDataMasterJenis,
+];
 
 export default data;

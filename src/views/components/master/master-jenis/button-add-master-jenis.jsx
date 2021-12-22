@@ -5,11 +5,6 @@ import FormTambahMasterJenis from "./form-master-jenis";
 const ModalMasterJenis = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterJenis = () => {
       </Button>
       <FormTambahMasterJenis
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

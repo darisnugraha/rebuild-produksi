@@ -75,10 +75,11 @@ const simpanDataKirimBatuLocal =
     next(action);
     if (action.type === POST_DATA_KIRIM_BATU_LOKAL) {
       const data = getState().form.FormTambahKirimBatuProduksi.values;
+      log(data);
       let datalocal = [];
       if (
         data.no_job_order === undefined ||
-        data.kode_jenis_batu === undefined
+        data.kode_batu === undefined
       ) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {

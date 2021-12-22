@@ -9,6 +9,9 @@ export const SET_EDIT_FORM_OFF = "[masterjenis] edit form off";
 
 export const GET_MASTER_JENIS_ID = "[masterjenis] get master jenis id";
 export const SET_DATA_MASTER_JENIS_EDIT = "[masterjenis] set master jenis edit";
+export const ADD_MASTER_JENIS = "[masterjenis] add master jenis";
+export const DELETE_MASTER_JENIS = "[masterjenis] delete master jenis";
+export const EDIT_MASTER_JENIS = "[masterjenis] edit master jenis";
 
 export const getAllMasterJenis = {
   type: GET_ALL_MASTER_JENIS,
@@ -35,3 +38,14 @@ export const setDataMasterJenisEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_JENIS_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterJenis = {
+  type: ADD_MASTER_JENIS,
+};
+export const deleteMasterJenis = ({ id }) => ({
+  type: DELETE_MASTER_JENIS,
+  payload: { data: id },
+});
+export const editMasterJenis = {
+  type: EDIT_MASTER_JENIS,
+};

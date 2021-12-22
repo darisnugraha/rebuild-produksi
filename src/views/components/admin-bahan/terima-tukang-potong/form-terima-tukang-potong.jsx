@@ -6,20 +6,26 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import JenisBahan from "../../../../application/selectors/masterjenisbahan";
+import { getTerimaTukangPotong } from "../../../../application/actions/terimatukangpotong";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterjenisbahan.feedback !== undefined) {
+  if (state.terimatukangpotong.feedback.length !== 0) {
     return {
       initialValues: {
-        kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        no_pohon: state.terimatukangpotong.noPohon,
+        kode_jenis_bahan:
+          state.terimatukangpotong.feedback[0]?.kode_jenis_bahan,
+        berat_awal: state.terimatukangpotong.feedback[0]?.berat_casting,
       },
     };
   } else {
     return {
       initialValues: {
-        kode_jenis_bahan: "",
+        no_pohon: "",
+        kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        berat_awal: "",
       },
     };
   }
@@ -52,13 +58,18 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Nomor Pohon"
+              onBlur={(e) => {
+                dispatch(
+                  getTerimaTukangPotong({ noTransaksi: e.target.value })
+                );
+              }}
             />
           </Col>
           <Col offset={1}>
             <Field
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
-              style={{ width: "100%" }}
+              style={{ width: 200 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Jenis Bahan"
               onBlur={(e) => e.preventDefault()}

@@ -10,69 +10,69 @@ const URL_GET_OUTSTAND_CASTING_ALL = `${baseurl}produksi/outstandcasting/`;
 const URL_GET_OUTSTAND_BAHAN_ALL = `${baseurl}produksi/outstandbahan/`;
 
 const URL_GET_ALL_MASTER_JENIS = `${baseurl}jenis/all`;
-const URL_ADD_MASTER_JENIS = `${baseurl}`;
-const URL_DELETE_MASTER_JENIS = `${baseurl}`;
-const URL_UPDATE_MASTER_JENIS = `${baseurl}`;
+const URL_ADD_MASTER_JENIS = `${baseurl}jenis`;
+const URL_DELETE_MASTER_JENIS = `${baseurl}jenis`;
+const URL_UPDATE_MASTER_JENIS = `${baseurl}jenis`;
 
 const URL_GET_ALL_MASTER_WARNA = `${baseurl}warna/all`;
-const URL_ADD_MASTER_WARNA = `${baseurl}`;
-const URL_DELETE_MASTER_WARNA = `${baseurl}`;
-const URL_UPDATE_MASTER_WARNA = `${baseurl}`;
+const URL_ADD_MASTER_WARNA = `${baseurl}warna`;
+const URL_DELETE_MASTER_WARNA = `${baseurl}warna`;
+const URL_UPDATE_MASTER_WARNA = `${baseurl}warna`;
 
 const URL_GET_ALL_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan/all`;
-const URL_ADD_MASTER_JENIS_BAHAN = `${baseurl}`;
-const URL_DELETE_MASTER_JENIS_BAHAN = `${baseurl}`;
-const URL_UPDATE_MASTER_JENIS_BAHAN = `${baseurl}`;
+const URL_ADD_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
+const URL_DELETE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
+const URL_UPDATE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 
 const URL_GET_ALL_MASTER_BATU = `${baseurl}batu/all`;
-const URL_ADD_MASTER_BATU = `${baseurl}`;
-const URL_DELETE_MASTER_BATU = `${baseurl}`;
-const URL_UPDATE_MASTER_BATU = `${baseurl}`;
+const URL_ADD_MASTER_BATU = `${baseurl}batu`;
+const URL_DELETE_MASTER_BATU = `${baseurl}batu`;
+const URL_UPDATE_MASTER_BATU = `${baseurl}batu`;
 
 const URL_GET_ALL_MASTER_CUTTING_BATU = `${baseurl}cutting-batu/all`;
-const URL_ADD_MASTER_CUTTING_BATU = `${baseurl}`;
-const URL_DELETE_MASTER_CUTTING_BATU = `${baseurl}`;
-const URL_UPDATE_MASTER_CUTTING_BATU = `${baseurl}`;
+const URL_ADD_MASTER_CUTTING_BATU = `${baseurl}cutting-batu`;
+const URL_DELETE_MASTER_CUTTING_BATU = `${baseurl}cutting-batu`;
+const URL_UPDATE_MASTER_CUTTING_BATU = `${baseurl}cutting-batu`;
 
 const URL_GET_ALL_MASTER_JENIS_BATU = `${baseurl}jenis-batu/all`;
-const URL_ADD_MASTER_JENIS_BATU = `${baseurl}`;
-const URL_DELETE_MASTER_JENIS_BATU = `${baseurl}`;
-const URL_UPDATE_MASTER_JENIS_BATU = `${baseurl}`;
+const URL_ADD_MASTER_JENIS_BATU = `${baseurl}jenis-batu`;
+const URL_DELETE_MASTER_JENIS_BATU = `${baseurl}jenis-batu`;
+const URL_UPDATE_MASTER_JENIS_BATU = `${baseurl}jenis-batu`;
 
 const URL_GET_ALL_MASTER_KONDISI = `${baseurl}kondisi/all`;
-const URL_ADD_MASTER_KONDISI = `${baseurl}`;
-const URL_DELETE_MASTER_KONDISI = `${baseurl}`;
-const URL_UPDATE_MASTER_KONDISI = `${baseurl}`;
+const URL_ADD_MASTER_KONDISI = `${baseurl}kondisi`;
+const URL_DELETE_MASTER_KONDISI = `${baseurl}kondisi`;
+const URL_UPDATE_MASTER_KONDISI = `${baseurl}kondisi`;
 
 const URL_GET_ALL_MASTER_BAHAN = `${baseurl}bahan/all`;
-const URL_ADD_MASTER_BAHAN = `${baseurl}`;
-const URL_DELETE_MASTER_BAHAN = `${baseurl}`;
-const URL_UPDATE_MASTER_BAHAN = `${baseurl}`;
+const URL_ADD_MASTER_BAHAN = `${baseurl}bahan`;
+const URL_DELETE_MASTER_BAHAN = `${baseurl}bahan`;
+const URL_UPDATE_MASTER_BAHAN = `${baseurl}bahan`;
 
 const URL_GET_ALL_MASTER_MARKETING = `${baseurl}marketing/all`;
-const URL_ADD_MASTER_MARKETING = `${baseurl}`;
-const URL_DELETE_MASTER_MARKETING = `${baseurl}`;
-const URL_UPDATE_MASTER_MARKETING = `${baseurl}`;
+const URL_ADD_MASTER_MARKETING = `${baseurl}marketing`;
+const URL_DELETE_MASTER_MARKETING = `${baseurl}marketing`;
+const URL_UPDATE_MASTER_MARKETING = `${baseurl}marketing`;
 
 const URL_GET_ALL_MASTER_TUKANG = `${baseurl}staff/all`;
-const URL_ADD_MASTER_TUKANG = `${baseurl}`;
-const URL_DELETE_MASTER_TUKANG = `${baseurl}`;
-const URL_UPDATE_MASTER_TUKANG = `${baseurl}`;
+const URL_ADD_MASTER_TUKANG = `${baseurl}staff`;
+const URL_DELETE_MASTER_TUKANG = `${baseurl}staff`;
+const URL_UPDATE_MASTER_TUKANG = `${baseurl}staff`;
 
 const URL_GET_ALL_MASTER_CUSTOMER = `${baseurl}customer/all`;
-const URL_ADD_MASTER_CUSTOMER = `${baseurl}`;
-const URL_DELETE_MASTER_CUSTOMER = `${baseurl}`;
-const URL_UPDATE_MASTER_CUSTOMER = `${baseurl}`;
+const URL_ADD_MASTER_CUSTOMER = `${baseurl}customer`;
+const URL_DELETE_MASTER_CUSTOMER = `${baseurl}customer`;
+const URL_UPDATE_MASTER_CUSTOMER = `${baseurl}customer`;
 
 const URL_GET_ALL_MASTER_UKURAN = `${baseurl}ukuran/all`;
-const URL_ADD_MASTER_UKURAN = `${baseurl}`;
-const URL_DELETE_MASTER_UKURAN = `${baseurl}`;
-const URL_UPDATE_MASTER_UKURAN = `${baseurl}`;
+const URL_ADD_MASTER_UKURAN = `${baseurl}ukuran`;
+const URL_DELETE_MASTER_UKURAN = `${baseurl}ukuran`;
+const URL_UPDATE_MASTER_UKURAN = `${baseurl}ukuran`;
 
 const URL_GET_ALL_MASTER_ORIGINAL = `${baseurl}barang/all`;
-const URL_ADD_MASTER_ORIGINAL = `${baseurl}`;
-const URL_DELETE_MASTER_ORIGINAL = `${baseurl}`;
-const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}`;
+const URL_ADD_MASTER_ORIGINAL = `${baseurl}barang`;
+const URL_DELETE_MASTER_ORIGINAL = `${baseurl}barang`;
+const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}barang`;
 
 const URL_GET_JO_BY_ID_KIRIM_BATU = `${baseurl}adm-mutasi-batu/get/jo-kirim-batu-proses/`;
 
@@ -82,6 +82,7 @@ const URL_DELETE_SALDO_MURNI = `${baseurl}`;
 const URL_UPDATE_SALDO_MURNI = `${baseurl}`;
 
 const URL_GET_ALL_SALDO_BAHAN_STOCK = `${baseurl}saldo-bahan/stock-bahan`;
+const URL_GET_POTONG_POHON = `${baseurl}saldo-bahan/pohonpotong/`;
 
 const URL_GET_ALL_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-murni/get/bahan/all`;
 const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
@@ -242,6 +243,7 @@ const data = {
   URL_GET_HISTORY_KIRIM_MASAK,
   URL_GET_DATA_TERIMA_LEBUR,
   URL_GET_KIRIM_MASAK,
+  URL_GET_POTONG_POHON,
 };
 
 export default data;
