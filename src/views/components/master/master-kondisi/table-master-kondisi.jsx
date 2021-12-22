@@ -6,10 +6,12 @@ import "antd-button-color/dist/css/style.css";
 import MasterKondisi from "../../../../application/selectors/masterkondisi";
 import FormTambahMasterKondisi from "./form-master-kondisi";
 import {
+  deleteMasterKondisi,
   getMasterKondisiByID,
   setEditFormMasterKondisi,
 } from "../../../../application/actions/masterkondisi";
 import { destroy } from "redux-form";
+import Swal from "sweetalert2";
 
 const TableMasterKondisi = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,21 @@ const TableMasterKondisi = () => {
   const [search, setSearch] = useState(false);
 
   const visible = useSelector(MasterKondisi.getIsVisibleMasterKondisi);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterKondisi({ id: nama }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -45,8 +62,8 @@ const TableMasterKondisi = () => {
       children: [
         {
           title: "Kondisi",
-          dataIndex: "kondisi",
-          key: "kondisi",
+          dataIndex: "nama_kondisi",
+          key: "nama_kondisi",
           align: "center",
         },
         {
@@ -75,7 +92,9 @@ const TableMasterKondisi = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_kondisi, text.nama_kondisi);
+                    }}
                   >
                     DELETE
                   </Button>

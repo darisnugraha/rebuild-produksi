@@ -6,9 +6,13 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterMarketing from "../../../../application/selectors/mastermarketing";
+import {
+  addMasterMarketing,
+  editMasterMarketing,
+} from "../../../../application/actions/mastermarketing";
 
 const maptostate = (state) => {
-  if (state.mastermarketing.dataEdit !== undefined) {
+  if (state.mastermarketing.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_marketing: state.mastermarketing.dataEdit[0]?.kode_marketing,
@@ -29,12 +33,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterMarketing.getIsEditMasterMarketing);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterMarketing);
+    } else {
+      dispatch(addMasterMarketing);
+    }
+  };
 
   return (
     <Modal
@@ -44,7 +55,9 @@ let FormTambahMasterMarketing = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

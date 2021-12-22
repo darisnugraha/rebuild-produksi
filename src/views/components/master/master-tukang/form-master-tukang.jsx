@@ -6,13 +6,17 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterTukang from "../../../../application/selectors/mastertukang";
+import {
+  addMasterTukang,
+  editMasterTukang,
+} from "../../../../application/actions/mastertukang";
 
 const maptostate = (state) => {
-  if (state.mastertukang.dataEdit !== undefined) {
+  if (state.mastertukang.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_tukang: state.mastertukang.dataEdit[0]?.kode_staff,
-        nama_tukang: state.mastertukang.dataEdit[0]?.nama_staff,
+        kode_staff: state.mastertukang.dataEdit[0]?.kode_staff,
+        nama_staff: state.mastertukang.dataEdit[0]?.nama_staff,
         no_hp: state.mastertukang.dataEdit[0]?.no_hp,
         email: state.mastertukang.dataEdit[0]?.email,
       },
@@ -20,8 +24,8 @@ const maptostate = (state) => {
   } else {
     return {
       initialValues: {
-        kode_tukang: "",
-        nama_tukang: "",
+        kode_staff: "",
+        nama_staff: "",
         no_hp: "",
         email: "",
       },
@@ -29,12 +33,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterTukang.getIsEditMasterTukang);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterTukang);
+    } else {
+      dispatch(addMasterTukang);
+    }
+  };
 
   return (
     <Modal
@@ -44,13 +55,15 @@ let FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
-              name="kode_tukang"
+              name="kode_staff"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Tukang</span>}
               component={styleAntd.AInput}
@@ -61,7 +74,7 @@ let FormTambahMasterTukang = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_tukang"
+              name="nama_staff"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Tukang</span>}
               component={styleAntd.AInput}

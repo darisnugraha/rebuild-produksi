@@ -6,9 +6,13 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterBahan from "../../../../application/selectors/masterbahan";
+import {
+  addMasterBahan,
+  editMasterBahan,
+} from "../../../../application/actions/masterbahan";
 
 const maptostate = (state) => {
-  if (state.masterbahan.dataEdit !== undefined) {
+  if (state.masterbahan.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_bahan: state.masterbahan.dataEdit[0]?.kode_bahan,
@@ -27,12 +31,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterBahan = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterBahan.getIsEditMasterBahan);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterBahan);
+    } else {
+      dispatch(addMasterBahan);
+    }
+  };
 
   return (
     <Modal
@@ -42,13 +53,15 @@ let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} style={{ display: "none" }}>
             <Field
-              name="nama_bahan"
+              name="kode_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
               component={styleAntd.AInput}
@@ -58,12 +71,22 @@ let FormTambahMasterBahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="kadar"
+              name="nama_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Bahan</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Nama Bahan"
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="kadar"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kadar</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kadar"
             />
           </Col>
         </Row>

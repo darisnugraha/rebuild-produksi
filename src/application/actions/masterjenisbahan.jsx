@@ -13,6 +13,13 @@ export const GET_MASTER_JENIS_BAHAN_ID =
 export const SET_DATA_MASTER_JENIS_BAHAN_EDIT =
   "[masterjenisbahan] set master jenis bahan edit";
 
+export const ADD_MASTER_JENIS_BAHAN =
+  "[masterjenisbahan] add master jenis bahan";
+export const DELETE_MASTER_JENIS_BAHAN =
+  "[masterjenisbahan] delete master jenis bahan";
+export const EDIT_MASTER_JENIS_BAHAN =
+  "[masterjenisbahan] edit master jenis bahan";
+
 export const getAllMasterJenisBahan = {
   type: GET_ALL_MASTER_JENIS_BAHAN,
 };
@@ -38,3 +45,14 @@ export const setDataMasterJenisBahanEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_JENIS_BAHAN_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterJenisBahan = {
+  type: ADD_MASTER_JENIS_BAHAN,
+};
+export const deleteMasterJenisBahan = ({ id }) => ({
+  type: DELETE_MASTER_JENIS_BAHAN,
+  payload: { data: id },
+});
+export const editMasterJenisBahan = {
+  type: EDIT_MASTER_JENIS_BAHAN,
+};

@@ -5,11 +5,6 @@ import FormTambahMasterMarketing from "./form-master-marketing";
 const ModalMasterMarketing = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterMarketing = () => {
       </Button>
       <FormTambahMasterMarketing
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

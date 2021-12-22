@@ -6,9 +6,13 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterCuttingBatu from "../../../../application/selectors/mastercuttingbatu";
+import {
+  addMasterCuttingBatu,
+  editMasterCuttingBatu,
+} from "../../../../application/actions/mastercuttingbatu";
 
 const maptostate = (state) => {
-  if (state.mastercuttingbatu.dataEdit !== undefined) {
+  if (state.mastercuttingbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_cutting_batu:
@@ -27,12 +31,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterCuttingBatu = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterCuttingBatu = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterCuttingBatu.getIsEditMasterCuttingBatu);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterCuttingBatu);
+    } else {
+      dispatch(addMasterCuttingBatu);
+    }
+  };
 
   return (
     <Modal
@@ -42,7 +53,9 @@ let FormTambahMasterCuttingBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

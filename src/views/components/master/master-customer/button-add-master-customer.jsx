@@ -5,11 +5,6 @@ import FormTambahMasterCustomer from "./form-master-customer";
 const ModalMasterCustomer = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterCustomer = () => {
       </Button>
       <FormTambahMasterCustomer
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

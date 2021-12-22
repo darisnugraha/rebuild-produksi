@@ -5,7 +5,11 @@ import {
   GET_MASTER_JENIS_BATU_ID,
   setEditFormMasterJenisBatu,
   setDataMasterJenisBatuEdit,
+  ADD_MASTER_JENIS_BATU,
+  DELETE_MASTER_JENIS_BATU,
+  EDIT_MASTER_JENIS_BATU,
 } from "../actions/masterjenisbatu";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
 const masterJenisBatuGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -42,7 +46,68 @@ const masterJenisBatuGetDataID =
       );
     }
   };
+const addDataMasterJenisBatu =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_MASTER_JENIS_BATU) {
+      const data = getState().form.FormTambahMasterJenisBatu.values;
+      const response = await api.MasterJenisBatu.addMasterJenisBatu(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
 
-const data = [masterJenisBatuGetAll, masterJenisBatuGetDataID];
+const deleteDataMasterJenisBatu =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_MASTER_JENIS_BATU) {
+      const data = {
+        kode_jenis_batu: action.payload.data,
+      };
+      const response = await api.MasterJenisBatu.deleteMasterJenisBatu(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menghapus Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const editDataMasterJenisBatu =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === EDIT_MASTER_JENIS_BATU) {
+      const data = getState().form.FormTambahMasterJenisBatu.values;
+      const response = await api.MasterJenisBatu.editMasterJenisBatu(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Merubah Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [
+  masterJenisBatuGetAll,
+  masterJenisBatuGetDataID,
+  addDataMasterJenisBatu,
+  deleteDataMasterJenisBatu,
+  editDataMasterJenisBatu,
+];
 
 export default data;

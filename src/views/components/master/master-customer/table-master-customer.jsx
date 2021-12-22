@@ -7,9 +7,11 @@ import "antd-button-color/dist/css/style.css";
 import MasterCustomer from "../../../../application/selectors/mastercustomer";
 import FormTambahMasterCustomer from "./form-master-customer";
 import {
+  deleteMasterCustomer,
   getMasterCustomerByID,
   setEditFormMasterCustomer,
 } from "../../../../application/actions/mastercustomer";
+import Swal from "sweetalert2";
 
 const TableMasterCustomer = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,21 @@ const TableMasterCustomer = () => {
   const [dataSource, setDataSource] = useState(dataMasterCustomer);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterCustomer({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -131,7 +148,9 @@ const TableMasterCustomer = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_customer, text.nama_customer);
+                    }}
                   >
                     DELETE
                   </Button>

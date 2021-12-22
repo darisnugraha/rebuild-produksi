@@ -7,9 +7,11 @@ import "antd-button-color/dist/css/style.css";
 import MasterJenisBatu from "../../../../application/selectors/masterjenisbatu";
 import FormTambahMasterJenisBatu from "./form-master-jenis-batu";
 import {
+  deleteMasterJenisBatu,
   getMasterJenisBatuByID,
   setEditFormMasterJenisBatu,
 } from "../../../../application/actions/masterjenisbatu";
+import Swal from "sweetalert2";
 
 const TableMasterJenisBatu = () => {
   const dispatch = useDispatch();
@@ -22,6 +24,21 @@ const TableMasterJenisBatu = () => {
   const [dataSource, setDataSource] = useState(dataMasterJenisBatu);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterJenisBatu({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -85,7 +102,9 @@ const TableMasterJenisBatu = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_jenis_batu, text.nama_jenis_batu);
+                    }}
                   >
                     DELETE
                   </Button>

@@ -5,11 +5,6 @@ import FormTambahMasterTukang from "./form-master-tukang";
 const ModalMasterTukang = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterTukang = () => {
       </Button>
       <FormTambahMasterTukang
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

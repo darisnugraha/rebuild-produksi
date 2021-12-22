@@ -6,10 +6,12 @@ import "antd-button-color/dist/css/style.css";
 import MasterCuttingBatu from "../../../../application/selectors/mastercuttingbatu";
 import { destroy } from "redux-form";
 import {
+  deleteMasterCuttingBatu,
   getMasterCuttingBatuByID,
   setEditFormMasterCuttingBatu,
 } from "../../../../application/actions/mastercuttingbatu";
 import FormTambahMasterCuttingBatu from "./form-master-cutting-batu";
+import Swal from "sweetalert2";
 
 const TableMasterCuttingBatu = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,21 @@ const TableMasterCuttingBatu = () => {
   const [dataSource, setDataSource] = useState(dataMasterCuttingBatu);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterCuttingBatu({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -72,7 +89,9 @@ const TableMasterCuttingBatu = () => {
                     danger
                     onClick={() => {
                       dispatch(
-                        getMasterCuttingBatuByID({ dataID: text.kode_cutting_batu })
+                        getMasterCuttingBatuByID({
+                          dataID: text.kode_cutting_batu,
+                        })
                       );
                     }}
                   >
@@ -82,7 +101,9 @@ const TableMasterCuttingBatu = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_cutting_batu, text.nama_cutting_batu);
+                    }}
                   >
                     DELETE
                   </Button>

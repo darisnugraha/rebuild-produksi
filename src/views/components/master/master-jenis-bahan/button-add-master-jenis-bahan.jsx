@@ -5,11 +5,6 @@ import FormTambahMasterJenisBahan from "./form-master-jenis-bahan";
 const ModalMasterJenisBahan = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterJenisBahan = () => {
       </Button>
       <FormTambahMasterJenisBahan
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

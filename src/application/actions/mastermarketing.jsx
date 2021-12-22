@@ -13,6 +13,11 @@ export const GET_MASTER_MARKETING_ID =
 export const SET_DATA_MASTER_MARKETING_EDIT =
   "[mastermarketing] set master marketing edit";
 
+export const ADD_MASTER_MARKETING = "[mastermarketing] add master marketing";
+export const DELETE_MASTER_MARKETING =
+  "[mastermarketing] delete master marketing";
+export const EDIT_MASTER_MARKETING = "[mastermarketing] edit master marketing";
+
 export const getAllMasterMarketing = {
   type: GET_ALL_MASTER_MARKETING,
 };
@@ -38,3 +43,14 @@ export const setDataMasterMarketingEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_MARKETING_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterMarketing = {
+  type: ADD_MASTER_MARKETING,
+};
+export const deleteMasterMarketing = ({ id }) => ({
+  type: DELETE_MASTER_MARKETING,
+  payload: { data: id },
+});
+export const editMasterMarketing = {
+  type: EDIT_MASTER_MARKETING,
+};

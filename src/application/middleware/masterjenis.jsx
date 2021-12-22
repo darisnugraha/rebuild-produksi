@@ -56,7 +56,7 @@ const addDataMasterJenis =
         sweetalert.default.Success("Berhasil Menambahkan Data !");
         window.location.reload();
       } else {
-        sweetalert.default.Failed("Terjadi Kesalahan Saat Menambahkan Data !");
+        sweetalert.default.Failed(response.error.data.pesan);
       }
     }
   };
@@ -72,12 +72,11 @@ const deleteDataMasterJenis =
         kode_jenis: action.payload.data,
       };
       const response = await api.masterjenis.deleteMasterJenis(data);
-      log(response);
       if (response.value?.status === "berhasil") {
         sweetalert.default.Success("Berhasil Menghapus Data !");
         window.location.reload();
       } else {
-        sweetalert.default.Failed("Terjadi Kesalahan Saat Menghapus Data !");
+        sweetalert.default.Failed(response.error.data.pesan);
       }
     }
   };
@@ -95,7 +94,7 @@ const editDataMasterJenis =
         sweetalert.default.Success("Berhasil Merubah Data !");
         window.location.reload();
       } else {
-        sweetalert.default.Failed("Terjadi Kesalahan Saat Merubah Data !");
+        sweetalert.default.Failed(response.error.data.pesan);
       }
     }
   };

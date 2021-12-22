@@ -36,7 +36,6 @@ let FormTambahMasterJenis = ({ visible, onCreate, onCancel, onEdit }, prop) => {
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterJenis.getIsEditMasterJenis);
   const handleSubmit = () => {
-    console.log(isEdit);
     if (isEdit) {
       dispatch(editMasterJenis);
     } else {

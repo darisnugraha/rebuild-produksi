@@ -10,6 +10,10 @@ export const SET_EDIT_FORM_OFF = "[masterwarna] edit form off";
 export const GET_MASTER_WARNA_ID = "[masterwarna] get master warna id";
 export const SET_DATA_MASTER_WARNA_EDIT = "[masterwarna] set master warna edit";
 
+export const ADD_MASTER_WARNA = "[masterwarna] add master warna";
+export const DELETE_MASTER_WARNA = "[masterwarna] delete master warna";
+export const EDIT_MASTER_WARNA = "[masterwarna] edit master warna";
+
 export const getAllMasterWarna = {
   type: GET_ALL_MASTER_WARNA,
 };
@@ -35,3 +39,14 @@ export const setDataMasterWarnaEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_WARNA_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterWarna = {
+  type: ADD_MASTER_WARNA,
+};
+export const deleteMasterWarna = ({ id }) => ({
+  type: DELETE_MASTER_WARNA,
+  payload: { data: id },
+});
+export const editMasterWarna = {
+  type: EDIT_MASTER_WARNA,
+};

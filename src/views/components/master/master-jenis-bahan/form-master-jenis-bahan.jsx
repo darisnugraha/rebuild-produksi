@@ -7,11 +7,15 @@ import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterJenisBahan from "../../../../application/selectors/masterjenisbahan";
 import MasterWarna from "../../../../application/selectors/masterwarna";
+import {
+  addMasterJenisBahan,
+  editMasterJenisBahan,
+} from "../../../../application/actions/masterjenisbahan";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterjenisbahan.dataEdit !== undefined) {
+  if (state.masterjenisbahan.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_jenis_bahan: state.masterjenisbahan.dataEdit[0]?.kode_jenis_bahan,
@@ -32,13 +36,20 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterJenisBahan = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataMasterWarna = useSelector(MasterWarna.getAllMasterWarna);
   const isEdit = useSelector(MasterJenisBahan.getIsEditMasterJenisBahan);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterJenisBahan);
+    } else {
+      dispatch(addMasterJenisBahan);
+    }
+  };
 
   return (
     <Modal
@@ -48,7 +59,9 @@ let FormTambahMasterJenisBahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

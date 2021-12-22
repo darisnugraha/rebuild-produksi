@@ -5,11 +5,6 @@ import FormTambahMasterCuttingBatu from "./form-master-cutting-batu";
 const ModalMasterCuttingBatu = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterCuttingBatu = () => {
       </Button>
       <FormTambahMasterCuttingBatu
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

@@ -11,6 +11,10 @@ export const GET_MASTER_UKURAN_ID = "[masterukuran] get master ukuran id";
 export const SET_DATA_MASTER_UKURAN_EDIT =
   "[masterukuran] set master ukuran edit";
 
+export const ADD_MASTER_UKURAN = "[masterukuran] add master ukuran";
+export const DELETE_MASTER_UKURAN = "[masterukuran] delete master ukuran";
+export const EDIT_MASTER_UKURAN = "[masterukuran] edit master ukuran";
+
 export const getAllMasterUkuran = {
   type: GET_ALL_MASTER_UKURAN,
 };
@@ -36,3 +40,14 @@ export const setDataMasterUkuranEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_UKURAN_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterUkuran = {
+  type: ADD_MASTER_UKURAN,
+};
+export const deleteMasterUkuran = ({ id }) => ({
+  type: DELETE_MASTER_UKURAN,
+  payload: { data: id },
+});
+export const editMasterUkuran = {
+  type: EDIT_MASTER_UKURAN,
+};

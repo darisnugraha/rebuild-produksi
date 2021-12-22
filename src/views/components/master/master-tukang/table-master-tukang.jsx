@@ -7,9 +7,11 @@ import "antd-button-color/dist/css/style.css";
 import MasterTukang from "../../../../application/selectors/mastertukang";
 import FormTambahMasterTukang from "./form-master-tukang";
 import {
+  deleteMasterTukang,
   getMasterTukangByID,
   setEditFormMasterTukang,
 } from "../../../../application/actions/mastertukang";
+import Swal from "sweetalert2";
 
 const TableMasterTukang = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,21 @@ const TableMasterTukang = () => {
   const [dataSource, setDataSource] = useState(dataMasterTukang);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterTukang({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -85,7 +102,7 @@ const TableMasterTukang = () => {
                     onClick={() => {
                       dispatch(
                         getMasterTukangByID({
-                          dataID: text.kode_tukang,
+                          dataID: text.kode_staff,
                         })
                       );
                     }}
@@ -96,7 +113,9 @@ const TableMasterTukang = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_staff, text.nama_staff);
+                    }}
                   >
                     DELETE
                   </Button>

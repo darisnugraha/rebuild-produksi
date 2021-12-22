@@ -5,11 +5,6 @@ import FormTambahMasterKondisi from "./form-master-kondisi";
 const ModalMasterKondisi = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values); 
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterKondisi = () => {
       </Button>
       <FormTambahMasterKondisi
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

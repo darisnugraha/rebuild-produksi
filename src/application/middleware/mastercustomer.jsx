@@ -5,7 +5,11 @@ import {
   GET_MASTER_CUSTOMER_ID,
   setEditFormMasterCustomer,
   setDataMasterCustomerEdit,
+  ADD_MASTER_CUSTOMER,
+  DELETE_MASTER_CUSTOMER,
+  EDIT_MASTER_CUSTOMER,
 } from "../actions/mastercustomer";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
 const masteCustomerGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -43,6 +47,68 @@ const masteCustomerGetDataID =
     }
   };
 
-const data = [masteCustomerGetAll, masteCustomerGetDataID];
+const addDataMasterCustomer =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_MASTER_CUSTOMER) {
+      const data = getState().form.FormTambahMasterCustomer.values;
+      const response = await api.MasterCustomer.addMasterCustomer(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const deleteDataMasterCustomer =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_MASTER_CUSTOMER) {
+      const data = {
+        kode_customer: action.payload.data,
+      };
+      const response = await api.MasterCustomer.deleteMasterCustomer(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menghapus Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const editDataMasterCustomer =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === EDIT_MASTER_CUSTOMER) {
+      const data = getState().form.FormTambahMasterCustomer.values;
+      const response = await api.MasterCustomer.editMasterCustomer(data);
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Merubah Data !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [
+  masteCustomerGetAll,
+  masteCustomerGetDataID,
+  addDataMasterCustomer,
+  deleteDataMasterCustomer,
+  editDataMasterCustomer,
+];
 
 export default data;

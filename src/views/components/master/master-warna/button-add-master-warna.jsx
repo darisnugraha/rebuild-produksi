@@ -5,11 +5,6 @@ import FormTambahMasterWarna from "./form-master-warna";
 const ModalMasterWarna = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterWarna = () => {
       </Button>
       <FormTambahMasterWarna
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

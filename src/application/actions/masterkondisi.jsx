@@ -11,6 +11,10 @@ export const GET_MASTER_KONDISI_ID = "[masterkondisi] get master kondisi id";
 export const SET_DATA_MASTER_KONDISI_EDIT =
   "[masterkondisi] set master kondisi edit";
 
+export const ADD_MASTER_KONDISI = "[masterkondisi] add master kondisi";
+export const DELETE_MASTER_KONDISI = "[masterkondisi] delete master kondisi";
+export const EDIT_MASTER_KONDISI = "[masterkondisi] edit master kondisi";
+
 export const getAllMasterKondisi = {
   type: GET_ALL_MASTER_KONDISI,
 };
@@ -36,3 +40,14 @@ export const setDataMasterKondisiEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_KONDISI_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterKondisi = {
+  type: ADD_MASTER_KONDISI,
+};
+export const deleteMasterKondisi = ({ id }) => ({
+  type: DELETE_MASTER_KONDISI,
+  payload: { data: id },
+});
+export const editMasterKondisi = {
+  type: EDIT_MASTER_KONDISI,
+};

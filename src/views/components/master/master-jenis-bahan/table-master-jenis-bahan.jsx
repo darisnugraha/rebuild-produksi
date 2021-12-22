@@ -6,10 +6,12 @@ import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterJenisBahan from "../../../../application/selectors/masterjenisbahan";
 import {
+  deleteMasterJenisBahan,
   getMasterJenisBahanByID,
   setEditFormMasterJenisBahan,
 } from "../../../../application/actions/masterjenisbahan";
 import FormTambahMasterJenisBahan from "./form-master-jenis-bahan";
+import Swal from "sweetalert2";
 
 const TableMasterJenisBahan = () => {
   const dataMasterJenisBahan = useSelector(
@@ -21,6 +23,21 @@ const TableMasterJenisBahan = () => {
   const [dataSource, setDataSource] = useState(dataMasterJenisBahan);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterJenisBahan({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -86,7 +103,9 @@ const TableMasterJenisBahan = () => {
                     danger
                     onClick={() => {
                       dispatch(
-                        getMasterJenisBahanByID({ dataID: text.kode_jenis_bahan })
+                        getMasterJenisBahanByID({
+                          dataID: text.kode_jenis_bahan,
+                        })
                       );
                     }}
                   >
@@ -96,7 +115,9 @@ const TableMasterJenisBahan = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_jenis_bahan, text.nama_jenis_bahan);
+                    }}
                   >
                     DELETE
                   </Button>

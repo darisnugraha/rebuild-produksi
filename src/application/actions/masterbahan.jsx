@@ -10,6 +10,10 @@ export const SET_EDIT_FORM_OFF = "[masterbahan] edit form off";
 export const GET_MASTER_BAHAN_ID = "[masterbahan] get master bahan id";
 export const SET_DATA_MASTER_BAHAN_EDIT = "[masterbahan] set master bahan edit";
 
+export const ADD_MASTER_BAHAN = "[masterbahan] add master bahan";
+export const DELETE_MASTER_BAHAN = "[masterbahan] delete master bahan";
+export const EDIT_MASTER_BAHAN = "[masterbahan] edit master bahan";
+
 export const getAllMasterBahan = {
   type: GET_ALL_MASTER_BAHAN,
 };
@@ -35,3 +39,14 @@ export const setDataMasterBahanEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_BAHAN_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterBahan = {
+  type: ADD_MASTER_BAHAN,
+};
+export const deleteMasterBahan = ({ id }) => ({
+  type: DELETE_MASTER_BAHAN,
+  payload: { data: id },
+});
+export const editMasterBahan = {
+  type: EDIT_MASTER_BAHAN,
+};

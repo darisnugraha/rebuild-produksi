@@ -6,10 +6,12 @@ import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterMarketing from "../../../../application/selectors/mastermarketing";
 import {
+  deleteMasterMarketing,
   getMasterMarketingByID,
   setEditFormMasterMarketing,
 } from "../../../../application/actions/mastermarketing";
 import FormTambahMasterMarketing from "./form-master-marketing";
+import Swal from "sweetalert2";
 
 const TableMasterMarketing = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,21 @@ const TableMasterMarketing = () => {
   const [dataSource, setDataSource] = useState(dataMasterMarketing);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterMarketing({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -98,7 +115,9 @@ const TableMasterMarketing = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_marketing, text.nama_marketing);
+                    }}
                   >
                     DELETE
                   </Button>

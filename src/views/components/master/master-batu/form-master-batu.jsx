@@ -8,16 +8,20 @@ import ui from "../../../../application/selectors/ui";
 import MasterBatu from "../../../../application/selectors/masterbatu";
 import MasterJenisBatu from "../../../../application/selectors/masterjenisbatu";
 import MasterCuttingBatu from "../../../../application/selectors/mastercuttingbatu";
+import {
+  addMasterBatu,
+  editMasterBatu,
+} from "../../../../application/actions/masterbatu";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterbatu.dataEdit !== undefined) {
+  if (state.masterbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_batu: state.masterbatu.dataEdit[0]?.kode_batu,
         nama_batu: state.masterbatu.dataEdit[0]?.nama_batu,
-        ukuran_batu: state.masterbatu.dataEdit[0]?.ukuran,
+        ukuran: state.masterbatu.dataEdit[0]?.ukuran,
         kode_jenis_batu: state.masterbatu.dataEdit[0]?.kode_jenis_batu,
         kode_cutting_batu: state.masterbatu.dataEdit[0]?.kode_cutting_batu,
         berat_batu: state.masterbatu.dataEdit[0]?.berat_batu,
@@ -28,7 +32,7 @@ const maptostate = (state) => {
       initialValues: {
         kode_batu: "",
         nama_batu: "",
-        ukuran_batu: "",
+        ukuran: "",
         kode_jenis_batu: state.masterjenisbatu.feedback[0]?.kode_jenis_batu,
         kode_cutting_batu:
           state.mastercuttingbatu.feedback[0]?.kode_cutting_batu,
@@ -38,7 +42,7 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -50,6 +54,13 @@ let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
   const dataMasterCuttingBatu = useSelector(
     MasterCuttingBatu.getAllMasterCuttingBatu
   );
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterBatu);
+    } else {
+      dispatch(addMasterBatu);
+    }
+  };
 
   return (
     <Modal
@@ -59,7 +70,9 @@ let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -86,7 +99,7 @@ let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="ukuran_batu"
+              name="ukuran"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Ukuran</span>}
               component={styleAntd.AInput}
@@ -105,7 +118,10 @@ let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataMasterJenisBatu.map((list) => {
                 return (
-                  <Option value={list.kode_jenis_batu} key={list.kode_jenis_batu}>
+                  <Option
+                    value={list.kode_jenis_batu}
+                    key={list.kode_jenis_batu}
+                  >
                     <span style={{ fontSize: "13px" }}>
                       {list.nama_jenis_batu}
                     </span>
@@ -128,7 +144,10 @@ let FormTambahMasterBatu = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataMasterCuttingBatu.map((list) => {
                 return (
-                  <Option value={list.kode_cutting_batu} key={list.kode_cutting_batu}>
+                  <Option
+                    value={list.kode_cutting_batu}
+                    key={list.kode_cutting_batu}
+                  >
                     <span style={{ fontSize: "13px" }}>
                       {list.nama_cutting_batu}
                     </span>

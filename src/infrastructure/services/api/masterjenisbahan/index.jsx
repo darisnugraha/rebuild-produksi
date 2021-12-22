@@ -6,22 +6,26 @@ import word from "../../../shared/static";
 
 const MasterJenisBahan = {
   getAllMasterJenisBahan: async () => {
-	const response = await get({url : word.URL_GET_ALL_MASTER_JENIS_BAHAN});
-	return response;
+    const response = await get({ url: word.URL_GET_ALL_MASTER_JENIS_BAHAN });
+    return response;
   },
-  addMasterJenisBahan: async (data) => {
-	const response = await post.AxiosPost(word.URL_ADD_MASTER_JENIS_BAHAN, data);
-	return response;
+  addMasterJenisBahan: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_ADD_MASTER_JENIS_BAHAN,
+      data: dataKirim,
+    });
+    return response;
   },
   deleteMasterJenisBahan: async (data) => {
-	const response = await deleteAxios(
-	  word.URL_DELETE_MASTER_JENIS_BAHAN + data
-	);
-	return response;
+    const response = await deleteAxios(
+      word.URL_DELETE_MASTER_JENIS_BAHAN,
+      data
+    );
+    return response;
   },
-  editMasterJenisBahan: async (url, data) => {
-	const response = await put(word.URL_UPDATE_MASTER_JENIS_BAHAN + url, data);
-	return response;
+  editMasterJenisBahan: async (data) => {
+    const response = await put(word.URL_UPDATE_MASTER_JENIS_BAHAN, data);
+    return response;
   },
 };
 

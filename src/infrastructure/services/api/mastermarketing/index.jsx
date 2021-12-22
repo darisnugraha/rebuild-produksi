@@ -6,22 +6,23 @@ import word from "../../../shared/static";
 
 const MasterMarketing = {
   getAllMasterMarketing: async () => {
-	const response = await get({url : word.URL_GET_ALL_MASTER_MARKETING});
-	return response;
+    const response = await get({ url: word.URL_GET_ALL_MASTER_MARKETING });
+    return response;
   },
-  addMasterMarketing: async (data) => {
-	const response = await post.AxiosPost(word.URL_ADD_MASTER_MARKETING, data);
-	return response;
+  addMasterMarketing: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_ADD_MASTER_MARKETING,
+      data: dataKirim,
+    });
+    return response;
   },
   deleteMasterMarketing: async (data) => {
-	const response = await deleteAxios(
-	  word.URL_DELETE_MASTER_MARKETING + data
-	);
-	return response;
+    const response = await deleteAxios(word.URL_DELETE_MASTER_MARKETING, data);
+    return response;
   },
-  editMasterMarketing: async (url, data) => {
-	const response = await put(word.URL_UPDATE_MASTER_MARKETING + url, data);
-	return response;
+  editMasterMarketing: async (data) => {
+    const response = await put(word.URL_UPDATE_MASTER_MARKETING, data);
+    return response;
   },
 };
 

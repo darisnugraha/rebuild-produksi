@@ -13,6 +13,13 @@ export const GET_MASTER_CUTTING_BATU_ID =
 export const SET_DATA_MASTER_CUTTING_BATU_EDIT =
   "[mastercuttingbatu] set master cutting batu edit";
 
+export const ADD_MASTER_CUTTING_BATU =
+  "[mastercuttingbatu] add master cutting batu";
+export const DELETE_MASTER_CUTTING_BATU =
+  "[mastercuttingbatu] delete master cutting batu";
+export const EDIT_MASTER_CUTTING_BATU =
+  "[mastercuttingbatu] edit master cutting batu";
+
 export const getAllMasterCuttingBatu = {
   type: GET_ALL_MASTER_CUTTING_BATU,
 };
@@ -38,3 +45,14 @@ export const setDataMasterCuttingBatuEdit = ({ dataEdit }) => ({
   type: SET_DATA_MASTER_CUTTING_BATU_EDIT,
   payload: { data: dataEdit },
 });
+
+export const addMasterCuttingBatu = {
+  type: ADD_MASTER_CUTTING_BATU,
+};
+export const deleteMasterCuttingBatu = ({ id }) => ({
+  type: DELETE_MASTER_CUTTING_BATU,
+  payload: { data: id },
+});
+export const editMasterCuttingBatu = {
+  type: EDIT_MASTER_CUTTING_BATU,
+};

@@ -5,11 +5,13 @@ import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import MasterBahan from "../../../../application/selectors/masterbahan";
 import {
+  deleteMasterBahan,
   getMasterBahanByID,
   setEditFormMasterBahan,
 } from "../../../../application/actions/masterbahan";
 import FormTambahMasterBahan from "./form-master-bahan";
 import { destroy } from "redux-form";
+import Swal from "sweetalert2";
 
 const TableMasterBahan = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,21 @@ const TableMasterBahan = () => {
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
   const visible = useSelector(MasterBahan.getIsVisibleMasterBahan);
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterBahan({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -82,7 +99,9 @@ const TableMasterBahan = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.nama_bahan, text.nama_bahan);
+                    }}
                   >
                     DELETE
                   </Button>

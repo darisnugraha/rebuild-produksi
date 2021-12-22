@@ -7,7 +7,12 @@ import "antd-button-color/dist/css/style.css";
 import MasterWarna from "../../../../application/selectors/masterwarna";
 import FormTambahMasterWarna from "./form-master-warna";
 import { destroy } from "redux-form";
-import { getMasterWarnaByID, setEditFormMasterWarna } from "../../../../application/actions/masterwarna";
+import {
+  deleteMasterWarna,
+  getMasterWarnaByID,
+  setEditFormMasterWarna,
+} from "../../../../application/actions/masterwarna";
+import Swal from "sweetalert2";
 
 const TableMasterWarna = () => {
   const dispatch = useDispatch();
@@ -17,6 +22,22 @@ const TableMasterWarna = () => {
   const [dataSource, setDataSource] = useState(dataMasterWarna);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+
+  const onDelete = (kode, nama) => {
+    Swal.fire({
+      title: nama,
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMasterWarna({ id: kode }));
+      }
+    });
+  };
 
   const SearchBar = (
     <Input
@@ -76,7 +97,9 @@ const TableMasterWarna = () => {
                     type="primary"
                     htmltype="button"
                     danger
-                    // onClick={}
+                    onClick={() => {
+                      onDelete(text.kode_warna, text.nama_warna);
+                    }}
                   >
                     DELETE
                   </Button>

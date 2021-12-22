@@ -6,9 +6,13 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterJenisBatu from "../../../../application/selectors/masterjenisbatu";
+import {
+  addMasterJenisBatu,
+  editMasterJenisBatu,
+} from "../../../../application/actions/masterjenisbatu";
 
 const maptostate = (state) => {
-  if (state.masterjenisbatu.dataEdit !== undefined) {
+  if (state.masterjenisbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_jenis_batu: state.masterjenisbatu.dataEdit[0]?.kode_jenis_batu,
@@ -25,12 +29,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterJenisBatu = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterJenisBatu = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterJenisBatu.getIsEditMasterJenisBatu);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterJenisBatu);
+    } else {
+      dispatch(addMasterJenisBatu);
+    }
+  };
 
   return (
     <Modal
@@ -40,7 +51,9 @@ let FormTambahMasterJenisBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

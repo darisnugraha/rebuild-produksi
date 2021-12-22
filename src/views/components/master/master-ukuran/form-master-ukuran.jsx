@@ -6,9 +6,13 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterUkuran from "../../../../application/selectors/masterukuran";
+import {
+  addMasterUkuran,
+  editMasterUkuran,
+} from "../../../../application/actions/masterukuran";
 
 const maptostate = (state) => {
-  if (state.masterukuran.dataEdit !== undefined) {
+  if (state.masterukuran.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_ukuran: state.masterukuran.dataEdit[0]?.kode_ukuran,
@@ -31,6 +35,13 @@ let FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterUkuran.getIsEditMasterUkuran);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterUkuran);
+    } else {
+      dispatch(addMasterUkuran);
+    }
+  };
 
   return (
     <Modal
@@ -40,7 +51,9 @@ let FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

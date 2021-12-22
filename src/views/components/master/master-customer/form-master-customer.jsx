@@ -6,11 +6,15 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterCustomer from "../../../../application/selectors/mastercustomer";
+import {
+  addMasterCustomer,
+  editMasterCustomer,
+} from "../../../../application/actions/mastercustomer";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.mastercustomer.dataEdit !== undefined) {
+  if (state.mastercustomer.dataEdit.length !== 0) {
     return {
       initialValues: {
         kode_customer: state.mastercustomer.dataEdit[0]?.kode_customer,
@@ -39,12 +43,19 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterCustomer.getIsEditMasterCustomer);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterCustomer);
+    } else {
+      dispatch(addMasterCustomer);
+    }
+  };
 
   return (
     <Modal
@@ -54,7 +65,9 @@ let FormTambahMasterCustomer = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

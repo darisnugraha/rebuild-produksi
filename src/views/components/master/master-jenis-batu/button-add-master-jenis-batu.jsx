@@ -4,12 +4,7 @@ import FormTambahMasterJenisBatu from "./form-master-jenis-batu";
 
 const ModalMasterJenisBatu = () => {
   const [visible, setVisible] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
+  
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalMasterJenisBatu = () => {
       </Button>
       <FormTambahMasterJenisBatu
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

@@ -5,7 +5,11 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import MasterWarna from "../../../../application/selectors/masterwarna"
+import MasterWarna from "../../../../application/selectors/masterwarna";
+import {
+  addMasterWarna,
+  editMasterWarna,
+} from "../../../../application/actions/masterwarna";
 
 const maptostate = (state) => {
   if (state.masterwarna.dataEdit !== undefined) {
@@ -25,13 +29,20 @@ const maptostate = (state) => {
   }
 };
 
-let FormTambahMasterWarna = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahMasterWarna = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isEdit = useSelector(MasterWarna.getIsEditMasterWarna);
   const dataEdit = useSelector(MasterWarna.getDataEditMasterWarna);
+  const handleSubmit = () => {
+    if (isEdit) {
+      dispatch(editMasterWarna);
+    } else {
+      dispatch(addMasterWarna);
+    }
+  };
 
   return (
     <Modal
@@ -41,7 +52,9 @@ let FormTambahMasterWarna = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form
         layout="vertical"
