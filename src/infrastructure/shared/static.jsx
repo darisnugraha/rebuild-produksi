@@ -85,9 +85,7 @@ const URL_GET_ALL_SALDO_BAHAN_STOCK = `${baseurl}saldo-bahan/stock-bahan`;
 const URL_GET_POTONG_POHON = `${baseurl}saldo-bahan/pohonpotong/`;
 
 const URL_GET_ALL_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-murni/get/bahan/all`;
-const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
-const URL_DELETE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
-const URL_UPDATE_PEMBUATAN_JENIS_BAHAN = `${baseurl}`;
+const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-bahan`;
 
 const URL_GET_ALL_DIVISI = `${baseurl}divisi/all`;
 
@@ -121,6 +119,12 @@ const URL_GET_TERIMA_LEBUR = `${baseurl}lebur/get/lebur-by-no-kirim/`;
 const URL_GET_HISTORY_KIRIM_MASAK = `${baseurl}masak-bahan/get/history-kirim-masak`;
 const URL_GET_DATA_TERIMA_LEBUR = `${baseurl}masak-bahan/get/lebur-by-no-terima/`;
 const URL_GET_KIRIM_MASAK = `${baseurl}masak-bahan/get/by-no-kirim/`;
+
+const URL_ADD_MUTASI_BATU = `${baseurl}mutasi-batu`;
+const URL_GET_HISTORY_KIRIM_BATU = `${baseurl}adm-mutasi-batu/get/history-kirim-batu/`;
+const URL_ADD_KIRIM_BATU_PRODUKSI = `${baseurl}mutasi-batu/kirim-produksi`;
+
+const URL_ADD_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni`;
 
 const data = {
   URL_LOGIN,
@@ -209,8 +213,6 @@ const data = {
 
   URL_GET_ALL_PEMBUATAN_JENIS_BAHAN,
   URL_ADD_PEMBUATAN_JENIS_BAHAN,
-  URL_DELETE_PEMBUATAN_JENIS_BAHAN,
-  URL_UPDATE_PEMBUATAN_JENIS_BAHAN,
 
   URL_GET_ALL_DIVISI,
   URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN,
@@ -244,6 +246,13 @@ const data = {
   URL_GET_DATA_TERIMA_LEBUR,
   URL_GET_KIRIM_MASAK,
   URL_GET_POTONG_POHON,
+
+  URL_ADD_MUTASI_BATU,
+
+  URL_GET_HISTORY_KIRIM_BATU,
+  URL_ADD_KIRIM_BATU_PRODUKSI,
+
+  URL_ADD_TAMBAH_SALDO_BAHAN,
 };
 
 export default data;

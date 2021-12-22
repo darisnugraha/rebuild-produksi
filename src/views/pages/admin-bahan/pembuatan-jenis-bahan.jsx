@@ -12,7 +12,10 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
 import FormPembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jenis-bahan/button-add-pembuatan-jenis-bahan";
 import TablePembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jenis-bahan/table-pembuatan-jenis-bahan";
-import { getAllSaldoBahanStock } from "../../../application/actions/pembuatanjenisbahan.jsx";
+import {
+  addPembuatanJenisBahan,
+  getAllSaldoBahanStock,
+} from "../../../application/actions/pembuatanjenisbahan.jsx";
 
 const PembuatanJenisBahan = () => {
   const dispatch = useDispatch();
@@ -64,7 +67,14 @@ const PembuatanJenisBahan = () => {
           </Card>
         </PanelBody>
         <PanelFooter>
-          <Button type="primary">Simpan</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              dispatch(addPembuatanJenisBahan);
+            }}
+          >
+            Simpan
+          </Button>
         </PanelFooter>
       </Panel>
     </div>

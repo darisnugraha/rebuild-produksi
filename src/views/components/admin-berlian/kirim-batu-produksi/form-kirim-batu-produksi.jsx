@@ -21,7 +21,8 @@ const maptostate = (state) => {
         initialValues: {
           no_job_order: state.kirimbatuproduksi.feedback[0]?.no_job_order,
           kode_barang: state.kirimbatuproduksi.feedback[0]?.kode_barang,
-          kode_jenis_bahan: state.kirimbatuproduksi.feedback[0]?.kode_barang,
+          kode_jenis_bahan:
+            state.kirimbatuproduksi.feedback[0]?.kode_jenis_bahan,
           kode_batu: state.kirimbatuproduksi.dataBatu[0]?.kode_batu,
           berat_pcs: state.kirimbatuproduksi.dataBatu[0]?.berat_batu,
           jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
@@ -33,7 +34,8 @@ const maptostate = (state) => {
         initialValues: {
           no_job_order: state.kirimbatuproduksi.feedback[0]?.no_job_order,
           kode_barang: state.kirimbatuproduksi.feedback[0]?.kode_barang,
-          kode_jenis_bahan: state.kirimbatuproduksi.feedback[0]?.kode_barang,
+          kode_jenis_bahan:
+            state.kirimbatuproduksi.feedback[0]?.kode_jenis_bahan,
           kode_batu: state.masterbatu.feedback[0]?.kode_batu,
           berat_pcs: state.masterbatu.feedback[0]?.berat_batu,
           jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,

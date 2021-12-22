@@ -6,7 +6,10 @@ import {
   setTambahSaldoMurniForm,
   setDataSaldoMurniID,
   setAmbilSaldoMurniForm,
+  ADD_TAMBAH_SALDO_BAHAN,
+  ADD_AMBIL_SALDO_BAHAN,
 } from "../actions/saldomurni";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
 const saldoMurniGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -49,6 +52,61 @@ const saldomurniGetDataID =
     }
   };
 
-const data = [saldoMurniGetAll, saldomurniGetDataID];
+const addTambahSaldoBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TAMBAH_SALDO_BAHAN) {
+      const data = getState().form.FormTambahAmbilSaldoMurni.values;
+      data.type_trx = "TAMBAH";
+      data.berat = parseFloat(data.berat);
+      let data_arr = [];
+      data_arr.push(data);
+      const onSend = { data: data_arr };
+      const response = await api.TambahSaldoBahan.addTambahAmbilSaldoBahan(
+        onSend
+      );
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Menambahkan Saldo Bahan !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const addAmbilSaldoBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_AMBIL_SALDO_BAHAN) {
+      const data = getState().form.FormTambahAmbilSaldoMurni.values;
+      data.type_trx = "AMBIL";
+      data.berat = parseFloat(data.berat);
+      let data_arr = [];
+      data_arr.push(data);
+      const onSend = { data: data_arr };
+      const response = await api.TambahSaldoBahan.addTambahAmbilSaldoBahan(
+        onSend
+      );
+      if (response.value?.status === "berhasil") {
+        sweetalert.default.Success("Berhasil Mengambil Saldo Bahan !");
+        window.location.reload();
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [
+  saldoMurniGetAll,
+  saldomurniGetDataID,
+  addTambahSaldoBahan,
+  addAmbilSaldoBahan,
+];
 
 export default data;

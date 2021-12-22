@@ -7,40 +7,67 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
-import { countBeratTambahAmbilBatu } from "../../../../application/actions/tambahambilbatu";
+import {
+  addAmbilBatu,
+  addTambahBatu,
+  countBeratTambahAmbilBatu,
+} from "../../../../application/actions/tambahambilbatu";
 
 const maptostate = (state) => {
-  if (state.tambahambilbatu.dataBatu !== undefined) {
-    return {
-      initialValues: {
-        kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
-        nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
-        berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
-        jumlah_tambah_ambil: state.tambahambilbatu.jumlah,
-        berat_tambah_ambil: state.tambahambilbatu.beratTambahAmbilBatu,
-        keterangan: "",
-      },
-    };
+  if (state.tambahambilbatu.dataBatu.length !== 0) {
+    if (state.tambahambilbatu.isAdd) {
+      return {
+        initialValues: {
+          kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
+          nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
+          berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          jumlah: state.tambahambilbatu.jumlah,
+          berat: state.tambahambilbatu.beratTambahAmbilBatu,
+          keterangan: "",
+          kategori: "Tambah",
+        },
+      };
+    } else {
+      return {
+        initialValues: {
+          kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
+          nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
+          berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          jumlah: state.tambahambilbatu.jumlah,
+          berat: state.tambahambilbatu.beratTambahAmbilBatu,
+          keterangan: "",
+          kategori: "Ambil",
+        },
+      };
+    }
   } else {
     return {
       initialValues: {
         kode_batu: "",
         nama_batu: "",
         berat_batu: "",
-        jumlah_tambah_ambil: state.tambahambilbatu.jumlah,
-        berat_tambah_ambil: state.tambahambilbatu.beratTambahAmbilBatu,
+        jumlah: state.tambahambilbatu.jumlah,
+        berat: state.tambahambilbatu.beratTambahAmbilBatu,
         keterangan: "",
+        kategori: "",
       },
     };
   }
 };
 
-let FormTambahAmbilBatu = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isAdd = useSelector(TambahAmbilBatu.getIsAddTambahAmbilBatu);
+  const handleSubmit = () => {
+    if (isAdd) {
+      dispatch(addTambahBatu);
+    } else {
+      dispatch(addAmbilBatu);
+    }
+  };
 
   return (
     <Modal
@@ -50,7 +77,9 @@ let FormTambahAmbilBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -89,7 +118,7 @@ let FormTambahAmbilBatu = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="jumlah_tambah_ambil"
+              name="jumlah"
               type="number"
               label={
                 <span style={{ fontSize: "13px" }}>
@@ -109,7 +138,7 @@ let FormTambahAmbilBatu = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_tambah_ambil"
+              name="berat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat</span>}
               component={styleAntd.AInput}
@@ -126,6 +155,16 @@ let FormTambahAmbilBatu = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Keterangan"
+            />
+          </Col>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="kategori"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kategori</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kategori"
             />
           </Col>
         </Row>

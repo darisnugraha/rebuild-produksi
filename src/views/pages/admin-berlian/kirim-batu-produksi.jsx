@@ -12,9 +12,13 @@ import { getAllMasterBatu } from "../../../application/actions/masterbatu";
 import FormKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/button-add-kirim-batu-produksi";
 import TableKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-kirim-batu-produksi";
 import TableHistoryKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-history-kirim-batu-produksi";
+import { addDataKirimBatuPost } from "../../../application/actions/kirimbatuproduksi.jsx";
 
 const KirimBatuProduksi = () => {
   const dispatch = useDispatch();
+  const dataKirim =
+    JSON.parse(localStorage.getItem("data_kirim_batu_produksi")) || [];
+  console.log(dataKirim);
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterBatu);
@@ -61,13 +65,24 @@ const KirimBatuProduksi = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      disabled={dataKirim.length === 0 ? true : false}
+                      onClick={() => {
+                        dispatch(addDataKirimBatuPost);
+                      }}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button
                       type="danger"
                       onClick={() => {
                         localStorage.removeItem("data_kirim_batu_produksi");
+                        localStorage.removeItem(
+                          "data_history_kirim_batu_produksi"
+                        );
                         window.location.reload();
                       }}
                     >

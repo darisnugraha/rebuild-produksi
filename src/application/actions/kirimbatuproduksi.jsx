@@ -24,6 +24,14 @@ export const SET_DATA_KIRIM_BATU_SUCCESS =
 export const SET_DATA_KIRIM_BATU_FAILED =
   "[kirimbatuproduksi] set data kirim batu produksi failed";
 
+export const SET_DATA_HISTORY_KIRIM_BATU_SUCCESS =
+  "[kirimbatuproduksi] set data history kirim batu produksi success";
+export const SET_DATA_HISTORY_KIRIM_BATU_FAILED =
+  "[kirimbatuproduksi] set data history kirim batu produksi failed";
+
+export const ADD_DATA_KIRIM_BATU =
+  "[kirimbatuproduksi] add data kirim batu post";
+
 export const getJOKirimBatuByID = ({ noJO }) => ({
   type: GET_DETAIL_JO_BY_ID,
   payload: { data: noJO },
@@ -71,3 +79,16 @@ export const setDataKirimBatuProduksiFailed = ({ error }) => ({
   type: SET_DATA_KIRIM_BATU_FAILED,
   payload: { data: error },
 });
+
+export const setDataHistoryKirimBatuProduksiSuccess = ({ feedback }) => ({
+  type: SET_DATA_HISTORY_KIRIM_BATU_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataHistoryKirimBatuProduksiFailed = ({ error }) => ({
+  type: SET_DATA_HISTORY_KIRIM_BATU_FAILED,
+  payload: { data: error },
+});
+
+export const addDataKirimBatuPost = {
+  type: ADD_DATA_KIRIM_BATU,
+};

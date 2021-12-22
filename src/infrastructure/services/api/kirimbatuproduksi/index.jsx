@@ -1,7 +1,5 @@
 import get from "../../../axios/get";
 import post from "../../../axios/post";
-import deleteAxios from "../../../axios/delete";
-import put from "../../../axios/put";
 import word from "../../../shared/static";
 
 const KirimBatuProduksi = {
@@ -11,16 +9,17 @@ const KirimBatuProduksi = {
     });
     return response;
   },
-  addKirimBatuProduksi: async (data) => {
-    const response = await post.AxiosPost(word.URL_ADD_MASTER_BAHAN, data);
+  getHistoryKirimBatuProduksi: async (noJO) => {
+    const response = await get({
+      url: word.URL_GET_HISTORY_KIRIM_BATU + noJO,
+    });
     return response;
   },
-  deleteKirimBatuProduksi: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_BAHAN + data);
-    return response;
-  },
-  editKirimBatuProduksi: async (url, data) => {
-    const response = await put(word.URL_UPDATE_MASTER_BAHAN + url, data);
+  addKirimBatuProduksi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_ADD_KIRIM_BATU_PRODUKSI,
+      data: dataKirim,
+    });
     return response;
   },
 };

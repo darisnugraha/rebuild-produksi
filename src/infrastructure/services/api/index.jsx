@@ -31,6 +31,8 @@ import TerimaLebur from "./terimalebur";
 import KirimMasak from "./kirimmasak";
 import TerimaMasak from "./terimamasak";
 import TerimaTukangPotong from "./terimatukangpotong";
+import TambahAmbilBatu from "./tambahambilbatu";
+import TambahSaldoBahan from "./tambahsaldobahan";
 
 const api = {
   login,
@@ -66,6 +68,8 @@ const api = {
   KirimMasak,
   TerimaMasak,
   TerimaTukangPotong,
+  TambahAmbilBatu,
+  TambahSaldoBahan,
 };
 
 export default api;

@@ -8,8 +8,8 @@ const TablePembuatanJenisBahan = () => {
   const columns = [
     {
       title: "Nama Bahan",
-      dataIndex: "kode_bahan",
-      key: "kode_bahan",
+      dataIndex: "nama_bahan",
+      key: "nama_bahan",
       align: "center",
     },
     {

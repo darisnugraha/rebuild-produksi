@@ -1,18 +1,20 @@
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 function Success(message) {
   Swal.fire({
-    title: 'Yeaay..',
+    title: "Yeaay..",
     text: message,
-    icon: 'success',
+    icon: "success",
+  }).then(() => {
+    window.location.reload();
   });
 }
 
 function Failed(message) {
   Swal.fire({
-    title: 'Ops..',
+    title: "Ops..",
     text: message,
-    icon: 'error',
+    icon: "error",
   });
 }
 const data = { Failed, Success };

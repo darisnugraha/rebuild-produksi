@@ -7,33 +7,44 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import SaldoMurni from "../../../../application/selectors/saldomurni";
+import {
+  addAmbilSaldoBahan,
+  addTambahSaldoBahan,
+} from "../../../../application/actions/saldomurni";
 
 const maptostate = (state) => {
   if (state.saldomurni.dataSaldo !== undefined) {
     return {
       initialValues: {
-        nama_bahan: state.saldomurni.dataSaldo[0]?.nama_bahan,
-        berat_tambah_ambil: 0,
+        kode_bahan: state.saldomurni.dataSaldo[0]?.nama_bahan,
+        berat: 0,
         keterangan: "",
       },
     };
   } else {
     return {
       initialValues: {
-        nama_bahan: "",
-        berat_tambah_ambil: 0,
+        kode_bahan: "",
+        berat: 0,
         keterangan: "",
       },
     };
   }
 };
 
-let FormTambahAmbilSaldoMurni = ({ visible, onCreate, onCancel }, prop) => {
+let FormTambahAmbilSaldoMurni = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isAdd = useSelector(SaldoMurni.getIsAddSaldoMurni);
+  const handleSubmit = () => {
+    if (isAdd) {
+      dispatch(addTambahSaldoBahan);
+    } else {
+      dispatch(addAmbilSaldoBahan);
+    }
+  };
 
   return (
     <Modal
@@ -43,13 +54,15 @@ let FormTambahAmbilSaldoMurni = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        handleSubmit();
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
-              name="nama_bahan"
+              name="kode_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Bahan</span>}
               component={styleAntd.AInput}
@@ -60,7 +73,7 @@ let FormTambahAmbilSaldoMurni = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_tambah_ambil"
+              name="berat"
               type="number"
               label={
                 <span style={{ fontSize: "13px" }}>

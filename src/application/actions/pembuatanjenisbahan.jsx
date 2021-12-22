@@ -18,6 +18,9 @@ export const ADD_DATA_DETAIL_BAHAN_SUCCESS =
 export const ADD_DATA_DETAIL_BAHAN_FAILED =
   "[pembuatanjenisbahan] add detail bahan failed";
 
+export const ADD_PEMBUATAN_JENIS_BAHAN =
+  "[pembuatanjenisbahan] add pembuatan jenis bahan";
+
 export const getAllSaldoBahanStock = {
   type: GET_ALL_SALDO_BAHAN_STOCK,
 };
@@ -53,3 +56,7 @@ export const addDataDetailBahanFailed = ({ error }) => ({
   type: ADD_DATA_DETAIL_BAHAN_FAILED,
   payload: { data: error },
 });
+
+export const addPembuatanJenisBahan = {
+  type: ADD_PEMBUATAN_JENIS_BAHAN,
+};

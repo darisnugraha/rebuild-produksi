@@ -1,43 +1,50 @@
 import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
-
-const columns = [
-  {
-    title: "Tgl Kirim",
-    dataIndex: "tgl_kirim",
-    key: "tgl_kirim",
-    align: "center",
-  },
-  {
-    title: "No Job Order",
-    dataIndex: "no_jo",
-    key: "no_jo",
-    align: "center",
-  },
-  {
-    title: "Kode Batu",
-    dataIndex: "kode_batu",
-    key: "kode_batu",
-    align: "center",
-  },
-  {
-    title: "QTY Kirim",
-    dataIndex: "qty_kirim",
-    key: "qty_kirim",
-    align: "center",
-  },
-  {
-    title: "Berat Kirim",
-    dataIndex: "berat_kirim",
-    key: "berat_kirim",
-    align: "center",
-  },
-];
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const TableHistoryKirimBatuProduksi = () => {
+  const dataTable = getLocal("data_history_kirim_batu_produksi") || [];
+
+  const columns = [
+    {
+      title: "Tgl Kirim",
+      dataIndex: "tgl_kirim",
+      key: "tgl_kirim",
+      align: "center",
+    },
+    {
+      title: "No Job Order",
+      dataIndex: "no_job_order",
+      key: "no_job_order",
+      align: "center",
+    },
+    {
+      title: "Kode Batu",
+      dataIndex: "kode_batu",
+      key: "kode_batu",
+      align: "center",
+    },
+    {
+      title: "QTY Kirim",
+      dataIndex: "stock_batu",
+      key: "stock_batu",
+      align: "center",
+    },
+    {
+      title: "Berat Kirim",
+      dataIndex: "berat_batu",
+      key: "berat_batu",
+      align: "center",
+    },
+  ];
+
   return (
-    <Table dataSource={[]} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      scroll={{ x: 500, y: 1500 }}
+    />
   );
 };
 
