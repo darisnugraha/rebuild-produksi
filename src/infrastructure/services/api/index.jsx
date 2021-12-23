@@ -33,6 +33,7 @@ import TerimaMasak from "./terimamasak";
 import TerimaTukangPotong from "./terimatukangpotong";
 import TambahAmbilBatu from "./tambahambilbatu";
 import TambahSaldoBahan from "./tambahsaldobahan";
+import TerimaCOR from "./terimacor";
 
 const api = {
   login,
@@ -70,6 +71,7 @@ const api = {
   TerimaTukangPotong,
   TambahAmbilBatu,
   TambahSaldoBahan,
+  TerimaCOR,
 };
 
 export default api;

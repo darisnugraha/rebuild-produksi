@@ -5,11 +5,6 @@ import FormTerimaCOR from "./form-terima-cor";
 const ModalTerimaCOR = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalTerimaCOR = () => {
       </Button>
       <FormTerimaCOR
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

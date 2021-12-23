@@ -1,12 +1,41 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Form, Row, Col, Modal } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import {
+  addDataTerimaCor,
+  countSusut,
+  getAllDetailPohon,
+} from "../../../../application/actions/terimacor";
 
-const FormTerimaCOR = ({ visible, onCreate, onCancel }, prop) => {
+const maptostate = (state) => {
+  if (state.terimacor.feedback.length !== 0) {
+    return {
+      initialValues: {
+        pohon: state.terimacor.noPohon,
+        kode_jenis_bahan: state.terimacor.feedback[0]?.kode_jenis_bahan,
+        berat: state.terimacor.feedback[0]?.berat,
+        berat_terima: state.terimacor.beratTerima,
+        berat_susut: state.terimacor.susut,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        pohon: "",
+        kode_jenis_bahan: "",
+        berat: "",
+        berat_terima: "",
+        berat_susut: "",
+      },
+    };
+  }
+};
+
+let FormTerimaCOR = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -20,27 +49,22 @@ const FormTerimaCOR = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
+        dispatch(addDataTerimaCor);
       }}
     >
-      <Form layout="vertical">
+      <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
-              name="no_pohon"
+              name="pohon"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nomor Pohon</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Nomor Pohon"
+              onBlur={(e) => {
+                dispatch(getAllDetailPohon({ noPohon: e.target.value }));
+              }}
             />
           </Col>
 
@@ -58,7 +82,7 @@ const FormTerimaCOR = ({ visible, onCreate, onCancel }, prop) => {
 
           <Col offset={1}>
             <Field
-              name="berat_awal"
+              name="berat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Awal</span>}
               component={styleAntd.AInput}
@@ -75,6 +99,9 @@ const FormTerimaCOR = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Terima"
+              onBlur={(e) => {
+                dispatch(countSusut({ beratTerima: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -94,6 +121,8 @@ const FormTerimaCOR = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-export default reduxForm({
+FormTerimaCOR = reduxForm({
   form: "FormTerimaCOR",
+  enableReinitialize: true,
 })(FormTerimaCOR);
+export default connect(maptostate, null)(FormTerimaCOR);

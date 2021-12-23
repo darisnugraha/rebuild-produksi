@@ -125,6 +125,8 @@ const URL_GET_HISTORY_KIRIM_BATU = `${baseurl}adm-mutasi-batu/get/history-kirim-
 const URL_ADD_KIRIM_BATU_PRODUKSI = `${baseurl}mutasi-batu/kirim-produksi`;
 
 const URL_ADD_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni`;
+const URL_GET_DETAIL_POHON = `${baseurl}saldo-bahan/pohon/`;
+const URL_ADD_TERIMA_COR = `${baseurl}saldo-bahan/terimacasting`;
 
 const data = {
   URL_LOGIN,
@@ -253,6 +255,8 @@ const data = {
   URL_ADD_KIRIM_BATU_PRODUKSI,
 
   URL_ADD_TAMBAH_SALDO_BAHAN,
+  URL_GET_DETAIL_POHON,
+  URL_ADD_TERIMA_COR,
 };
 
 export default data;
