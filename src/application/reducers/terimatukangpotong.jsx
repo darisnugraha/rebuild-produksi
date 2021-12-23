@@ -3,6 +3,9 @@ import {
   SET_DATA_TERIMA_TUKANG_POTONG_SUCCESS,
   SET_DATA_TERIMA_TUKANG_POTONG_FAILED,
   SET_NO_POHON,
+  SET_SUSUT_SUCCESS,
+  SET_BERAT_TERIMA,
+  SET_BERAT_PENTOLAN,
 } from "../actions/terimatukangpotong";
 
 const initialState = {
@@ -10,6 +13,9 @@ const initialState = {
   error: null,
   isEdit: false,
   noPohon: "",
+  susut: 0,
+  beratTerima: 0,
+  beratPentolan: 0,
 };
 
 const terimatukangpotong = (state = initialState, action) => {
@@ -28,6 +34,21 @@ const terimatukangpotong = (state = initialState, action) => {
       return {
         ...state,
         noPohon: action.payload.data,
+      };
+    case SET_SUSUT_SUCCESS:
+      return {
+        ...state,
+        susut: action.payload.data,
+      };
+    case SET_BERAT_TERIMA:
+      return {
+        ...state,
+        beratTerima: action.payload.data,
+      };
+    case SET_BERAT_PENTOLAN:
+      return {
+        ...state,
+        beratPentolan: action.payload.data,
       };
     default:
       return state;

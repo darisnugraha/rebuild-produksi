@@ -8,14 +8,14 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan";
 import FormTerimaTukangPotong from "../../components/admin-bahan/terima-tukang-potong/button-terima-tukang-potong";
 
 const TerimaTukangPotong = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllMasterJenisBahan);
+    dispatch(getAllMasterBahan);
     document.title = "Terima Tukang Potong";
   }, [dispatch]);
 

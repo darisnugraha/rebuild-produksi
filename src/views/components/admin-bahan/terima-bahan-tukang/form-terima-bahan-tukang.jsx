@@ -10,16 +10,22 @@ import TerimaBahanTukang from "../../../../application/selectors/terimabahantuka
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.terimabahantukang.feedback !== undefined) {
+  if (state.terimabahantukang.feedback.length !== 0) {
     return {
       initialValues: {
         divisi_asal: state.terimabahantukang.feedback[0]?.kode_divisi,
+        tukang_asal: state.terimabahantukang.feedbackTukang[0]?.kode_staff,
+        bahan: state.terimabahantukang.feedbackBahan[0]?.kode_bahan,
+        berat_bahan: state.terimabahantukang.feedbackBerat[0]?.berat_total,
       },
     };
   } else {
     return {
       initialValues: {
         divisi_asal: "",
+        tukang_asal: "",
+        bahan: "",
+        berat_bahan: "",
       },
     };
   }
@@ -33,6 +39,8 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
   const dataDivisiAsal = useSelector(
     TerimaBahanTukang.getAllDivisiAsalSaldoBahan
   );
+  const dataTukangAsal = useSelector(TerimaBahanTukang.getAllTukangAsal);
+  const dataBahanAsal = useSelector(TerimaBahanTukang.getAllBahanAsal);
 
   return (
     <Modal
@@ -81,21 +89,17 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
-              defaultValue="k34m"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="k34m">
-                <span style={{ fontSize: "13px" }}>K 34 Murni</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataTukangAsal.map((item) => {
+                return (
+                  <Option value={item.kode_staff} key={item.kode_staff}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.nama_staff + " (" + item.kode_staff + ")"}
+                    </span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -105,21 +109,15 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
-              defaultValue="k34m"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="k34m">
-                <span style={{ fontSize: "13px" }}>K 34 Murni</span>
-              </Option>
-              <Option value="d1">
-                <span style={{ fontSize: "13px" }}>D1</span>
-              </Option>
-              <Option value="dab1ml">
-                <span style={{ fontSize: "13px" }}>DAB1ML</span>
-              </Option>
-              <Option value="mop1">
-                <span style={{ fontSize: "13px" }}>MOP1</span>
-              </Option>
+              {dataBahanAsal.map((item) => {
+                return (
+                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
           <Col offset={1}>
@@ -131,6 +129,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan"
+              disabled
             />
           </Col>
         </Row>

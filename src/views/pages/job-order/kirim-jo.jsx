@@ -25,7 +25,11 @@ const KirimJO = () => {
       return list.path === pathLocation.pathname;
     });
     setTitle(dataLocation[0].menu);
-    localStorage.setItem("divisi", dataLocation[0].divisi);
+    if (dataLocation[0].divisi === "Admin") {
+      localStorage.setItem("divisi", dataLocation[0].divisi.toUpperCase());
+    } else {
+      localStorage.setItem("divisi", dataLocation[0].divisi);
+    }
     document.title = dataLocation[0].menu + " Kirim JO";
   }, []);
 

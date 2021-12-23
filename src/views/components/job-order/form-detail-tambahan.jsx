@@ -7,27 +7,18 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
 import Bahan from "../../../application/selectors/masterbahan";
+import { addLocalTambahan } from "../../../application/actions/kirimjo";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterbahan.feedback !== undefined) {
-    return {
-      initialValues: {
-        nama_bahan: "tidakada",
-        jumlah_tambahan: "",
-        berat_pakai: "",
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        nama_bahan: "tidakada",
-        jumlah_tambahan: "",
-        berat_pakai: "",
-      },
-    };
-  }
+  return {
+    initialValues: {
+      nama_bahan: "TIDAK ADA",
+      jumlah_bahan: 0,
+      berat_bahan: 0,
+    },
+  };
 };
 
 let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
@@ -45,7 +36,9 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addLocalTambahan);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -58,7 +51,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Pilih Nama Bahan"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="tidakada" key="tidakada">
+              <Option value="TIDAK ADA" key="TIDAK ADA">
                 <span style={{ fontSize: "13px" }}>Tidak Ada</span>
               </Option>
               {dataBahan.map((item) => {
@@ -72,7 +65,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="jumlah_tambahan"
+              name="jumlah_bahan"
               type="number"
               label={<span style={{ fontSize: "13px" }}>Jumlah Tambahan</span>}
               component={styleAntd.AInput}
@@ -82,7 +75,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_pakai"
+              name="berat_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Pakai</span>}
               component={styleAntd.AInput}

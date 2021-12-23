@@ -5,8 +5,12 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import JenisBahan from "../../../../application/selectors/masterjenisbahan";
-import { getTerimaTukangPotong } from "../../../../application/actions/terimatukangpotong";
+import JenisBahan from "../../../../application/selectors/masterbahan";
+import {
+  addDataTerimaTukangPotong,
+  countSusut,
+  getTerimaTukangPotong,
+} from "../../../../application/actions/terimatukangpotong";
 
 const { Option } = Select;
 
@@ -14,29 +18,37 @@ const maptostate = (state) => {
   if (state.terimatukangpotong.feedback.length !== 0) {
     return {
       initialValues: {
-        no_pohon: state.terimatukangpotong.noPohon,
+        pohon: state.terimatukangpotong.noPohon,
         kode_jenis_bahan:
           state.terimatukangpotong.feedback[0]?.kode_jenis_bahan,
-        berat_awal: state.terimatukangpotong.feedback[0]?.berat_casting,
+        berat: state.terimatukangpotong.feedback[0]?.berat_casting,
+        berat_terima: state.terimatukangpotong.beratPentolan,
+        berat_barang: state.terimatukangpotong.beratTerima,
+        berat_susut: state.terimatukangpotong.susut,
+        tanggal: state.terimatukangpotong.feedback[0]?.tgl_terima_casting,
       },
     };
   } else {
     return {
       initialValues: {
-        no_pohon: "",
-        kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
-        berat_awal: "",
+        pohon: "",
+        kode_jenis_bahan: state.masterbahan.feedback[0]?.kode_bahan,
+        berat: "",
+        berat_terima: "",
+        berat_barang: "",
+        berat_susut: "",
+        tanggal: "",
       },
     };
   }
 };
 
-let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
+let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataJenisBahan = useSelector(JenisBahan.getAllMasterJenisBahan);
+  const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
 
   return (
     <Modal
@@ -46,13 +58,15 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addDataTerimaTukangPotong);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1}>
             <Field
-              name="no_pohon"
+              name="pohon"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nomor Pohon</span>}
               component={styleAntd.AInput}
@@ -76,13 +90,8 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataJenisBahan.map((item) => {
                 return (
-                  <Option
-                    value={item.kode_jenis_bahan}
-                    key={item.kode_jenis_bahan}
-                  >
-                    <span style={{ fontSize: "13px" }}>
-                      {item.nama_jenis_bahan}
-                    </span>
+                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );
               })}
@@ -90,7 +99,7 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_awal"
+              name="berat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Awal</span>}
               component={styleAntd.AInput}
@@ -101,7 +110,7 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_pentolan"
+              name="berat_terima"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Pentolan</span>}
               component={styleAntd.AInput}
@@ -117,6 +126,9 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Barang"
+              onBlur={(e) => {
+                dispatch(countSusut({ beratTerima: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -127,6 +139,17 @@ let FormTerimaTukangPotong = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Susut"
+              disabled
+            />
+          </Col>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="tanggal"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Tanggal</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Tanggal"
               disabled
             />
           </Col>

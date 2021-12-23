@@ -11,19 +11,25 @@ const TerimaBahanTukang = {
     });
     return response;
   },
-  getStaffByDivisi: async (data) => {
-    const response = await post.AxiosPost(word.URL_GET_STAFF_BY_DIVISI, data);
+  getStaffByDivisi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_STAFF_BY_DIVISI,
+      data: dataKirim,
+    });
     return response;
   },
-  getBahanByStaff: async (data) => {
-    const response = await post.AxiosPost(word.URL_GET_BAHAN_BY_STAFF, data);
+  getBahanByStaff: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_BAHAN_BY_STAFF,
+      data: dataKirim,
+    });
     return response;
   },
-  getSaldoKirimBahanTukangOpen: async (data) => {
-    const response = await post.AxiosPost(
-      word.URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
-      data
-    );
+  getSaldoKirimBahanTukangOpen: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
+      data: dataKirim,
+    });
     return response;
   },
   getAllTerimaBahanTukang: async () => {

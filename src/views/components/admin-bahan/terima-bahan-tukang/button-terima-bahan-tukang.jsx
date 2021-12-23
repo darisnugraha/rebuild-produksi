@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import FormTerimaBahanTukang from "./form-terima-bahan-tukang";
+import { useDispatch } from "react-redux";
+import {
+  getAllBahanAsalTukang,
+  getAllTukangAsalDivisi,
+  getBeratBahan,
+} from "../../../../application/actions/terimabahantukang";
 
 const ModalTerimaBahanTukang = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
 
   return (
     <div>
@@ -16,13 +18,15 @@ const ModalTerimaBahanTukang = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
+          dispatch(getAllTukangAsalDivisi({ divisi: null }));
+          dispatch(getAllBahanAsalTukang({ staff: null }));
+          dispatch(getBeratBahan({ bahan: null }));
         }}
       >
         + Data Terima
       </Button>
       <FormTerimaBahanTukang
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

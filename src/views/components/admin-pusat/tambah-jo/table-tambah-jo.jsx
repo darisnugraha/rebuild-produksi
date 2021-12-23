@@ -8,8 +8,8 @@ const TableTambahJO = () => {
   const columns = [
     {
       title: "No Job Order",
-      dataIndex: "no_spk",
-      key: "no_spk",
+      dataIndex: "no_job_order",
+      key: "no_job_order",
       align: "center",
     },
     {
@@ -32,14 +32,14 @@ const TableTambahJO = () => {
     // },
     {
       title: "Jumlah",
-      dataIndex: "jumlah_bahan",
-      key: "jumlah_bahan",
+      dataIndex: "jumlah",
+      key: "jumlah",
       align: "center",
     },
     {
       title: "Berat",
-      dataIndex: "berat_bahan",
-      key: "berat_bahan",
+      dataIndex: "berat",
+      key: "berat",
       align: "center",
     },
     {

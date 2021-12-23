@@ -127,6 +127,19 @@ const URL_ADD_KIRIM_BATU_PRODUKSI = `${baseurl}mutasi-batu/kirim-produksi`;
 const URL_ADD_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni`;
 const URL_GET_DETAIL_POHON = `${baseurl}saldo-bahan/pohon/`;
 const URL_ADD_TERIMA_COR = `${baseurl}saldo-bahan/terimacasting`;
+const URL_ADD_TERIMA_POTONG = `${baseurl}saldo-bahan/terimapotong`;
+const URL_ADD_KIRIM_BAHAN_ADMIN_BAHAN = `${baseurl}saldo-bahan/kirimbahan`;
+
+const URL_ADD_JOB_ORDER_CART = `${baseurl}tambah-jo/cart`;
+const URL_ADD_JOB_ORDER_CHECKOUT = `${baseurl}tambah-jo/check-out`;
+
+const URL_ADD_KIRIM_JOB_ORDER_CART = `${baseurl}kirim-jo/cart`;
+const URL_ADD_KIRIM_JOB_ORDER_CHECKOUT = `${baseurl}kirim-jo/check-out`;
+
+const URL_GET_DETAIL_JO = `${baseurl}terima-jo/no_job_order`;
+
+const URL_ADD_TERIMA_JOB_ORDER_CART = `${baseurl}terima-jo/cart`;
+const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT = `${baseurl}terima-jo/check-out`;
 
 const data = {
   URL_LOGIN,
@@ -257,6 +270,18 @@ const data = {
   URL_ADD_TAMBAH_SALDO_BAHAN,
   URL_GET_DETAIL_POHON,
   URL_ADD_TERIMA_COR,
+  URL_ADD_TERIMA_POTONG,
+  URL_ADD_KIRIM_BAHAN_ADMIN_BAHAN,
+
+  URL_ADD_JOB_ORDER_CART,
+  URL_ADD_JOB_ORDER_CHECKOUT,
+
+  URL_ADD_KIRIM_JOB_ORDER_CART,
+  URL_ADD_KIRIM_JOB_ORDER_CHECKOUT,
+
+  URL_GET_DETAIL_JO,
+  URL_ADD_TERIMA_JOB_ORDER_CART,
+  URL_ADD_TERIMA_JOB_ORDER_CHECKOUT,
 };
 
 export default data;

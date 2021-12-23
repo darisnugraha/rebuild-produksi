@@ -6,26 +6,42 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
+import {
+  addTerimaJO,
+  getAllDetailJO,
+} from "../../../application/actions/terimajo";
 
 const maptostate = (state) => {
-  if (localStorage.getItem("divisi") !== undefined) {
+  if (state.terimajo.feedback.length !== 0) {
     return {
       initialValues: {
         divisi_terima: localStorage.getItem("divisi") || "",
-        no_job_order: "",
+        no_job_order: state.terimajo.feedback[0]?.no_job_order,
+        tukang_terima: state.terimajo.feedback[0]?.kode_staff,
+        kode_barang: state.terimajo.feedback[0]?.kode_barang,
+        nama_barang: state.terimajo.feedback[0]?.nama_barang,
+        kode_jenis_bahan: state.terimajo.feedback[0]?.kode_jenis_bahan,
+        jumlah_akhir: state.terimajo.feedback[0]?.stock_akhir,
+        berat_akhir: state.terimajo.feedback[0]?.berat_akhir,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi_terima: "",
+        divisi_terima: localStorage.getItem("divisi") || "",
         no_job_order: "",
+        tukang_terima: "",
+        kode_barang: "",
+        nama_barang: "",
+        kode_jenis_bahan: "",
+        jumlah_akhir: "",
+        berat_akhir: "",
       },
     };
   }
 };
 
-let FormTerimaJO = ({ visible, onCreate, onCancel }, prop) => {
+let FormTerimaJO = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -39,7 +55,9 @@ let FormTerimaJO = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addTerimaJO);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -62,6 +80,9 @@ let FormTerimaJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"
+              onBlur={(e) => {
+                dispatch(getAllDetailJO({ noJobOrder: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>

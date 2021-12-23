@@ -8,6 +8,7 @@ import ui from "../../../../application/selectors/ui";
 import Tukang from "../../../../application/selectors/mastertukang";
 import SaldoBahan from "../../../../application/selectors/pembuatanjenisbahan";
 import KirimBahanAdmin from "../../../../application/selectors/kirimbahanadmin";
+import { addKirimBahanAdminBahan } from "../../../../application/actions/kirimbahanadmin";
 
 const { Option } = Select;
 
@@ -48,7 +49,9 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addKirimBahanAdminBahan);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -115,7 +118,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
 
           <Col offset={1}>
             <Field
-              name="berat_bahan"
+              name="berat"
               type="text"
               style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}

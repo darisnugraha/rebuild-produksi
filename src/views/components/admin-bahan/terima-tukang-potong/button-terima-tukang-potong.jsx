@@ -5,11 +5,6 @@ import FormTerimaTukangPotong from "./form-terima-tukang-potong";
 const ModalTerimaTukangPotong = () => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   return (
     <div>
       <Button
@@ -22,7 +17,6 @@ const ModalTerimaTukangPotong = () => {
       </Button>
       <FormTerimaTukangPotong
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

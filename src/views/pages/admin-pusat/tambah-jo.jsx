@@ -17,6 +17,7 @@ import { getAllMasterOriginal } from "../../../application/actions/masterorigina
 import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
 import FormTambahJO from "../../components/admin-pusat/tambah-jo/button-add-tambah-jo";
 import TableTambahJO from "../../components/admin-pusat/tambah-jo/table-tambah-jo";
+import { addCheckOutJO } from "../../../application/actions/tambahjoborder.jsx";
 
 const TambahJO = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,14 @@ const TambahJO = () => {
         <PanelFooter>
           <div className="row">
             <div className="col-1">
-              <Button type="primary">Simpan</Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(addCheckOutJO);
+                }}
+              >
+                Simpan
+              </Button>
             </div>
             <div className="col-1">
               <Button

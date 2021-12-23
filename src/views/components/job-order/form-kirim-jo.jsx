@@ -8,6 +8,7 @@ import ui from "../../../application/selectors/ui";
 import KirimBahanAdmin from "../../../application/selectors/kirimbahanadmin";
 import Tukang from "../../../application/selectors/mastertukang";
 import {
+  addLocalKirimJO,
   countBeratKirimJO,
   getDataDetailJO,
   simpanJumlahKirim,
@@ -35,7 +36,7 @@ const maptostate = (state) => {
   };
 };
 
-let FormKirimJO = ({ visible, onCreate, onCancel }, prop) => {
+let FormKirimJO = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -51,7 +52,9 @@ let FormKirimJO = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addLocalKirimJO);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

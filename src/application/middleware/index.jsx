@@ -35,6 +35,7 @@ import kirimmasak from "./kirimmasak";
 import terimamasak from "./terimamasak";
 import terimatukangpotong from "./terimatukangpotong";
 import terimacor from "./terimacor";
+import terimajo from "./terimajo";
 
 const midd = [
   ...ui,
@@ -74,6 +75,7 @@ const midd = [
   ...terimamasak,
   ...terimatukangpotong,
   ...terimacor,
+  ...terimajo,
 ];
 
 export default midd;

@@ -16,8 +16,8 @@ const maptostate = (state) => {
   if (state.mastermarketing.feedback !== undefined) {
     return {
       initialValues: {
-        kode_marketing: state.mastermarketing.feedback[0]?.kode_marketing,
-        kode_customer: state.mastercustomer.feedback[0]?.kode_customer,
+        marketing: state.mastermarketing.feedback[0]?.kode_marketing,
+        customer: state.mastercustomer.feedback[0]?.kode_customer,
         kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
         kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
       },
@@ -58,7 +58,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1}>
             <Field
-              name="kode_marketing"
+              name="marketing"
               label={<span style={{ fontSize: "13px" }}>Kode Marketing</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -78,7 +78,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="kode_customer"
+              name="customer"
               label={<span style={{ fontSize: "13px" }}>Kode Customer</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -98,7 +98,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="no_spk"
+              name="no_job_order"
               type="text"
               label={<span style={{ fontSize: "13px" }}>No SPK</span>}
               component={styleAntd.AInput}
@@ -162,8 +162,8 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="jumlah_bahan"
-              type="text"
+              name="jumlah"
+              type="number"
               label={<span style={{ fontSize: "13px" }}>Jumlah</span>}
               component={styleAntd.AInput}
               className="form-item-group"
@@ -172,8 +172,8 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_bahan"
-              type="text"
+              name="berat"
+              type="number"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}
               className="form-item-group"

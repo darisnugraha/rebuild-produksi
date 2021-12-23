@@ -34,6 +34,8 @@ import TerimaTukangPotong from "./terimatukangpotong";
 import TambahAmbilBatu from "./tambahambilbatu";
 import TambahSaldoBahan from "./tambahsaldobahan";
 import TerimaCOR from "./terimacor";
+import TambahJobOrder from "./tambahjo";
+import TerimaJO from "./terimajo";
 
 const api = {
   login,
@@ -72,6 +74,8 @@ const api = {
   TambahAmbilBatu,
   TambahSaldoBahan,
   TerimaCOR,
+  TambahJobOrder,
+  TerimaJO,
 };
 
 export default api;

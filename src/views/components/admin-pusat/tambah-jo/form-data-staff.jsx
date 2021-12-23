@@ -14,15 +14,15 @@ const maptostate = (state) => {
   if (state.mastertukang.feedback !== undefined) {
     return {
       initialValues: {
-        kode_staff: state.mastertukang.feedback[0]?.kode_staff,
-        bahan_kembali: state.masterbahan.feedback[0]?.kode_bahan,
+        staff: state.mastertukang.feedback[0]?.kode_staff,
+        nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
       },
     };
   } else {
     return {
       initialValues: {
-        kode_staff: state.mastertukang.feedback[0]?.kode_staff,
-        bahan_kembali: state.masterbahan.feedback[0]?.kode_bahan,
+        staff: state.mastertukang.feedback[0]?.kode_staff,
+        nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
       },
     };
   }
@@ -50,7 +50,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1}>
             <Field
-              name="kode_staff"
+              name="staff"
               label={<span style={{ fontSize: "13px" }}>Kode Staff</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -60,7 +60,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               {dataStaff.map((item) => {
                 return (
                   <Option value={item.kode_staff} key={item.kode_staff}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_staff}</span>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.nama_staff + " (" + item.kode_staff + ")"}
+                    </span>
                   </Option>
                 );
               })}
@@ -68,7 +70,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="no_pohon"
+              name="no_buat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>No Pohon</span>}
               component={styleAntd.AInput}
@@ -78,7 +80,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="bahan_kembali"
+              name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
