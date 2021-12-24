@@ -93,7 +93,7 @@ const simpanDataKirimBatuLocal =
               data.no_job_order
             );
 
-          if (response.value?.pesan === "berhasil") {
+          if (response.value !== null) {
             dispatch(
               setDataHistoryKirimBatuProduksiSuccess({
                 feedback: response.value.data,
@@ -111,7 +111,6 @@ const simpanDataKirimBatuLocal =
           dispatch(setDataKirimBatuProduksiSuccess({ feedback: data }));
           datalocal.push(data);
           writeLocal("data_kirim_batu_produksi", datalocal);
-          window.location.reload();
         }
       } else {
         const data = getState().form.FormTambahKirimBatuProduksi.values;

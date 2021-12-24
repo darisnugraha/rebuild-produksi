@@ -1,6 +1,6 @@
 const baseurl = process.env.REACT_APP_BACKEND_URL;
 
-const URL_LOGIN = `${baseurl}users/login`;
+const URL_LOGIN = `${baseurl}user/login`;
 
 const URL_GET_JO_OUTSTAND_ALL = `${baseurl}produksi/outstand/`;
 const URL_GET_OUTSTAND_ABU_CASTING_ALL = `${baseurl}produksi/dashboard/outstandabucasting/`;
@@ -140,6 +140,9 @@ const URL_GET_DETAIL_JO = `${baseurl}terima-jo/no_job_order`;
 
 const URL_ADD_TERIMA_JOB_ORDER_CART = `${baseurl}terima-jo/cart`;
 const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT = `${baseurl}terima-jo/check-out`;
+
+const URL_GET_DETAIL_JO_CLOSE = `${baseurl}close-jo/no_job_order`;
+const URL_ADD_CLOSE_JO = `${baseurl}close-jo`;
 
 const data = {
   URL_LOGIN,
@@ -282,6 +285,9 @@ const data = {
   URL_GET_DETAIL_JO,
   URL_ADD_TERIMA_JOB_ORDER_CART,
   URL_ADD_TERIMA_JOB_ORDER_CHECKOUT,
+
+  URL_GET_DETAIL_JO_CLOSE,
+  URL_ADD_CLOSE_JO,
 };
 
 export default data;

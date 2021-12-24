@@ -6,12 +6,24 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import {
+  addCloseJO,
+  countBeratAkhir,
+  getAllDetailJO,
+} from "../../../../application/actions/closejo";
 
 const maptostate = (state) => {
-  if (localStorage.getItem("divisi") !== undefined) {
+  if (state.closejo.feedback.length !== 0) {
     return {
       initialValues: {
-        no_job_order: "",
+        no_job_order: state.closejo.feedback[0].no_job_order,
+        lokasi_job_order: state.closejo.feedback[0].nama_divisi,
+        kode_barang: state.closejo.feedback[0].kode_barang,
+        nama_barang: state.closejo.feedback[0].nama_barang,
+        kode_jenis_bahan: state.closejo.feedback[0].kode_jenis_bahan,
+        berat_asal: state.closejo.feedback[0].berat_out,
+        berat_close: state.closejo.beratClose,
+        berat_akhir: state.closejo.beratAkhir,
       },
     };
   } else {
@@ -37,7 +49,9 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addCloseJO);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -49,6 +63,9 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"
+              onBlur={(e) => {
+                dispatch(getAllDetailJO({ noJobOrder: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -59,17 +76,6 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Lokasi Job Order"
-              disabled
-            />
-          </Col>
-          <Col offset={1}>
-            <Field
-              name="tukang_terima"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Tukang Terima</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Tukang Terima"
               disabled
             />
           </Col>
@@ -125,6 +131,9 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Close"
+              onBlur={(e) => {
+                dispatch(countBeratAkhir({ beratTerima: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -146,7 +155,6 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Keterangan"
-              disabled
             />
           </Col>
         </Row>

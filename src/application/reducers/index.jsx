@@ -38,6 +38,7 @@ import terimamasak from "./terimamasak";
 import terimatukangpotong from "./terimatukangpotong";
 import terimacor from "./terimacor";
 import terimajo from "./terimajo";
+import closejo from "./closejo";
 
 export default combineReducers({
   login,
@@ -78,5 +79,6 @@ export default combineReducers({
   terimatukangpotong,
   terimacor,
   terimajo,
+  closejo,
   form: formReducer,
 });

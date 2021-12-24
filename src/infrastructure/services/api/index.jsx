@@ -36,6 +36,7 @@ import TambahSaldoBahan from "./tambahsaldobahan";
 import TerimaCOR from "./terimacor";
 import TambahJobOrder from "./tambahjo";
 import TerimaJO from "./terimajo";
+import CloseJO from "./closejo";
 
 const api = {
   login,
@@ -76,6 +77,7 @@ const api = {
   TerimaCOR,
   TambahJobOrder,
   TerimaJO,
+  CloseJO,
 };
 
 export default api;
