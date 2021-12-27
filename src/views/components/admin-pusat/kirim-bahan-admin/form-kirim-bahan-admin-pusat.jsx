@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
+import { addKirimBahanAdminPusat } from "../../../../application/actions/kirimbahanadminpusat";
 
 const { Option } = Select;
 
@@ -51,7 +52,9 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addKirimBahanAdminPusat);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

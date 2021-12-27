@@ -12,6 +12,7 @@ import {
   getSaldoBahanTukang,
   getSaldoKirimBahanOpenChange,
   setKodeStaff,
+  addTerimaBahan,
 } from "../../../application/actions/terimabahan";
 
 const { Option } = Select;
@@ -54,7 +55,9 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addTerimaBahan);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

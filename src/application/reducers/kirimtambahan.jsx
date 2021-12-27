@@ -4,6 +4,8 @@ import {
   SET_DATA_ASAL_STOCK_BAHAN_FAILED,
   SET_DATA_STOCK_BAHAN_ADMIN_SUCCESS,
   SET_DATA_STOCK_BAHAN_ADMIN_FAILED,
+  SET_DATA_KIRIM_TAMBAHAN_DIVISI_SUCCESS,
+  SET_DATA_KIRIM_TAMBAHAN_DIVISI_FAILED,
 } from "../actions/kirimtambahan";
 
 const initialState = {
@@ -12,6 +14,8 @@ const initialState = {
   error: null,
   errorStock: null,
   isEdit: false,
+  feedbackDivisi: [],
+  errorDivisi: [],
 };
 
 const kirimtambahan = (state = initialState, action) => {
@@ -35,6 +39,16 @@ const kirimtambahan = (state = initialState, action) => {
       return {
         ...state,
         errorStock: action.payload.data,
+      };
+    case SET_DATA_KIRIM_TAMBAHAN_DIVISI_SUCCESS:
+      return {
+        ...state,
+        feedbackDivisi: action.payload.data,
+      };
+    case SET_DATA_KIRIM_TAMBAHAN_DIVISI_FAILED:
+      return {
+        ...state,
+        errorDivisi: action.payload.data,
       };
     default:
       return state;

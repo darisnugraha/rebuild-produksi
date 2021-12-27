@@ -12,15 +12,29 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimTambahan from "../../components/admin-pusat/kirim-tambahan/button-add-kirim-tambahan";
 import TableKirimTambahan from "../../components/admin-pusat/kirim-tambahan/table-kirim-tambahan";
 import { getAllDivisi } from "../../../application/actions/kirimbahanadmin";
-import { getAllAsalStockBahan } from "../../../application/actions/kirimtambahan.jsx";
+import {
+  getAllAsalStockBahan,
+  addKirimTambahanDivisi,
+} from "../../../application/actions/kirimtambahan.jsx";
 
 const KirimTambahan = () => {
   const dispatch = useDispatch();
+  const data = JSON.parse(localStorage.getItem("divisi_detail_tambahan"));
+  const getDataDivisiKirimTambahan = (val) => {
+    if (val !== null) {
+      dispatch(addKirimTambahanDivisi);
+    } else {
+      return false;
+    }
+  };
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllDivisi);
     dispatch(getAllAsalStockBahan);
     document.title = "Kirim Tambahan";
+    /* eslint-disable-next-line */
+    getDataDivisiKirimTambahan(data);
+    /* eslint-disable-next-line */
   }, [dispatch]);
 
   return (

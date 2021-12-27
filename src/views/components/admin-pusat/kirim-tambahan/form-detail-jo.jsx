@@ -6,26 +6,28 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import Divisi from "../../../../application/selectors/kirimbahanadmin";
+import { addKirimTambahanDivisi } from "../../../../application/actions/kirimtambahan";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterjenisbahan.feedback !== undefined) {
+  const data = JSON.parse(localStorage.getItem("divisi_detail_tambahan"));
+  if (data !== null) {
     return {
       initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi: data[0]?.kode_divisi,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi: state.masterjenisbahan.feedback[0]?.kode_divisi,
+        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
       },
     };
   }
 };
 
-let FormDetailJOKirimTambahan = ({ visible, onCreate, onCancel }, prop) => {
+let FormDetailJOKirimTambahan = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -40,7 +42,9 @@ let FormDetailJOKirimTambahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={onCreate}
+      onOk={() => {
+        dispatch(addKirimTambahanDivisi);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>

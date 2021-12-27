@@ -19,6 +19,8 @@ export const SET_DATA_STOCK_BAHAN_BY_STAFF_SUCCESS =
 export const SET_DATA_STOCK_BAHAN_BY_STAFF_FAILED =
   "[kirimbahanadminpusat] get all stock bahan by staff failed";
 
+export const ADD_KIRIM_BAHAN = "[kirimbahanadminpusat] add kirim bahan";
+
 export const getAllStockBahanDivisi = {
   type: GET_ALL_STOCK_BAHAN_DIVISI,
 };
@@ -55,3 +57,7 @@ export const setDataStockBahanByStaffFailed = ({ error }) => ({
   type: SET_DATA_STOCK_BAHAN_BY_STAFF_FAILED,
   payload: { data: error },
 });
+
+export const addKirimBahanAdminPusat = {
+  type: ADD_KIRIM_BAHAN,
+};

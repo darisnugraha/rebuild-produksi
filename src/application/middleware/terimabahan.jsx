@@ -6,7 +6,9 @@ import {
   setDataSaldoKirimBahanOpenFailed,
   setBahan,
   GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE,
+  ADD_TERIMA_BAHAN,
 } from "../actions/terimabahan";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
 const getSaldoBahanTukang =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -150,6 +152,37 @@ const getDataSaldoKirimBahanOpenChange =
     }
   };
 
-const data = [getSaldoBahanTukang, getDataSaldoKirimBahanOpenChange];
+const addTerimaBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TERIMA_BAHAN) {
+      const data = getState().form.FormTerimaBahan.values;
+      const onSendData = {
+        berat: parseFloat(data.berat_bahan),
+        divisi: data.divisi,
+        kode_jenis_bahan: data.nama_bahan,
+        staff: data.staff,
+      };
+      const response = await api.TerimaBahan.addTerimaBahan(onSendData);
+      if (response.value !== null) {
+        if (response.value.status === "berhasil") {
+          sweetalert.default.Success(response.value.pesan);
+        } else {
+          sweetalert.default.Failed(response.value.pesan);
+        }
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [
+  getSaldoBahanTukang,
+  getDataSaldoKirimBahanOpenChange,
+  addTerimaBahan,
+];
 
 export default data;

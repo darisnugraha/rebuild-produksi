@@ -6,12 +6,30 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import {
+  addGabungJO,
+  getAllJobOrder,
+  getAllJobOrderDua,
+} from "../../../../application/actions/gabungjo";
 
 const maptostate = (state) => {
-  if (localStorage.getItem("divisi") !== undefined) {
+  if (
+    state.gabungjo.feedback.length !== 0 ||
+    state.gabungjo.feedbackDua.length !== 0
+  ) {
     return {
       initialValues: {
-        no_job_order: "",
+        no_job_order: state.gabungjo.jobOrder,
+        kode_barang: state.gabungjo.feedback[0].kode_barang,
+        nama_barang: state.gabungjo.feedback[0].nama_barang,
+        kode_jenis_bahan: state.gabungjo.feedback[0].kode_jenis_bahan,
+        berat_akhir: state.gabungjo.feedback[0].berat_akhir,
+        no_job_order_dua: state.gabungjo.jobOrderDua,
+        kode_barang_dua: state.gabungjo.feedbackDua[0]?.kode_barang,
+        nama_barang_dua: state.gabungjo.feedbackDua[0]?.nama_barang,
+        kode_jenis_bahan_dua: state.gabungjo.feedbackDua[0]?.kode_jenis_bahan,
+        berat_akhir_dua: state.gabungjo.feedbackDua[0]?.berat_akhir,
+        berat_gabung: state.gabungjo.beratGabung,
       },
     };
   } else {
@@ -37,7 +55,9 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addGabungJO);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -49,6 +69,9 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"
+              onBlur={(e) => {
+                dispatch(getAllJobOrder(e.target.value));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -99,17 +122,20 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1}>
             <Field
-              name="no_job_order2"
+              name="no_job_order_dua"
               type="text"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"
+              onBlur={(e) => {
+                dispatch(getAllJobOrderDua(e.target.value));
+              }}
             />
           </Col>
           <Col offset={1}>
             <Field
-              name="kode_barang2"
+              name="kode_barang_dua"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Barang</span>}
               component={styleAntd.AInput}
@@ -120,7 +146,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_barang2"
+              name="nama_barang_dua"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Barang</span>}
               component={styleAntd.AInput}
@@ -131,7 +157,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="kode_jenis_bahan2"
+              name="kode_jenis_bahan_dua"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
               component={styleAntd.AInput}
@@ -142,7 +168,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_akhir2"
+              name="berat_akhir_dua"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Akhir</span>}
               component={styleAntd.AInput}

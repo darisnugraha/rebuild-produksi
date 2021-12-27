@@ -144,6 +144,13 @@ const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT = `${baseurl}terima-jo/check-out`;
 const URL_GET_DETAIL_JO_CLOSE = `${baseurl}close-jo/no_job_order`;
 const URL_ADD_CLOSE_JO = `${baseurl}close-jo`;
 
+const URL_ADD_TERIMA_BAHAN = `${baseurl}saldo-bahan/terimabahan`;
+const URL_ADD_KIRIM_BAHAN = `${baseurl}saldo-bahan/kirimbahantukang`;
+
+const URL_GET_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/cart/`;
+const URL_GET_DATA_JO_GABUNG_JO = `${baseurl}adm-mutasi-batu/getjo/no_job_order/`;
+const URL_ADD_GABUNG_JO = `${baseurl}saldo-bahan/gabungjo/`;
+
 const data = {
   URL_LOGIN,
 
@@ -288,6 +295,12 @@ const data = {
 
   URL_GET_DETAIL_JO_CLOSE,
   URL_ADD_CLOSE_JO,
+
+  URL_ADD_TERIMA_BAHAN,
+  URL_ADD_KIRIM_BAHAN,
+  URL_GET_CART_KIRIM_TAMBAHAN,
+  URL_GET_DATA_JO_GABUNG_JO,
+  URL_ADD_GABUNG_JO,
 };
 
 export default data;

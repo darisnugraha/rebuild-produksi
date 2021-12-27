@@ -1,21 +1,22 @@
 import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
-import getLocal from "../../../../infrastructure/services/local/get-local";
+import kirimTambahan from "../../../../application/selectors/kirimtambahan";
+import { useSelector } from "react-redux";
 
 const TableKirimBatu = () => {
-  const dataTable = getLocal("data_detail_bahan") || [];
+  const dataTable = useSelector(kirimTambahan.getAllKirimTambahanDivisi);
   const columns = [
     {
       title: "Divisi Tujuan",
-      dataIndex: "divisi_tujuan",
-      key: "divisi_tujuan",
+      dataIndex: "divisi",
+      key: "divisi",
       align: "center",
     },
     {
       title: "No SPK",
-      dataIndex: "no_spk",
-      key: "no_spk",
+      dataIndex: "no_job_order",
+      key: "no_job_order",
       align: "center",
     },
     {
@@ -26,20 +27,20 @@ const TableKirimBatu = () => {
     },
     {
       title: "Bahan",
-      dataIndex: "bahan",
-      key: "bahan",
+      dataIndex: "kode_jenis_bahan",
+      key: "kode_jenis_bahan",
       align: "center",
     },
     {
       title: "Jumlah",
-      dataIndex: "jumlah",
-      key: "jumlah",
+      dataIndex: "stock_out",
+      key: "stock_out",
       align: "center",
     },
     {
       title: "Tambahan",
-      dataIndex: "tambahan",
-      key: "tambahan",
+      dataIndex: "berat_out",
+      key: "berat_out",
       align: "center",
     },
   ];
