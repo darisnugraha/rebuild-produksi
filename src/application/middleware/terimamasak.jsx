@@ -5,6 +5,7 @@ import {
   SET_SUSUT,
   setDataSusutSuccess,
   setDataBeratTerima,
+  ADD_TERIMA_MASAK,
 } from "../actions/terimamasak";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -18,10 +19,18 @@ const getDataTerimaMasak =
       const response = await api.TerimaMasak.getTerimaMasak({
         data: action.payload.data,
       });
-      log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataTerimaMasakSuccess({ feedback: response.value.data }));
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          dispatch(
+            setDataTerimaMasakSuccess({ feedback: response.value.data })
+          );
+        } else {
+          setDataTerimaMasakSuccess({ feedback: [] });
+          sweetalert.default.Failed(response.value.pesan);
+          dispatch(setDataTerimaMasakFailed({ error: response.value }));
+        }
       } else {
+        setDataTerimaMasakSuccess({ feedback: [] });
         sweetalert.default.Failed(response.error.data.pesan);
         dispatch(setDataTerimaMasakFailed({ error: response.error }));
       }
@@ -45,6 +54,35 @@ const setBeratSusut =
     }
   };
 
-const data = [getDataTerimaMasak, setBeratSusut];
+const addDataTerimaMasak =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TERIMA_MASAK) {
+      const data = getState().form.FormTerimaMasak.values;
+      delete data.berat_tot_kirim;
+      const dataBahan = getState().masterbahan.feedback;
+      const dataBahanFill = dataBahan.filter((item) => {
+        return item.kode_bahan === data.kode_bahan;
+      });
+      data.kode_bahan = dataBahanFill[0].nama_bahan;
+      const response = await api.TerimaMasak.addTerimaMasak({
+        dataKirim: data,
+      });
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          sweetalert.default.Success(response.value.pesan);
+        } else {
+          sweetalert.default.Failed(response.value.pesan);
+        }
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [getDataTerimaMasak, setBeratSusut, addDataTerimaMasak];
 
 export default data;

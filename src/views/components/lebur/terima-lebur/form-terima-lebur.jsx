@@ -9,6 +9,7 @@ import ui from "../../../../application/selectors/ui";
 import {
   getTerimaLebur,
   countSusut,
+  addTerimaLebur,
 } from "../../../../application/actions/terimalebur";
 
 const maptostate = (state) => {
@@ -16,18 +17,18 @@ const maptostate = (state) => {
     return {
       initialValues: {
         no_kirim: state.terimalebur.feedback[0]?.no_kirim,
-        karat_24: state.terimalebur.feedback[0]?.tot_berat_murni,
+        berat_murni: state.terimalebur.feedback[0]?.tot_berat_murni,
         berat_terima: state.terimalebur.beratTerima,
-        susut: state.terimalebur.susut,
+        berat_susut: state.terimalebur.susut,
       },
     };
   } else {
     return {
       initialValues: {
         no_kirim: "",
-        karat_24: "",
+        berat_murni: "",
         berat_terima: "",
-        susut: "",
+        berat_susut: "",
       },
     };
   }
@@ -47,7 +48,9 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addTerimaLebur);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -67,7 +70,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="karat_24"
+              name="berat_murni"
               type="text"
               label={<span style={{ fontSize: "13px" }}>24k</span>}
               component={styleAntd.AInput}
@@ -93,7 +96,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="susut"
+              name="berat_susut"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Susut</span>}
               component={styleAntd.AInput}

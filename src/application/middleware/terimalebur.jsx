@@ -5,6 +5,7 @@ import {
   SET_SUSUT,
   setDataSusutSuccess,
   setDataBeratTerima,
+  ADD_TERIMA_LEBUR,
 } from "../actions/terimalebur";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -18,10 +19,18 @@ const getDataTerimaLebur =
       const response = await api.TerimaLebur.getTerimaLebur({
         data: action.payload.data,
       });
-      log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataTerimaLeburSuccess({ feedback: response.value.data }));
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          dispatch(
+            setDataTerimaLeburSuccess({ feedback: response.value.data })
+          );
+        } else {
+          dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
+          sweetalert.default.Failed(response.value.pesan);
+          dispatch(setDataTerimaLeburFailed({ error: response.value }));
+        }
       } else {
+        dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
         sweetalert.default.Failed(response.error.data.pesan);
         dispatch(setDataTerimaLeburFailed({ error: response.error }));
       }
@@ -45,6 +54,29 @@ const setBeratSusut =
     }
   };
 
-const data = [getDataTerimaLebur, setBeratSusut];
+const addDataTerimaLebur =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TERIMA_LEBUR) {
+      const data = getState().form.FormTerimaLebur.values;
+      const response = await api.TerimaLebur.addTerimaLebur({
+        dataKirim: data,
+      });
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          sweetalert.default.Success(response.value.pesan);
+        } else {
+          sweetalert.default.Failed(response.value.pesan);
+        }
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
+const data = [getDataTerimaLebur, setBeratSusut, addDataTerimaLebur];
 
 export default data;

@@ -27,7 +27,7 @@ const getDataSetorAbuTukangCOR =
             })
           );
         } else {
-          sweetalert.default.Success("Berhasil Mengambil Data !");
+          sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
           dispatch(
             setDataSetorOutstandCastingSuccess({
               feedback: response.value.data,

@@ -9,6 +9,7 @@ import {
   count24KSuccess,
   setDataTerimaBerat,
   SET_LOCAL_DATA_KIRIM_MASAK,
+  ADD_KIRIM_MASAK,
 } from "../actions/kirimmasak";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -40,12 +41,19 @@ const getDataTerimaLebur =
       const response = await api.KirimMasak.getDataTerimaLebur({
         data: action.payload.data,
       });
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataTerimaLeburMasakSuccess({ feedback: response.value.data })
-        );
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          dispatch(
+            setDataTerimaLeburMasakSuccess({ feedback: response.value.data })
+          );
+        } else {
+          dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
+          sweetalert.default.Failed(response.value.pesan);
+          dispatch(setDataTerimaLeburMasakFailed({ error: response.value }));
+        }
       } else {
-        sweetalert.default.Failed(response.error.data.pesan);
+        dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
+        sweetalert.default.Failed(response.error);
         dispatch(setDataTerimaLeburMasakFailed({ error: response.error }));
       }
     }
@@ -58,12 +66,13 @@ const setKarat24 =
   async (action) => {
     next(action);
     if (action.type === SET_24K) {
-      let berat_murni = getState().kirimmasak.feedback[0]?.berat_kirim || 0;
-      let berat_terima = action.payload.data || 0;
+      let berat_terima = getState().kirimmasak.feedback[0]?.berat_kirim || 0;
+      let kadar = action.payload.data || 0;
+      const kadar_kali = parseFloat(kadar) / 100;
       let susut = 0;
-      susut = parseFloat(berat_murni) - parseFloat(berat_terima);
+      susut = parseFloat(berat_terima) * kadar_kali;
       dispatch(count24KSuccess({ feedback: susut.toFixed(3) }));
-      dispatch(setDataTerimaBerat({ beratTerima: berat_terima }));
+      dispatch(setDataTerimaBerat({ beratTerima: kadar }));
     }
   };
 
@@ -80,14 +89,19 @@ const setDataLokalKirimMasak =
       ) {
         const data = getState().form.FormKirimMasak.values;
         let dataLocal = [];
+
         if (
           data.no_terima_lebur === undefined ||
-          data.berat_kirim === undefined ||
+          data.berat === undefined ||
           data.kadar === undefined ||
-          data.karat_24 === undefined
+          data.karat === undefined
         ) {
           sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
         } else {
+          data.berat = parseFloat(data.berat);
+          data.kadar = parseFloat(data.kadar);
+          data.karat = parseFloat(data.karat);
+
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_masak", dataLocal);
@@ -98,12 +112,16 @@ const setDataLokalKirimMasak =
         const data = getState().form.FormKirimMasak.values;
         if (
           data.no_terima_lebur === undefined ||
-          data.berat_kirim === undefined ||
+          data.berat === undefined ||
           data.kadar === undefined ||
-          data.karat_24 === undefined
+          data.karat === undefined
         ) {
           sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
         } else {
+          data.berat = parseFloat(data.berat);
+          data.kadar = parseFloat(data.kadar);
+          data.karat = parseFloat(data.karat);
+
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_masak", dataLocal);
@@ -113,11 +131,39 @@ const setDataLokalKirimMasak =
     }
   };
 
+const addDataKirimMasak =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_KIRIM_MASAK) {
+      const data = getLocal("data_kirim_masak");
+      const onSend = {
+        detail: data,
+      };
+      const response = await api.KirimMasak.addKirimMasak({
+        dataKirim: onSend,
+      });
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          sweetalert.default.Success(response.value.pesan);
+          localStorage.removeItem("data_kirim_masak");
+        } else {
+          sweetalert.default.Failed(response.value.pesan);
+        }
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
 const data = [
   getHistoryKirimMasak,
   getDataTerimaLebur,
   setKarat24,
   setDataLokalKirimMasak,
+  addDataKirimMasak,
 ];
 
 export default data;

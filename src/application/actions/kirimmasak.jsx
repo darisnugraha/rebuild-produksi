@@ -14,6 +14,7 @@ export const SET_24K_SUCCESS = "[kirimmasak] set 24k success";
 export const SET_BERAT_TERIMA = "[kirimmasak] set berat terima";
 export const SET_LOCAL_DATA_KIRIM_MASAK =
   "[kirimmasak] set data local kirim masak";
+export const ADD_KIRIM_MASAK = "[kirimmasak] add kirim masak";
 
 export const getAllHistoryKirimMasak = {
   type: GET_ALL_HISTORY_KIRIM_MASAK,
@@ -52,4 +53,8 @@ export const setDataTerimaBerat = ({ beratTerima }) => ({
 });
 export const simpanLokalKirimMasak = {
   type: SET_LOCAL_DATA_KIRIM_MASAK,
+};
+
+export const addKirimMasak = {
+  type: ADD_KIRIM_MASAK,
 };

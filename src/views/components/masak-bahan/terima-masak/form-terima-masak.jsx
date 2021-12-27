@@ -10,6 +10,7 @@ import DataBahan from "../../../../application/selectors/masterbahan";
 import {
   getTerimaMasak,
   countSusut,
+  addTerimaMasak,
 } from "../../../../application/actions/terimamasak";
 
 const { Option } = Select;
@@ -20,8 +21,8 @@ const maptostate = (state) => {
       initialValues: {
         no_kirim: state.terimamasak.feedback[0]?.no_kirim,
         berat_tot_kirim: state.terimamasak.feedback[0]?.tot_berat_murni,
-        berat_bahan_jadi: state.terimamasak.beratTerima,
-        bahan_jadi: state.masterbahan.feedback[0]?.kode_bahan,
+        berat_jadi: state.terimamasak.beratTerima,
+        kode_bahan: state.masterbahan.feedback[0]?.kode_bahan,
         berat_susut: state.terimamasak.susut,
       },
     };
@@ -30,8 +31,8 @@ const maptostate = (state) => {
       initialValues: {
         no_kirim: "",
         berat_tot_kirim: "",
-        bahan_jadi: state.masterbahan.feedback[0]?.kode_bahan,
-        berat_bahan_jadi: "",
+        kode_bahan: state.masterbahan.feedback[0]?.kode_bahan,
+        berat_jadi: "",
         berat_susut: "",
       },
     };
@@ -53,7 +54,9 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addTerimaMasak);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -87,7 +90,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="bahan_jadi"
+              name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Jadi</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -105,7 +108,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_bahan_jadi"
+              name="berat_jadi"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan Jadi</span>}
               component={styleAntd.AInput}

@@ -15,18 +15,18 @@ const maptostate = (state) => {
     return {
       initialValues: {
         no_terima_lebur: state.kirimmasak.feedback[0]?.no_terima,
-        berat_kirim: state.kirimmasak.feedback[0]?.berat_kirim,
+        berat: state.kirimmasak.feedback[0]?.berat_kirim,
         kadar: state.kirimmasak.beratTerima,
-        karat_24: state.kirimmasak.karat24,
+        karat: state.kirimmasak.karat24,
       },
     };
   } else {
     return {
       initialValues: {
         no_terima_lebur: "",
-        berat_kirim: "",
+        berat: "",
         kadar: "",
-        karat_24: "",
+        karat: "",
       },
     };
   }
@@ -65,7 +65,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_kirim"
+              name="berat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Kirim</span>}
               component={styleAntd.AInput}
@@ -89,7 +89,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="karat_24"
+              name="karat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>24K</span>}
               component={styleAntd.AInput}

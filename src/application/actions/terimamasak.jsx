@@ -8,6 +8,8 @@ export const SET_SUSUT = "[terimamasak] set susut";
 export const SET_SUSUT_SUCCESS = "[terimamasak] set susut success";
 export const SET_BERAT_TERIMA = "[terimamasak] set berat terima";
 
+export const ADD_TERIMA_MASAK = "[terimamasak] add terima masak";
+
 export const getTerimaMasak = ({ noKirim }) => ({
   type: GET_TERIMA_MASAK,
   payload: { data: noKirim },
@@ -33,3 +35,7 @@ export const setDataBeratTerima = ({ beratTerima }) => ({
   type: SET_BERAT_TERIMA,
   payload: { data: beratTerima },
 });
+
+export const addTerimaMasak = {
+  type: ADD_TERIMA_MASAK,
+};

@@ -11,7 +11,10 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimLebur from "../../components/lebur/kirim-lebur/button-add-kirim-lebur";
 import TableKirimLebur from "../../components/lebur/kirim-lebur/table-kirim-lebur";
 import TableHistoryKirimLebur from "../../components/lebur/kirim-lebur/table-history-kirim-lebur";
-import { getAllHistoryKirimLebur } from "../../../application/actions/kirimlebur.jsx";
+import {
+  addKirimLebur,
+  getAllHistoryKirimLebur,
+} from "../../../application/actions/kirimlebur.jsx";
 
 const KirimLebur = () => {
   const dispatch = useDispatch();
@@ -61,7 +64,14 @@ const KirimLebur = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        dispatch(addKirimLebur);
+                      }}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button

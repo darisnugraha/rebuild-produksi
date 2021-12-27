@@ -21,6 +21,7 @@ export const SET_DATA_24K = "[kirimlebur] set 24k";
 export const SET_DATA_ASAL_BAHAN = "[kirimlebur] set data asal bahan";
 export const SET_LOCAL_DATA_KIRIM_LEBUR =
   "[kirimlebur] set data local kirim lebur";
+export const ADD_KIRIM_LEBUR = "[kirimlebur] add kirim lebur";
 
 export const getAllHistoryKirimLebur = {
   type: GET_ALL_HISTORY_KIRIM_LEBUR,
@@ -72,4 +73,8 @@ export const setDataAsalBahan = ({ asalBahan }) => ({
 
 export const simpanDataLocalKirimLebur = {
   type: SET_LOCAL_DATA_KIRIM_LEBUR,
+};
+
+export const addKirimLebur = {
+  type: ADD_KIRIM_LEBUR,
 };

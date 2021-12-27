@@ -24,10 +24,10 @@ const maptostate = (state) => {
       return {
         initialValues: {
           asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-          jenis_bahan: state.kirimlebur.feedback[0]?.id,
-          berat_kirim: state.kirimlebur.feedback[0]?.berat,
+          id: state.kirimlebur.feedback[0]?.id,
+          berat: state.kirimlebur.feedback[0]?.berat,
           kadar: state.kirimlebur.feedback[0]?.kadar,
-          karat_24: state.kirimlebur.karat24,
+          karat: state.kirimlebur.karat24,
           keterangan: "",
         },
       };
@@ -36,10 +36,10 @@ const maptostate = (state) => {
       return {
         initialValues: {
           asal_bahan: "INPUT MANUAL",
-          jenis_bahan: "1",
-          berat_kirim: "",
+          id: "1",
+          berat: "",
           kadar: "",
-          karat_24: state.kirimlebur.karat24,
+          karat: state.kirimlebur.karat24,
           keterangan: "",
         },
       };
@@ -47,10 +47,10 @@ const maptostate = (state) => {
     return {
       initialValues: {
         asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-        jenis_bahan: state.kirimlebur.feedbackSaldoBahan[0]?.id,
-        berat_kirim: state.kirimlebur.feedbackSaldoBahan[0]?.berat,
+        id: state.kirimlebur.feedbackSaldoBahan[0]?.id,
+        berat: state.kirimlebur.feedbackSaldoBahan[0]?.berat,
         kadar: state.kirimlebur.feedbackSaldoBahan[0]?.kadar,
-        karat_24: state.kirimlebur.karat24,
+        karat: state.kirimlebur.karat24,
         keterangan: "",
       },
     };
@@ -58,10 +58,10 @@ const maptostate = (state) => {
     return {
       initialValues: {
         asal_bahan: "ABU SISA PRODUKSI",
-        jenis_bahan: "",
-        berat_kirim: "",
+        id: "",
+        berat: "",
         kadar: "",
-        karat_24: state.kirimlebur.karat24,
+        karat: state.kirimlebur.karat24,
         keterangan: "",
       },
     };
@@ -116,7 +116,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="jenis_bahan"
+              name="id"
               label={<span style={{ fontSize: "13px" }}>Jenis Bahan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -145,7 +145,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_kirim"
+              name="berat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Kirim</span>}
               component={styleAntd.AInput}
@@ -167,7 +167,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="karat_24"
+              name="karat"
               type="text"
               label={<span style={{ fontSize: "13px" }}>24K</span>}
               component={styleAntd.AInput}

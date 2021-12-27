@@ -11,6 +11,7 @@ import {
   setData24K,
   setDataAsalBahan,
   SET_LOCAL_DATA_KIRIM_LEBUR,
+  ADD_KIRIM_LEBUR,
 } from "../actions/kirimlebur";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -39,6 +40,7 @@ const getDataSaldoBahanOpen =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_SALDO_BAHAN_OPEN) {
+      dispatch(setDataSaldoBahanSuccess({ feedback: [] }));
       if (action.payload.data === null) {
         const data = getState().form.FormTambahKirimLebur.values;
         dispatch(setDataAsalBahan({ asalBahan: data.asal_bahan }));
@@ -131,14 +133,19 @@ const setDataLocalKirimLebur =
         getLocal("data_kirim_lebur") === undefined ||
         getLocal("data_kirim_lebur") === null
       ) {
-        const data = getState().form.FormTambahKirimLebur.values;
+        let data = getState().form.FormTambahKirimLebur.values;
         let dataLocal = [];
+        const jenisbahan =
+          getState().kirimlebur.feedback[0]?.jenis_bahan ||
+          getState().kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan;
+        data.jenis_bahan = jenisbahan;
+        log(data);
         if (
           data.asal_bahan === undefined ||
-          data.jenis_bahan === undefined ||
-          data.berat_kirim === undefined ||
+          data.id === undefined ||
+          data.berat === undefined ||
           data.kadar === undefined ||
-          data.karat_24 === undefined ||
+          data.karat === undefined ||
           data.keterangan === undefined
         ) {
           sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
@@ -146,17 +153,20 @@ const setDataLocalKirimLebur =
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_lebur", dataLocal);
-          window.location.reload();
         }
       } else {
         let dataLocal = getLocal("data_kirim_lebur");
-        const data = getState().form.FormTambahKirimLebur.values;
+        let data = getState().form.FormTambahKirimLebur.values;
+        const jenisbahan =
+          getState().kirimlebur.feedback[0]?.jenis_bahan ||
+          getState().kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan;
+        data.jenis_bahan = jenisbahan;
         if (
           data.asal_bahan === undefined ||
-          data.jenis_bahan === undefined ||
-          data.berat_kirim === undefined ||
+          data.id === undefined ||
+          data.berat === undefined ||
           data.kadar === undefined ||
-          data.karat_24 === undefined ||
+          data.karat === undefined ||
           data.keterangan === undefined
         ) {
           sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
@@ -164,8 +174,34 @@ const setDataLocalKirimLebur =
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           dataLocal.push(data);
           writeLocal("data_kirim_lebur", dataLocal);
-          window.location.reload();
         }
+      }
+    }
+  };
+
+const addKirimLebur =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_KIRIM_LEBUR) {
+      const data = getLocal("data_kirim_lebur");
+      const onSend = {
+        detail: data,
+      };
+      const response = await api.KirimLebur.addDataKirimLebur({
+        dataKirim: onSend,
+      });
+      if (response.value !== null) {
+        if (response.value?.status === "berhasil") {
+          sweetalert.default.Success(response.value.pesan);
+          localStorage.removeItem("data_kirim_lebur");
+        } else {
+          sweetalert.default.Failed(response.value.pesan);
+        }
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
       }
     }
   };
@@ -175,6 +211,7 @@ const data = [
   getDataSaldoBahanOpen,
   getDataSaldoBahan,
   setDataLocalKirimLebur,
+  addKirimLebur,
 ];
 
 export default data;

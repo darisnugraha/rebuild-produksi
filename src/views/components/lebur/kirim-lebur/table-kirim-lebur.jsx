@@ -20,8 +20,8 @@ const TableKirimLebur = () => {
     },
     {
       title: "Berat Kirim",
-      dataIndex: "berat_kirim",
-      key: "berat_kirim",
+      dataIndex: "berat",
+      key: "berat",
       align: "center",
     },
     {
@@ -32,8 +32,8 @@ const TableKirimLebur = () => {
     },
     {
       title: "24K",
-      dataIndex: "karat_24",
-      key: "karat_24",
+      dataIndex: "karat",
+      key: "karat",
       align: "center",
     },
     {

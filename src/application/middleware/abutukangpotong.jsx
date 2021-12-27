@@ -25,7 +25,7 @@ const getDataSetorAbuTukangPotong =
             setDataSetorOutstandPotongSuccess({ feedback: response.value.data })
           );
         } else {
-          sweetalert.default.Success("Berhasil Mengambil Data !");
+          sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
           dispatch(
             setDataSetorOutstandPotongSuccess({ feedback: response.value.data })
           );

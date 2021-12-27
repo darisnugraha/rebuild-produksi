@@ -11,7 +11,10 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimMasak from "../../components/masak-bahan/kirim-masak/button-add-kirim-masak";
 import TableKirimMasak from "../../components/masak-bahan/kirim-masak/table-kirim-masak";
 import TableHistoryKirimMasak from "../../components/masak-bahan/kirim-masak/table-history-kirim-masak";
-import { getAllHistoryKirimMasak } from "../../../application/actions/kirimmasak.jsx";
+import {
+  addKirimMasak,
+  getAllHistoryKirimMasak,
+} from "../../../application/actions/kirimmasak.jsx";
 
 const KirimMasak = () => {
   const dispatch = useDispatch();
@@ -61,7 +64,14 @@ const KirimMasak = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        dispatch(addKirimMasak);
+                      }}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button
