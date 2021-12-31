@@ -56,6 +56,7 @@ import TerimaMasak from "../../views/pages/masak-bahan/terima-masak";
 import LaporanTambahAmbilSaldoBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-tambah-dan-ambil-saldo-batu";
 import LaporanKirimBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-kirim-batu";
 import LaporanSaldoBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-saldo-batu";
+import LaporanSaldoBahan from "../../views/pages/laporan/laporan-admin-bahan/laporan-saldo-bahan";
 
 const routes = [
   // {
@@ -769,8 +770,13 @@ const routes = [
   },
   {
     path: "/laporan/admin-berlian/saldo-batu",
-    title: "Laporan Sald Batu",
+    title: "Laporan Saldo Batu",
     component: () => <LaporanSaldoBatu />,
+  },
+  {
+    path: "/laporan/admin-bahan/saldo-bahan",
+    title: "Laporan Saldo Bahan",
+    component: () => <LaporanSaldoBahan />,
   },
   {
     path: "/notfound",

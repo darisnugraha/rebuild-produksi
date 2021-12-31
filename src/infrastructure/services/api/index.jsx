@@ -41,6 +41,8 @@ import GabungJO from "./gabungjo";
 import LaporanTambahAmbilSaldoBatu from "./laporantambahambilsaldobatu";
 import LaporanKirimBatu from "./laporankirimbatu";
 import LaporanSaldoBatu from "./laporansaldobatu";
+import GroupBahan from "./groupbahan";
+import LaporanSaldoBahan from "./laporansaldobahan";
 
 const api = {
   login,
@@ -86,6 +88,8 @@ const api = {
   LaporanTambahAmbilSaldoBatu,
   LaporanKirimBatu,
   LaporanSaldoBatu,
+  GroupBahan,
+  LaporanSaldoBahan,
 };
 
 export default api;

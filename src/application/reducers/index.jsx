@@ -43,6 +43,8 @@ import gabungjo from "./gabungjo";
 import laporantambahambilsaldobatu from "./laporantambahambilsaldobatu";
 import laporankirimbatu from "./laporankirimbatu";
 import laporansaldobatu from "./laporansaldotukang";
+import groupbahan from "./groupbahan";
+import laporansaldobahan from "./laporansaldobahan";
 
 export default combineReducers({
   login,
@@ -88,5 +90,7 @@ export default combineReducers({
   laporantambahambilsaldobatu,
   laporankirimbatu,
   laporansaldobatu,
+  groupbahan,
+  laporansaldobahan,
   form: formReducer,
 });
