@@ -41,6 +41,7 @@ import terimajo from "./terimajo";
 import closejo from "./closejo";
 import gabungjo from "./gabungjo";
 import laporantambahambilsaldobatu from "./laporantambahambilsaldobatu";
+import laporankirimbatu from "./laporankirimbatu";
 
 export default combineReducers({
   login,
@@ -84,5 +85,6 @@ export default combineReducers({
   closejo,
   gabungjo,
   laporantambahambilsaldobatu,
+  laporankirimbatu,
   form: formReducer,
 });

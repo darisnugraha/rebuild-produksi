@@ -8,24 +8,24 @@
 // getState is FUNCTION for get current data in your state (reducer), just call getState().yourReducer.yourData
 
 import {
-  GET_ALL_TAMBAH_AMBIL_SALDO_BATU,
-  setDataLaporanTambahAmbilSaldoBatuSuccess,
-  setDataLaporanTambahAmbilSaldoBatuFailed,
-} from "../actions/laporantambahambilsaldobatu";
+  GET_ALL_LAPORAN_KIRIM_BATU,
+  setDataLaporanKirimBatuSuccess,
+  setDataLaporanKirimBatuFailed,
+} from "../actions/laporankirimbatu";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
-const getAllDataLaporanTambahAmbilSaldoBatu =
+const getAllDataLaporanKirimBatu =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_ALL_TAMBAH_AMBIL_SALDO_BATU) {
+    if (action.type === GET_ALL_LAPORAN_KIRIM_BATU) {
       dispatch(setLoadingButton(true));
-      dispatch(setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] }));
-      const data = getState().form.FormLaporanTambahAmbilSaldoBatu.values;
+      dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
+      const data = getState().form.FormLaporanKirimBatu.values;
       const tgl_dari = new Date(data.date[0]);
       const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
         "YYYY-MM-DD"
@@ -35,11 +35,11 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
         "YYYY-MM-DD"
       );
       const dataOnsend = {
-        kategori: data.transaksi,
+        kategori: "KIRIM",
         tgl_awal: tgl_dari_string,
         tgl_akhir: tgl_sampai_string,
       };
-      writeLocal("laporan_tambah_ambil_batu", dataOnsend);
+      writeLocal("laporan_kirim_batu", dataOnsend);
 
       if (
         dataOnsend.tgl_awal === undefined ||
@@ -49,32 +49,27 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
-        const response =
-          await api.LaporanTambahAmbilSaldoBatu.getAllLaporanTambahAmbilSaldoBatu(
-            dataOnsend
-          );
+        const response = await api.LaporanKirimBatu.getAllLaporanKirimBatu(
+          dataOnsend
+        );
         if (response?.value !== null) {
           dispatch(setLoadingButton(false));
           if (response?.value.status === "berhasil") {
             if (response?.value.data.length === 0) {
               sweetalert.default.Failed(response?.value.pesan);
-              dispatch(
-                setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] })
-              );
+              dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
             } else {
               sweetalert.default.SuccessNoReload(response?.value.pesan);
               dispatch(
-                setDataLaporanTambahAmbilSaldoBatuSuccess({
+                setDataLaporanKirimBatuSuccess({
                   feedback: response?.value.data,
                 })
               );
             }
           } else {
+            dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
             dispatch(
-              setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] })
-            );
-            dispatch(
-              setDataLaporanTambahAmbilSaldoBatuFailed({
+              setDataLaporanKirimBatuFailed({
                 error: response.value.pesan,
               })
             );
@@ -82,14 +77,12 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
         } else {
           dispatch(setLoadingButton(false));
           sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanTambahAmbilSaldoBatuFailed({ error: response.error })
-          );
+          dispatch(setDataLaporanKirimBatuFailed({ error: response.error }));
         }
       }
     }
   };
 
-const data = [getAllDataLaporanTambahAmbilSaldoBatu];
+const data = [getAllDataLaporanKirimBatu];
 
 export default data;

@@ -14,8 +14,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename="LAPORAN TAMBAH DAN AMBIL SALDO BATU"
-          sheet="LAPORAN TAMBAH DAN AMBIL SALDO BATU"
+          filename="LAPORAN KIRIM BATU"
+          sheet="LAPORAN KIRIM BATU"
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -29,7 +29,7 @@ class ExcelReport extends Component {
                 }}
                 colSpan="6"
               >
-                LAPORAN TAMBAH DAN AMBIL SALDO BATU
+                LAPORAN KIRIM BATU
               </td>
             </tr>
             <tr>
@@ -73,6 +73,15 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
+                KETERANGAN
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
                 KODE BATU
               </td>
               <td
@@ -93,43 +102,36 @@ class ExcelReport extends Component {
               >
                 BERAT
               </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                KETERANGAN
-              </td>
             </tr>
           </thead>
           <tbody>
             {this.props.dataExel.map((item) => {
               return (
                 <tr>
-                  <td>{item.no_mutasi_batu}</td>
-                  <td>{item.tgl_mutasi}</td>
+                  <td>{item.no_batu_kirim}</td>
+                  <td>{item.tgl_kirim}</td>
+                  <td>{item.no_job_order}</td>
                   <td>{item.kode_batu}</td>
-                  <td style={{ textAlign: "right" }}>{item.jumlah}</td>
-                  <td style={{ textAlign: "right" }}>{item.berat}</td>
-                  <td>{item.keterangan}</td>
+                  <td style={{ textAlign: "right" }}>{item.stock_batu}</td>
+                  <td style={{ textAlign: "right" }}>{item.berat_batu}</td>
                 </tr>
               );
             })}
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={3}>Total :</td>
-              <td>
+              <td colSpan={4} style={{ textAlign: "right" }}>
+                Total :
+              </td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel.reduce(
-                  (a, b) => a + parseFloat(b.jumlah),
+                  (a, b) => a + parseFloat(b.stock_batu),
                   0
                 )}
               </td>
-              <td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.berat), 0)
+                  .reduce((a, b) => a + parseFloat(b.berat_batu), 0)
                   .toFixed(3)}
               </td>
             </tr>

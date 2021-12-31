@@ -156,6 +156,7 @@ const URL_ADD_KIRIM_MASAK = `${baseurl}masak-bahan/post/kirim-masak`;
 const URL_ADD_TERIMA_MASAK = `${baseurl}masak-bahan/post/terima-masak`;
 
 const URL_GET_LAPORAN_TAMBAH_AMBIL_SALDO_BATU = `${baseurl}mutasi-batu/all`;
+const URL_GET_LAPORAN_KIRIM_BATU = `${baseurl}mutasi-batu/all`;
 
 const data = {
   URL_LOGIN,
@@ -313,6 +314,7 @@ const data = {
   URL_ADD_TERIMA_MASAK,
 
   URL_GET_LAPORAN_TAMBAH_AMBIL_SALDO_BATU,
+  URL_GET_LAPORAN_KIRIM_BATU,
 };
 
 export default data;
