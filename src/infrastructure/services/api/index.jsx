@@ -38,6 +38,7 @@ import TambahJobOrder from "./tambahjo";
 import TerimaJO from "./terimajo";
 import CloseJO from "./closejo";
 import GabungJO from "./gabungjo";
+import LaporanTambahAmbilSaldoBatu from "./laporantambahambilsaldobatu";
 
 const api = {
   login,
@@ -80,6 +81,7 @@ const api = {
   TerimaJO,
   CloseJO,
   GabungJO,
+  LaporanTambahAmbilSaldoBatu,
 };
 
 export default api;

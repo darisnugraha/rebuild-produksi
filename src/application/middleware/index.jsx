@@ -38,6 +38,7 @@ import terimacor from "./terimacor";
 import terimajo from "./terimajo";
 import closejo from "./closejo";
 import gabungjo from "./gabungjo";
+import laporantambahambilsaldobatu from "./laporantambahambilsaldobatu";
 
 const midd = [
   ...ui,
@@ -80,6 +81,7 @@ const midd = [
   ...terimajo,
   ...closejo,
   ...gabungjo,
+  ...laporantambahambilsaldobatu,
 ];
 
 export default midd;

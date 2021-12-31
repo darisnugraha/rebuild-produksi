@@ -535,6 +535,33 @@ const Menu = [
       },
     ],
   },
+  {
+    path: "/laporan",
+    icon: "fa fa-book",
+    title: "Laporan",
+    children: [
+      {
+        path: "/laporan/admin-berlian",
+        title: "Laporan Admin Berlian",
+        children: [
+          {
+            path: "/laporan/admin-berlian/ambil-tambah-saldo-batu",
+            title: "Laporan Ambil dan Tambah Saldo Batu",
+          },
+        ],
+      },
+      {
+        path: "/laporan/admin-bahan",
+        title: "Laporan Admin Bahan",
+        children: [
+          {
+            path: "/laporan/admin-bahan/saldo-bahan",
+            title: "Laporan Saldo Bahan",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default Menu;
