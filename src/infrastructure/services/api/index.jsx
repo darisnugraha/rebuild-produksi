@@ -39,7 +39,8 @@ import TerimaJO from "./terimajo";
 import CloseJO from "./closejo";
 import GabungJO from "./gabungjo";
 import LaporanTambahAmbilSaldoBatu from "./laporantambahambilsaldobatu";
-import LaporanKirimBatu from "./kirimbatu";
+import LaporanKirimBatu from "./laporankirimbatu";
+import LaporanSaldoBatu from "./laporansaldobatu";
 
 const api = {
   login,
@@ -84,6 +85,7 @@ const api = {
   GabungJO,
   LaporanTambahAmbilSaldoBatu,
   LaporanKirimBatu,
+  LaporanSaldoBatu,
 };
 
 export default api;

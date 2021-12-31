@@ -552,6 +552,10 @@ const Menu = [
             path: "/laporan/admin-berlian/kirim-batu",
             title: "Laporan Kirim Batu",
           },
+          {
+            path: "/laporan/admin-berlian/saldo-batu",
+            title: "Laporan Saldo Batu",
+          },
         ],
       },
       {

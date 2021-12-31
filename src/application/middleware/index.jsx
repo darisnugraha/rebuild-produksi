@@ -40,6 +40,7 @@ import closejo from "./closejo";
 import gabungjo from "./gabungjo";
 import laporantambahambilsaldobatu from "./laporantambahambilsaldobatu";
 import laporankirimbatu from "./laporankirimbatu";
+import laporansaldobatu from "./laporansaldobatu";
 
 const midd = [
   ...ui,
@@ -84,6 +85,7 @@ const midd = [
   ...gabungjo,
   ...laporantambahambilsaldobatu,
   ...laporankirimbatu,
+  ...laporansaldobatu,
 ];
 
 export default midd;

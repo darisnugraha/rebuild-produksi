@@ -52,8 +52,10 @@ import KirimLebur from "../../views/pages/lebur/kirim-lebur";
 import TerimaLebur from "../../views/pages/lebur/terima-lebur";
 import KirimMasak from "../../views/pages/masak-bahan/kirim-masak";
 import TerimaMasak from "../../views/pages/masak-bahan/terima-masak";
+//laporan
 import LaporanTambahAmbilSaldoBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-tambah-dan-ambil-saldo-batu";
 import LaporanKirimBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-kirim-batu";
+import LaporanSaldoBatu from "../../views/pages/laporan/laporan-admin-berlian/laporan-saldo-batu";
 
 const routes = [
   // {
@@ -764,6 +766,11 @@ const routes = [
     path: "/laporan/admin-berlian/kirim-batu",
     title: "Laporan Kirim Batu",
     component: () => <LaporanKirimBatu />,
+  },
+  {
+    path: "/laporan/admin-berlian/saldo-batu",
+    title: "Laporan Sald Batu",
+    component: () => <LaporanSaldoBatu />,
   },
   {
     path: "/notfound",
