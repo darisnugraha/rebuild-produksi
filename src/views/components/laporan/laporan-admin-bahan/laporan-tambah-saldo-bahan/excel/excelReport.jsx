@@ -8,6 +8,11 @@ class ExcelReport extends Component {
   }
 
   render() {
+    let totalKarat24 = 0;
+    this.props.dataExel.map((item) => {
+      return (totalKarat24 =
+        totalKarat24 + parseFloat(item.berat) * (parseFloat(item.kadar) / 100));
+    });
     return (
       <>
         <ReactHTMLTableToExcel
@@ -129,18 +134,20 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={4}>Total :</td>
-              <td>
+              <td colSpan={4} style={{ textAlign: "right" }}>
+                Total :
+              </td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
                   .reduce((a, b) => a + parseFloat(b.berat), 0)
                   .toFixed(3)}
               </td>
-              <td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
                   .reduce((a, b) => a + parseFloat(b.kadar), 0)
                   .toFixed(3)}
               </td>
-              <td>0</td>
+              <td style={{ textAlign: "right" }}>{totalKarat24.toFixed(3)}</td>
             </tr>
           </tfoot>
         </table>
