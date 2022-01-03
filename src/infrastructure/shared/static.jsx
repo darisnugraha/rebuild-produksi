@@ -162,6 +162,7 @@ const URL_GET_LAPORAN_SALDO_BATU = `${baseurl}mutasi-batu/saldo-batu/all`;
 const URL_GET_GROUP_BAHAN = `${baseurl}report/saldo-bahan/group-bahan`;
 const URL_GET_LAPORAN_SALDO_BAHAN = `${baseurl}report/saldo-bahan/bahan`;
 const URL_GET_LAPORAN_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni/all`;
+const URL_GET_LAPORAN_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-bahan/all`;
 
 const data = {
   URL_LOGIN,
@@ -324,6 +325,7 @@ const data = {
   URL_GET_GROUP_BAHAN,
   URL_GET_LAPORAN_SALDO_BAHAN,
   URL_GET_LAPORAN_TAMBAH_SALDO_BAHAN,
+  URL_GET_LAPORAN_PEMBUATAN_JENIS_BAHAN,
 };
 
 export default data;

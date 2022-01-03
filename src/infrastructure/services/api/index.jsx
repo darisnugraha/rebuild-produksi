@@ -44,6 +44,7 @@ import LaporanSaldoBatu from "./laporansaldobatu";
 import GroupBahan from "./groupbahan";
 import LaporanSaldoBahan from "./laporansaldobahan";
 import LaporanTambahSaldoBahan from "./laporantambahsaldobahan";
+import LaporanPembuatanJenisBahan from "./laporanpembuatanjenisbahan";
 
 const api = {
   login,
@@ -92,6 +93,7 @@ const api = {
   GroupBahan,
   LaporanSaldoBahan,
   LaporanTambahSaldoBahan,
+  LaporanPembuatanJenisBahan,
 };
 
 export default api;

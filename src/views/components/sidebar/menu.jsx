@@ -570,6 +570,10 @@ const Menu = [
             path: "/laporan/admin-bahan/tambah-saldo-bahan",
             title: "Laporan Tambah Saldo Bahan",
           },
+          {
+            path: "/laporan/admin-bahan/pembuatan-jenis-bahan",
+            title: "Laporan Pembuatan Jenis Bahan",
+          },
         ],
       },
     ],
