@@ -8,20 +8,20 @@ import {
 } from "../../../components/panel/panel.jsx";
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../../application/actions/ui";
-import FormLaporanSaldoBahan from "../../../components/laporan/laporan-admin-bahan/laporan-saldo-bahan/form-laporan-saldo-bahan";
-import TableLaporanSaldoBahan from "../../../components/laporan/laporan-admin-bahan/laporan-saldo-bahan/table-laporan-saldo-bahan";
-import BtnPrint from "../../../components/laporan/laporan-admin-bahan/laporan-saldo-bahan/btn-print-excel-pdf";
-import SaldoBahan from "../../../../application/selectors/laporansaldobahan";
-import { getAllGroupBahan } from "../../../../application/actions/groupbahan.jsx";
+import FormLaporanTambahSaldoBahan from "../../../components/laporan/laporan-admin-bahan/laporan-tambah-saldo-bahan/form-laporan-tambah-saldo-bahan";
+import TableLaporanTambahSaldoBahan from "../../../components/laporan/laporan-admin-bahan/laporan-tambah-saldo-bahan/table-laporan-tambah-saldo-bahan";
+import BtnPrint from "../../../components/laporan/laporan-admin-bahan/laporan-tambah-saldo-bahan/btn-print-excel-pdf";
+import TambahSaldoBahan from "../../../../application/selectors/laporantambahsaldobahan";
 
-const LaporanSaldoBahan = () => {
+const LaporanTambahSaldoBahan = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllGroupBahan);
-    document.title = "Laporan Saldo Bahan";
+    document.title = "Laporan Tambah Saldo Bahan";
   }, [dispatch]);
-  const dataLaporanSaldoBahan = useSelector(SaldoBahan.getAllLaporanSaldoBahan);
+  const dataLaporanTambahSaldoBahan = useSelector(
+    TambahSaldoBahan.getAllLaporanTambahSaldoBahan
+  );
 
   return (
     <div>
@@ -30,29 +30,29 @@ const LaporanSaldoBahan = () => {
           <Link to="/dashboard">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/laporan/admin-bahan/saldo-bahan">
+          <Link to="/laporan/admin-bahan/tambah-saldo-bahan">
             Laporan Admin Bahan
           </Link>
         </li>
-        <li className="breadcrumb-item active">Saldo Bahan</li>
+        <li className="breadcrumb-item active">Tambah Saldo Bahan</li>
       </ol>
       <h1 className="page-header">
-        Laporan Admin Bahan <small>Saldo Bahan</small>
+        Laporan Admin Bahan <small>Tambah Saldo Bahan</small>
       </h1>
       <Panel>
-        <PanelHeader>Saldo Bahan</PanelHeader>
+        <PanelHeader>Tambah Saldo Bahan</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormLaporanSaldoBahan />
+                <FormLaporanTambahSaldoBahan />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanSaldoBahan.length === 0 ? "none" : "",
+                display: dataLaporanTambahSaldoBahan.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -61,14 +61,14 @@ const LaporanSaldoBahan = () => {
                 </Divider>
               </div>
               <div className="col-12">
-                <TableLaporanSaldoBahan />
+                <TableLaporanTambahSaldoBahan />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanSaldoBahan.length === 0 ? "none" : "",
+                display: dataLaporanTambahSaldoBahan.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -82,4 +82,4 @@ const LaporanSaldoBahan = () => {
   );
 };
 
-export default LaporanSaldoBahan;
+export default LaporanTambahSaldoBahan;
