@@ -8,24 +8,24 @@
 // getState is FUNCTION for get current data in your state (reducer), just call getState().yourReducer.yourData
 
 import {
-  GET_ALL_LAPORAN_KIRIM_BATU,
-  setDataLaporanKirimBatuSuccess,
-  setDataLaporanKirimBatuFailed,
-} from "../actions/laporankirimbatu";
+  GET_ALL_LAPORAN_TERIMA_POTONG,
+  setDataLaporanTerimaPotongSuccess,
+  setDataLaporanTerimaPotongFailed,
+} from "../actions/laporanterimapotong";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
-const getAllDataLaporanKirimBatu =
+const getAllDataLaporanTerimaPotong =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_ALL_LAPORAN_KIRIM_BATU) {
+    if (action.type === GET_ALL_LAPORAN_TERIMA_POTONG) {
       dispatch(setLoadingButton(true));
-      dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
-      const data = getState().form.FormLaporanKirimBatu.values;
+      dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
+      const data = getState().form.FormLaporanTerimaPotong.values;
       const tgl_dari = new Date(data.date[0]);
       const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
         "YYYY-MM-DD"
@@ -35,42 +35,41 @@ const getAllDataLaporanKirimBatu =
         "YYYY-MM-DD"
       );
       const dataOnsend = {
-        kategori: "KIRIM",
+        no_pohon: data.no_pohon,
         tgl_awal: tgl_dari_string,
         tgl_akhir: tgl_sampai_string,
       };
-      writeLocal("laporan_kirim_batu", dataOnsend);
+      writeLocal("laporan_terima_potong", dataOnsend);
 
       if (
         dataOnsend.tgl_awal === undefined ||
         dataOnsend.tgl_awal === undefined ||
-        dataOnsend.kategori === undefined
+        dataOnsend.no_pohon === undefined
       ) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
-        const response = await api.LaporanKirimBatu.getAllLaporanKirimBatu(
-          dataOnsend
-        );
+        const response =
+          await api.LaporanTerimaPotong.getAllLaporanTerimaPotong(dataOnsend);
         if (response?.value !== null) {
           dispatch(setLoadingButton(false));
           if (response?.value.status === "berhasil") {
             if (response?.value.data.length === 0) {
               sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
+              dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
             } else {
               sweetalert.default.SuccessNoReload(response?.value.pesan);
               dispatch(
-                setDataLaporanKirimBatuSuccess({
+                setDataLaporanTerimaPotongSuccess({
                   feedback: response?.value.data,
                 })
               );
             }
           } else {
             sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
+            dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
             dispatch(
-              setDataLaporanKirimBatuFailed({
+              setDataLaporanTerimaPotongFailed({
                 error: response.value.pesan,
               })
             );
@@ -78,12 +77,12 @@ const getAllDataLaporanKirimBatu =
         } else {
           dispatch(setLoadingButton(false));
           sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanKirimBatuFailed({ error: response.error }));
+          dispatch(setDataLaporanTerimaPotongFailed({ error: response.error }));
         }
       }
     }
   };
 
-const data = [getAllDataLaporanKirimBatu];
+const data = [getAllDataLaporanTerimaPotong];
 
 export default data;

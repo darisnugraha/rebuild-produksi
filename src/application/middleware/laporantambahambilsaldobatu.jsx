@@ -70,6 +70,7 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
               );
             }
           } else {
+            sweetalert.default.Failed(response?.value.pesan);
             dispatch(
               setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] })
             );

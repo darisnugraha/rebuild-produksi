@@ -67,6 +67,7 @@ const getAllDataLaporanSaldoBahan =
               );
             }
           } else {
+            sweetalert.default.Failed(response?.value.pesan);
             dispatch(setDataLaporanSaldoBahanSuccess({ feedback: [] }));
             dispatch(
               setDataLaporanSaldoBahanFailed({

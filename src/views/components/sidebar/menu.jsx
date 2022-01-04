@@ -574,6 +574,10 @@ const Menu = [
             path: "/laporan/admin-bahan/pembuatan-jenis-bahan",
             title: "Laporan Pembuatan Jenis Bahan",
           },
+          {
+            path: "/laporan/admin-bahan/terima-potong",
+            title: "Laporan Terima Potong",
+          },
         ],
       },
     ],

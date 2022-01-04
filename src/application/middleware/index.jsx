@@ -45,6 +45,7 @@ import groupbahan from "./groupbahan";
 import laporansaldobahan from "./laporansaldobahan";
 import laporantambahsaldobahan from "./laporantambahsaldobahan";
 import laporanpembuatanjenisbahan from "./laporanpembuatanjenisbahan";
+import laporanterimapotong from "./laporanterimapotong";
 
 const midd = [
   ...ui,
@@ -94,6 +95,7 @@ const midd = [
   ...laporansaldobahan,
   ...laporantambahsaldobahan,
   ...laporanpembuatanjenisbahan,
+  ...laporanterimapotong,
 ];
 
 export default midd;
