@@ -600,6 +600,10 @@ const Menu = [
             path: "/laporan/admin-pusat/kirim-tambahan",
             title: "Laporan Kirim Tambahan",
           },
+          {
+            path: "/laporan/admin-pusat/kirim-jo-admin",
+            title: "Laporan Kirim JO Admin",
+          },
         ],
       },
     ],

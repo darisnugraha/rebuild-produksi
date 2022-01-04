@@ -14,8 +14,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename="LAPORAN SALDO BAHAN"
-          sheet="LAPORAN SALDO BAHAN"
+          filename="LAPORAN KIRIM JOB ORDER ADMIN"
+          sheet="LAPORAN KIRIM JOB ORDER ADMIN"
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -26,9 +26,9 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="7"
+                colSpan="11"
               >
-                LAPORAN SALDO BAHAN
+                LAPORAN KIRIM JOB ORDER ADMIN
               </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="7"
+                colSpan="11"
               >
                 TANGGAL{" "}
                 {this.props.dataHead?.tgl_awal +
@@ -53,7 +53,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                NAMA BAHAN
+                TGL KIRIM
               </td>
               <td
                 style={{
@@ -62,7 +62,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                SALDO AWAL
+                NO SPK
               </td>
               <td
                 style={{
@@ -71,7 +71,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                MUTASI IN
+                KODE BARANG
               </td>
               <td
                 style={{
@@ -80,7 +80,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                MUTASI OUT
+                DIVISI TUJUAN
               </td>
               <td
                 style={{
@@ -89,7 +89,34 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                SALDO AKHIR
+                JENIS BAHAN
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                JUMLAH KIRIM
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                BERAT KIRIM
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                BERAT SUSUT
               </td>
               <td
                 style={{
@@ -113,19 +140,18 @@ class ExcelReport extends Component {
           </thead>
           <tbody>
             {this.props.dataExel.map((item) => {
-              const saldoakhir =
-                parseFloat(item.saldo_awal) +
-                parseFloat(item.mutasi_in) -
-                parseFloat(item.mutasi_out);
               const karat24 =
-                parseFloat(item.saldo_awal) * (parseFloat(item.kadar) / 100);
+                parseFloat(item.berat_susut) * (parseFloat(item.kadar) / 100);
               return (
                 <tr>
-                  <td>{item.nama_bahan}</td>
-                  <td style={{ textAlign: "right" }}>{item.saldo_awal}</td>
-                  <td style={{ textAlign: "right" }}>{item.mutasi_in}</td>
-                  <td style={{ textAlign: "right" }}>{item.mutasi_out}</td>
-                  <td style={{ textAlign: "right" }}>{saldoakhir}</td>
+                  <td>{item.tgl_kirim}</td>
+                  <td>{item.no_job_order}</td>
+                  <td>{item.kode_barang}</td>
+                  <td>{item.tujuan_divisi}</td>
+                  <td>{item.kode_jenis_bahan}</td>
+                  <td style={{ textAlign: "right" }}>{item.stock_out}</td>
+                  <td style={{ textAlign: "right" }}>{item.berat_out}</td>
+                  <td style={{ textAlign: "right" }}>{item.berat_susut}</td>
                   <td style={{ textAlign: "right" }}>{item.kadar}</td>
                   <td style={{ textAlign: "right" }}>{karat24}</td>
                 </tr>
@@ -134,32 +160,20 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td>Total :</td>
+              <td colSpan={5}>Total :</td>
               <td>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.saldo_awal), 0)
+                  .reduce((a, b) => a + parseFloat(b.stock_out), 0)
                   .toFixed(3)}
               </td>
               <td>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.mutasi_in), 0)
+                  .reduce((a, b) => a + parseFloat(b.berat_out), 0)
                   .toFixed(3)}
               </td>
               <td>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.mutasi_out), 0)
-                  .toFixed(3)}
-              </td>
-              <td>
-                {this.props.dataExel
-                  .reduce(
-                    (a, b) =>
-                      a +
-                      (parseFloat(b.saldo_awal) +
-                        parseFloat(b.mutasi_in) -
-                        parseFloat(b.mutasi_out)),
-                    0
-                  )
+                  .reduce((a, b) => a + parseFloat(b.berat_susut), 0)
                   .toFixed(3)}
               </td>
               <td>
@@ -172,7 +186,7 @@ class ExcelReport extends Component {
                   .reduce(
                     (a, b) =>
                       a +
-                      parseFloat(b.saldo_awal) * (parseFloat(b.kadar) / 100),
+                      parseFloat(b.berat_susut) * (parseFloat(b.kadar) / 100),
                     0
                   )
                   .toFixed(3)}

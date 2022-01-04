@@ -52,6 +52,7 @@ import laporantambahjoborder from "./laporantambahjoborder";
 import laporanterimabatu from "./laporanterimabatu";
 import laporankirimbatupusat from "./laporankirimbatupusat";
 import laporankirimtambahan from "./laporankirimtambahan";
+import laporankirimjoadmin from "./laporankirimjoadmin";
 
 export default combineReducers({
   login,
@@ -106,5 +107,6 @@ export default combineReducers({
   laporanterimabatu,
   laporankirimbatupusat,
   laporankirimtambahan,
+  laporankirimjoadmin,
   form: formReducer,
 });

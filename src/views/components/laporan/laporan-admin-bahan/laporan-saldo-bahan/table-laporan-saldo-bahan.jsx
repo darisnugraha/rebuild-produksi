@@ -16,7 +16,7 @@ const TableLaporanSaldoBahan = () => {
       title: "Saldo Awal",
       dataIndex: "saldo_awal",
       key: "saldo_awal",
-      align: "center",
+      align: "right",
     },
     {
       title: "Mutasi In",
