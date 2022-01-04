@@ -167,6 +167,7 @@ const URL_GET_LAPORAN_TERIMA_POTONG = `${baseurl}saldo-bahan/report-tukang-poton
 
 const URL_GET_LAPORAN_TAMBAH_JOB_ORDER = `${baseurl}report/job-order/tambah`;
 const URL_GET_LAPORAN_TERIMA_BATU = `${baseurl}adm-mutasi-batu/terima/all`;
+const URL_GET_LAPORAN_KIRIM_BATU_PUSAT = `${baseurl}adm-mutasi-batu/kirim/all`;
 
 const data = {
   URL_LOGIN,
@@ -334,6 +335,7 @@ const data = {
 
   URL_GET_LAPORAN_TAMBAH_JOB_ORDER,
   URL_GET_LAPORAN_TERIMA_BATU,
+  URL_GET_LAPORAN_KIRIM_BATU_PUSAT,
 };
 
 export default data;

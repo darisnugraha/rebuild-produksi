@@ -8,18 +8,20 @@ import {
 } from "../../../components/panel/panel.jsx";
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../../application/actions/ui";
-import FormLaporanTerimaBatu from "../../../components/laporan/laporan-admin-pusat/laporan-terima-batu/form-laporan-terima-batu";
-import TableLaporanTerimaBatu from "../../../components/laporan/laporan-admin-pusat/laporan-terima-batu/table-laporan-terima-batu";
-import BtnPrint from "../../../components/laporan/laporan-admin-pusat/laporan-terima-batu/btn-print-excel-pdf";
-import TerimaBatu from "../../../../application/selectors/laporanterimabatu";
+import FormLaporanKirimBatuPusat from "../../../components/laporan/laporan-admin-pusat/laporan-kirim-batu/form-laporan-kirim-batu-pusat";
+import TableLaporanKirimBatuPusat from "../../../components/laporan/laporan-admin-pusat/laporan-kirim-batu/table-laporan-kirim-batu-pusat";
+import BtnPrint from "../../../components/laporan/laporan-admin-pusat/laporan-kirim-batu/btn-print-excel-pdf";
+import KirimBatuPusat from "../../../../application/selectors/laporankirimbatupusat";
 
-const LaporanTerimaBatu = () => {
+const LaporanKirimBatuPusat = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    document.title = "Laporan Terima Batu";
+    document.title = "Laporan Kirim Batu";
   }, [dispatch]);
-  const dataLaporanTerimaBatu = useSelector(TerimaBatu.getAllLaporanTerimaBatu);
+  const dataLaporanKirimBatuPusat = useSelector(
+    KirimBatuPusat.getAllLaporanKirimBatuPusat
+  );
 
   return (
     <div>
@@ -28,27 +30,27 @@ const LaporanTerimaBatu = () => {
           <Link to="/dashboard">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/laporan/admin-pusat/terima-batu">Laporan Admin Pusat</Link>
+          <Link to="/laporan/admin-pusat/kirim-batu">Laporan Admin Pusat</Link>
         </li>
-        <li className="breadcrumb-item active">Terima Batu</li>
+        <li className="breadcrumb-item active">Kirim Batu</li>
       </ol>
       <h1 className="page-header">
-        Laporan Admin Pusat <small>Terima Batu</small>
+        Laporan Admin Pusat <small>Kirim Batu</small>
       </h1>
       <Panel>
-        <PanelHeader>Terima Batu</PanelHeader>
+        <PanelHeader>Kirim Batu</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormLaporanTerimaBatu />
+                <FormLaporanKirimBatuPusat />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanTerimaBatu.length === 0 ? "none" : "",
+                display: dataLaporanKirimBatuPusat.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -57,14 +59,14 @@ const LaporanTerimaBatu = () => {
                 </Divider>
               </div>
               <div className="col-12">
-                <TableLaporanTerimaBatu />
+                <TableLaporanKirimBatuPusat />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanTerimaBatu.length === 0 ? "none" : "",
+                display: dataLaporanKirimBatuPusat.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -78,4 +80,4 @@ const LaporanTerimaBatu = () => {
   );
 };
 
-export default LaporanTerimaBatu;
+export default LaporanKirimBatuPusat;

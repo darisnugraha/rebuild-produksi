@@ -31,13 +31,13 @@ const LaporanTambahJobOrder = () => {
         </li>
         <li className="breadcrumb-item">
           <Link to="/laporan/admin-pusat/tambah-job-order">
-            Laporan Admin Bahan
+            Laporan Admin Pusat
           </Link>
         </li>
         <li className="breadcrumb-item active">Tambah Job Order</li>
       </ol>
       <h1 className="page-header">
-        Laporan Admin Bahan <small>Tambah Job Order</small>
+        Laporan Admin Pusat <small>Tambah Job Order</small>
       </h1>
       <Panel>
         <PanelHeader>Tambah Job Order</PanelHeader>

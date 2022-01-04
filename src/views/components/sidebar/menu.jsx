@@ -592,6 +592,10 @@ const Menu = [
             path: "/laporan/admin-pusat/terima-batu",
             title: "Laporan Terima Batu",
           },
+          {
+            path: "/laporan/admin-pusat/kirim-batu",
+            title: "Laporan Kirim Batu",
+          },
         ],
       },
     ],

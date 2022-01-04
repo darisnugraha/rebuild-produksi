@@ -48,6 +48,7 @@ import LaporanPembuatanJenisBahan from "./laporanpembuatanjenisbahan";
 import LaporanTerimaPotong from "./laporanterimapotong";
 import LaporanTambahJobOrder from "./laporantambahjoborder";
 import LaporanTerimaBatu from "./laporanterimabatu";
+import LaporanKirimBatuPusat from "./laporankirimbatupusat";
 
 const api = {
   login,
@@ -100,6 +101,7 @@ const api = {
   LaporanTerimaPotong,
   LaporanTambahJobOrder,
   LaporanTerimaBatu,
+  LaporanKirimBatuPusat,
 };
 
 export default api;
