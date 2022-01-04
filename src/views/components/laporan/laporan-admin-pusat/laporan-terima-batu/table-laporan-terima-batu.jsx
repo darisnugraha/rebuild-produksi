@@ -2,20 +2,20 @@ import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
 import { useSelector } from "react-redux";
-import laporantambahjoborder from "../../../../../application/selectors/laporantambahjoborder";
+import laporanterimabatu from "../../../../../application/selectors/laporanterimabatu";
 
-const TableLaporanTambahJobOrder = () => {
+const TableLaporanTerimaBatu = () => {
   const columns = [
     {
       title: "No Transaksi",
-      dataIndex: "no_tambah",
-      key: "no_tambah",
+      dataIndex: "no_batu_kirim",
+      key: "no_batu_kirim",
       align: "center",
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_tambah",
-      key: "tgl_tambah",
+      dataIndex: "tgl_terima_batu",
+      key: "tgl_terima_batu",
       align: "center",
     },
     {
@@ -32,25 +32,25 @@ const TableLaporanTambahJobOrder = () => {
     },
     {
       title: "Jumlah",
-      dataIndex: "stock",
-      key: "stock",
+      dataIndex: "stock_batu",
+      key: "stock_batu",
       align: "right",
     },
     {
       title: "Berat",
-      dataIndex: "berat",
-      key: "berat",
+      dataIndex: "berat_batu",
+      key: "berat_batu",
       align: "right",
     },
   ];
 
-  const dataLaporanTambahJobOrder = useSelector(
-    laporantambahjoborder.getAllLaporanTambahJobOrder
+  const dataLaporanTerimaBatu = useSelector(
+    laporanterimabatu.getAllLaporanTerimaBatu
   );
 
   return (
     <Table
-      dataSource={dataLaporanTambahJobOrder}
+      dataSource={dataLaporanTerimaBatu}
       columns={columns}
       scroll={{ x: 1500, y: 1000 }}
       summary={() => (
@@ -60,14 +60,14 @@ const TableLaporanTambahJobOrder = () => {
               Total
             </Table.Summary.Cell>
             <Table.Summary.Cell index={1} align="right">
-              {dataLaporanTambahJobOrder.reduce(
-                (a, b) => a + parseFloat(b.stock),
+              {dataLaporanTerimaBatu.reduce(
+                (a, b) => a + parseFloat(b.stock_batu),
                 0
               )}
             </Table.Summary.Cell>
             <Table.Summary.Cell index={2} align="right">
-              {dataLaporanTambahJobOrder
-                .reduce((a, b) => a + parseFloat(b.berat), 0)
+              {dataLaporanTerimaBatu
+                .reduce((a, b) => a + parseFloat(b.berat_batu), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
           </Table.Summary.Row>
@@ -77,4 +77,4 @@ const TableLaporanTambahJobOrder = () => {
   );
 };
 
-export default TableLaporanTambahJobOrder;
+export default TableLaporanTerimaBatu;

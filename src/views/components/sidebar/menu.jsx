@@ -588,6 +588,10 @@ const Menu = [
             path: "/laporan/admin-pusat/tambah-job-order",
             title: "Laporan Tambah Job Order",
           },
+          {
+            path: "/laporan/admin-pusat/terima-batu",
+            title: "Laporan Terima Batu",
+          },
         ],
       },
     ],
