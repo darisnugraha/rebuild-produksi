@@ -42,8 +42,8 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
       writeLocal("laporan_tambah_ambil_batu", dataOnsend);
 
       if (
-        dataOnsend.tgl_awal === undefined ||
-        dataOnsend.tgl_awal === undefined ||
+        data.date[0] === undefined ||
+        data.date[1] === undefined ||
         dataOnsend.kategori === undefined
       ) {
         dispatch(setLoadingButton(false));

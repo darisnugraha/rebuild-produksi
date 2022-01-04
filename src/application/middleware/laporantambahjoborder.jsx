@@ -8,24 +8,24 @@
 // getState is FUNCTION for get current data in your state (reducer), just call getState().yourReducer.yourData
 
 import {
-  GET_ALL_LAPORAN_TAMBAH_SALDO_BAHAN,
-  setDataLaporanTambahSaldoBahanSuccess,
-  setDataLaporanTambahSaldoBahanFailed,
-} from "../actions/laporantambahsaldobahan";
+  GET_ALL_LAPORAN_TAMBAH_JOB_ORDER,
+  setDataLaporanTambahJobOrderSuccess,
+  setDataLaporanTambahJobOrderFailed,
+} from "../actions/laporantambahjoborder";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
-const getAllDataLaporanTambahSaldoBahan =
+const getAllDataLaporanTambahJobOrder =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_ALL_LAPORAN_TAMBAH_SALDO_BAHAN) {
+    if (action.type === GET_ALL_LAPORAN_TAMBAH_JOB_ORDER) {
       dispatch(setLoadingButton(true));
-      dispatch(setDataLaporanTambahSaldoBahanSuccess({ feedback: [] }));
-      const data = getState().form.FormLaporanTambahSaldoBahan.values;
+      dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
+      const data = getState().form.FormLaporanTambahJobOrder.values;
       const tgl_dari = new Date(data.date[0]);
       const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
         "YYYY-MM-DD"
@@ -38,14 +38,14 @@ const getAllDataLaporanTambahSaldoBahan =
         tgl_awal: tgl_dari_string,
         tgl_akhir: tgl_sampai_string,
       };
-      writeLocal("laporan_tambah_saldo_bahan", dataOnsend);
+      writeLocal("laporan_tambah_job_order", dataOnsend);
 
       if (data.date[0] === undefined || data.date[1] === undefined) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
         const response =
-          await api.LaporanTambahSaldoBahan.getAllLaporanTambahSaldoBahan(
+          await api.LaporanTambahJobOrder.getAllLaporanTambahJobOrder(
             dataOnsend
           );
         if (response?.value !== null) {
@@ -53,20 +53,20 @@ const getAllDataLaporanTambahSaldoBahan =
           if (response?.value.status === "berhasil") {
             if (response?.value.data.length === 0) {
               sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanTambahSaldoBahanSuccess({ feedback: [] }));
+              dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
             } else {
               sweetalert.default.SuccessNoReload(response?.value.pesan);
               dispatch(
-                setDataLaporanTambahSaldoBahanSuccess({
+                setDataLaporanTambahJobOrderSuccess({
                   feedback: response?.value.data,
                 })
               );
             }
           } else {
             sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTambahSaldoBahanSuccess({ feedback: [] }));
+            dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
             dispatch(
-              setDataLaporanTambahSaldoBahanFailed({
+              setDataLaporanTambahJobOrderFailed({
                 error: response.value.pesan,
               })
             );
@@ -75,13 +75,13 @@ const getAllDataLaporanTambahSaldoBahan =
           dispatch(setLoadingButton(false));
           sweetalert.default.Failed(response.error.data.pesan);
           dispatch(
-            setDataLaporanTambahSaldoBahanFailed({ error: response.error })
+            setDataLaporanTambahJobOrderFailed({ error: response.error })
           );
         }
       }
     }
   };
 
-const data = [getAllDataLaporanTambahSaldoBahan];
+const data = [getAllDataLaporanTambahJobOrder];
 
 export default data;

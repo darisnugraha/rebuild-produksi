@@ -580,6 +580,16 @@ const Menu = [
           },
         ],
       },
+      {
+        path: "/laporan/admin-pusat",
+        title: "Laporan Admin Pusat",
+        children: [
+          {
+            path: "/laporan/admin-pusat/tambah-job-order",
+            title: "Laporan Tambah Job Order",
+          },
+        ],
+      },
     ],
   },
 ];

@@ -40,10 +40,7 @@ const getAllLaporanPembuatanJenisBahan =
       };
       writeLocal("laporan_pembuatan_jenis_bahan", dataOnsend);
 
-      if (
-        dataOnsend.tgl_awal === undefined ||
-        dataOnsend.tgl_awal === undefined
-      ) {
+      if (data.date[0] === undefined || data.date[1] === undefined) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {

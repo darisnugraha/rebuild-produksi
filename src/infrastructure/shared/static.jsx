@@ -165,6 +165,8 @@ const URL_GET_LAPORAN_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni/all`;
 const URL_GET_LAPORAN_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-bahan/all`;
 const URL_GET_LAPORAN_TERIMA_POTONG = `${baseurl}saldo-bahan/report-tukang-potong`;
 
+const URL_GET_LAPORAN_TAMBAH_JOB_ORDER = `${baseurl}report/job-order/tambah`;
+
 const data = {
   URL_LOGIN,
 
@@ -328,6 +330,8 @@ const data = {
   URL_GET_LAPORAN_TAMBAH_SALDO_BAHAN,
   URL_GET_LAPORAN_PEMBUATAN_JENIS_BAHAN,
   URL_GET_LAPORAN_TERIMA_POTONG,
+
+  URL_GET_LAPORAN_TAMBAH_JOB_ORDER,
 };
 
 export default data;

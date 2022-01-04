@@ -48,6 +48,7 @@ import laporansaldobahan from "./laporansaldobahan";
 import laporantambahsaldobahan from "./laporantambahsaldobahan";
 import laporanpembuatanjenisbahan from "./laporanpembuatanjenisbahan";
 import laporanterimapotong from "./laporanterimapotong";
+import laporantambahjoborder from "./laporantambahjoborder";
 
 export default combineReducers({
   login,
@@ -98,5 +99,6 @@ export default combineReducers({
   laporantambahsaldobahan,
   laporanpembuatanjenisbahan,
   laporanterimapotong,
+  laporantambahjoborder,
   form: formReducer,
 });
