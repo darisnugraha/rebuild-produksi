@@ -9,6 +9,8 @@ import {
   ADD_KIRIM_TAMBAHAN_DIVISI,
   setDataKirimTambahanDivisiSuccess,
   setDataKirimTambahanDivisiFailed,
+  DELETE_KIRIM_TAMBAHAN_CART,
+  ADD_KIRIM_TAMBAHAN_CHECKOUT,
 } from "../actions/kirimtambahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -86,15 +88,15 @@ const addDataKirimTambahanCart =
   async (action) => {
     next(action);
     if (action.type === ADD_KIRIM_TAMBAHAN_CART) {
-      const data = getState().form.FormDetailJOKirimTambahan.values;
       const dataTambahan = getState().form.FormDetailTambahan.values;
+      const divisi = getLocal("divisi_detail_tambahan").divisi;
       const onSendData = {
         asal_saldo: dataTambahan.saldo_asal,
-        berat: dataTambahan.berat_bahan,
-        divisi: data.divisi,
+        berat: parseFloat(dataTambahan.berat_bahan),
+        divisi: divisi,
         jumlah: 1,
         kode_barang: "-",
-        nama_bahan: dataTambahan.berat_bahan,
+        nama_bahan: dataTambahan.nama_bahan,
         no_job_order: "-",
       };
       const response = await api.KirimTambahan.addKirimTambahanCart(onSendData);
@@ -188,11 +190,71 @@ const setDataDivisiKirimTambahan =
     }
   };
 
+const deleteCartKirimTambahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_KIRIM_TAMBAHAN_CART) {
+      const divisi = getLocal("divisi_detail_tambahan").divisi || null;
+      if (divisi === null || divisi === undefined) {
+        sweetalert.default.Failed("Pilih Divisi Terlebih Dahulu !");
+      } else {
+        const response = await api.KirimTambahan.deleteKirimTambahanCart(
+          divisi
+        );
+        if (response.value !== null) {
+          if (response.value?.status === "berhasil") {
+            localStorage.removeItem("divisi_detail_tambahan");
+            sweetalert.default.Success(response.value.pesan);
+          } else {
+            sweetalert.default.Failed(response.value.pesan);
+          }
+        } else {
+          sweetalert.default.Failed("Terjadi Kesalahan Saat Menghapus Data !");
+        }
+      }
+    }
+  };
+
+const addKirimTambahanCheckout =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_KIRIM_TAMBAHAN_CHECKOUT) {
+      const divisi = getLocal("divisi_detail_tambahan").divisi || null;
+      if (divisi === null || divisi === undefined) {
+        sweetalert.default.Failed("Pilih Divisi Terlebih Dahulu !");
+      } else {
+        const response = await api.KirimTambahan.addKirimTambahanCheckout(
+          divisi
+        );
+        if (response.value !== null) {
+          if (response.value?.status === "berhasil") {
+            localStorage.removeItem("divisi_detail_tambahan");
+            sweetalert.default.Success(response.value.pesan);
+          } else {
+            sweetalert.default.Failed(response.value.pesan);
+          }
+        } else {
+          sweetalert.default.Failed(
+            "Terjadi Kesalahan Saat Menambahkan Data !"
+          );
+        }
+      }
+    }
+  };
+
 const data = [
   getAsalStockBahan,
   getStockBahanAdmin,
   addDataKirimTambahanCart,
   setDataDivisiKirimTambahan,
+  deleteCartKirimTambahan,
+  addKirimTambahanCheckout,
 ];
 
 export default data;

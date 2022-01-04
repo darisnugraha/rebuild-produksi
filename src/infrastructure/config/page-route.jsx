@@ -63,6 +63,7 @@ import LaporanTerimaPotong from "../../views/pages/laporan/laporan-admin-bahan/l
 import LaporanTambahJobOrder from "../../views/pages/laporan/laporan-admin-pusat/laporan-tambah-job-order";
 import LaporanTerimaBatu from "../../views/pages/laporan/laporan-admin-pusat/laporan-terima-batu";
 import LaporanKirimBatuPusat from "../../views/pages/laporan/laporan-admin-pusat/laporan-kirim-batu-pusat";
+import LaporanKirimTambahan from "../../views/pages/laporan/laporan-admin-pusat/laporan-kirim-tambahan";
 
 const routes = [
   // {
@@ -813,6 +814,11 @@ const routes = [
     path: "/laporan/admin-pusat/kirim-batu",
     title: "Laporan Kirim Batu",
     component: () => <LaporanKirimBatuPusat />,
+  },
+  {
+    path: "/laporan/admin-pusat/kirim-tambahan",
+    title: "Laporan Kirim Tambahan",
+    component: () => <LaporanKirimTambahan />,
   },
   {
     path: "/notfound",

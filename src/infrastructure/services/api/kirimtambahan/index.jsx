@@ -22,8 +22,22 @@ const KirimTambahan = {
   },
   addKirimTambahanCart: async (dataKirim) => {
     const response = await post.AxiosPost({
-      url: word.URL_ADD_MASTER_ORIGINAL,
+      url: word.URL_GET_CART_KIRIM_TAMBAHAN,
       data: dataKirim,
+    });
+    return response;
+  },
+  addKirimTambahanCheckout: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_ADD_CHECKOUT_KIRIM_TAMBAHAN + dataKirim,
+      data: "",
+    });
+    return response;
+  },
+  deleteKirimTambahanCart: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_DELETE_CART_KIRIM_TAMBAHAN + dataKirim,
+      data: "",
     });
     return response;
   },

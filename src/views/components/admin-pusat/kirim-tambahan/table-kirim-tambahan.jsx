@@ -27,8 +27,8 @@ const TableKirimBatu = () => {
     },
     {
       title: "Bahan",
-      dataIndex: "kode_jenis_bahan",
-      key: "kode_jenis_bahan",
+      dataIndex: "tambahan",
+      key: "tambahan",
       align: "center",
     },
     {

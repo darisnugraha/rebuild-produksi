@@ -49,6 +49,7 @@ import laporanterimapotong from "./laporanterimapotong";
 import laporantambahjoborder from "./laporantambahjoborder";
 import laporanterimabatu from "./laporanterimabatu";
 import laporankirimbatupusat from "./laporankirimbatupusat";
+import laporankirimtambahan from "./laporankirimtambahan";
 
 const midd = [
   ...ui,
@@ -102,6 +103,7 @@ const midd = [
   ...laporantambahjoborder,
   ...laporanterimabatu,
   ...laporankirimbatupusat,
+  ...laporankirimtambahan,
 ];
 
 export default midd;

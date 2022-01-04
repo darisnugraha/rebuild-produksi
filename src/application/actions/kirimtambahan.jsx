@@ -17,6 +17,10 @@ export const SET_DATA_KIRIM_TAMBAHAN_DIVISI_SUCCESS =
   "[kirimtambahan] get kirim tambahan divisi success";
 export const SET_DATA_KIRIM_TAMBAHAN_DIVISI_FAILED =
   "[kirimtambahan] get kirim tambahan divisi failed";
+export const DELETE_KIRIM_TAMBAHAN_CART =
+  "[kirimtambahan] delete kirim tambahan cart";
+export const ADD_KIRIM_TAMBAHAN_CHECKOUT =
+  "[kirimtambahan] add kirim tambahan checkout";
 
 export const getAllAsalStockBahan = {
   type: GET_ALL_ASAL_STOCK_BAHAN,
@@ -58,3 +62,11 @@ export const setDataKirimTambahanDivisiFailed = ({ error }) => ({
   type: SET_DATA_KIRIM_TAMBAHAN_DIVISI_FAILED,
   payload: { data: error },
 });
+
+export const deleteKirimTambahanCart = {
+  type: DELETE_KIRIM_TAMBAHAN_CART,
+};
+
+export const addKirimTambahanCheckout = {
+  type: ADD_KIRIM_TAMBAHAN_CHECKOUT,
+};

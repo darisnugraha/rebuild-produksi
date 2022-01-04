@@ -148,6 +148,9 @@ const URL_ADD_TERIMA_BAHAN = `${baseurl}saldo-bahan/terimabahan`;
 const URL_ADD_KIRIM_BAHAN = `${baseurl}saldo-bahan/kirimbahantukang`;
 
 const URL_GET_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/cart/`;
+const URL_DELETE_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/delete-cart/`;
+const URL_ADD_CHECKOUT_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/check-out/`;
+
 const URL_GET_DATA_JO_GABUNG_JO = `${baseurl}adm-mutasi-batu/getjo/no_job_order/`;
 const URL_ADD_GABUNG_JO = `${baseurl}saldo-bahan/gabungjo/`;
 const URL_ADD_KIRIM_LEBUR = `${baseurl}lebur/post/kirim-lebur`;
@@ -168,6 +171,7 @@ const URL_GET_LAPORAN_TERIMA_POTONG = `${baseurl}saldo-bahan/report-tukang-poton
 const URL_GET_LAPORAN_TAMBAH_JOB_ORDER = `${baseurl}report/job-order/tambah`;
 const URL_GET_LAPORAN_TERIMA_BATU = `${baseurl}adm-mutasi-batu/terima/all`;
 const URL_GET_LAPORAN_KIRIM_BATU_PUSAT = `${baseurl}adm-mutasi-batu/kirim/all`;
+const URL_GET_LAPORAN_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/tgl/all`;
 
 const data = {
   URL_LOGIN,
@@ -336,6 +340,9 @@ const data = {
   URL_GET_LAPORAN_TAMBAH_JOB_ORDER,
   URL_GET_LAPORAN_TERIMA_BATU,
   URL_GET_LAPORAN_KIRIM_BATU_PUSAT,
+  URL_GET_LAPORAN_KIRIM_TAMBAHAN,
+  URL_DELETE_CART_KIRIM_TAMBAHAN,
+  URL_ADD_CHECKOUT_KIRIM_TAMBAHAN,
 };
 
 export default data;

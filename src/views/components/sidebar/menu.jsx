@@ -596,6 +596,10 @@ const Menu = [
             path: "/laporan/admin-pusat/kirim-batu",
             title: "Laporan Kirim Batu",
           },
+          {
+            path: "/laporan/admin-pusat/kirim-tambahan",
+            title: "Laporan Kirim Tambahan",
+          },
         ],
       },
     ],

@@ -15,6 +15,8 @@ import { getAllDivisi } from "../../../application/actions/kirimbahanadmin";
 import {
   getAllAsalStockBahan,
   addKirimTambahanDivisi,
+  deleteKirimTambahanCart,
+  addKirimTambahanCheckout,
 } from "../../../application/actions/kirimtambahan.jsx";
 
 const KirimTambahan = () => {
@@ -80,13 +82,20 @@ const KirimTambahan = () => {
         <PanelFooter>
           <div className="row">
             <div className="col-1">
-              <Button type="primary">Simpan</Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(addKirimTambahanCheckout);
+                }}
+              >
+                Simpan
+              </Button>
             </div>
             <div className="col-1">
               <Button
                 type="danger"
                 onClick={() => {
-                  window.location.reload();
+                  dispatch(deleteKirimTambahanCart);
                 }}
               >
                 Batal

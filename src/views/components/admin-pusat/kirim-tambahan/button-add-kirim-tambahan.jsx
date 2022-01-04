@@ -3,7 +3,10 @@ import { Button } from "antd";
 import FormDetailTambahan from "./form-detail-tambahan";
 import FormDetailJO from "./form-detail-jo";
 import { useDispatch } from "react-redux";
-import { getStockBahanAdminByStaff } from "../../../../application/actions/kirimtambahan";
+import {
+  addKirimTambahanCart,
+  getStockBahanAdminByStaff,
+} from "../../../../application/actions/kirimtambahan";
 
 const ModalKirimTambahan = () => {
   // eslint-disable-next-line
@@ -40,7 +43,9 @@ const ModalKirimTambahan = () => {
       </Button>
       <FormDetailTambahan
         visible={visibledetailtamabahan}
-        onCreate={() => {}}
+        onCreate={() => {
+          dispatch(addKirimTambahanCart);
+        }}
         onCancel={() => {
           setVisibleDetailTambahan(false);
         }}
