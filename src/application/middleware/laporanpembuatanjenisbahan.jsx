@@ -26,24 +26,25 @@ const getAllLaporanPembuatanJenisBahan =
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanPembuatanJenisBahanSuccess({ feedback: [] }));
       const data = getState().form.FormLaporanPembuatanJenisBahan.values;
-      const tgl_dari = new Date(data.date[0]);
-      const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const tgl_sampai = new Date(data.date[1]);
-      const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const dataOnsend = {
-        tgl_awal: tgl_dari_string,
-        tgl_akhir: tgl_sampai_string,
-      };
-      writeLocal("laporan_pembuatan_jenis_bahan", dataOnsend);
 
-      if (data.date[0] === undefined || data.date[1] === undefined) {
+      if (data.date === null) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_pembuatan_jenis_bahan", dataOnsend);
+
         const response =
           await api.LaporanPembuatanJenisBahan.getAllLaporanPembuatanJenisBahan(
             dataOnsend

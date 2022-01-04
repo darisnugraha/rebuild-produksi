@@ -26,29 +26,26 @@ const getAllDataLaporanTerimaPotong =
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
       const data = getState().form.FormLaporanTerimaPotong.values;
-      const tgl_dari = new Date(data.date[0]);
-      const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const tgl_sampai = new Date(data.date[1]);
-      const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const dataOnsend = {
-        no_pohon: data.no_pohon,
-        tgl_awal: tgl_dari_string,
-        tgl_akhir: tgl_sampai_string,
-      };
-      writeLocal("laporan_terima_potong", dataOnsend);
 
-      if (
-        data.date[0] === undefined ||
-        data.date[1] === undefined ||
-        dataOnsend.no_pohon === undefined
-      ) {
+      if (data.date === null || data.no_pohon === undefined) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          no_pohon: data.no_pohon,
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_terima_potong", dataOnsend);
+
         const response =
           await api.LaporanTerimaPotong.getAllLaporanTerimaPotong(dataOnsend);
         if (response?.value !== null) {

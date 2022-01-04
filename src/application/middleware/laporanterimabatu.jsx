@@ -26,24 +26,25 @@ const getAllDataLaporanTambahJobOrder =
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
       const data = getState().form.FormLaporanTerimaBatu.values;
-      const tgl_dari = new Date(data.date[0]);
-      const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const tgl_sampai = new Date(data.date[1]);
-      const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const dataOnsend = {
-        tgl_awal: tgl_dari_string,
-        tgl_akhir: tgl_sampai_string,
-      };
-      writeLocal("laporan_terima_batu", dataOnsend);
 
-      if (data.date[0] === undefined || data.date[1] === undefined) {
+      if (data.date === null) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_terima_batu", dataOnsend);
+
         const response = await api.LaporanTerimaBatu.getAllLaporanTerimaBatu(
           dataOnsend
         );

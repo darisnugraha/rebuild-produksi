@@ -26,29 +26,26 @@ const getAllDataLaporanSaldoBahan =
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanSaldoBahanSuccess({ feedback: [] }));
       const data = getState().form.FormLaporanSaldoBahan.values;
-      const tgl_dari = new Date(data.date[0]);
-      const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const tgl_sampai = new Date(data.date[1]);
-      const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const dataOnsend = {
-        kelompok: data.kelompok_bahan,
-        tgl_awal: tgl_dari_string,
-        tgl_akhir: tgl_sampai_string,
-      };
-      writeLocal("laporan_saldo_bahan", dataOnsend);
 
-      if (
-        data.date[0] === undefined ||
-        data.date[1] === undefined ||
-        dataOnsend.kelompok === undefined
-      ) {
+      if (data.date === null || data.kelompok_bahan === undefined) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          kelompok: data.kelompok_bahan,
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_saldo_bahan", dataOnsend);
+
         const response = await api.LaporanSaldoBahan.getAllLaporanSaldoBahan(
           dataOnsend
         );

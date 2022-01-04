@@ -26,29 +26,26 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] }));
       const data = getState().form.FormLaporanTambahAmbilSaldoBatu.values;
-      const tgl_dari = new Date(data.date[0]);
-      const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const tgl_sampai = new Date(data.date[1]);
-      const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
-        "YYYY-MM-DD"
-      );
-      const dataOnsend = {
-        kategori: data.transaksi,
-        tgl_awal: tgl_dari_string,
-        tgl_akhir: tgl_sampai_string,
-      };
-      writeLocal("laporan_tambah_ambil_batu", dataOnsend);
 
-      if (
-        data.date[0] === undefined ||
-        data.date[1] === undefined ||
-        dataOnsend.kategori === undefined
-      ) {
+      if (data.date === null || data.transaksi === undefined) {
         dispatch(setLoadingButton(false));
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          kategori: data.transaksi,
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_tambah_ambil_batu", dataOnsend);
+
         const response =
           await api.LaporanTambahAmbilSaldoBatu.getAllLaporanTambahAmbilSaldoBatu(
             dataOnsend
