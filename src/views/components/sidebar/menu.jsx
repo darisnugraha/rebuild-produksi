@@ -612,6 +612,10 @@ const Menu = [
             path: "/laporan/admin-pusat/kartu-jo",
             title: "Kartu Job Order",
           },
+          {
+            path: "/laporan/admin-pusat/outstand-admin",
+            title: "Laporan Outstand Admin",
+          },
         ],
       },
     ],

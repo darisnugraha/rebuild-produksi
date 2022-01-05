@@ -14,8 +14,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename="LAPORAN KIRIM JOB ORDER ADMIN"
-          sheet="LAPORAN KIRIM JOB ORDER ADMIN"
+          filename="LAPORAN OUTSTAND ADMIN"
+          sheet="LAPORAN OUTSTAND ADMIN"
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -28,7 +28,7 @@ class ExcelReport extends Component {
                 }}
                 colSpan="11"
               >
-                LAPORAN KIRIM JOB ORDER ADMIN
+                LAPORAN OUTSTAND ADMIN
               </td>
             </tr>
             <tr>
@@ -39,10 +39,7 @@ class ExcelReport extends Component {
                 }}
                 colSpan="11"
               >
-                TANGGAL{" "}
-                {this.props.dataHead?.tgl_awal +
-                  " s/d " +
-                  this.props.dataHead?.tgl_akhir}
+                TUKANG : {this.props.dataHead?.tukang}
               </td>
             </tr>
             <tr>
@@ -53,7 +50,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                TGL KIRIM
+                NO JOB ORDER
               </td>
               <td
                 style={{
@@ -62,7 +59,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                NO SPK
+                NAMA KONSUMEN
               </td>
               <td
                 style={{
@@ -80,7 +77,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                DIVISI TUJUAN
+                BAHAN
               </td>
               <td
                 style={{
@@ -89,7 +86,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                JENIS BAHAN
+                JUMLAH
               </td>
               <td
                 style={{
@@ -98,25 +95,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                JUMLAH KIRIM
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                BERAT KIRIM
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                BERAT SUSUT
+                BERAT
               </td>
               <td
                 style={{
@@ -143,6 +122,15 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
+                JENIS BAHAN
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
                 NAMA TUKANG
               </td>
             </tr>
@@ -153,16 +141,15 @@ class ExcelReport extends Component {
                 parseFloat(item.berat_susut) * (parseFloat(item.kadar) / 100);
               return (
                 <tr>
-                  <td>{item.tgl_kirim}</td>
                   <td>{item.no_job_order}</td>
+                  <td>{item.nama_customer}</td>
                   <td>{item.kode_barang}</td>
-                  <td>{item.tujuan_divisi}</td>
                   <td>{item.kode_jenis_bahan}</td>
-                  <td style={{ textAlign: "right" }}>{item.stock_out}</td>
-                  <td style={{ textAlign: "right" }}>{item.berat_out}</td>
-                  <td style={{ textAlign: "right" }}>{item.berat_susut}</td>
+                  <td style={{ textAlign: "right" }}>{item.stock_akhir}</td>
+                  <td style={{ textAlign: "right" }}>{item.berat_akhir}</td>
                   <td style={{ textAlign: "right" }}>{item.kadar}</td>
                   <td style={{ textAlign: "right" }}>{karat24}</td>
+                  <td>{item.tgl_kirim}</td>
                   <td>{item.kode_staff}</td>
                 </tr>
               );
@@ -170,29 +157,26 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={5}>Total :</td>
-              <td>
+              <td style={{ textAlign: "right" }} colSpan={4}>
+                Total :
+              </td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel.reduce(
-                  (a, b) => a + parseFloat(b.stock_out),
+                  (a, b) => a + parseFloat(b.stock_akhir),
                   0
                 )}
               </td>
-              <td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.berat_out), 0)
+                  .reduce((a, b) => a + parseFloat(b.berat_akhir), 0)
                   .toFixed(3)}
               </td>
-              <td>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.berat_susut), 0)
-                  .toFixed(3)}
-              </td>
-              <td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
                   .reduce((a, b) => a + parseFloat(b.kadar), 0)
                   .toFixed(3)}
               </td>
-              <td>
+              <td style={{ textAlign: "right" }}>
                 {this.props.dataExel
                   .reduce(
                     (a, b) =>
