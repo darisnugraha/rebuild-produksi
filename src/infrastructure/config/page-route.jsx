@@ -65,6 +65,7 @@ import LaporanTerimaBatu from "../../views/pages/laporan/laporan-admin-pusat/lap
 import LaporanKirimBatuPusat from "../../views/pages/laporan/laporan-admin-pusat/laporan-kirim-batu-pusat";
 import LaporanKirimTambahan from "../../views/pages/laporan/laporan-admin-pusat/laporan-kirim-tambahan";
 import LaporanKirimJoAdmin from "../../views/pages/laporan/laporan-admin-pusat/laporan-kirim-jo-admin";
+import LaporanTerimaJoAdmin from "../../views/pages/laporan/laporan-admin-pusat/laporan-terima-jo-admin";
 
 const routes = [
   // {
@@ -825,6 +826,11 @@ const routes = [
     path: "/laporan/admin-pusat/kirim-jo-admin",
     title: "Laporan Kirim JO Admin",
     component: () => <LaporanKirimJoAdmin />,
+  },
+  {
+    path: "/laporan/admin-pusat/terima-jo-admin",
+    title: "Laporan Terima JO Admin",
+    component: () => <LaporanTerimaJoAdmin />,
   },
   {
     path: "/notfound",

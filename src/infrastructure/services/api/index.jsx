@@ -51,6 +51,7 @@ import LaporanTerimaBatu from "./laporanterimabatu";
 import LaporanKirimBatuPusat from "./laporankirimbatupusat";
 import LaporanKirimTambahan from "./laporankirimtambahan";
 import LaporanKirimJO from "./laporankirimjo";
+import LaporanTerimaJO from "./laporanterimajo";
 
 const api = {
   login,
@@ -106,6 +107,7 @@ const api = {
   LaporanKirimBatuPusat,
   LaporanKirimTambahan,
   LaporanKirimJO,
+  LaporanTerimaJO,
 };
 
 export default api;
