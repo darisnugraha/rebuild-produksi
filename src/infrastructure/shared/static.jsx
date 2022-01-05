@@ -174,6 +174,7 @@ const URL_GET_LAPORAN_KIRIM_BATU_PUSAT = `${baseurl}adm-mutasi-batu/kirim/all`;
 const URL_GET_LAPORAN_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/tgl/all`;
 const URL_GET_LAPORAN_KIRIM_JO = `${baseurl}kirim-jo/tgl/all`;
 const URL_GET_LAPORAN_TERIMA_JO = `${baseurl}terima-jo/tgl/all`;
+const URL_GET_KARTU_JO = `${baseurl}adm-card-jo/no_job_order/all`;
 
 const data = {
   URL_LOGIN,
@@ -347,6 +348,7 @@ const data = {
   URL_ADD_CHECKOUT_KIRIM_TAMBAHAN,
   URL_GET_LAPORAN_KIRIM_JO,
   URL_GET_LAPORAN_TERIMA_JO,
+  URL_GET_KARTU_JO,
 };
 
 export default data;

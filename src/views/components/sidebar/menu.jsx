@@ -608,6 +608,10 @@ const Menu = [
             path: "/laporan/admin-pusat/terima-jo-admin",
             title: "Laporan Terima JO Admin",
           },
+          {
+            path: "/laporan/admin-pusat/kartu-jo",
+            title: "Kartu Job Order",
+          },
         ],
       },
     ],

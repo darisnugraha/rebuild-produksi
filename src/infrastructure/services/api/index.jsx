@@ -52,6 +52,7 @@ import LaporanKirimBatuPusat from "./laporankirimbatupusat";
 import LaporanKirimTambahan from "./laporankirimtambahan";
 import LaporanKirimJO from "./laporankirimjo";
 import LaporanTerimaJO from "./laporanterimajo";
+import KartuJobOrder from "./kartujo";
 
 const api = {
   login,
@@ -108,6 +109,7 @@ const api = {
   LaporanKirimTambahan,
   LaporanKirimJO,
   LaporanTerimaJO,
+  KartuJobOrder,
 };
 
 export default api;
