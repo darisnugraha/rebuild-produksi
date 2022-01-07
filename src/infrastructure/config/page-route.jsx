@@ -70,6 +70,7 @@ import LaporanKartuJo from "../../views/pages/laporan/laporan-admin-pusat/kartu-
 import LaporanOutstandAdmin from "../../views/pages/laporan/laporan-admin-pusat/laporan-outstand-admin";
 import LaporanSaldoBahanPusat from "../../views/pages/laporan/laporan-admin-pusat/laporan-saldo-bahan";
 import LaporanSetorAbuCOR from "../../views/pages/laporan/laporan-setoran-abu/laporan-setor-abu-cor";
+import LaporanSetorAbuPotong from "../../views/pages/laporan/laporan-setoran-abu/laporan-setor-abu-potong";
 
 const routes = [
   // {
@@ -855,6 +856,11 @@ const routes = [
     path: "/laporan/setor-abu/setor-abu-cor",
     title: "Laporan Setor Abu COR",
     component: () => <LaporanSetorAbuCOR />,
+  },
+  {
+    path: "/laporan/setor-abu/setor-abu-potong",
+    title: "Laporan Setor Abu Potong",
+    component: () => <LaporanSetorAbuPotong />,
   },
   {
     path: "/notfound",

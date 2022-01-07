@@ -8,24 +8,24 @@
 // getState is FUNCTION for get current data in your state (reducer), just call getState().yourReducer.yourData
 
 import {
-  GET_ALL_LAPORAN_SETOR_ABU_COR,
-  setDataLaporanSetorAbuCorSuccess,
-  setDataLaporanSetorAbuCorFailed,
-} from "../actions/laporansetorabucor";
+  GET_ALL_LAPORAN_SETOR_ABU_POTONG,
+  setDataLaporanSetorAbuPotongSuccess,
+  setDataLaporanSetorAbuPotongFailed,
+} from "../actions/laporansetorabupotong";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
-const getAllDataSetorAbuCOR =
+const getAllDataSetorAbuPotong =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
-    if (action.type === GET_ALL_LAPORAN_SETOR_ABU_COR) {
+    if (action.type === GET_ALL_LAPORAN_SETOR_ABU_POTONG) {
       dispatch(setLoadingButton(true));
-      dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
-      const data = getState().form.FormLaporanSetorAbuCOR.values;
+      dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
+      const data = getState().form.FormLaporanSetorAbuPotong.values;
 
       if (data.date === null) {
         dispatch(setLoadingButton(false));
@@ -43,30 +43,31 @@ const getAllDataSetorAbuCOR =
           tgl_awal: tgl_dari_string,
           tgl_akhir: tgl_sampai_string,
         };
-        writeLocal("laporan_setor_abu_cor", dataOnsend);
+        writeLocal("laporan_setor_abu_potong", dataOnsend);
 
-        const response = await api.LaporanSetorAbuCOR.getAllLaporanSetorAbuCOR(
-          dataOnsend
-        );
+        const response =
+          await api.LaporanSetorAbuPotong.getAllLaporanSetorAbuPotong(
+            dataOnsend
+          );
         if (response?.value !== null) {
           dispatch(setLoadingButton(false));
           if (response?.value.status === "berhasil") {
             if (response?.value.data.length === 0) {
               sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
+              dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
             } else {
               sweetalert.default.SuccessNoReload(response?.value.pesan);
               dispatch(
-                setDataLaporanSetorAbuCorSuccess({
+                setDataLaporanSetorAbuPotongSuccess({
                   feedback: response?.value.data,
                 })
               );
             }
           } else {
             sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
+            dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
             dispatch(
-              setDataLaporanSetorAbuCorFailed({
+              setDataLaporanSetorAbuPotongFailed({
                 error: response.value.pesan,
               })
             );
@@ -74,12 +75,14 @@ const getAllDataSetorAbuCOR =
         } else {
           dispatch(setLoadingButton(false));
           sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanSetorAbuCorFailed({ error: response.error }));
+          dispatch(
+            setDataLaporanSetorAbuPotongFailed({ error: response.error })
+          );
         }
       }
     }
   };
 
-const data = [getAllDataSetorAbuCOR];
+const data = [getAllDataSetorAbuPotong];
 
 export default data;
