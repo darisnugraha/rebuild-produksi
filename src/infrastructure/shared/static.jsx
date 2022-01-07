@@ -180,6 +180,7 @@ const URL_GET_LAPORAN_SALDO_BAHAN_PUSAT = `${baseurl}report/saldo-bahan/divisi`;
 
 const URL_GET_LAPORAN_SETOR_ABU_COR = `${baseurl}produksi/setorabu/cor`;
 const URL_GET_LAPORAN_SETOR_ABU_POTONG = `${baseurl}produksi/setorabu/potong`;
+const URL_GET_LAPORAN_SETOR_ABU_TUKANG = `${baseurl}kirim-jo/setorabutukang/get`;
 
 const data = {
   URL_LOGIN,
@@ -359,6 +360,7 @@ const data = {
 
   URL_GET_LAPORAN_SETOR_ABU_COR,
   URL_GET_LAPORAN_SETOR_ABU_POTONG,
+  URL_GET_LAPORAN_SETOR_ABU_TUKANG,
 };
 
 export default data;

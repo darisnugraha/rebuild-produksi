@@ -634,6 +634,10 @@ const Menu = [
             path: "/laporan/setor-abu/setor-abu-potong",
             title: "Laporan Setor Abu Potong",
           },
+          {
+            path: "/laporan/setor-abu/setor-abu-tukang",
+            title: "Laporan Setor Abu Tukang",
+          },
         ],
       },
     ],

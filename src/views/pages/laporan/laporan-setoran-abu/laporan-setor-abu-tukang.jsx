@@ -8,19 +8,19 @@ import {
 } from "../../../components/panel/panel.jsx";
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../../application/actions/ui";
-import FormLaporanSetorAbuPotong from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-potong/form-laporan-setor-abu-potong";
-import TableLaporanSetorAbuPotong from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-potong/table-laporan-setor-abu-potong";
-import BtnPrint from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-potong/btn-print-excel-pdf";
-import SetorAbuPotong from "../../../../application/selectors/laporansetorabupotong";
+import FormLaporanSetorAbuTukang from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-tukang/form-laporan-setor-abu-tukang";
+import TableLaporanSetorAbuTukang from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-tukang/table-laporan-setor-abu-tukang";
+import BtnPrint from "../../../components/laporan/laporan-setoran-abu/laporan-setor-abu-tukang/btn-print-excel-pdf";
+import SetorAbuTukang from "../../../../application/selectors/laporansetorabutukang";
 
-const LaporanSetorAbuPotong = () => {
+const LaporanSetorAbuTukang = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    document.title = "Laporan Setor Abu Potong";
+    document.title = "Laporan Setor Abu Tukang";
   }, [dispatch]);
-  const dataLaporanSetorAbuPotong = useSelector(
-    SetorAbuPotong.getAllLaporanSetorAbuPotong
+  const dataLaporanSetorAbuTukang = useSelector(
+    SetorAbuTukang.getAllLaporanSetorAbuTukang
   );
 
   return (
@@ -30,29 +30,29 @@ const LaporanSetorAbuPotong = () => {
           <Link to="/dashboard">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/laporan/setor-abu/setor-abu-potong">
+          <Link to="/laporan/setor-abu/setor-abu-tukang">
             Laporan Setoran Abu
           </Link>
         </li>
-        <li className="breadcrumb-item active">Setor Abu Potong</li>
+        <li className="breadcrumb-item active">Setor Abu Tukang</li>
       </ol>
       <h1 className="page-header">
-        Laporan Setoran Abu <small>Setor Abu Potong</small>
+        Laporan Setoran Abu <small>Setor Abu Tukang</small>
       </h1>
       <Panel>
-        <PanelHeader>Setor Abu Potong</PanelHeader>
+        <PanelHeader>Setor Abu Tukang</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormLaporanSetorAbuPotong />
+                <FormLaporanSetorAbuTukang />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanSetorAbuPotong.length === 0 ? "none" : "",
+                display: dataLaporanSetorAbuTukang.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -61,14 +61,14 @@ const LaporanSetorAbuPotong = () => {
                 </Divider>
               </div>
               <div className="col-12">
-                <TableLaporanSetorAbuPotong />
+                <TableLaporanSetorAbuTukang />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanSetorAbuPotong.length === 0 ? "none" : "",
+                display: dataLaporanSetorAbuTukang.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -82,4 +82,4 @@ const LaporanSetorAbuPotong = () => {
   );
 };
 
-export default LaporanSetorAbuPotong;
+export default LaporanSetorAbuTukang;
