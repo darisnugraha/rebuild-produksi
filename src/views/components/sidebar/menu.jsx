@@ -622,6 +622,16 @@ const Menu = [
           },
         ],
       },
+      {
+        path: "/laporan/setor-abu",
+        title: "Laporan Setor Abu",
+        children: [
+          {
+            path: "/laporan/setor-abu/setor-abu-cor",
+            title: "Laporan Setor Abu COR",
+          },
+        ],
+      },
     ],
   },
 ];

@@ -178,6 +178,8 @@ const URL_GET_KARTU_JO = `${baseurl}adm-card-jo/no_job_order/all`;
 const URL_GET_OUTSTAND = `${baseurl}adm-card-jo/outstand/all`;
 const URL_GET_LAPORAN_SALDO_BAHAN_PUSAT = `${baseurl}report/saldo-bahan/divisi`;
 
+const URL_GET_LAPORAN_SETOR_ABU_COR = `${baseurl}produksi/setorabu/cor`;
+
 const data = {
   URL_LOGIN,
 
@@ -353,6 +355,8 @@ const data = {
   URL_GET_KARTU_JO,
   URL_GET_OUTSTAND,
   URL_GET_LAPORAN_SALDO_BAHAN_PUSAT,
+
+  URL_GET_LAPORAN_SETOR_ABU_COR,
 };
 
 export default data;

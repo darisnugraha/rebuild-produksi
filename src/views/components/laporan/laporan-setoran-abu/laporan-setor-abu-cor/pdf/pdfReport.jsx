@@ -3,121 +3,96 @@ import "jspdf-autotable";
 
 const pdfReport = (data = "") => {
   const doc = new jsPDF("l", "mm", [297, 210]);
-  const datahead = JSON.parse(localStorage.getItem("laporan_kirim_tambahan"));
+  const datahead = JSON.parse(localStorage.getItem("laporan_setor_abu_cor"));
   let tableRows = [];
   let tableColumn = [];
 
   let finalY = 30;
-  doc.text("Laporan Kirim Tambahan", 14, 15);
+  doc.text("Laporan Setor Abu COR", 14, 15);
   doc.setFontSize(20);
   doc.text("PRODUKSI", 200, 15);
 
   doc.setFontSize(10);
   doc.setProperties({
-    title: "Kirim Tambahan",
+    title: "Setor Abu COR",
   });
   doc.text(`PERIODE : ${datahead.tgl_awal} s/d ${datahead.tgl_akhir}`, 14, 25);
 
   tableColumn = [
     [
       {
-        content: `TGL TRANSAKSI`,
+        content: `TANGGAL`,
       },
       {
-        content: `DIVISI TUJUAN`,
+        content: `BAHAN KEMBALI`,
       },
       {
-        content: `JOB ORDER`,
+        content: `BERAT KEMBALI`,
       },
       {
-        content: `TAMBAHAN`,
+        content: `SUSUT BRUTO`,
       },
       {
-        content: `JUMLAH`,
+        content: `KADAR KEMBALI`,
       },
       {
-        content: `BERAT`,
+        content: `24K KEMBALI`,
+      },
+      {
+        content: `SUSUT 24K`,
+      },
+      {
+        content: `POHON`,
       },
     ],
   ];
 
-  const groupBy = (array, key) => {
-    return array.reduce((result, currentValue) => {
-      (result[currentValue[key]] = result[currentValue[key]] || []).push(
-        currentValue
-      );
-      return result;
-    }, {});
-  };
-
-  const dataGroup = groupBy(data, "no_kirim");
-  const dataGroupArr = Object.values(dataGroup);
-
-  dataGroupArr.forEach((element) => {
-    const rowHead = [
+  data.forEach((element) => {
+    const row = [
       {
-        content: "NO KIRIM : " + element[0].no_kirim,
+        content: element.tanggal,
+      },
+      {
+        content: element.bahan_kembali,
+      },
+      {
+        content: element.berat_kembali,
+        styles: {
+          halign: "right",
+        },
+      },
+      {
+        content: parseFloat(element.susut_bruto) ? element.susut_bruto : 0,
+        styles: {
+          halign: "right",
+        },
+      },
+      {
+        content: parseFloat(element.kadar_kembali) ? element.kadar_kembali : 0,
+        styles: {
+          halign: "right",
+        },
+      },
+      {
+        content: parseFloat(element.kembali_24) ? element.kembali_24 : 0,
+        styles: {
+          halign: "right",
+        },
+      },
+      {
+        content: parseFloat(element.susut_24) ? element.susut_24 : 0,
+        styles: {
+          halign: "right",
+        },
+      },
+      {
+        content: element.pohon,
         styles: {
           halign: "left",
-          fillColor: "#bbbbbb",
-        },
-        colSpan: 6,
-      },
-    ];
-    tableRows.push(rowHead);
-    element.forEach((item) => {
-      const row = [
-        {
-          content: item.tgl_kirim,
-        },
-        {
-          content: item.divisi,
-        },
-        {
-          content: item.no_job_order,
-        },
-        {
-          content: item.tambahan,
-        },
-        {
-          content: item.stock_out,
-          styles: {
-            halign: "right",
-          },
-        },
-        {
-          content: item.berat_out,
-          styles: {
-            halign: "right",
-          },
-        },
-      ];
-      tableRows.push(row);
-    });
-    const rowfooter = [
-      {
-        content: "Sub Total",
-        styles: {
-          halign: "right",
-        },
-        colSpan: "4",
-      },
-      {
-        content: element.reduce((a, b) => a + parseFloat(b.stock_out), 0),
-        styles: {
-          halign: "right",
-        },
-      },
-      {
-        content: element
-          .reduce((a, b) => a + parseFloat(b.berat_out), 0)
-          .toFixed(3),
-        styles: {
-          halign: "right",
         },
       },
     ];
-    tableRows.push(rowfooter);
+    tableRows.push(row);
   });
 
   const footer = [
@@ -126,16 +101,44 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: "4",
+      colSpan: "2",
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.stock_out), 0),
+      content: data
+        .reduce((a, b) => a + parseFloat(b.berat_kembali), 0)
+        .toFixed(3),
       styles: {
         halign: "right",
       },
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.berat_out), 0).toFixed(3),
+      content: data
+        .reduce((a, b) => a + (parseFloat(b.susut_bruto) || 0), 0)
+        .toFixed(3),
+      styles: {
+        halign: "right",
+      },
+    },
+    {
+      content: data
+        .reduce((a, b) => a + (parseFloat(b.kadar_kembali) || 0), 0)
+        .toFixed(3),
+      styles: {
+        halign: "right",
+      },
+    },
+    {
+      content: data
+        .reduce((a, b) => a + (parseFloat(b.kembali_24) || 0), 0)
+        .toFixed(3),
+      styles: {
+        halign: "right",
+      },
+    },
+    {
+      content: data
+        .reduce((a, b) => a + (parseFloat(b.susut_24) || 0), 0)
+        .toFixed(3),
       styles: {
         halign: "right",
       },
@@ -198,7 +201,7 @@ const pdfReport = (data = "") => {
   x.document.write(
     `<html>
     <head>
-    <title>Kirim Tambahan</title>
+    <title>Setor Abu COR</title>
     </head>
     <body style='margin:0 !important'>
     <embed width='100%' height='100%'src='${string}'></embed>

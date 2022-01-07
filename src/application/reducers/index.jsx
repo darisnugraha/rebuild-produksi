@@ -57,6 +57,7 @@ import laporanterimajoadmin from "./laporanterimajoadmin";
 import laporankartujoborder from "./laporankartujoborder";
 import laporanoutstandadmin from "./laporanoutstandadmin";
 import laporansaldobahanpusat from "./laporansaldobahanpusat";
+import laporansetorabucor from "./laporansetorabucor";
 
 export default combineReducers({
   login,
@@ -116,5 +117,6 @@ export default combineReducers({
   laporankartujoborder,
   laporanoutstandadmin,
   laporansaldobahanpusat,
+  laporansetorabucor,
   form: formReducer,
 });
