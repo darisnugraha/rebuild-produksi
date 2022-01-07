@@ -616,6 +616,10 @@ const Menu = [
             path: "/laporan/admin-pusat/outstand-admin",
             title: "Laporan Outstand Admin",
           },
+          {
+            path: "/laporan/admin-pusat/saldo-bahan",
+            title: "Laporan Saldo Bahan",
+          },
         ],
       },
     ],
