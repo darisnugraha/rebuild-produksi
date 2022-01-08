@@ -59,6 +59,7 @@ import LaporanSetorAbuCOR from "./laporansetorabucor";
 import LaporanSetorAbuPotong from "./laporansetorabupotong";
 import LaporanSetorAbuTukang from "./laporansetorabutukang";
 import LaporanLebur from "./laporanlebur";
+import LaporanMasak from "./laporanmasak";
 
 const api = {
   login,
@@ -122,6 +123,7 @@ const api = {
   LaporanSetorAbuPotong,
   LaporanSetorAbuTukang,
   LaporanLebur,
+  LaporanMasak,
 };
 
 export default api;

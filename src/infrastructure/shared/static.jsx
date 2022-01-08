@@ -185,6 +185,9 @@ const URL_GET_LAPORAN_SETOR_ABU_TUKANG = `${baseurl}kirim-jo/setorabutukang/get`
 const URL_GET_LAPORAN_KIRIM_LEBUR = `${baseurl}lebur/get/report-kirim-lebur/`;
 const URL_GET_LAPORAN_TERIMA_LEBUR = `${baseurl}lebur/get/report-terima-lebur/`;
 
+const URL_GET_LAPORAN_KIRIM_MASAK = `${baseurl}masak-bahan/get/report-kirim-masak/`;
+const URL_GET_LAPORAN_TERIMA_MASAK = `${baseurl}masak-bahan/get/report-terima-masak/`;
+
 const data = {
   URL_LOGIN,
 
@@ -367,6 +370,9 @@ const data = {
 
   URL_GET_LAPORAN_KIRIM_LEBUR,
   URL_GET_LAPORAN_TERIMA_LEBUR,
+
+  URL_GET_LAPORAN_KIRIM_MASAK,
+  URL_GET_LAPORAN_TERIMA_MASAK,
 };
 
 export default data;

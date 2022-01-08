@@ -2,9 +2,9 @@ import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
 import { useSelector } from "react-redux";
-import laporanterimalebur from "../../../../../application/selectors/laporanlebur";
+import laporanterimamasak from "../../../../../application/selectors/laporanmasak";
 
-const TableLaporanTerimaLebur = () => {
+const TableLaporanTerimaMasak = () => {
   const columns = [
     {
       title: "No Terima",
@@ -32,14 +32,14 @@ const TableLaporanTerimaLebur = () => {
     },
     {
       title: "Berat Kirim",
-      dataIndex: "berat_murni",
-      key: "berat_murni",
+      dataIndex: "berat_kirim",
+      key: "berat_kirim",
       align: "right",
     },
     {
-      title: "Berat Terima",
-      dataIndex: "berat_kirim",
-      key: "berat_kirim",
+      title: "Berat Jadi",
+      dataIndex: "berat_jadi",
+      key: "berat_jadi",
       align: "right",
     },
     {
@@ -50,13 +50,13 @@ const TableLaporanTerimaLebur = () => {
     },
   ];
 
-  const dataLaporanTerimaLebur = useSelector(
-    laporanterimalebur.getAllLaporanTerimaLebur
+  const dataLaporanTerimaMasak = useSelector(
+    laporanterimamasak.getAllLaporanTerimaMasak
   );
 
   return (
     <Table
-      dataSource={dataLaporanTerimaLebur}
+      dataSource={dataLaporanTerimaMasak}
       columns={columns}
       scroll={{ x: 1500, y: 1000 }}
       summary={() => (
@@ -66,17 +66,17 @@ const TableLaporanTerimaLebur = () => {
               Total
             </Table.Summary.Cell>
             <Table.Summary.Cell index={1} align="right">
-              {dataLaporanTerimaLebur
+              {dataLaporanTerimaMasak
                 .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
             <Table.Summary.Cell index={2} align="right">
-              {dataLaporanTerimaLebur
+              {dataLaporanTerimaMasak
                 .reduce((a, b) => a + parseFloat(b.berat_kirim), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
             <Table.Summary.Cell index={2} align="right">
-              {dataLaporanTerimaLebur
+              {dataLaporanTerimaMasak
                 .reduce((a, b) => a + parseFloat(b.berat_susut), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
@@ -87,4 +87,4 @@ const TableLaporanTerimaLebur = () => {
   );
 };
 
-export default TableLaporanTerimaLebur;
+export default TableLaporanTerimaMasak;

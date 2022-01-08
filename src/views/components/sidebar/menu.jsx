@@ -654,6 +654,20 @@ const Menu = [
           },
         ],
       },
+      {
+        path: "/laporan/masak",
+        title: "Laporan Masak",
+        children: [
+          {
+            path: "/laporan/masak/kirim",
+            title: "Laporan Kirim Masak",
+          },
+          {
+            path: "/laporan/masak/terima",
+            title: "Laporan Terima Masak",
+          },
+        ],
+      },
     ],
   },
 ];
