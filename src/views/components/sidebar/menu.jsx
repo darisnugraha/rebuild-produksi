@@ -640,6 +640,20 @@ const Menu = [
           },
         ],
       },
+      {
+        path: "/laporan/lebur",
+        title: "Laporan Lebur",
+        children: [
+          {
+            path: "/laporan/lebur/kirim",
+            title: "Laporan Kirim Lebur",
+          },
+          {
+            path: "/laporan/lebur/terima",
+            title: "Laporan Terima Lebur",
+          },
+        ],
+      },
     ],
   },
 ];

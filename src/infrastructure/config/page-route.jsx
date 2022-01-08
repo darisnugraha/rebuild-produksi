@@ -72,6 +72,8 @@ import LaporanSaldoBahanPusat from "../../views/pages/laporan/laporan-admin-pusa
 import LaporanSetorAbuCOR from "../../views/pages/laporan/laporan-setoran-abu/laporan-setor-abu-cor";
 import LaporanSetorAbuPotong from "../../views/pages/laporan/laporan-setoran-abu/laporan-setor-abu-potong";
 import LaporanSetorAbuTukang from "../../views/pages/laporan/laporan-setoran-abu/laporan-setor-abu-tukang";
+import LaporanKirimLebur from "../../views/pages/laporan/laporan-lebur/laporan-kirim-lebur";
+import LaporanTerimaLebur from "../../views/pages/laporan/laporan-lebur/laporan-terima-lebur";
 
 const routes = [
   // {
@@ -867,6 +869,16 @@ const routes = [
     path: "/laporan/setor-abu/setor-abu-tukang",
     title: "Laporan Setor Abu Tukang",
     component: () => <LaporanSetorAbuTukang />,
+  },
+  {
+    path: "/laporan/lebur/kirim",
+    title: "Laporan Kirim Lebur",
+    component: () => <LaporanKirimLebur />,
+  },
+  {
+    path: "/laporan/lebur/terima",
+    title: "Laporan Terim Lebur",
+    component: () => <LaporanTerimaLebur />,
   },
   {
     path: "/notfound",

@@ -182,6 +182,9 @@ const URL_GET_LAPORAN_SETOR_ABU_COR = `${baseurl}produksi/setorabu/cor`;
 const URL_GET_LAPORAN_SETOR_ABU_POTONG = `${baseurl}produksi/setorabu/potong`;
 const URL_GET_LAPORAN_SETOR_ABU_TUKANG = `${baseurl}kirim-jo/setorabutukang/get`;
 
+const URL_GET_LAPORAN_KIRIM_LEBUR = `${baseurl}lebur/get/report-kirim-lebur/`;
+const URL_GET_LAPORAN_TERIMA_LEBUR = `${baseurl}lebur/get/report-terima-lebur/`;
+
 const data = {
   URL_LOGIN,
 
@@ -361,6 +364,9 @@ const data = {
   URL_GET_LAPORAN_SETOR_ABU_COR,
   URL_GET_LAPORAN_SETOR_ABU_POTONG,
   URL_GET_LAPORAN_SETOR_ABU_TUKANG,
+
+  URL_GET_LAPORAN_KIRIM_LEBUR,
+  URL_GET_LAPORAN_TERIMA_LEBUR,
 };
 
 export default data;
