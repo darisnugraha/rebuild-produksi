@@ -677,11 +677,11 @@ const Menu = [
     children: [
       {
         path: "/laporan-produksi/kirim",
-        title: "Kirim Produksi",
+        title: "Laporan Kirim Produksi By Divisi",
       },
       {
         path: "/laporan-produksi/terima",
-        title: "Terima Produksi",
+        title: "Laporan Terima Produksi By Divisi",
       },
     ],
   },
