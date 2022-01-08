@@ -76,6 +76,7 @@ import LaporanKirimLebur from "../../views/pages/laporan/laporan-lebur/laporan-k
 import LaporanTerimaLebur from "../../views/pages/laporan/laporan-lebur/laporan-terima-lebur";
 import LaporanKirimMasak from "../../views/pages/laporan/laporan-masak/laporan-kirim-masak";
 import LaporanTerimaMasak from "../../views/pages/laporan/laporan-masak/laporan-terima-masak";
+import LaporanTerimaProduksi from "../../views/pages/laporan/laporan-produksi/laporan-terima-produksi";
 
 const routes = [
   // {
@@ -889,8 +890,13 @@ const routes = [
   },
   {
     path: "/laporan/masak/terima",
-    title: "Laporan Terim Masak",
+    title: "Laporan Terima Masak",
     component: () => <LaporanTerimaMasak />,
+  },
+  {
+    path: "/laporan-produksi/terima",
+    title: "Laporan Terima Produksi",
+    component: () => <LaporanTerimaProduksi />,
   },
   {
     path: "/notfound",

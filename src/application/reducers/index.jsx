@@ -62,6 +62,7 @@ import laporansetorabupotong from "./laporansetorabupotong";
 import laporansetorabutukang from "./laporansetorabutukang";
 import laporanlebur from "./laporanlebur";
 import laporanmasak from "./laporanmasak";
+import laporanproduksi from "./laporanproduksi";
 
 export default combineReducers({
   login,
@@ -126,5 +127,6 @@ export default combineReducers({
   laporansetorabutukang,
   laporanlebur,
   laporanmasak,
+  laporanproduksi,
   form: formReducer,
 });

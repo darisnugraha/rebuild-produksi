@@ -670,6 +670,21 @@ const Menu = [
       },
     ],
   },
+  {
+    path: "/laporan-produksi",
+    icon: "fa fa-book",
+    title: "Laporan Produksi",
+    children: [
+      {
+        path: "/laporan-produksi/kirim",
+        title: "Kirim Produksi",
+      },
+      {
+        path: "/laporan-produksi/terima",
+        title: "Terima Produksi",
+      },
+    ],
+  },
 ];
 
 export default Menu;
