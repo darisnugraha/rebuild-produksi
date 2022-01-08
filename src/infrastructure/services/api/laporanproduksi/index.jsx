@@ -9,6 +9,13 @@ const LaporanProduksi = {
     });
     return response;
   },
+  getKirimProduksi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_LAPORAN_KIRIM_PRODUKSI,
+      data: dataKirim,
+    });
+    return response;
+  },
 };
 
 export default LaporanProduksi;

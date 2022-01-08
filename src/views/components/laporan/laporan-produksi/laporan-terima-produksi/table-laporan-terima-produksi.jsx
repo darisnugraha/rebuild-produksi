@@ -58,7 +58,6 @@ const TableLaporanTerimaProduksi = () => {
       title: "Nama Tukang",
       dataIndex: "kode_staff",
       key: "kode_staff",
-      align: "right",
     },
   ];
 

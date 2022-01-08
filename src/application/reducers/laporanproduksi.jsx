@@ -2,6 +2,8 @@
 import {
   SET_DATA_TERIMA_PRODUKSI_SUCCESS,
   SET_DATA_TERIMA_PRODUKSI_FAILED,
+  SET_DATA_KIRIM_PRODUKSI_SUCCESS,
+  SET_DATA_KIRIM_PRODUKSI_FAILED,
 } from "../actions/laporanproduksi";
 
 const initialState = {
@@ -23,6 +25,16 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         errorTerima: action.payload.data,
+      };
+    case SET_DATA_KIRIM_PRODUKSI_SUCCESS:
+      return {
+        ...state,
+        feedback: action.payload.data,
+      };
+    case SET_DATA_KIRIM_PRODUKSI_FAILED:
+      return {
+        ...state,
+        error: action.payload.data,
       };
     default:
       return state;

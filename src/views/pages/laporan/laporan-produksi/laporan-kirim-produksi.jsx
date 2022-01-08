@@ -9,20 +9,22 @@ import {
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../../application/actions/ui";
 import { getAllDivisi } from "../../../../application/actions/kirimbahanadmin";
-import FormLaporanTerimaProduksi from "../../../components/laporan/laporan-produksi/laporan-terima-produksi/form-laporan-terima-produksi";
-import TableLaporanTerimaProduksi from "../../../components/laporan/laporan-produksi/laporan-terima-produksi/table-laporan-terima-produksi";
-import BtnPrint from "../../../components/laporan/laporan-produksi/laporan-terima-produksi/btn-print-excel-pdf";
-import TerimaProduksi from "../../../../application/selectors/laporanproduksi";
+import { getAllMasterTukang } from "../../../../application/actions/mastertukang";
+import FormLaporanKirimProduksi from "../../../components/laporan/laporan-produksi/laporan-kirim-produksi/form-laporan-kirim-produksi";
+import TableLaporanKirimProduksi from "../../../components/laporan/laporan-produksi/laporan-kirim-produksi/table-laporan-kirim-produksi";
+import BtnPrint from "../../../components/laporan/laporan-produksi/laporan-kirim-produksi/btn-print-excel-pdf";
+import KirimProduksi from "../../../../application/selectors/laporanproduksi";
 
-const LaporanTerimaProduksi = () => {
+const LaporanKirimProduksi = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllDivisi);
-    document.title = "Laporan Terima Produksi";
+    dispatch(getAllMasterTukang);
+    document.title = "Laporan Kirim Produksi";
   }, [dispatch]);
-  const dataLaporanTerimaProduksi = useSelector(
-    TerimaProduksi.getAllTerimaProduksi
+  const dataLaporanKirimProduksi = useSelector(
+    KirimProduksi.getAllKirimProduksi
   );
 
   return (
@@ -32,27 +34,27 @@ const LaporanTerimaProduksi = () => {
           <Link to="/dashboard">Home</Link>
         </li>
         <li className="breadcrumb-item">
-          <Link to="/laporan-produksi/terima">Laporan Produksi</Link>
+          <Link to="/laporan-produksi/kirim">Laporan Produksi</Link>
         </li>
-        <li className="breadcrumb-item active">Terima Produksi</li>
+        <li className="breadcrumb-item active">Kirim Produksi</li>
       </ol>
       <h1 className="page-header">
-        Laporan Produksi <small>Terima Produksi</small>
+        Laporan Produksi <small>Kirim Produksi</small>
       </h1>
       <Panel>
-        <PanelHeader>Terima Produksi</PanelHeader>
+        <PanelHeader>Kirim Produksi</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormLaporanTerimaProduksi />
+                <FormLaporanKirimProduksi />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanTerimaProduksi.length === 0 ? "none" : "",
+                display: dataLaporanKirimProduksi.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -61,14 +63,14 @@ const LaporanTerimaProduksi = () => {
                 </Divider>
               </div>
               <div className="col-12">
-                <TableLaporanTerimaProduksi />
+                <TableLaporanKirimProduksi />
               </div>
             </div>
             <div
               className="row"
               style={{
                 marginTop: 10,
-                display: dataLaporanTerimaProduksi.length === 0 ? "none" : "",
+                display: dataLaporanKirimProduksi.length === 0 ? "none" : "",
               }}
             >
               <div className="col-12">
@@ -82,4 +84,4 @@ const LaporanTerimaProduksi = () => {
   );
 };
 
-export default LaporanTerimaProduksi;
+export default LaporanKirimProduksi;

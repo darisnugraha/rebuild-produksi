@@ -1,9 +1,16 @@
 export const GET_ALL_TERIMA_PRODUKSI =
-  "[laporanproduks] get all terima produksi";
+  "[laporanproduksi] get all terima produksi";
 export const SET_DATA_TERIMA_PRODUKSI_SUCCESS =
-  "[laporanproduks] get all terima produksi success";
+  "[laporanproduksi] get all terima produksi success";
 export const SET_DATA_TERIMA_PRODUKSI_FAILED =
-  "[laporanproduks] get all terima produksi failed";
+  "[laporanproduksi] get all terima produksi failed";
+
+export const GET_ALL_KIRIM_PRODUKSI =
+  "[laporanproduksi] get all kirim produksi";
+export const SET_DATA_KIRIM_PRODUKSI_SUCCESS =
+  "[laporanproduksi] get all kirim produksi success";
+export const SET_DATA_KIRIM_PRODUKSI_FAILED =
+  "[laporanproduksi] get all kirim produksi failed";
 
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
@@ -14,5 +21,17 @@ export const setDataTerimaProduksiSuccess = ({ feedback }) => ({
 });
 export const setDataTerimaProduksiFailed = ({ error }) => ({
   type: SET_DATA_TERIMA_PRODUKSI_FAILED,
+  payload: { data: error },
+});
+
+export const getAllKirimProduksi = {
+  type: GET_ALL_KIRIM_PRODUKSI,
+};
+export const setDataKirimProduksiSuccess = ({ feedback }) => ({
+  type: SET_DATA_KIRIM_PRODUKSI_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataKirimProduksiFailed = ({ error }) => ({
+  type: SET_DATA_KIRIM_PRODUKSI_FAILED,
   payload: { data: error },
 });
