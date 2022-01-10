@@ -59,11 +59,18 @@ let FormLaporanTerimaProduksi = (prop) => {
             onBlur={(e) => e.preventDefault()}
           >
             {dataDivisi.map((item) => {
-              return (
-                <Option value={item.nama_divisi} key={item.nama_divisi}>
-                  <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
-                </Option>
-              );
+              if (
+                item.nama_divisi === "GUDANG QC JC" ||
+                item.nama_divisi === "GUDANG QC VV"
+              ) {
+                return false;
+              } else {
+                return (
+                  <Option value={item.nama_divisi} key={item.nama_divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  </Option>
+                );
+              }
             })}
           </Field>
         </Col>
