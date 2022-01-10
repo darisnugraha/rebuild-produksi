@@ -9,6 +9,8 @@ const getErrorTerimaBatuProduksi = (state) => state.laporanproduksi.errorBatu;
 const getAllOutstandProduksi = (state) =>
   state.laporanproduksi.feedbackOutstand;
 const getErrorOutstandProduksi = (state) => state.laporanproduksi.errorOutstand;
+const getAllGudangProduksi = (state) => state.laporanproduksi.feedbackGudang;
+const getErrorGudangProduksi = (state) => state.laporanproduksi.errorGudang;
 const getAllKirimProduksi = (state) => state.laporanproduksi.feedback;
 const getErrorKirimProduksi = (state) => state.laporanproduksi.error;
 const getIsEditLaporanProduksi = (state) => state.laporanproduksi.isEdit;
@@ -24,5 +26,7 @@ const data = {
   getErrorTerimaBatuProduksi,
   getAllOutstandProduksi,
   getErrorOutstandProduksi,
+  getAllGudangProduksi,
+  getErrorGudangProduksi,
 };
 export default data;

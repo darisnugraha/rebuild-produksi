@@ -33,6 +33,13 @@ export const SET_DATA_OUTSTAND_PRODUKSI_SUCCESS =
 export const SET_DATA_OUTSTAND_PRODUKSI_FAILED =
   "[laporanproduksi] get all outstand produksi failed";
 
+export const GET_ALL_TERIMA_GUDANG_PRODUKSI =
+  "[laporanproduksi] get all terima gudang produksi";
+export const SET_DATA_TERIMA_GUDANG_PRODUKSI_SUCCESS =
+  "[laporanproduksi] get all terima gudang produksi success";
+export const SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED =
+  "[laporanproduksi] get all terima gudang produksi failed";
+
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
 };
@@ -90,5 +97,17 @@ export const setDataOutstandProduksiSuccess = ({ feedback }) => ({
 });
 export const setDataOutstandProduksiFailed = ({ error }) => ({
   type: SET_DATA_OUTSTAND_PRODUKSI_FAILED,
+  payload: { data: error },
+});
+
+export const getAllTerimaGudangProduksi = {
+  type: GET_ALL_TERIMA_GUDANG_PRODUKSI,
+};
+export const setDataTerimaGudangProduksiSuccess = ({ feedback }) => ({
+  type: SET_DATA_TERIMA_GUDANG_PRODUKSI_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataTerimaGudangProduksiFailed = ({ error }) => ({
+  type: SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED,
   payload: { data: error },
 });

@@ -695,6 +695,10 @@ const Menu = [
         path: "/laporan-produksi/outstand",
         title: "Laporan Outstand Produksi By Divisi",
       },
+      {
+        path: "/laporan-produksi/terima-gudang",
+        title: "Laporan Terima Gudang Produksi By Divisi",
+      },
     ],
   },
 ];
