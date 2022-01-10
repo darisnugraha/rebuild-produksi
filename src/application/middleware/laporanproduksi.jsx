@@ -361,7 +361,7 @@ const getAllDataTerimaGudangProduksi =
     if (action.type === GET_ALL_TERIMA_GUDANG_PRODUKSI) {
       dispatch(setLoadingButton(true));
       dispatch(setDataTerimaGudangProduksiSuccess({ feedback: [] }));
-      const data = getState().form.FormLaporanTerimaProduksi.values;
+      const data = getState().form.FormLaporanTerimaGudangProduksi.values;
 
       if (data.date === null) {
         dispatch(setLoadingButton(false));
