@@ -8,6 +8,8 @@ import {
   SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_FAILED,
   SET_DATA_TERIMA_BATU_PRODUKSI_SUCCESS,
   SET_DATA_TERIMA_BATU_PRODUKSI_FAILED,
+  SET_DATA_OUTSTAND_PRODUKSI_SUCCESS,
+  SET_DATA_OUTSTAND_PRODUKSI_FAILED,
 } from "../actions/laporanproduksi";
 
 const initialState = {
@@ -15,10 +17,12 @@ const initialState = {
   feedbackTerima: [],
   feedbackTambahan: [],
   feedbackBatu: [],
+  feedbackOutstand: [],
   error: null,
   errorTerima: null,
   errorTambahan: null,
   errorBatu: null,
+  errorOutstand: null,
   isEdit: false,
 };
 
@@ -63,6 +67,16 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         errorBatu: action.payload.data,
+      };
+    case SET_DATA_OUTSTAND_PRODUKSI_SUCCESS:
+      return {
+        ...state,
+        feedbackOutstand: action.payload.data,
+      };
+    case SET_DATA_OUTSTAND_PRODUKSI_FAILED:
+      return {
+        ...state,
+        errorOutstand: action.payload.data,
       };
     default:
       return state;

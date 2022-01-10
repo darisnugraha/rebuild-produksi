@@ -30,6 +30,13 @@ const LaporanProduksi = {
     });
     return response;
   },
+  getOutstandProduksi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_LAPORAN_OUTSTAND_PRODUKSI,
+      data: dataKirim,
+    });
+    return response;
+  },
 };
 
 export default LaporanProduksi;

@@ -20,6 +20,9 @@ import {
   GET_ALL_TERIMA_BATU_PRODUKSI,
   setDataTerimaBatuProduksiSuccess,
   setDataTerimaBatuProduksiFailed,
+  GET_ALL_OUTSTAND_PRODUKSI,
+  setDataOutstandProduksiSuccess,
+  setDataOutstandProduksiFailed,
 } from "../actions/laporanproduksi";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
@@ -290,11 +293,68 @@ const getAllDataTerimaBatuProduksi =
     }
   };
 
+const getAllDataOutstandProduksi =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_ALL_OUTSTAND_PRODUKSI) {
+      dispatch(setLoadingButton(true));
+      dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
+      const data = getState().form.FormLaporanOutstandProduksi.values;
+
+      if (data.tukang === undefined || data.divisi === undefined) {
+        dispatch(setLoadingButton(false));
+        sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+      } else {
+        const dataOnsend = {
+          divisi: data.divisi,
+          kode_staff: data.tukang,
+        };
+        writeLocal("laporan_outstand_produksi", dataOnsend);
+
+        const response = await api.LaporanProduksi.getOutstandProduksi(
+          dataOnsend
+        );
+        if (response?.value !== null) {
+          dispatch(setLoadingButton(false));
+          if (response?.value.status === "berhasil") {
+            if (response?.value.data.length === 0) {
+              sweetalert.default.Failed(response?.value.pesan);
+              dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
+            } else {
+              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              dispatch(
+                setDataOutstandProduksiSuccess({
+                  feedback: response?.value.data,
+                })
+              );
+            }
+          } else {
+            sweetalert.default.Failed(response?.value.pesan);
+            dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
+            dispatch(
+              setDataOutstandProduksiFailed({
+                error: response.value.pesan,
+              })
+            );
+          }
+        } else {
+          dispatch(setLoadingButton(false));
+          sweetalert.default.Failed(response.error.data.pesan);
+          dispatch(setDataOutstandProduksiFailed({ error: response.error }));
+        }
+      }
+    }
+  };
+
 const data = [
   getAllDataTerimaProduksi,
   getAllDataKirimProduksi,
   getAllDataTerimaTambahanProduksi,
   getAllDataTerimaBatuProduksi,
+  getAllDataOutstandProduksi,
 ];
 
 export default data;
