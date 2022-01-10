@@ -19,6 +19,13 @@ export const SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_SUCCESS =
 export const SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_FAILED =
   "[laporanproduksi] get all terima tambahan produksi failed";
 
+export const GET_ALL_TERIMA_BATU_PRODUKSI =
+  "[laporanproduksi] get all terima batu produksi";
+export const SET_DATA_TERIMA_BATU_PRODUKSI_SUCCESS =
+  "[laporanproduksi] get all terima batu produksi success";
+export const SET_DATA_TERIMA_BATU_PRODUKSI_FAILED =
+  "[laporanproduksi] get all terima batu produksi failed";
+
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
 };
@@ -52,5 +59,17 @@ export const setDataTerimaTambahanProduksiSuccess = ({ feedback }) => ({
 });
 export const setDataTerimaTambahanProduksiFailed = ({ error }) => ({
   type: SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_FAILED,
+  payload: { data: error },
+});
+
+export const getAllTerimaBatuProduksi = {
+  type: GET_ALL_TERIMA_BATU_PRODUKSI,
+};
+export const setDataTerimaBatuProduksiSuccess = ({ feedback }) => ({
+  type: SET_DATA_TERIMA_BATU_PRODUKSI_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataTerimaBatuProduksiFailed = ({ error }) => ({
+  type: SET_DATA_TERIMA_BATU_PRODUKSI_FAILED,
   payload: { data: error },
 });

@@ -191,6 +191,7 @@ const URL_GET_LAPORAN_TERIMA_MASAK = `${baseurl}masak-bahan/get/report-terima-ma
 const URL_GET_LAPORAN_TERIMA_PRODUKSI = `${baseurl}terima-jo/tgl/all`;
 const URL_GET_LAPORAN_KIRIM_PRODUKSI = `${baseurl}kirim-jo/tgl/all`;
 const URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI = `${baseurl}produksi/terima-tambahan/all`;
+const URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI = `${baseurl}produksi/terima-batu/all`;
 
 const data = {
   URL_LOGIN,
@@ -381,6 +382,7 @@ const data = {
   URL_GET_LAPORAN_TERIMA_PRODUKSI,
   URL_GET_LAPORAN_KIRIM_PRODUKSI,
   URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI,
+  URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI,
 };
 
 export default data;

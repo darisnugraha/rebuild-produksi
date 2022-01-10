@@ -6,15 +6,19 @@ import {
   SET_DATA_KIRIM_PRODUKSI_FAILED,
   SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_SUCCESS,
   SET_DATA_TERIMA_TAMBAHAN_PRODUKSI_FAILED,
+  SET_DATA_TERIMA_BATU_PRODUKSI_SUCCESS,
+  SET_DATA_TERIMA_BATU_PRODUKSI_FAILED,
 } from "../actions/laporanproduksi";
 
 const initialState = {
   feedback: [],
   feedbackTerima: [],
   feedbackTambahan: [],
+  feedbackBatu: [],
   error: null,
   errorTerima: null,
   errorTambahan: null,
+  errorBatu: null,
   isEdit: false,
 };
 
@@ -49,6 +53,16 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         errorTambahan: action.payload.data,
+      };
+    case SET_DATA_TERIMA_BATU_PRODUKSI_SUCCESS:
+      return {
+        ...state,
+        feedbackBatu: action.payload.data,
+      };
+    case SET_DATA_TERIMA_BATU_PRODUKSI_FAILED:
+      return {
+        ...state,
+        errorBatu: action.payload.data,
       };
     default:
       return state;

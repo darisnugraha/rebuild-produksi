@@ -23,6 +23,13 @@ const LaporanProduksi = {
     });
     return response;
   },
+  getTerimaBatuProduksi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI,
+      data: dataKirim,
+    });
+    return response;
+  },
 };
 
 export default LaporanProduksi;

@@ -687,6 +687,10 @@ const Menu = [
         path: "/laporan-produksi/terima-tambahan",
         title: "Laporan Terima Tambahan Produksi By Divisi",
       },
+      {
+        path: "/laporan-produksi/terima-batu",
+        title: "Laporan Terima Batu Produksi By Divisi",
+      },
     ],
   },
 ];
