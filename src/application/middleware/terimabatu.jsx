@@ -6,6 +6,7 @@ import {
   setDataDetailKirimBatuSuccess,
   setDataDetailKirimBatuFailed,
   SET_DATA_KIRIM_BATU_LOKAL,
+  ADD_TERIMA_BATU_PUSAT,
 } from "../actions/terimabatu";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -75,10 +76,34 @@ const simpanKirimBatuLokal =
     }
   };
 
+const simpanKirimBatuPOST =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TERIMA_BATU_PUSAT) {
+      const data_local = getLocal("data_detail_kirim_batu");
+      const data = {
+        no_kirim_batu: data_local[0].no_batu_kirim,
+      };
+      const response = await api.TerimaBatu.addTerimaBatuPusat({
+        dataKirim: data,
+      });
+      if (response.value !== null) {
+        sweetalert.default.Success(response.value.pesan);
+        localStorage.removeItem("data_detail_kirim_batu");
+      } else {
+        sweetalert.default.Failed(response.error.data.pesan);
+      }
+    }
+  };
+
 const data = [
   getNoKirimBatuByTanggal,
   getDetailKirimBatu,
   simpanKirimBatuLokal,
+  simpanKirimBatuPOST,
 ];
 
 export default data;

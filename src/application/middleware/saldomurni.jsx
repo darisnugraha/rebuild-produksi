@@ -10,6 +10,7 @@ import {
   ADD_AMBIL_SALDO_BAHAN,
 } from "../actions/saldomurni";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { setLoadPanel } from "../actions/ui";
 
 const saldoMurniGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -18,10 +19,13 @@ const saldoMurniGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_SALDO_MURNI) {
+      dispatch(setLoadPanel(true));
       const response = await api.SaldoMurni.getAllSaldoMurni();
       if (response.value?.status === "berhasil") {
+        dispatch(setLoadPanel(false));
         dispatch(setDataSaldoMurniSuccess({ feedback: response.value.data }));
       } else {
+        dispatch(setLoadPanel(false));
         dispatch(setDataSaldoMurniFailed({ error: response.error }));
       }
     }

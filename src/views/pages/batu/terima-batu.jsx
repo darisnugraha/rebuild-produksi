@@ -8,6 +8,7 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Button, Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
+import { simpanDataDetailKirimBatuPOST } from "../../../application/actions/terimabatu";
 import FormTerimaBatu from "../../components/batu/terima-batu/button-terima-batu";
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
@@ -74,7 +75,14 @@ const TerimaBatu = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      onClick={() => {
+                        dispatch(simpanDataDetailKirimBatuPOST);
+                      }}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button

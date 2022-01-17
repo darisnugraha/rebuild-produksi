@@ -1,7 +1,5 @@
 import get from "../../../axios/get";
 import post from "../../../axios/post";
-import deleteAxios from "../../../axios/delete";
-import put from "../../../axios/put";
 import word from "../../../shared/static";
 
 const TerimaBatu = {
@@ -17,20 +15,11 @@ const TerimaBatu = {
     });
     return response;
   },
-  getAllTerimaBatu: async () => {
-    const response = await get({ url: word.URL_GET_ALL_MASTER_ORIGINAL });
-    return response;
-  },
-  addTerimaBatu: async (data) => {
-    const response = await post.AxiosPost(word.URL_ADD_MASTER_ORIGINAL, data);
-    return response;
-  },
-  deleteTerimaBatu: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_ORIGINAL + data);
-    return response;
-  },
-  editTerimaBatu: async (url, data) => {
-    const response = await put(word.URL_UPDATE_MASTER_ORIGINAL + url, data);
+  addTerimaBatuPusat: async ({dataKirim}) => {
+    const response = await post.AxiosPost({
+      url: word.URL_ADD_TERIMA_BATU_PUSAT,
+      data: dataKirim,
+    });
     return response;
   },
 };

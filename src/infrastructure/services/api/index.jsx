@@ -61,6 +61,7 @@ import LaporanSetorAbuTukang from "./laporansetorabutukang";
 import LaporanLebur from "./laporanlebur";
 import LaporanMasak from "./laporanmasak";
 import LaporanProduksi from "./laporanproduksi";
+import KirimBatuPusat from "./kirimbatupusat";
 
 const api = {
   login,
@@ -126,6 +127,7 @@ const api = {
   LaporanLebur,
   LaporanMasak,
   LaporanProduksi,
+  KirimBatuPusat,
 };
 
 export default api;

@@ -3,8 +3,26 @@ import { Form, Row, Col } from "antd";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import "antd/dist/antd.css";
+import { connect } from "react-redux";
 
-const FormAbuTukangCOR = (prop) => {
+const maptostate = (state) => {
+  const data = JSON.parse(localStorage.getItem("data_select")) || [];
+  if (data.length !== 0) {
+    return {
+      initialValues: {
+        k_24: undefined,
+      },
+    };
+  } else {
+    return {
+      initialValues: {
+        k_24: undefined,
+      },
+    };
+  }
+};
+
+let FormAbuTukangCOR = (prop) => {
   return (
     <Form layout="vertical">
       <Row>
@@ -85,6 +103,8 @@ const FormAbuTukangCOR = (prop) => {
   );
 };
 
-export default reduxForm({
+FormAbuTukangCOR = reduxForm({
   form: "FormAbuTukangCOR",
+  enableReinitialize: true,
 })(FormAbuTukangCOR);
+export default connect(maptostate, null)(FormAbuTukangCOR);

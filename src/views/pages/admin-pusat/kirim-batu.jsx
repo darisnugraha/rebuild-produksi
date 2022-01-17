@@ -14,6 +14,11 @@ import FormKirimBatu from "../../components/admin-pusat/kirim-batu/button-add-ki
 import TableKirimBatu from "../../components/admin-pusat/kirim-batu/table-kirim-batu";
 import { getAllSaldoBahanStock } from "../../../application/actions/pembuatanjenisbahan";
 import { getAllDivisi } from "../../../application/actions/kirimbahanadmin";
+import service from "../../../infrastructure/services/index";
+import {
+  checkoutKirimBatu,
+  getAllJOKirimBatuPusat,
+} from "../../../application/actions/kirimbatupusat.jsx";
 
 const KirimBatu = () => {
   const dispatch = useDispatch();
@@ -22,6 +27,13 @@ const KirimBatu = () => {
     dispatch(getAllMasterJenisBahan);
     dispatch(getAllSaldoBahanStock);
     dispatch(getAllDivisi);
+    if (service.getLocal("data_jo_kirim_batu_head") !== null) {
+      dispatch(
+        getAllJOKirimBatuPusat({
+          noJO: service.getLocal("data_jo_kirim_batu_head").no_job_order,
+        })
+      );
+    }
     document.title = "Kirim Batu";
   }, [dispatch]);
 
@@ -68,7 +80,14 @@ const KirimBatu = () => {
         <PanelFooter>
           <div className="row">
             <div className="col-1">
-              <Button type="primary">Simpan</Button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(checkoutKirimBatu);
+                }}
+              >
+                Simpan
+              </Button>
             </div>
             <div className="col-1">
               <Button

@@ -6,20 +6,28 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import Divisi from "../../../../application/selectors/kirimbahanadmin";
+import {
+  getAllJOKirimBatuPusat,
+  simpanDetailJOLokal,
+} from "../../../../application/actions/kirimbatupusat";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.masterjenisbahan.feedback !== undefined) {
+  if (state.kirimbatupusat.feedback.length !== 0) {
     return {
       initialValues: {
         divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        no_job_order: state.kirimbatupusat.no_job_order,
+        kode_barang: state.kirimbatupusat.feedback[0]?.kode_barang,
+        nama_barang: state.kirimbatupusat.feedback[0]?.nama_barang,
+        kode_jenis_bahan: state.kirimbatupusat.feedback[0]?.kode_jenis_bahan,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi: state.masterjenisbahan.feedback[0]?.kode_divisi,
+        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
       },
     };
   }
@@ -40,7 +48,9 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={onCreate}
+      onOk={() => {
+        dispatch(simpanDetailJOLokal);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -70,6 +80,9 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"
+              onBlur={(e) => {
+                dispatch(getAllJOKirimBatuPusat({ noJO: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>

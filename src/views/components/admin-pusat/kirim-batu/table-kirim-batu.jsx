@@ -1,10 +1,10 @@
 import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
-import getLocal from "../../../../infrastructure/services/local/get-local";
+import service from "../../../../infrastructure/services/index";
 
 const TableKirimBatu = () => {
-  const dataTable = getLocal("data_kirim_batu") || [];
+  const dataTable = service.getLocal("detail_batu_head") || [];
   const columns = [
     {
       title: "No Job Order",

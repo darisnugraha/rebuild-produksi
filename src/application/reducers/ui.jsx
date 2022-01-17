@@ -4,12 +4,15 @@ import {
   SET_LOADING_BUTTON_ON,
   SET_LOADING_BUTTON_OFF,
   CHANGE_TABLE_LAYOUT,
-} from '../actions/ui';
+  SET_LOAD_PANEL_ON,
+  SET_LOAD_PANEL_OFF,
+} from "../actions/ui";
 
 const initialState = {
   loading: true,
   btnLoading: false,
-  typeTable: 'L',
+  typeTable: "L",
+  loadpanel: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +25,9 @@ const reducer = (state = initialState, action) => {
       return { ...state, btnLoading: action.payload };
     case CHANGE_TABLE_LAYOUT:
       return { ...state, typeTable: action.payload };
+    case SET_LOAD_PANEL_ON:
+    case SET_LOAD_PANEL_OFF:
+      return { ...state, loadpanel: action.payload };
     default:
       return state;
   }

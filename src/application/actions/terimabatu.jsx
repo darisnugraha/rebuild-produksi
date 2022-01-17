@@ -13,6 +13,8 @@ export const SET_DATA_DETAIL_KIRIM_BATU_FAILED =
 export const SET_DATA_KIRIM_BATU_LOKAL =
   "[terimabatu] set data kirim batu lokal";
 
+export const ADD_TERIMA_BATU_PUSAT = "[terimabatu] add terima batu pusat";
+
 export const getAllNoKirimBatuByTanggal = ({ tanggal }) => ({
   type: GET_ALL_NO_KIRIM_BATU_BY_TANGGAL,
   payload: { data: tanggal },
@@ -40,4 +42,7 @@ export const setDataDetailKirimBatuFailed = ({ error }) => ({
 });
 export const simpanDataDetailKirimBatuLokal = {
   type: SET_DATA_KIRIM_BATU_LOKAL,
+};
+export const simpanDataDetailKirimBatuPOST = {
+  type: ADD_TERIMA_BATU_PUSAT,
 };

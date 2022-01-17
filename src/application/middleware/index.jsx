@@ -61,6 +61,7 @@ import laporansetorabutukang from "./laporansetorabutukang";
 import laporanlebur from "./laporanlebur";
 import laporanmasak from "./laporanmasak";
 import laporanproduksi from "./laporanproduksi";
+import kirimbatupusat from "./kirimbatupusat";
 
 const midd = [
   ...ui,
@@ -126,6 +127,7 @@ const midd = [
   ...laporanlebur,
   ...laporanmasak,
   ...laporanproduksi,
+  ...kirimbatupusat,
 ];
 
 export default midd;

@@ -75,6 +75,9 @@ const URL_DELETE_MASTER_ORIGINAL = `${baseurl}barang`;
 const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}barang`;
 
 const URL_GET_JO_BY_ID_KIRIM_BATU = `${baseurl}adm-mutasi-batu/get/jo-kirim-batu-proses/`;
+const URL_GET_DETAIL_BATU_KIRIM_PUSAT = `${baseurl}adm-mutasi-batu/get/detailBatu`;
+const URL_ADD_CART_BATU_KIRIM_PUSAT = `${baseurl}adm-mutasi-batu/cart/kirim`;
+const URL_CHECKOUT_BATU_KIRIM_PUSAT = `${baseurl}adm-mutasi-batu/check-out/kirim/`;
 
 const URL_GET_ALL_SALDO_MURNI = `${baseurl}saldo-murni/get/bahan/all`;
 const URL_ADD_SALDO_MURNI = `${baseurl}`;
@@ -96,6 +99,8 @@ const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-bahan/get/saldo-k
 
 const URL_GET_DETAIL_JO_BY_POST = `${baseurl}kirim-jo/get/detail-jo`;
 const URL_GET_NO_KIRIM_BATU_BY_TANGGAL = `${baseurl}adm-mutasi-batu/get/kirim-batu-open/`;
+const URL_ADD_TERIMA_BATU_PUSAT = `${baseurl}adm-mutasi-batu/cart/terima/`;
+const URL_GET_JO_KIRIM_BATU_PUSAT = `${baseurl}adm-mutasi-batu/kirim/no_job_order/`;
 const URL_GET_DETAIL_KIRIM_BATU = `${baseurl}adm-mutasi-batu/no_batu_kirim/`;
 const URL_GET_BAHAN_TERIMA_BAHAN = `${baseurl}saldo-bahan/get/bahan`;
 const URL_GET_SALDO_KIRIM_BAHAN_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-open`;
@@ -290,6 +295,8 @@ const data = {
 
   URL_GET_DETAIL_JO_BY_POST,
   URL_GET_NO_KIRIM_BATU_BY_TANGGAL,
+  URL_ADD_TERIMA_BATU_PUSAT,
+  URL_GET_JO_KIRIM_BATU_PUSAT,
   URL_GET_DETAIL_KIRIM_BATU,
   URL_GET_BAHAN_TERIMA_BAHAN,
   URL_GET_SALDO_KIRIM_BAHAN_OPEN,
@@ -385,6 +392,9 @@ const data = {
   URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI,
   URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI,
   URL_GET_LAPORAN_OUTSTAND_PRODUKSI,
+  URL_GET_DETAIL_BATU_KIRIM_PUSAT,
+  URL_ADD_CART_BATU_KIRIM_PUSAT,
+  URL_CHECKOUT_BATU_KIRIM_PUSAT,
 };
 
 export default data;
