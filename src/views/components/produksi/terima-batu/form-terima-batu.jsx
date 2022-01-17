@@ -6,6 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import { getAllKirimBatu } from "../../../../application/actions/terimabatuproduksi";
 
 const maptostate = (state) => {
   return {
@@ -16,7 +17,7 @@ const maptostate = (state) => {
   };
 };
 
-let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
+let FormTerimaBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={onCreate}
+      onOk={() => {
+        dispatch(getAllKirimBatu);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
@@ -63,8 +66,8 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
   );
 };
 
-FormTerimaBatu = reduxForm({
-  form: "FormTerimaBatu",
+FormTerimaBatuProduksi = reduxForm({
+  form: "FormTerimaBatuProduksi",
   enableReinitialize: true,
-})(FormTerimaBatu);
-export default connect(maptostate, null)(FormTerimaBatu);
+})(FormTerimaBatuProduksi);
+export default connect(maptostate, null)(FormTerimaBatuProduksi);

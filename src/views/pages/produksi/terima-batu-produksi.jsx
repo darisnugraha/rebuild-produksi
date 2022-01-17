@@ -11,12 +11,16 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormTerimaBatuProduksi from "../../components/produksi/terima-batu/button-terima-batu";
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
+import dataKirimBatu from "../../../application/selectors/terimabatuproduksi";
 import TableTerimaBatuProduksi from "../../components/produksi/terima-batu/table-terima-batu";
+import { addTerimaBatuProduksi } from "../../../application/actions/terimabatuproduksi.jsx";
+import { useSelector } from "react-redux";
 
 const TerimaBatuProduksi = () => {
   const dispatch = useDispatch();
   let locationLink = useLocation();
   const [pageTitleDisplay, setTitle] = useState("");
+  const kirimbatu = useSelector(dataKirimBatu.getAllTerimaBatuProduksi);
 
   const PageTitle = useCallback((pathLocation, route) => {
     let dataLocation = route.filter((list) => {
@@ -74,7 +78,15 @@ const TerimaBatuProduksi = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      disabled={kirimbatu.length === 0 ? true : false}
+                      onClick={() => {
+                        dispatch(addTerimaBatuProduksi);
+                      }}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button

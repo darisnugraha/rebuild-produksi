@@ -142,6 +142,8 @@ const URL_ADD_KIRIM_JOB_ORDER_CART = `${baseurl}kirim-jo/cart`;
 const URL_ADD_KIRIM_JOB_ORDER_CHECKOUT = `${baseurl}kirim-jo/check-out`;
 
 const URL_GET_DETAIL_JO = `${baseurl}terima-jo/no_job_order`;
+const URL_GET_DATA_BATU_KIRIM = `${baseurl}adm-mutasi-batu/get/kirim-batu`;
+const URL_ADD_TERIMA_BATU_PRODUKSI = `${baseurl}produksi/terima-batu/`;
 
 const URL_ADD_TERIMA_JOB_ORDER_CART = `${baseurl}terima-jo/cart`;
 const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT = `${baseurl}terima-jo/check-out`;
@@ -395,6 +397,8 @@ const data = {
   URL_GET_DETAIL_BATU_KIRIM_PUSAT,
   URL_ADD_CART_BATU_KIRIM_PUSAT,
   URL_CHECKOUT_BATU_KIRIM_PUSAT,
+  URL_GET_DATA_BATU_KIRIM,
+  URL_ADD_TERIMA_BATU_PRODUKSI,
 };
 
 export default data;

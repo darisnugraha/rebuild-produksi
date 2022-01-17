@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Input, Table } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
+import { useSelector } from "react-redux";
+import terimabatuproduksi from "../../../../application/selectors/terimabatuproduksi";
 
 const TableTerimaBatu = () => {
-  const dataMasterOriginal =
-    JSON.parse(localStorage.getItem("data_detail_kirim_batu")) || [];
+  const dataTerimaBatuProduksi = useSelector(
+    terimabatuproduksi.getAllTerimaBatuProduksi
+  );
 
-  const [dataSource, setDataSource] = useState(dataMasterOriginal);
+  const [dataSource, setDataSource] = useState(dataTerimaBatuProduksi);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
 
@@ -19,10 +22,10 @@ const TableTerimaBatu = () => {
       onChange={(e) => {
         const currValue = e.target.value;
         setValue(currValue);
-        const filteredData = dataMasterOriginal.filter(
+        const filteredData = dataTerimaBatuProduksi.filter(
           (entry) =>
-            entry.kode_barang.includes(currValue.toUpperCase()) ||
-            entry.nama_barang.includes(currValue.toUpperCase())
+            entry.no_kirim.includes(currValue.toUpperCase()) ||
+            entry.kode_batu.includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);
@@ -34,7 +37,7 @@ const TableTerimaBatu = () => {
     dataSource.length === 0
       ? search
         ? dataSource
-        : dataMasterOriginal
+        : dataTerimaBatuProduksi
       : dataSource;
 
   const columns = [
@@ -44,8 +47,8 @@ const TableTerimaBatu = () => {
       children: [
         {
           title: "No Kirim Batu",
-          dataIndex: "no_batu_kirim",
-          key: "no_batu_kirim",
+          dataIndex: "no_kirim",
+          key: "no_kirim",
           align: "center",
         },
         {
@@ -74,21 +77,25 @@ const TableTerimaBatu = () => {
         },
         {
           title: "Jumlah Batu",
-          dataIndex: "stock_batu",
-          key: "stock_batu",
+          dataIndex: "stock_out",
+          key: "stock_out",
           align: "center",
         },
         {
           title: "Berat Batu",
-          dataIndex: "berat_batu",
-          key: "berat_batu",
+          dataIndex: "berat_out",
+          key: "berat_out",
           align: "center",
         },
       ],
     },
   ];
   return (
-    <Table dataSource={dataTable} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      scroll={{ x: 500, y: 1500 }}
+    />
   );
 };
 
