@@ -201,6 +201,11 @@ const URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI = `${baseurl}produksi/terima-tamb
 const URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI = `${baseurl}produksi/terima-batu/all`;
 const URL_GET_LAPORAN_OUTSTAND_PRODUKSI = `${baseurl}adm-card-jo/outstand/all`;
 
+const URL_GET_ALL_MASTER_USER = `${baseurl}user/all`;
+const URL_ADD_MASTER_USER = `${baseurl}user`;
+const URL_DELETE_MASTER_USER = `${baseurl}user`;
+const URL_UPDATE_MASTER_USER = `${baseurl}user`;
+
 const data = {
   URL_LOGIN,
 
@@ -399,6 +404,11 @@ const data = {
   URL_CHECKOUT_BATU_KIRIM_PUSAT,
   URL_GET_DATA_BATU_KIRIM,
   URL_ADD_TERIMA_BATU_PRODUKSI,
+
+  URL_GET_ALL_MASTER_USER,
+  URL_ADD_MASTER_USER,
+  URL_DELETE_MASTER_USER,
+  URL_UPDATE_MASTER_USER,
 };
 
 export default data;

@@ -82,6 +82,7 @@ import LaporanTerimaTambahanProduksi from "../../views/pages/laporan/laporan-pro
 import LaporanTerimaBatuProduksi from "../../views/pages/laporan/laporan-produksi/laporan-terima-batu-produksi";
 import LaporanOutstandProduksi from "../../views/pages/laporan/laporan-produksi/laporan-outstand-produksi";
 import LaporanTerimaGudangProduksi from "../../views/pages/laporan/laporan-produksi/laporan-terima-gudang-produksi";
+import MasterUser from "../../views/pages/utility/master-user";
 
 const routes = [
   // {
@@ -927,6 +928,11 @@ const routes = [
     path: "/laporan-produksi/terima-gudang",
     title: "Laporan Terima Gudang Produksi",
     component: () => <LaporanTerimaGudangProduksi />,
+  },
+  {
+    path: "/utility/master-user",
+    title: "Master User",
+    component: () => <MasterUser />,
   },
   {
     path: "/notfound",

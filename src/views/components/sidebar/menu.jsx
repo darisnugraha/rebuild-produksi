@@ -701,6 +701,17 @@ const Menu = [
       },
     ],
   },
+  {
+    path: "/utility",
+    icon: "fa fa-cogs",
+    title: "Utility",
+    children: [
+      {
+        path: "/utility/master-user",
+        title: "Master User",
+      },
+    ],
+  },
 ];
 
 export default Menu;
