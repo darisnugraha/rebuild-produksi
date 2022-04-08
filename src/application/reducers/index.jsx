@@ -66,6 +66,7 @@ import laporanproduksi from "./laporanproduksi";
 import kirimbatupusat from "./kirimbatupusat";
 import terimabatuproduksi from "./terimabatuproduksi";
 import masteruser from "./masteruser";
+import masterdivisi from "./masterdivisi";
 
 export default combineReducers({
   login,
@@ -134,5 +135,6 @@ export default combineReducers({
   kirimbatupusat,
   terimabatuproduksi,
   masteruser,
+  masterdivisi,
   form: formReducer,
 });

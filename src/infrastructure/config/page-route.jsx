@@ -83,6 +83,7 @@ import LaporanTerimaBatuProduksi from "../../views/pages/laporan/laporan-produks
 import LaporanOutstandProduksi from "../../views/pages/laporan/laporan-produksi/laporan-outstand-produksi";
 import LaporanTerimaGudangProduksi from "../../views/pages/laporan/laporan-produksi/laporan-terima-gudang-produksi";
 import MasterUser from "../../views/pages/utility/master-user";
+import MasterDivisi from "../../views/pages/utility/master-divisi";
 
 const routes = [
   // {
@@ -933,6 +934,11 @@ const routes = [
     path: "/utility/master-user",
     title: "Master User",
     component: () => <MasterUser />,
+  },
+  {
+    path: "/utility/master-divisi",
+    title: "Master Divisi",
+    component: () => <MasterDivisi />,
   },
   {
     path: "/notfound",

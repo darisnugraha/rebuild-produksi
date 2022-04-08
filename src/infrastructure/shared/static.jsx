@@ -206,6 +206,11 @@ const URL_ADD_MASTER_USER = `${baseurl}user`;
 const URL_DELETE_MASTER_USER = `${baseurl}user`;
 const URL_UPDATE_MASTER_USER = `${baseurl}user`;
 
+const URL_GET_ALL_MASTER_DIVISI = `${baseurl}divisi/all`;
+const URL_ADD_MASTER_DIVISI = `${baseurl}divisi`;
+const URL_DELETE_MASTER_DIVISI = `${baseurl}divisi`;
+const URL_UPDATE_MASTER_DIVISI = `${baseurl}divisi`;
+
 const data = {
   URL_LOGIN,
 
@@ -409,6 +414,11 @@ const data = {
   URL_ADD_MASTER_USER,
   URL_DELETE_MASTER_USER,
   URL_UPDATE_MASTER_USER,
+
+  URL_GET_ALL_MASTER_DIVISI,
+  URL_ADD_MASTER_DIVISI,
+  URL_DELETE_MASTER_DIVISI,
+  URL_UPDATE_MASTER_DIVISI,
 };
 
 export default data;

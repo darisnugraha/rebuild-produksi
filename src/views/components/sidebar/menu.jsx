@@ -710,6 +710,10 @@ const Menu = [
         path: "/utility/master-user",
         title: "Master User",
       },
+      {
+        path: "/utility/master-divisi",
+        title: "Master Divisi",
+      },
     ],
   },
 ];

@@ -64,6 +64,7 @@ import LaporanProduksi from "./laporanproduksi";
 import KirimBatuPusat from "./kirimbatupusat";
 import TerimaBatuProduksi from "./terimabatuproduksi";
 import MasterUser from "./masteruser";
+import MasterDivisi from "./masterdivisi";
 
 const api = {
   login,
@@ -132,6 +133,7 @@ const api = {
   KirimBatuPusat,
   TerimaBatuProduksi,
   MasterUser,
+  MasterDivisi,
 };
 
 export default api;
