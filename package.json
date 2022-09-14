@@ -73,6 +73,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-asli": "set REACT_APP_BACKEND_URL=https://147.139.193.169:3757/api/&&  react-scripts start",
+    "start-demo": "export REACT_APP_BACKEND_URL=http://54.151.162.118:3757/api/&&  react-scripts start",
     "build-local": "set REACT_APP_BACKEND_URL=http://localhost:5757/api/v1/&&  react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
