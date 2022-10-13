@@ -22,7 +22,7 @@ const AxiosGet = async ({ url }) => {
     return {
       value: response.data,
       error: null,
-      // percentCompleted: percentComplete,
+      percentCompleted: percentComplete,
     };
   } catch (error) {
     if (error.response.data.statusCode === 401) {
@@ -33,11 +33,12 @@ const AxiosGet = async ({ url }) => {
       }).then(() => {
         localStorage.clear();
       });
+    } else {
+      return {
+        value: null,
+        error: error.response,
+      };
     }
-    return {
-      value: null,
-      error: error.response,
-    };
   }
 };
 
