@@ -16,24 +16,25 @@ const getDataTerimaLebur =
   async (action) => {
     next(action);
     if (action.type === GET_TERIMA_LEBUR) {
-      const response = await api.TerimaLebur.getTerimaLebur({
+      api.TerimaLebur.getTerimaLebur({
         data: action.payload.data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          dispatch(
-            setDataTerimaLeburSuccess({ feedback: response.value.data })
-          );
+      }).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setDataTerimaLeburSuccess({ feedback: res.value }));
+          } else {
+            dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
+            sweetalert.default.Failed("Data Tidak Ada !");
+            dispatch(setDataTerimaLeburFailed({ error: res.value }));
+          }
         } else {
           dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataTerimaLeburFailed({ error: response.value }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
+          );
+          dispatch(setDataTerimaLeburFailed({ error: res.error }));
         }
-      } else {
-        dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataTerimaLeburFailed({ error: response.error }));
-      }
+      });
     }
   };
 
@@ -45,7 +46,8 @@ const setBeratSusut =
     next(action);
     if (action.type === SET_SUSUT) {
       let berat_murni =
-        getState().terimalebur.feedback[0]?.tot_berat_murni || 0;
+        getState().terimalebur.feedback[0]?.total_berat_murni || 0;
+      console.log(berat_murni);
       let berat_terima = action.payload.data || 0;
       let susut = 0;
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
@@ -62,18 +64,19 @@ const addDataTerimaLebur =
     next(action);
     if (action.type === ADD_TERIMA_LEBUR) {
       const data = getState().form.FormTerimaLebur.values;
-      const response = await api.TerimaLebur.addTerimaLebur({
-        dataKirim: data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      data.berat_susut = parseFloat(data.berat_susut);
+      data.berat_terima = parseFloat(data.berat_terima);
+      api.TerimaLebur.addTerimaLebur({ dataKirim: data }).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

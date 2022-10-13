@@ -9,6 +9,10 @@ const MasterBahan = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_BAHAN });
     return response;
   },
+  getMasterBahanById: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_BAHAN_BY_ID + id });
+    return response;
+  },
   addMasterBahan: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_BAHAN,
@@ -17,11 +21,11 @@ const MasterBahan = {
     return response;
   },
   deleteMasterBahan: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_BAHAN, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_BAHAN + data);
     return response;
   },
-  editMasterBahan: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_BAHAN, data);
+  editMasterBahan: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_BAHAN + id, data);
     return response;
   },
 };

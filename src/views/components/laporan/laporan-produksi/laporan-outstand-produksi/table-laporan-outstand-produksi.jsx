@@ -75,8 +75,8 @@ const TableLaporanOutstandProduksi = () => {
     },
     {
       title: "Nama Tukang",
-      dataIndex: "kode_staff",
-      key: "kode_staff",
+      dataIndex: "kode_tukang",
+      key: "kode_tukang",
     },
   ];
 

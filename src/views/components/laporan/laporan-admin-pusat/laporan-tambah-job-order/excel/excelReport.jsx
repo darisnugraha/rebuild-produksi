@@ -124,7 +124,7 @@ class ExcelReport extends Component {
                   {item.map((element) => {
                     return (
                       <tr>
-                        <td>{element.tgl_tambah}</td>
+                        <td>{element.tanggal_tambah}</td>
                         <td>{element.no_job_order}</td>
                         <td>{element.kode_jenis_bahan}</td>
                         <td style={{ textAlign: "right" }}>{element.stock}</td>

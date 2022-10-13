@@ -64,7 +64,7 @@ const pdfReport = (data = "") => {
 
     const row = [
       {
-        content: element.tgl_kirim,
+        content: element.tanggal,
       },
       {
         content: element.no_job_order,
@@ -110,7 +110,7 @@ const pdfReport = (data = "") => {
         },
       },
       {
-        content: element.kode_staff,
+        content: element.kode_tukang,
       },
     ];
     tableRows.push(row);

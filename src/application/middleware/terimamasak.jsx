@@ -16,24 +16,25 @@ const getDataTerimaMasak =
   async (action) => {
     next(action);
     if (action.type === GET_TERIMA_MASAK) {
-      const response = await api.TerimaMasak.getTerimaMasak({
-        data: action.payload.data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          dispatch(
-            setDataTerimaMasakSuccess({ feedback: response.value.data })
-          );
-        } else {
-          setDataTerimaMasakSuccess({ feedback: [] });
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataTerimaMasakFailed({ error: response.value }));
+      api.TerimaMasak.getTerimaMasak({ data: action.payload.data }).then(
+        (res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              dispatch(setDataTerimaMasakSuccess({ feedback: res.value }));
+            } else {
+              setDataTerimaMasakSuccess({ feedback: [] });
+              sweetalert.default.Failed("Data Tidak Ada !");
+              dispatch(setDataTerimaMasakFailed({ error: res.value }));
+            }
+          } else {
+            setDataTerimaMasakSuccess({ feedback: [] });
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
+            );
+            dispatch(setDataTerimaMasakFailed({ error: res.error }));
+          }
         }
-      } else {
-        setDataTerimaMasakSuccess({ feedback: [] });
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataTerimaMasakFailed({ error: response.error }));
-      }
+      );
     }
   };
 
@@ -45,7 +46,7 @@ const setBeratSusut =
     next(action);
     if (action.type === SET_SUSUT) {
       let berat_murni =
-        getState().terimamasak.feedback[0]?.tot_berat_murni || 0;
+        getState().terimamasak.feedback[0]?.total_berat_murni || 0;
       let berat_terima = action.payload.data || 0;
       let susut = 0;
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
@@ -62,24 +63,29 @@ const addDataTerimaMasak =
     next(action);
     if (action.type === ADD_TERIMA_MASAK) {
       const data = getState().form.FormTerimaMasak.values;
-      delete data.berat_tot_kirim;
+      const onSendData = {
+        no_kirim_masak: data.no_kirim,
+        nama_bahan: data.kode_bahan,
+        berat_jadi: parseFloat(data.berat_jadi),
+        berat_susut: parseFloat(data.berat_susut),
+      };
+
       const dataBahan = getState().masterbahan.feedback;
       const dataBahanFill = dataBahan.filter((item) => {
         return item.kode_bahan === data.kode_bahan;
       });
-      data.kode_bahan = dataBahanFill[0].nama_bahan;
-      const response = await api.TerimaMasak.addTerimaMasak({
-        dataKirim: data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      onSendData.nama_bahan = dataBahanFill[0].nama_bahan;
+      api.TerimaMasak.addTerimaMasak({ dataKirim: onSendData }).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

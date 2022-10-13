@@ -10,7 +10,7 @@ import {
   COUNT_BERAT_BATU_KIRIM,
   setCountBeratBatuSuccess,
   SET_BATU_LOCAL,
-  addCartKirimBatuFailed,
+  // addCartKirimBatuFailed,
   addCartKirimBatuSuccess,
   CHECKOUT_KIRIM_BATU,
   checkoutKirimBatuSuccess,
@@ -25,31 +25,26 @@ const getDataJOKirimBatuPusat =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_JO_KIRIM_BATU) {
-      const response = await api.KirimBatuPusat.getAllKirimBatuPusat({
+      api.KirimBatuPusat.getAllKirimBatuPusat({
         noJO: action.payload.data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          if (response.value?.data.length === 0) {
-            sweetalert.default.Failed(response.value.pesan);
+      }).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            writeLocal("data_detail_jo_batu", res.value);
+            dispatch(setDataJOKirimBatuPusatSuccess({ feedback: res.value }));
+            dispatch(
+              getAllDetailBatu({ noJO: res.value[0].no_admin_terima_batu })
+            );
           } else {
-            writeLocal("data_detail_jo_batu", response.value.data);
-            dispatch(
-              setDataJOKirimBatuPusatSuccess({ feedback: response.value.data })
-            );
-            dispatch(
-              getAllDetailBatu({ noJO: response.value.data[0].kode_batu })
-            );
+            sweetalert.default.Failed("Data yg Anda Cari Tidak Ada !");
           }
         } else {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(
-            setDataJOKirimBatuPusatFailed({ error: response.value.pesan })
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
           );
+          dispatch(setDataJOKirimBatuPusatFailed({ error: res.error }));
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 
@@ -77,23 +72,17 @@ const getDataDetailBatu =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_DETAIL_BATU) {
-      const nojo = getState().kirimbatupusat.no_job_order;
-      const data = {
-        kode_batu: action.payload.data,
-        no_job_order: nojo,
-        parameter: "DETAIL_BATU",
-      };
-      const response = await api.KirimBatuPusat.getDetailBatu(data);
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          dispatch(setDataDetailBatuSuccess({ feedback: response.value.data }));
+      const noadmminterimabatu = action.payload.data;
+      api.KirimBatuPusat.getDetailBatu(noadmminterimabatu).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataDetailBatuSuccess({ feedback: res.value }));
         } else {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataDetailBatuFailed({ error: response.value.pesan }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
+          );
+          dispatch(setDataDetailBatuFailed({ error: res.error }));
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 
@@ -129,50 +118,16 @@ const setDataBatuLocal =
       };
       if (getLocal("data_detail_batu_head") === null) {
         let data = [];
-        const response = await api.KirimBatuPusat.addKirimBatuCart(datakirim);
-        if (response.value !== null) {
-          if (response.value.status === "berhasil") {
-            if (response.value.data.length === 0) {
-              sweetalert.default.Failed(response.value.pesan);
-            } else {
-              data.push(datakirim);
-              writeLocal("detail_batu_head", data);
-              sweetalert.default.Success(response.value.pesan);
-              dispatch(
-                addCartKirimBatuSuccess({ feedback: response.value.data })
-              );
-            }
-          } else {
-            sweetalert.default.Failed(response.value.pesan);
-            dispatch(addCartKirimBatuFailed({ error: response.value.pesan }));
-          }
-        } else {
-          dispatch(addCartKirimBatuFailed({ error: response.error }));
-          sweetalert.default.Failed(response.error.data.pesan);
-        }
+        data.push(datakirim);
+        writeLocal("detail_batu_head", data);
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        dispatch(addCartKirimBatuSuccess({ feedback: data }));
       } else {
         let data = getLocal("detail_batu_head");
-        const response = await api.KirimBatuPusat.addKirimBatuCart(datakirim);
-        if (response.value !== null) {
-          if (response.value.status === "berhasil") {
-            if (response.value.data.length === 0) {
-              sweetalert.default.Failed(response.value.pesan);
-            } else {
-              data.push(datakirim);
-              writeLocal("detail_batu_head", data);
-              sweetalert.default.Success(response.value.pesan);
-              dispatch(
-                addCartKirimBatuSuccess({ feedback: response.value.data })
-              );
-            }
-          } else {
-            sweetalert.default.Failed(response.value.pesan);
-            dispatch(addCartKirimBatuFailed({ error: response.value.pesan }));
-          }
-        } else {
-          dispatch(addCartKirimBatuFailed({ error: response.error }));
-          sweetalert.default.Failed(response.error.data.pesan);
-        }
+        data.push(datakirim);
+        writeLocal("detail_batu_head", data);
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
+        dispatch(addCartKirimBatuSuccess({ feedback: data }));
       }
     }
   };
@@ -184,32 +139,32 @@ const checkoutDataKirimBatu =
   async (action) => {
     next(action);
     if (action.type === CHECKOUT_KIRIM_BATU) {
+      // const data = getLocal("detail_batu_head");
+      const data_jo = getLocal("data_jo_kirim_batu_head");
+      const data_detail_jo = getLocal("data_detail_jo_batu");
       const datakirim = {
         no_job_order: getState().kirimbatupusat.no_job_order,
-        kode_divisi: getLocal("data_jo_kirim_batu_head").divisi,
+        divisi: data_jo.divisi,
+        kode_barang: data_jo.kode_barang,
+        kode_jenis_bahan: data_jo.kode_jenis_bahan,
+        no_terima_batu: data_detail_jo[0].no_admin_terima_batu,
       };
-      const response = await api.KirimBatuPusat.addCheckoutKirimBatu(datakirim);
-      if (response.value !== null) {
-        if (response.value.status === "berhasil") {
-          if (response.value.data.length === 0) {
-            sweetalert.default.Failed(response.value.pesan);
-          } else {
-            localStorage.removeItem("data_jo_kirim_batu_head");
-            localStorage.removeItem("data_detail_jo_batu");
-            localStorage.removeItem("detail_batu_head");
-            dispatch(
-              checkoutKirimBatuSuccess({ feedback: response.value.data })
-            );
-            sweetalert.default.Success(response.value.pesan);
-          }
+      api.KirimBatuPusat.addCheckoutKirimBatu(datakirim).then((res) => {
+        if (res.value !== null) {
+          localStorage.removeItem("data_jo_kirim_batu_head");
+          localStorage.removeItem("data_detail_jo_batu");
+          localStorage.removeItem("detail_batu_head");
+          dispatch(checkoutKirimBatuSuccess({ feedback: res.value }));
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(checkoutKirimBatuFailed({ error: response.value.pesan }));
+          dispatch(checkoutKirimBatuFailed({ error: res.error }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
         }
-      } else {
-        dispatch(checkoutKirimBatuFailed({ error: response.error }));
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

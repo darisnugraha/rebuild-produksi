@@ -10,6 +10,7 @@ export const SET_SUSUT = "[terimatukangpotong] set susust";
 export const SET_SUSUT_SUCCESS = "[terimatukangpotong] set susut success";
 export const SET_BERAT_TERIMA = "[terimatukangpotong] set berat terima";
 export const SET_BERAT_PENTOLAN = "[terimatukangpotong] set berat pentolan";
+export const SET_JENIS_BAHAN = "[terimatukangpotong] set jenis bahan";
 
 export const ADD_TERIMA_TUKANG_POTONG =
   "[terimatukangpotong] add terima tukang potong";
@@ -20,6 +21,10 @@ export const getTerimaTukangPotong = ({ noTransaksi }) => ({
 });
 export const setDataTerimaTukangPotongSuccess = ({ feedback }) => ({
   type: SET_DATA_TERIMA_TUKANG_POTONG_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataJenisBahan = ({ feedback }) => ({
+  type: SET_JENIS_BAHAN,
   payload: { data: feedback },
 });
 export const setDataTerimaTukangPotongFailed = ({ error }) => ({

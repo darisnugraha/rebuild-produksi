@@ -4,6 +4,7 @@ import {
   CHECK_LOGIN,
   loginFailed,
   loginSuccess,
+  LOGOUT,
   SEND_LOGIN,
   setLoginState,
 } from "../actions/login";
@@ -57,6 +58,29 @@ const handleCheckLoginFlow =
     }
   };
 
-const data = [handleLoginFlow, handleCheckLoginFlow];
+const handleLogout =
+  ({ api, writeLocal, getLocal }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === LOGOUT) {
+      const data = getLocal("userInfo");
+      const dataKirim = {
+        user_id: data.user_id,
+        refresh_token: data.refresh_token,
+      };
+      api.login.LogoutDo(dataKirim).then((res) => {
+        if (res.value !== null) {
+          localStorage.clear();
+        } else {
+          sweetalert.default.Failed("User Telah Logout !");
+          localStorage.clear();
+        }
+      });
+    }
+  };
+
+const data = [handleLoginFlow, handleCheckLoginFlow, handleLogout];
 
 export default data;

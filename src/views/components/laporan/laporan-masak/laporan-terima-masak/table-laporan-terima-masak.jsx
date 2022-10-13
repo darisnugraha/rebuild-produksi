@@ -8,20 +8,20 @@ const TableLaporanTerimaMasak = () => {
   const columns = [
     {
       title: "No Terima",
-      dataIndex: "no_terima",
-      key: "no_terima",
+      dataIndex: "no_terima_masak",
+      key: "no_terima_masak",
       align: "center",
     },
     {
       title: "Tanggal Terima",
-      dataIndex: "tgl_terima",
-      key: "tgl_terima",
+      dataIndex: "tanggal_terima",
+      key: "tanggal_terima",
       align: "center",
     },
     {
       title: "No Kirim",
-      dataIndex: "no_kirim",
-      key: "no_kirim",
+      dataIndex: "no_kirim_masak",
+      key: "no_kirim_masak",
       align: "center",
     },
     {
@@ -67,12 +67,12 @@ const TableLaporanTerimaMasak = () => {
             </Table.Summary.Cell>
             <Table.Summary.Cell index={1} align="right">
               {dataLaporanTerimaMasak
-                .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
+                .reduce((a, b) => a + parseFloat(b.berat_kirim), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
             <Table.Summary.Cell index={2} align="right">
               {dataLaporanTerimaMasak
-                .reduce((a, b) => a + parseFloat(b.berat_kirim), 0)
+                .reduce((a, b) => a + parseFloat(b.berat_jadi), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
             <Table.Summary.Cell index={2} align="right">

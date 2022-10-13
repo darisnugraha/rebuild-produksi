@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Table, Button } from "antd";
+import { Input, Table, Button, Divider } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import AbuTukangCOR from "../../../../application/selectors/abutukangcor";
+import { pilihDataCasting } from "../../../../application/actions/abutukangcor";
 
 const TableAbuTukangCOR = () => {
   // eslint-disable-next-line
@@ -11,17 +12,21 @@ const TableAbuTukangCOR = () => {
   const dataSetorOutstandCasting = useSelector(
     AbuTukangCOR.getAllSetorOutstandCasting
   );
+  const totalAbu = useSelector(AbuTukangCOR.getTotalAbu);
+  const total24k = useSelector(AbuTukangCOR.getTotal24K);
 
   const data = [];
   for (let i = 0; i < dataSetorOutstandCasting.length; i++) {
     data.push({
       key: i,
       no_mutasi: dataSetorOutstandCasting[i].no_mutasi,
-      pohon: dataSetorOutstandCasting[i].pohon,
+      pohon: dataSetorOutstandCasting[i].no_pohon,
       kode_jenis_bahan: dataSetorOutstandCasting[i].kode_jenis_bahan,
       kadar: dataSetorOutstandCasting[i].kadar,
       berat_casting: dataSetorOutstandCasting[i].berat_casting,
       berat: dataSetorOutstandCasting[i].berat,
+      karat_24: dataSetorOutstandCasting[i].karat_24.toFixed(3),
+      abu: dataSetorOutstandCasting[i].abu,
     });
   }
 
@@ -50,7 +55,11 @@ const TableAbuTukangCOR = () => {
     />
   );
 
-  const TakeAllData = <Button type="primary">Ambil Semua Data</Button>;
+  const TakeAllData = (
+    <Button type="primary" onClick={() => dispatch(pilihDataCasting)}>
+      Pilih Data
+    </Button>
+  );
 
   const columns = [
     {
@@ -92,6 +101,12 @@ const TableAbuTukangCOR = () => {
               align: "center",
             },
             {
+              title: "Abu",
+              dataIndex: "abu",
+              key: "abu",
+              align: "center",
+            },
+            {
               title: "Kadar",
               dataIndex: "kadar",
               key: "kadar",
@@ -100,13 +115,8 @@ const TableAbuTukangCOR = () => {
             {
               title: "24K",
               key: "24k",
+              dataIndex: "karat_24",
               align: "center",
-              render: (text) => {
-                let beratsisa =
-                  parseFloat(text.berat) - parseFloat(text.berat_casting);
-                let k24 = (text.kadar / 100) * beratsisa;
-                return k24.toFixed(3);
-              },
             },
           ],
         },
@@ -134,6 +144,11 @@ const TableAbuTukangCOR = () => {
         columns={columns}
         scroll={{ x: 500, y: 1500 }}
       />
+      <Divider orientation="left" style={{ fontSize: "14px" }}>
+        Total Data Di Pilih
+      </Divider>
+      <p>Total Abu : {totalAbu}</p>
+      <p>Total 24K : {total24k}</p>
     </>
   );
 };

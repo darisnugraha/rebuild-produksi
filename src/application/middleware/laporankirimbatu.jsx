@@ -40,43 +40,34 @@ const getAllDataLaporanKirimBatu =
           "YYYY-MM-DD"
         );
         const dataOnsend = {
-          kategori: "KIRIM",
-          tgl_awal: tgl_dari_string,
-          tgl_akhir: tgl_sampai_string,
+          startDate: tgl_dari_string,
+          endDate: tgl_sampai_string,
         };
         writeLocal("laporan_kirim_batu", dataOnsend);
-
-        const response = await api.LaporanKirimBatu.getAllLaporanKirimBatu(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanKirimBatu.getAllLaporanKirimBatu(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Tidak Ada !");
               dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
                 setDataLaporanKirimBatuSuccess({
-                  feedback: response?.value.data,
+                  feedback: res.value,
                 })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
+            sweetalert.default.Failed(res.error.data.message);
             dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
             dispatch(
               setDataLaporanKirimBatuFailed({
-                error: response.value.pesan,
+                error: res.error,
               })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanKirimBatuFailed({ error: response.error }));
-        }
+        });
       }
     }
   };

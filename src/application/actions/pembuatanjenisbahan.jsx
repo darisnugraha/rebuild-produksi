@@ -21,6 +21,13 @@ export const ADD_DATA_DETAIL_BAHAN_FAILED =
 export const ADD_PEMBUATAN_JENIS_BAHAN =
   "[pembuatanjenisbahan] add pembuatan jenis bahan";
 
+export const DELETE_DETAIL_JENIS_BAHAN =
+  "[pembuatanjenisbahan] delete detail jenis bahan";
+
+export const DELETE_BAHAN = "[pembuatanjenisbahan] delete bahan";
+
+export const RESET_PEMBUATAN_JENIS_BAHAN = "[pembuatanjenisbahan] reset bahan";
+
 export const getAllSaldoBahanStock = {
   type: GET_ALL_SALDO_BAHAN_STOCK,
 };
@@ -44,6 +51,10 @@ export const addDataDetailJenisBahanFailed = ({ error }) => ({
   type: ADD_DATA_DETAIL_JENIS_BAHAN_FAILED,
   payload: { data: error },
 });
+export const deleteDataDetailJenisBahan = ({ id }) => ({
+  type: DELETE_DETAIL_JENIS_BAHAN,
+  payload: { data: id },
+});
 
 export const addDetailBahan = {
   type: ADD_DETAIL_BAHAN,
@@ -56,7 +67,15 @@ export const addDataDetailBahanFailed = ({ error }) => ({
   type: ADD_DATA_DETAIL_BAHAN_FAILED,
   payload: { data: error },
 });
+export const deleteDataBahan = ({ id }) => ({
+  type: DELETE_BAHAN,
+  payload: { data: id },
+});
 
 export const addPembuatanJenisBahan = {
   type: ADD_PEMBUATAN_JENIS_BAHAN,
+};
+
+export const resetPembuatanJenisBahan = {
+  type: RESET_PEMBUATAN_JENIS_BAHAN,
 };

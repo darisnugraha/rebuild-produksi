@@ -14,9 +14,8 @@ const KirimTambahan = {
     return response;
   },
   getStockBahanAdmin: async ({ dataKirim }) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_STOCK_BAHAN_ADMIN,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_STOCK_BAHAN_ADMIN + dataKirim.staff,
     });
     return response;
   },
@@ -29,8 +28,8 @@ const KirimTambahan = {
   },
   addKirimTambahanCheckout: async (dataKirim) => {
     const response = await post.AxiosPost({
-      url: word.URL_ADD_CHECKOUT_KIRIM_TAMBAHAN + dataKirim,
-      data: "",
+      url: word.URL_ADD_CHECKOUT_KIRIM_TAMBAHAN,
+      data: dataKirim,
     });
     return response;
   },

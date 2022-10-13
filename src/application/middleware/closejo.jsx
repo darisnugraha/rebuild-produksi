@@ -16,21 +16,20 @@ const getDataDetailJo =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_DETAIL_JO) {
-      const data = {
-        no_job_order: action.payload.data,
-      };
-      const response = await api.CloseJO.getDetailCloseJO(data);
-      if (response.value?.status === "berhasil") {
-        if (response.value.data.length === 0) {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataDetailJOSuccess({ feedback: response.value.data }));
+      const no_job_order = action.payload.data;
+      api.CloseJO.getDetailCloseJO(no_job_order.toUpperCase()).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length === 0) {
+            sweetalert.default.Failed("Data Yg Anda Cari Tidak Ada !");
+            dispatch(setDataDetailJOSuccess({ feedback: res.value }));
+          } else {
+            sweetalert.default.SuccessNoReload(res.value.pesan);
+            dispatch(setDataDetailJOSuccess({ feedback: res.value }));
+          }
         } else {
-          sweetalert.default.SuccessNoReload(response.value.pesan);
-          dispatch(setDataDetailJOSuccess({ feedback: response.value.data }));
+          dispatch(setDataDetailJOFailed({ error: res.error }));
         }
-      } else {
-        dispatch(setDataDetailJOFailed({ error: response.error }));
-      }
+      });
     }
   };
 
@@ -41,7 +40,7 @@ const setBeratAkhir =
   async (action) => {
     next(action);
     if (action.type === SET_BERAT_AKHIR) {
-      let berat_murni = getState().closejo.feedback[0]?.berat_out || 0;
+      let berat_murni = getState().closejo.feedback?.berat_out || 0;
       let berat_terima = action.payload.data || 0;
       let susut = 0;
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
@@ -63,16 +62,17 @@ const addCloseJO =
         keterangan: data.keterangan,
         no_job_order: data.no_job_order,
       };
-      const response = await api.CloseJO.addCloseJOCheckout(onSendData);
-      if (response.value !== null) {
-        if (response.value.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      api.CloseJO.addCloseJOCheckout(onSendData).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "JO Berhasil di Close !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

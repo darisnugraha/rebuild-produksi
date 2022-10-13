@@ -8,14 +8,14 @@ const TableLaporanTambahAmbilSaldoBatu = () => {
   const columns = [
     {
       title: "No Transaksi",
-      dataIndex: "no_mutasi_batu",
-      key: "no_mutasi_batu",
+      dataIndex: "no_mutasi",
+      key: "no_mutasi",
       align: "center",
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_mutasi",
-      key: "tgl_mutasi",
+      dataIndex: "tanggal_mutasi",
+      key: "tanggal_mutasi",
       align: "center",
     },
     {

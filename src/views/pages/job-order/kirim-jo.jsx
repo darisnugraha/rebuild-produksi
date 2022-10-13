@@ -5,8 +5,9 @@ import {
   Panel,
   PanelHeader,
   PanelBody,
+  PanelFooter,
 } from "./../../components/panel/panel.jsx";
-import { Card } from "antd";
+import { Button, Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimJO from "../../components/job-order/button-kirim-jo";
 import { useLocation } from "react-router";
@@ -14,6 +15,8 @@ import routes from "../../../infrastructure/config/page-route.jsx";
 import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
 import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
 import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
+import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
+import TableKirimJO from "../../components/job-order/table-kirim-jo.jsx";
 
 const KirimJO = () => {
   const dispatch = useDispatch();
@@ -38,6 +41,7 @@ const KirimJO = () => {
     dispatch(getAllDivisi);
     dispatch(getAllMasterTukang);
     dispatch(getAllMasterBahan);
+    dispatch(getAllMasterBatu);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -65,9 +69,33 @@ const KirimJO = () => {
               <div className="col-12">
                 <FormKirimJO />
               </div>
+              <div className="col-12">
+                <Divider orientation="left" style={{ fontSize: "14px" }}>
+                  Tabel Job Order
+                </Divider>
+              </div>
+              <div className="col-12">
+                <TableKirimJO />
+              </div>
             </div>
           </Card>
         </PanelBody>
+        <PanelFooter>
+          <div className="row">
+            <div className="col-1">
+              <Button
+                type="danger"
+                onClick={() => {
+                  localStorage.removeItem("kirim_jo_head");
+                  localStorage.removeItem("detail_batu");
+                  window.location.reload();
+                }}
+              >
+                Batal
+              </Button>
+            </div>
+          </div>
+        </PanelFooter>
       </Panel>
     </div>
   );

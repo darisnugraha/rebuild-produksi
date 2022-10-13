@@ -8,16 +8,16 @@ const KirimLebur = {
     return response;
   },
   getAllSaldoBahanOpen: async ({ dataKirim }) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_ALL_SALDO_BAHAN_OPEN,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_ALL_SALDO_BAHAN_OPEN + `${dataKirim.asal_bahan}`,
     });
     return response;
   },
   getAllSaldoBahan: async ({ dataKirim }) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_ALL_SALDO_BAHAN,
-      data: dataKirim,
+    const response = await get({
+      url:
+        word.URL_GET_ALL_SALDO_BAHAN +
+        `${dataKirim.asal_bahan}/${dataKirim.no_abu}/${dataKirim.jenis_bahan}`,
     });
     return response;
   },

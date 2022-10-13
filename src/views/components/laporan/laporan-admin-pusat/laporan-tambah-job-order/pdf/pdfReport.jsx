@@ -65,7 +65,7 @@ const pdfReport = (data = "") => {
     element.forEach((item) => {
       const row = [
         {
-          content: item.tgl_tambah,
+          content: item.tanggal_tambah,
         },
         {
           content: item.no_job_order,

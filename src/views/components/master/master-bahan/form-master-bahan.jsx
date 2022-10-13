@@ -15,14 +15,16 @@ const maptostate = (state) => {
   if (state.masterbahan.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_bahan: state.masterbahan.dataEdit[0]?.kode_bahan,
-        nama_bahan: state.masterbahan.dataEdit[0]?.nama_bahan,
-        kadar: state.masterbahan.dataEdit[0]?.kadar,
+        id: state.masterbahan.dataEdit?._id,
+        kode_bahan: state.masterbahan.dataEdit?.kode_bahan,
+        nama_bahan: state.masterbahan.dataEdit?.nama_bahan,
+        kadar: state.masterbahan.dataEdit?.kadar,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_bahan: "",
         nama_bahan: "",
         kadar: "",
@@ -59,6 +61,16 @@ let FormTambahMasterBahan = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+            />
+          </Col>
           <Col offset={1} style={{ display: "none" }}>
             <Field
               name="kode_bahan"

@@ -40,6 +40,9 @@ export const SET_DATA_TERIMA_GUDANG_PRODUKSI_SUCCESS =
 export const SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED =
   "[laporanproduksi] get all terima gudang produksi failed";
 
+export const GET_DIVISI_GUDANG = "[laporanproduksi] get divisi gudang";
+export const SET_DIVISI_GUDANG = "[laporanproduksi] set divisi gudang";
+
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
 };
@@ -98,6 +101,15 @@ export const setDataOutstandProduksiSuccess = ({ feedback }) => ({
 export const setDataOutstandProduksiFailed = ({ error }) => ({
   type: SET_DATA_OUTSTAND_PRODUKSI_FAILED,
   payload: { data: error },
+});
+
+export const getDivisiGudang = {
+  type: GET_DIVISI_GUDANG,
+};
+
+export const setDivisiGudang = ({ feedback }) => ({
+  type: SET_DIVISI_GUDANG,
+  payload: { data: feedback },
 });
 
 export const getAllTerimaGudangProduksi = {

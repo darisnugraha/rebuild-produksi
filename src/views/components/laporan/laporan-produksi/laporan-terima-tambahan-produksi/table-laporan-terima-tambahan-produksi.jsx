@@ -7,9 +7,9 @@ import laporanterimatambahanproduksi from "../../../../../application/selectors/
 const TableLaporanTerimaTambahanProduksi = () => {
   const columns = [
     {
-      title: "Tanggal Kirim",
-      dataIndex: "tgl_kirim",
-      key: "tgl_kirim",
+      title: "Tanggal Terima",
+      dataIndex: "tanggal_terima",
+      key: "tanggal_terima",
       align: "center",
     },
     {
@@ -50,7 +50,7 @@ const TableLaporanTerimaTambahanProduksi = () => {
       summary={() => (
         <Table.Summary fixed>
           <Table.Summary.Row>
-            <Table.Summary.Cell index={0} colSpan={2} align="right">
+            <Table.Summary.Cell index={0} colSpan={3} align="right">
               Total
             </Table.Summary.Cell>
             <Table.Summary.Cell index={1} align="right">

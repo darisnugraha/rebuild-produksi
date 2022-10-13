@@ -121,8 +121,8 @@ class ExcelReport extends Component {
               const karat24 = parseFloat(item.berat) * (item.kadar / 100);
               return (
                 <tr>
-                  <td>{item.no_transaksi}</td>
-                  <td>{item.tgl_mutasi}</td>
+                  <td>{item.no_mutasi}</td>
+                  <td>{item.tanggal_mutasi}</td>
                   <td>{item.keterangan}</td>
                   <td>{item.nama_bahan}</td>
                   <td style={{ textAlign: "right" }}>{item.berat}</td>

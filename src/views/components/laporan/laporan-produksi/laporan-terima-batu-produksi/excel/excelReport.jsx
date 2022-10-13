@@ -40,7 +40,8 @@ class ExcelReport extends Component {
                 }}
                 colSpan="5"
               >
-                LAPORAN TERIMA BATU PRODUKSI ({this.props.dataHead?.nama_divisi})
+                LAPORAN TERIMA BATU PRODUKSI ({this.props.dataHead?.nama_divisi}
+                )
               </td>
             </tr>
             <tr>
@@ -124,7 +125,7 @@ class ExcelReport extends Component {
                   {item.map((element) => {
                     return (
                       <tr>
-                        <td>{element.tgl_terima}</td>
+                        <td>{element.tanggal_terima}</td>
                         <td>{element.no_job_order}</td>
                         <td>{element.kode_batu}</td>
                         <td style={{ textAlign: "right" }}>

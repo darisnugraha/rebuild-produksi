@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Table, Button } from "antd";
+import { Input, Table, Button, Divider } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import AbuTukang from "../../../../application/selectors/abutukang";
+import { pilihDataTukang } from "../../../../application/actions/abutukang";
 
 const TableAbuTukang = () => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const dataSetorAbuTukang = useSelector(AbuTukang.getAllAbuTukang);
+  const totalAbu = useSelector(AbuTukang.getTotalAbu);
+  const total24k = useSelector(AbuTukang.getTotal24K);
 
   const data = [];
   for (let i = 0; i < dataSetorAbuTukang.length; i++) {
@@ -18,9 +21,10 @@ const TableAbuTukang = () => {
       no_spk: dataSetorAbuTukang[i].no_job_order,
       kode_barang: dataSetorAbuTukang[i].kode_barang,
       kode_jenis_bahan: dataSetorAbuTukang[i].kode_jenis_bahan,
-      abu: dataSetorAbuTukang[i].berat_susut,
+      abu: dataSetorAbuTukang[i].abu,
       kadar: dataSetorAbuTukang[i].kadar,
       berat_susut: dataSetorAbuTukang[i].berat_susut,
+      karat_24: dataSetorAbuTukang[i].karat_24,
     });
   }
 
@@ -50,7 +54,11 @@ const TableAbuTukang = () => {
     />
   );
 
-  const TakeAllData = <Button type="primary">Ambil Semua Data</Button>;
+  const TakeAllData = (
+    <Button type="primary" onClick={() => dispatch(pilihDataTukang)}>
+      Pilih Data
+    </Button>
+  );
 
   const columns = [
     {
@@ -99,12 +107,9 @@ const TableAbuTukang = () => {
             },
             {
               title: "24K",
-              key: "24k",
+              dataIndex: "karat_24",
+              key: "karat_24",
               align: "center",
-              render: (text) => {
-                let k24 = (text.kadar / 100) * parseFloat(text.berat_susut);
-                return k24.toFixed(4);
-              },
             },
           ],
         },
@@ -117,7 +122,7 @@ const TableAbuTukang = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      localStorage.setItem("data_select", JSON.stringify(selectedRows));
+      localStorage.setItem("data_select_tukang", JSON.stringify(selectedRows));
     },
     getCheckboxProps: (record) => ({
       no_mutasi: record.no_mutasi,
@@ -132,6 +137,11 @@ const TableAbuTukang = () => {
         columns={columns}
         scroll={{ x: 500, y: 1500 }}
       />
+      <Divider orientation="left" style={{ fontSize: "14px" }}>
+        Total Data Di Pilih
+      </Divider>
+      <p>Total Abu : {totalAbu}</p>
+      <p>Total 24K : {total24k}</p>
     </>
   );
 };

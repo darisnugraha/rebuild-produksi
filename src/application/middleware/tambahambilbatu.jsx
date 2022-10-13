@@ -7,8 +7,27 @@ import {
   setCountBeratTambahAmbilBatu,
   ADD_TAMBAH_BATU,
   ADD_AMBIL_BATU,
+  GET_SALDO_BATU,
+  setDataSaldoBatu,
 } from "../actions/tambahambilbatu";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+
+const getSaldoTambahAmbilBatu =
+  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_SALDO_BATU) {
+      api.TambahAmbilBatu.getSaldoBatuAPI().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataSaldoBatu(res.value));
+        } else {
+          dispatch(setDataSaldoBatu([]));
+        }
+      });
+    }
+  };
 
 const tambahambilbatu =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -61,16 +80,24 @@ const addTambahBatu =
     next(action);
     if (action.type === ADD_TAMBAH_BATU) {
       const data = getState().form.FormTambahAmbilBatu.values;
-      data.jumlah = parseFloat(data.jumlah);
-      delete data.nama_batu;
-      delete data.berat_batu;
-      const response = await api.TambahAmbilBatu.addTambahAmbilBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Batu !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const onSendData = {
+        kode_batu: data.kode_batu,
+        kategori: "TAMBAH",
+        jumlah: parseInt(data.jumlah),
+        berat: parseFloat(data.berat),
+        keterangan: data.keterangan,
+      };
+      api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Batu !"
+          );
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Batu !"
+          );
+        }
+      });
     }
   };
 
@@ -82,19 +109,33 @@ const addAmbilBatu =
     next(action);
     if (action.type === ADD_AMBIL_BATU) {
       const data = getState().form.FormTambahAmbilBatu.values;
-      data.jumlah = parseFloat(data.jumlah);
-      delete data.nama_batu;
-      delete data.berat_batu;
-      const response = await api.TambahAmbilBatu.addTambahAmbilBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Mengambil Batu !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const onSendData = {
+        kode_batu: data.kode_batu,
+        kategori: "AMBIL",
+        jumlah: parseInt(data.jumlah),
+        berat: parseFloat(data.berat),
+        keterangan: data.keterangan,
+      };
+      api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Mengambil Batu !"
+          );
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengambil Batu !"
+          );
+        }
+      });
     }
   };
 
-const data = [tambahambilbatu, countberatbatu, addTambahBatu, addAmbilBatu];
+const data = [
+  getSaldoTambahAmbilBatu,
+  tambahambilbatu,
+  countberatbatu,
+  addTambahBatu,
+  addAmbilBatu,
+];
 
 export default data;

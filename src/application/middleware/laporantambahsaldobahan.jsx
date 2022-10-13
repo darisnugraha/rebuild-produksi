@@ -45,40 +45,28 @@ const getAllDataLaporanTambahSaldoBahan =
         };
         writeLocal("laporan_tambah_saldo_bahan", dataOnsend);
 
-        const response =
-          await api.LaporanTambahSaldoBahan.getAllLaporanTambahSaldoBahan(
-            dataOnsend
-          );
-        if (response?.value !== null) {
+        api.LaporanTambahSaldoBahan.getAllLaporanTambahSaldoBahan(
+          dataOnsend
+        ).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanTambahSaldoBahanSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanTambahSaldoBahanSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanTambahSaldoBahanSuccess({ feedback: res?.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
+            sweetalert.default.Failed(res?.error.data.message);
             dispatch(setDataLaporanTambahSaldoBahanSuccess({ feedback: [] }));
             dispatch(
-              setDataLaporanTambahSaldoBahanFailed({
-                error: response.value.pesan,
-              })
+              setDataLaporanTambahSaldoBahanFailed({ error: res.error })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanTambahSaldoBahanFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

@@ -13,23 +13,23 @@ const TableKartuJo = () => {
       align: "center",
     },
     {
-      title: "Divisi Asal",
-      dataIndex: "divisi_asal",
-      key: "divisi_asal",
+      title: "Divisi",
+      dataIndex: "divisi",
+      key: "divisi",
       align: "center",
     },
-    {
-      title: "Divisi Tujuan",
-      dataIndex: "divisi_tujuan",
-      key: "divisi_tujuan",
-      align: "center",
-    },
-    {
-      title: "Tukang",
-      dataIndex: "kode_staff",
-      key: "kode_staff",
-      align: "center",
-    },
+    // {
+    //   title: "Divisi Tujuan",
+    //   dataIndex: "divisi_tujuan",
+    //   key: "divisi_tujuan",
+    //   align: "center",
+    // },
+    // {
+    //   title: "Tukang",
+    //   dataIndex: "kode_staff",
+    //   key: "kode_staff",
+    //   align: "center",
+    // },
     {
       title: "Kategori",
       dataIndex: "kategori",

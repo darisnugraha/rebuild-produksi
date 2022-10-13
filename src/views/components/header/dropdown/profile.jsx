@@ -37,18 +37,19 @@ class DropdownProfile extends React.Component {
           <b className="caret"></b>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu dropdown-menu-right" tag="ul">
-          <DropdownItem>Edit Profile</DropdownItem>
+          {/* <DropdownItem>Edit Profile</DropdownItem>
           <DropdownItem>
             <span className="badge badge-danger pull-right">2</span> Inbox
           </DropdownItem>
           <DropdownItem>Calendar</DropdownItem>
           <DropdownItem>Setting</DropdownItem>
-          <div className="dropdown-divider"></div>
+          <div className="dropdown-divider"></div> */}
           <DropdownItem>
             <Link
               to="/"
               onClick={() => {
-                localStorage.clear();
+                // localStorage.clear();
+                console.log(this.props);
               }}
             >
               Log Out

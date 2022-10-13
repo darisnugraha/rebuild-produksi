@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input, Table } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import { useSelector } from "react-redux";
 import terimabatuproduksi from "../../../../application/selectors/terimabatuproduksi";
+import getLocal from "../../../../infrastructure/services/local/get-local";
+import { useDispatch } from "react-redux";
+import { getKirimBatuByLocal } from "../../../../application/actions/terimabatuproduksi";
 
 const TableTerimaBatu = () => {
-  const dataTerimaBatuProduksi = useSelector(
+  const dispatch = useDispatch();
+  let dataTerimaBatuProduksi = useSelector(
     terimabatuproduksi.getAllTerimaBatuProduksi
   );
 
   const [dataSource, setDataSource] = useState(dataTerimaBatuProduksi);
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
+
+  useEffect(() => {
+    const dataLocal = getLocal("produksiterimabatu");
+    dispatch(getKirimBatuByLocal(dataLocal));
+  }, [dispatch]);
 
   const SearchBar = (
     <Input
@@ -24,7 +33,8 @@ const TableTerimaBatu = () => {
         setValue(currValue);
         const filteredData = dataTerimaBatuProduksi.filter(
           (entry) =>
-            entry.no_kirim.includes(currValue.toUpperCase()) ||
+            entry.no_job_order.includes(currValue.toUpperCase()) ||
+            entry.no_kirim_batu.includes(currValue.toUpperCase()) ||
             entry.kode_batu.includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
@@ -47,8 +57,8 @@ const TableTerimaBatu = () => {
       children: [
         {
           title: "No Kirim Batu",
-          dataIndex: "no_kirim",
-          key: "no_kirim",
+          dataIndex: "no_kirim_batu",
+          key: "no_kirim_batu",
           align: "center",
         },
         {

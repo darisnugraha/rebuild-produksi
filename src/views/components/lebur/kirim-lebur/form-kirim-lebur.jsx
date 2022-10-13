@@ -24,7 +24,11 @@ const maptostate = (state) => {
       return {
         initialValues: {
           asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-          id: state.kirimlebur.feedback[0]?.id,
+          jenis_bahan: state.kirimlebur.feedback[0]?.jenis_bahan,
+          no_abu:
+            state.kirimlebur.feedback[0]?.no_abu_cor ||
+            state.kirimlebur.feedback[0]?.no_abu_potong ||
+            state.kirimlebur.feedback[0]?.no_abu,
           berat: state.kirimlebur.feedback[0]?.berat,
           kadar: state.kirimlebur.feedback[0]?.kadar,
           karat: state.kirimlebur.karat24,
@@ -36,7 +40,8 @@ const maptostate = (state) => {
       return {
         initialValues: {
           asal_bahan: "INPUT MANUAL",
-          id: "1",
+          jenis_bahan: "1",
+          no_abu: "",
           berat: "",
           kadar: "",
           karat: state.kirimlebur.karat24,
@@ -47,7 +52,11 @@ const maptostate = (state) => {
     return {
       initialValues: {
         asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-        id: state.kirimlebur.feedbackSaldoBahan[0]?.id,
+        jenis_bahan: state.kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan,
+        no_abu:
+          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu_cor ||
+          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu_potong ||
+          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu,
         berat: state.kirimlebur.feedbackSaldoBahan[0]?.berat,
         kadar: state.kirimlebur.feedbackSaldoBahan[0]?.kadar,
         karat: state.kirimlebur.karat24,
@@ -58,7 +67,8 @@ const maptostate = (state) => {
     return {
       initialValues: {
         asal_bahan: "ABU SISA PRODUKSI",
-        id: "",
+        jenis_bahan: "",
+        no_abu: "",
         berat: "",
         kadar: "",
         karat: state.kirimlebur.karat24,
@@ -88,7 +98,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="asal_bahan"
               label={<span style={{ fontSize: "13px" }}>Asal Bahan</span>}
@@ -114,9 +124,9 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               </Option>
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
-              name="id"
+              name="jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Jenis Bahan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -133,9 +143,9 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               ) : (
                 dataJenisBahan.map((item) => {
                   return (
-                    <Option value={item.id} key={item.id}>
+                    <Option value={item.jenis_bahan} key={item._id}>
                       <span style={{ fontSize: "13px" }}>
-                        {item.id + "~" + item.jenis_bahan}
+                        {item.jenis_bahan}
                       </span>
                     </Option>
                   );
@@ -143,7 +153,22 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               )}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col
+            offset={1}
+            span={8}
+            style={{ display: asalbahan === "INPUT MANUAL" ? "none" : "" }}
+          >
+            <Field
+              name="no_abu"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>No Abu</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan No Abu"
+              disabled={asalbahan === "INPUT MANUAL" ? false : true}
+            />
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="berat"
               type="text"
@@ -154,7 +179,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kadar"
               type="text"
@@ -165,7 +190,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="karat"
               type="text"
@@ -177,7 +202,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="keterangan"
               type="text"

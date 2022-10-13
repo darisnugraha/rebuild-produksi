@@ -6,9 +6,7 @@ const LaporanMasak = {
     const response = await get({
       url:
         word.URL_GET_LAPORAN_KIRIM_MASAK +
-        params.tgl_awal +
-        "&" +
-        params.tgl_akhir,
+        `startDate=${params.tgl_awal}&endDate=${params.tgl_akhir}`,
     });
     return response;
   },
@@ -16,9 +14,7 @@ const LaporanMasak = {
     const response = await get({
       url:
         word.URL_GET_LAPORAN_TERIMA_MASAK +
-        params.tgl_awal +
-        "&" +
-        params.tgl_akhir,
+        `startDate=${params.tgl_awal}&endDate=${params.tgl_akhir}`,
     });
     return response;
   },

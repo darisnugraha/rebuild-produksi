@@ -43,10 +43,10 @@ const pdfReport = (data = "") => {
       parseFloat(element.berat) * (parseFloat(element.kadar) / 100);
     const row = [
       {
-        content: element.no_kirim,
+        content: element.no_kirim_masak,
       },
       {
-        content: element.tgl_kirim,
+        content: element.tanggal_kirim,
       },
       {
         content: element.berat,

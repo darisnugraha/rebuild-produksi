@@ -46,39 +46,26 @@ const getAllDataLaporanTerimaJoAdmin =
         };
         writeLocal("laporan_terima_jo_admin", dataOnsend);
 
-        const response = await api.LaporanTerimaJO.getAllLaporanTerimaJO(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanTerimaJO.getAllLaporanTerimaJO(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanTerimaJoAdminSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanTerimaJoAdminSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanTerimaJoAdminSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTerimaJoAdminSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTerimaJoAdminFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanTerimaJoAdminSuccess({ feedback: [] }));
+            dispatch(setDataLaporanTerimaJoAdminFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanTerimaJoAdminFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

@@ -15,29 +15,24 @@ const getAllDataLaporanSaldoBatu =
     if (action.type === GET_ALL_LAPORAN_SALDO_BATU) {
       dispatch(setLoadingButton(true));
       dispatch(setDataLaporanSaldoBatuSuccess({ feedback: [] }));
-      const response = await api.LaporanSaldoBatu.getAllLaporanSaldoBatu();
-      if (response.value !== null) {
+      api.LaporanSaldoBatu.getAllLaporanSaldoBatu().then((res) => {
         dispatch(setLoadingButton(false));
-        if (response.value?.status === "berhasil") {
-          if (response.value.data.length === 0) {
-            sweetalert.default.Failed(response.value.pesan);
+        if (res.value !== null) {
+          if (res.value.length === 0) {
+            sweetalert.default.Failed("Data Laporan Kosong !");
             dispatch(setDataLaporanSaldoBatuSuccess({ feedback: [] }));
           } else {
-            sweetalert.default.SuccessNoReload(response.value.pesan);
-            dispatch(
-              setDataLaporanSaldoBatuSuccess({ feedback: response.value.data })
-            );
+            sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+            dispatch(setDataLaporanSaldoBatuSuccess({ feedback: res.value }));
           }
         } else {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataLaporanSaldoBatuFailed({ error: response.value }));
+          dispatch(setDataLaporanSaldoBatuSuccess({ feedback: [] }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
+          );
+          dispatch(setDataLaporanSaldoBatuFailed({ error: res.error }));
         }
-      } else {
-        dispatch(setLoadingButton(false));
-        dispatch(setDataLaporanSaldoBatuSuccess({ feedback: [] }));
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataLaporanSaldoBatuFailed({ error: response.error }));
-      }
+      });
     }
   };
 

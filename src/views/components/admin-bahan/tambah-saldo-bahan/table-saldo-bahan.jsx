@@ -58,14 +58,10 @@ const TableSaldoBahan = () => {
         },
         {
           title: "Berat Stock",
-          key: "saldo_awal",
+          key: "saldo_akhir",
           align: "center",
           render: (text) => {
-            const berat_in = text.mutasi_in;
-            const berat_out = text.mutasi_out;
-            const saldoawal = text.saldo_awal;
-            const total = saldoawal + berat_in - berat_out;
-            return total.toFixed(3);
+            return text.saldo_akhir.toFixed(3);
           },
         },
         {

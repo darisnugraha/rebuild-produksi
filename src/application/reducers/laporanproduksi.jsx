@@ -12,6 +12,7 @@ import {
   SET_DATA_OUTSTAND_PRODUKSI_FAILED,
   SET_DATA_TERIMA_GUDANG_PRODUKSI_SUCCESS,
   SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED,
+  SET_DIVISI_GUDANG,
 } from "../actions/laporanproduksi";
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
   errorOutstand: null,
   errorGudang: null,
   isEdit: false,
+  divisiGudang: [],
 };
 
 const laporanproduksi = (state = initialState, action) => {
@@ -91,6 +93,11 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         errorGudang: action.payload.data,
+      };
+    case SET_DIVISI_GUDANG:
+      return {
+        ...state,
+        divisiGudang: action.payload.data,
       };
     default:
       return state;

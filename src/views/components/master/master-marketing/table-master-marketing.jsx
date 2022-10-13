@@ -104,7 +104,7 @@ const TableMasterMarketing = () => {
                     onClick={() => {
                       dispatch(
                         getMasterMarketingByID({
-                          dataID: text.kode_marketing,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -116,7 +116,7 @@ const TableMasterMarketing = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_marketing, text.nama_marketing);
+                      onDelete(text._id, text.nama_marketing);
                     }}
                   >
                     DELETE

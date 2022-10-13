@@ -16,8 +16,8 @@ const maptostate = (state) => {
   if (state.terimalebur.feedback.length !== 0) {
     return {
       initialValues: {
-        no_kirim: state.terimalebur.feedback[0]?.no_kirim,
-        berat_murni: state.terimalebur.feedback[0]?.tot_berat_murni,
+        no_kirim: state.terimalebur.feedback[0]?.no_kirim_lebur,
+        berat_murni: state.terimalebur.feedback[0]?.total_berat_murni,
         berat_terima: state.terimalebur.beratTerima,
         berat_susut: state.terimalebur.susut,
       },

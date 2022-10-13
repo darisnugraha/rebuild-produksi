@@ -7,15 +7,21 @@ import laporanterimabatu from "../../../../../application/selectors/laporanterim
 const TableLaporanTerimaBatu = () => {
   const columns = [
     {
-      title: "No Transaksi",
-      dataIndex: "no_batu_kirim",
-      key: "no_batu_kirim",
+      title: "No Terima",
+      dataIndex: "no_admin_terima_batu",
+      key: "no_admin_terima_batu",
       align: "center",
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_terima_batu",
-      key: "tgl_terima_batu",
+      dataIndex: "tanggal_terima_batu",
+      key: "tanggal_terima_batu",
+      align: "center",
+    },
+    {
+      title: "No Kirim",
+      dataIndex: "no_kirim_batu",
+      key: "no_kirim_batu",
       align: "center",
     },
     {
@@ -56,7 +62,7 @@ const TableLaporanTerimaBatu = () => {
       summary={() => (
         <Table.Summary fixed>
           <Table.Summary.Row>
-            <Table.Summary.Cell index={0} colSpan={4} align="right">
+            <Table.Summary.Cell index={0} colSpan={5} align="right">
               Total
             </Table.Summary.Cell>
             <Table.Summary.Cell index={1} align="right">

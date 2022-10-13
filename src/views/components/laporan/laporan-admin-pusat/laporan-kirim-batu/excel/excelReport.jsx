@@ -17,7 +17,7 @@ class ExcelReport extends Component {
       }, {});
     };
 
-    const dataGroup = groupBy(this.props.dataExel, "no_batu_kirim");
+    const dataGroup = groupBy(this.props.dataExel, "no_kirim_batu");
     const dataGroupArr = Object.values(dataGroup);
 
     return (
@@ -118,13 +118,13 @@ class ExcelReport extends Component {
                       }}
                     >
                       {" "}
-                      NO KIRIM : {item[0].no_batu_kirim}
+                      NO KIRIM : {item[0].no_kirim_batu}
                     </td>
                   </tr>
                   {item.map((element) => {
                     return (
                       <tr>
-                        <td>{element.tgl_batu_kirim}</td>
+                        <td>{element.tanggal_kirim_batu}</td>
                         <td>{element.no_job_order}</td>
                         <td>{element.kode_batu}</td>
                         <td style={{ textAlign: "right" }}>

@@ -25,6 +25,14 @@ function Failed(message) {
     icon: "error",
   });
 }
-const data = { Failed, Success, SuccessNoReload };
+
+function Info(message) {
+  Swal.fire({
+    title: "Ops..",
+    text: message,
+    icon: "info",
+  });
+}
+const data = { Failed, Success, SuccessNoReload, Info };
 
 export default data;

@@ -45,37 +45,34 @@ const getAllDataLaporanTerimaPotong =
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_terima_potong", dataOnsend);
-
-        const response =
-          await api.LaporanTerimaPotong.getAllLaporanTerimaPotong(dataOnsend);
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
+        api.LaporanTerimaPotong.getAllLaporanTerimaPotong(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanTerimaPotongSuccess({
+                    feedback: res.value,
+                  })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
+              );
+              dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
               dispatch(
-                setDataLaporanTerimaPotongSuccess({
-                  feedback: response?.value.data,
+                setDataLaporanTerimaPotongFailed({
+                  error: res.error,
                 })
               );
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTerimaPotongSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTerimaPotongFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanTerimaPotongFailed({ error: response.error }));
-        }
+        );
       }
     }
   };

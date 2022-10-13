@@ -154,8 +154,8 @@ class ExcelReport extends Component {
                   <tr>
                     <td>{element.tanggal}</td>
                     <td>{element.no_job_order}</td>
-                    <td>{element.nama_divisi}</td>
-                    <td>{element.kode_staff}</td>
+                    <td>{element.divisi}</td>
+                    <td>{element.kode_tukang}</td>
                     <td>{element.bahan_kembali}</td>
                     <td style={{ textAlign: "right" }}>
                       {parseFloat(element.berat_kembali)

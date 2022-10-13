@@ -36,39 +36,26 @@ const getAllDataLaporanOutstand =
         };
         writeLocal("laporan_outstand_admin", dataOnsend);
 
-        const response = await api.LaporanOutstand.getAllLaporanOutstand(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanOutstand.getAllLaporanOutstand(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanOutstandAdminSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanOutstandAdminSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanOutstandAdminSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanOutstandAdminSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanOutstandAdminFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanOutstandAdminSuccess({ feedback: [] }));
+            dispatch(setDataLaporanOutstandAdminFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanOutstandAdminFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

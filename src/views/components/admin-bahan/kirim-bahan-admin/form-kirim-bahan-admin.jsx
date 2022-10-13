@@ -5,7 +5,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import Tukang from "../../../../application/selectors/mastertukang";
+// import Tukang from "../../../../application/selectors/mastertukang";
 import SaldoBahan from "../../../../application/selectors/pembuatanjenisbahan";
 import KirimBahanAdmin from "../../../../application/selectors/kirimbahanadmin";
 import { addKirimBahanAdminBahan } from "../../../../application/actions/kirimbahanadmin";
@@ -16,17 +16,21 @@ const maptostate = (state) => {
   if (state.mastertukang.feedback !== undefined) {
     return {
       initialValues: {
-        divisi_tujuan: state.kirimbahanadmin.feedback[0]?.kode_divisi,
-        tukang_tujuan: state.mastertukang.feedback[0]?.kode_staff,
-        saldo_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
+        // divisi_tujuan: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi_asal: "ADMIN BAHAN",
+        divisi_tujuan: "ADMIN PUSAT",
+        tukang_tujuan: state.kirimbahanadmin.feedbackTukang[0]?.nama_tukang,
+        nama_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi_tujuan: state.kirimbahanadmin.feedback[0]?.kode_divisi,
-        tukang_tujuan: state.mastertukang.feedback[0]?.kode_staff,
-        saldo_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
+        // divisi_tujuan: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi_asal: "ADMIN BAHAN",
+        divisi_tujuan: "ADMIN PUSAT",
+        tukang_tujuan: state.kirimbahanadmin.feedbackTukang[0]?.nama_tukang,
+        nama_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
       },
     };
   }
@@ -37,9 +41,10 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataTukang = useSelector(Tukang.getAllMasterTukang);
+  // const dataTukang = useSelector(Tukang.getAllMasterTukang);
+  const dataTukang = useSelector(KirimBahanAdmin.getTukangDivisi);
   const dataSaldoBahanStock = useSelector(SaldoBahan.getAllSaldoBahanStock);
-  const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
+  // const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
 
   return (
     <Modal
@@ -55,7 +60,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          {/* <Col offset={1}>
             <Field
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
@@ -72,6 +77,30 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
                 );
               })}
             </Field>
+          </Col> */}
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="divisi_asal"
+              type="text"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Divisi Asal"
+              disabled
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="divisi_tujuan"
+              type="text"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Divisi Tujuan"
+              disabled
+            />
           </Col>
 
           <Col offset={1}>
@@ -85,11 +114,11 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataTukang.map((item) => {
                 return (
-                  <Option value={item.kode_staff} key={item.kode_staff}>
+                  <Option value={item.nama_tukang} key={item.kode_tukang}>
                     <span style={{ fontSize: "13px" }}>
-                      {item.kode_staff === item.nama_staff
-                        ? item.nama_staff
-                        : item.nama_staff + " (" + item.kode_staff + ")"}
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
                     </span>
                   </Option>
                 );
@@ -99,7 +128,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
 
           <Col offset={1}>
             <Field
-              name="saldo_bahan"
+              name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}

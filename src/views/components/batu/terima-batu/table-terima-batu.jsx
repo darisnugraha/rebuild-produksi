@@ -44,8 +44,8 @@ const TableTerimaBatu = () => {
       children: [
         {
           title: "No Kirim Batu",
-          dataIndex: "no_batu_kirim",
-          key: "no_batu_kirim",
+          dataIndex: "no_kirim_batu",
+          key: "no_kirim_batu",
           align: "center",
         },
         {
@@ -88,7 +88,11 @@ const TableTerimaBatu = () => {
     },
   ];
   return (
-    <Table dataSource={dataTable} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table
+      dataSource={dataTable}
+      columns={columns}
+      scroll={{ x: 500, y: 1500 }}
+    />
   );
 };
 

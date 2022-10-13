@@ -15,15 +15,17 @@ const maptostate = (state) => {
   if (state.mastermarketing.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_marketing: state.mastermarketing.dataEdit[0]?.kode_marketing,
-        nama_marketing: state.mastermarketing.dataEdit[0]?.nama_marketing,
-        no_hp: state.mastermarketing.dataEdit[0]?.no_hp,
-        email: state.mastermarketing.dataEdit[0]?.email,
+        id: state.mastermarketing.dataEdit?._id,
+        kode_marketing: state.mastermarketing.dataEdit?.kode_marketing,
+        nama_marketing: state.mastermarketing.dataEdit?.nama_marketing,
+        no_hp: state.mastermarketing.dataEdit?.no_hp,
+        email: state.mastermarketing.dataEdit?.email,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_marketing: "",
         nama_marketing: "",
         no_hp: "",
@@ -61,6 +63,17 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="kode_marketing"

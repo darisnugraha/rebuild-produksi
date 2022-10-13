@@ -8,17 +8,19 @@ import {
 } from "../../../components/panel/panel.jsx";
 import { Card, Divider } from "antd";
 import { pageLoadedLogin } from "../../../../application/actions/ui";
-import { getAllDivisi } from "../../../../application/actions/kirimbahanadmin";
+// import { getAllDivisi } from "../../../../application/actions/kirimbahanadmin";
 import FormLaporanTerimaGudangProduksi from "../../../components/laporan/laporan-produksi/laporan-terima-gudang-produksi/form-laporan-terima-gudang-produksi";
 import TableLaporanTerimaGudangProduksi from "../../../components/laporan/laporan-produksi/laporan-terima-gudang-produksi/table-laporan-terima-gudang-produksi";
 import BtnPrint from "../../../components/laporan/laporan-produksi/laporan-terima-gudang-produksi/btn-print-excel-pdf";
 import TerimaGudangProduksi from "../../../../application/selectors/laporanproduksi";
+import { getDivisiGudang } from "../../../../application/actions/laporanproduksi.jsx";
 
 const LaporanTerimaGudangProduksi = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllDivisi);
+    // dispatch(getAllDivisi);
+    dispatch(getDivisiGudang);
     document.title = "Laporan Terima Gudang";
   }, [dispatch]);
   const dataLaporanTerimaGudangProduksi = useSelector(

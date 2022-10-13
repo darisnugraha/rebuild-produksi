@@ -8,6 +8,8 @@ import {
   setJumlahKirimJO,
   ADD_LOCAL_KIRIM_JO,
   ADD_LOCAL_TAMBAHAN,
+  countBeratKirimJO,
+  ADD_LOCAL_BATU,
 } from "../actions/kirimjo";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -20,19 +22,26 @@ const getDataDetailJO =
     if (action.type === GET_DETAIL_JO_POST_METHOD) {
       const noJO = action.payload.data;
       const asalDivisi = localStorage.getItem("divisi");
-      let data = {
-        asal_divisi: asalDivisi,
-        no_job_order: noJO,
-        parameter: "GET_DETAIL",
-      };
-      const response = await api.KirimJO.getDetailJO({ dataKirim: data });
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.SuccessNoReload("Berhasil !");
-        dispatch(setDataDetailJOSuccess({ feedback: response.value.data }));
-      } else {
-        sweetalert.default.Failed("NO JO Tidak Ada !");
-        dispatch(setDataDetailJOFailed({ error: response.error }));
-      }
+      api.KirimJO.getDetailJO(
+        noJO.toUpperCase(),
+        asalDivisi.toUpperCase()
+      ).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length === 0) {
+            sweetalert.default.Failed("Data Yg Anda Cari Tidak Ada !");
+            dispatch(setDataDetailJOFailed({ feedback: [] }));
+          } else {
+            sweetalert.default.SuccessNoReload("Berhasil !");
+            dispatch(setDataDetailJOSuccess({ feedback: res.value }));
+            dispatch(setCountBeratKirimJO(res.value[0].berat_akhir));
+          }
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengambil Data !"
+          );
+          dispatch(setDataDetailJOFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -44,12 +53,17 @@ const countberatbatu =
     next(action);
     if (action.type === COUNT_BERAT_KIRIM_JO) {
       let total = 0;
-      const berat_kirim = action.payload;
+      const berat_kirim = parseFloat(action.payload);
       const berat_akhir = parseFloat(
         getState().kirimjo.dataDetailJO[0].berat_akhir
       );
-      total = berat_akhir - berat_kirim;
-      dispatch(setCountBeratKirimJO(total.toFixed(3)));
+      if (berat_kirim > berat_akhir) {
+        sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
+        dispatch(countBeratKirimJO({ beratKirim: 0 }));
+      } else {
+        total = berat_akhir - berat_kirim;
+        dispatch(setCountBeratKirimJO(total.toFixed(3)));
+      }
     }
   };
 
@@ -60,8 +74,16 @@ const savejumlahkirim =
   async (action) => {
     next(action);
     if (action.type === SAVE_JUMLAH_KIRIM_JO) {
-      const jumlahKirim = action.payload;
-      dispatch(setJumlahKirimJO(jumlahKirim));
+      const jumlahKirim = parseInt(action.payload);
+      const jumlahAkhir = parseInt(
+        getState().kirimjo.dataDetailJO[0].stock_akhir
+      );
+      if (jumlahKirim > jumlahAkhir) {
+        sweetalert.default.Failed("Jumlah Lebih Dari Jumlah Akhir !");
+        dispatch(setJumlahKirimJO(0));
+      } else {
+        dispatch(setJumlahKirimJO(jumlahKirim));
+      }
     }
   };
 
@@ -73,30 +95,31 @@ const addDataLocalKirimJo =
     next(action);
     if (action.type === ADD_LOCAL_KIRIM_JO) {
       const data = getState().form.FormKirimJO.values;
-      const divisi = getState().kirimbahanadmin.feedback;
-      const divisiFil = divisi.filter((item) => {
-        return item.kode_divisi === data.divisi_tujuan;
-      });
-      const dataKirim = {
-        nama_divisi: divisiFil[0].nama_divisi,
-        no_job_order: data.no_job_order,
-        staff: data.tukang_tujuan,
-        staffasal: data.tukang_asal,
-      };
-      const dataKirimcart = {
-        berat: parseFloat(data.berat_kirim),
-        jumlah: parseFloat(data.jumlah_kirim),
-        tujuan_divisi: divisiFil[0].nama_divisi,
-        no_job_order: data.no_job_order,
-        staff: data.tukang_tujuan,
-        susut: data.susut,
-      };
-      if (dataKirim.berat === 0 || dataKirim.jumlah === 0) {
+      if (data.berat_kirim === 0 || data.jumlah_kirim === 0) {
         sweetalert.default.Failed("Isi Berat dan Jumlah Terlebih Dahulu !");
       } else {
+        const divisi_asal = getLocal("divisi");
+        const dataSave = {
+          no_job_order: data.no_job_order.toUpperCase(),
+          divisi_asal: divisi_asal.toUpperCase(),
+          divisi_tujuan: data.divisi_tujuan.toUpperCase(),
+          tukang_asal: data.tukang_asal.toUpperCase(),
+          tukang_tujuan: data.tukang_tujuan.toUpperCase(),
+          kode_barang: data.kode_barang.toUpperCase(),
+          nama_barang: data.nama_barang.toUpperCase(),
+          kode_jenis_bahan: data.kode_jenis_bahan.toUpperCase(),
+          jumlah_kirim: parseInt(data.jumlah_kirim || 0),
+          berat_kirim: parseFloat(data.berat_kirim || 0),
+          susut: parseFloat(data.susut || 0),
+          jumlah_berat_batu_tak_terpakai: parseFloat(
+            data.jumlah_berat_batu_tak_terpakai
+          ),
+          nama_bahan_tambahan: "",
+          jumlah_tambahan: 0,
+          berat_tambahan: 0,
+        };
         sweetalert.default.Success("Berhasil Menyimpan Data !");
-        writeLocal("kirim_jo_head", dataKirim);
-        writeLocal("kirim_jo_head_cart", dataKirimcart);
+        writeLocal("kirim_jo_head", dataSave);
       }
     }
   };
@@ -108,39 +131,55 @@ const addLocalDataTambahan =
   async (action) => {
     next(action);
     if (action.type === ADD_LOCAL_TAMBAHAN) {
-      const dataHeadCart = getLocal("kirim_jo_head_cart");
       const dataHead = getLocal("kirim_jo_head");
+      const dataDetailBatu = getLocal("detail_batu");
       const data = getState().form.FormDetailTambahan.values;
-      if (dataHeadCart === undefined || dataHeadCart === null) {
+      if (dataHead === undefined || dataHead === null) {
         sweetalert.default.Failed("Isi Detail Kirim Jo Terlebih Dahulu !");
+      } else if (
+        dataDetailBatu.length === 0 ||
+        dataDetailBatu === undefined ||
+        dataDetailBatu === null
+      ) {
+        sweetalert.default.Failed("Detail Batu Harus Di isi !");
       } else {
-        const dataDetailBahan = [];
-        dataDetailBahan.push(data);
-        dataHeadCart.asal_divisi = localStorage.getItem("divisi");
-        dataHeadCart.detail_bahan = dataDetailBahan;
-        const response = await api.KirimJO.addKirimJOCart(dataHeadCart);
-        log(response);
-        if (response.value !== null) {
-          if (response.value.status === "berhasil") {
-            dataHead.asal_divisi = localStorage.getItem("divisi");
-            const responsedua = await api.KirimJO.addKirimJOCheckOut(dataHead);
-            if (responsedua.value !== null) {
-              if (responsedua.value.status === "berhasil") {
-                localStorage.removeItem("kirim_jo_head_cart");
-                localStorage.removeItem("kirim_jo_head");
-                sweetalert.default.Success(responsedua.value.pesan);
-              } else {
-                sweetalert.default.Failed(responsedua.value.pesan);
-              }
-            } else {
-              sweetalert.default.Failed(responsedua.error.data.pesan);
-            }
+        dataHead.nama_bahan_tambahan = data.nama_bahan;
+        dataHead.jumlah_tambahan = parseInt(data.jumlah_bahan);
+        dataHead.berat_tambahan = parseFloat(data.berat_bahan);
+        dataHead.detail_batu = dataDetailBatu;
+        api.KirimJO.addKirimJOCart(dataHead).then((res) => {
+          if (res.value !== null) {
+            localStorage.removeItem("kirim_jo_head");
+            localStorage.removeItem("detail_batu");
+            sweetalert.default.Success(
+              res.value.message || "Berhasil Mengirim Data !"
+            );
           } else {
-            sweetalert.default.Failed(response.value.pesan);
+            sweetalert.default.Failed(
+              res.error.data.message || "Gagal Mengirim Data !"
+            );
           }
-        } else {
-          sweetalert.default.Failed(response.error.data.pesan);
-        }
+        });
+      }
+    }
+    if (action.type === ADD_LOCAL_BATU) {
+      const detailBatu = getLocal("detail_batu");
+      if (detailBatu === null || detailBatu === undefined) {
+        const arr = [];
+        const data = getState().form.FormDetailBatu.values;
+        data.jumlah_tak_terpakai = parseInt(data.jumlah_tak_terpakai);
+        data.berat_tak_terpakai = parseFloat(data.berat_tak_terpakai);
+        arr.push(data);
+        writeLocal("detail_batu", arr);
+        sweetalert.default.Success("Berhasil Menyimpan Data !");
+      } else {
+        const arr = detailBatu;
+        const data = getState().form.FormDetailBatu.values;
+        data.jumlah_tak_terpakai = parseInt(data.jumlah_tak_terpakai);
+        data.berat_tak_terpakai = parseFloat(data.berat_tak_terpakai);
+        arr.push(data);
+        writeLocal("detail_batu", arr);
+        sweetalert.default.Success("Berhasil Menyimpan Data !");
       }
     }
   };

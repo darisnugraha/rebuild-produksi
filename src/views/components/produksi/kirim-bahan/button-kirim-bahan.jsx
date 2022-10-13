@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import FormKirimBahanAdminPusat from "./form-kirim-bahan";
 import { useDispatch } from "react-redux";
-import { getAllStockBahanByStaff } from "../../../../application/actions/kirimbahanadminpusat";
+import {
+  getAllStaffStockBahanDivisiProd,
+  getAllStockBahanByStaff,
+  getDataStaffByDivisi,
+} from "../../../../application/actions/kirimbahanadminpusat";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
 import { useSelector } from "react-redux";
 
@@ -12,6 +16,7 @@ const ModalKirimBahanAdminPusat = () => {
   const dataStaff = useSelector(
     KirimBahanAdminPusat.getAllStaffStockBahanDivisi
   );
+  const divisi = localStorage.getItem("divisi");
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
@@ -24,6 +29,8 @@ const ModalKirimBahanAdminPusat = () => {
         type="primary"
         onClick={() => {
           dispatch(getAllStockBahanByStaff({ staff: dataStaff[0]?.staff }));
+          dispatch(getAllStaffStockBahanDivisiProd(divisi));
+          dispatch(getDataStaffByDivisi("ADMIN PUSAT"));
           setVisible(true);
         }}
       >

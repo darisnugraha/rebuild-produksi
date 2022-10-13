@@ -6,6 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimTambahan from "../../../../application/selectors/kirimtambahan";
+import { getStockBahanAdminByStaff } from "../../../../application/actions/kirimtambahan";
 
 const { Option } = Select;
 
@@ -13,7 +14,7 @@ const maptostate = (state) => {
   if (state.kirimtambahan.feedback !== undefined) {
     return {
       initialValues: {
-        saldo_asal: state.kirimtambahan.feedback[0]?.staff,
+        saldo_asal: state.kirimtambahan.feedback[0]?.tukang,
         nama_bahan: state.kirimtambahan.dataStock[0]?.nama_bahan,
       },
     };
@@ -55,11 +56,14 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Saldo Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) =>
+                dispatch(getStockBahanAdminByStaff({ namaStaff: e }))
+              }
             >
               {dataAsalStockBahan.map((item) => {
                 return (
-                  <Option value={item.staff} key={item.staff}>
-                    <span style={{ fontSize: "13px" }}>{item.staff}</span>
+                  <Option value={item.tukang} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>{item.tukang}</span>
                   </Option>
                 );
               })}

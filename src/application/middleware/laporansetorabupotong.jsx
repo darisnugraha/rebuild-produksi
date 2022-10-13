@@ -45,40 +45,30 @@ const getAllDataSetorAbuPotong =
         };
         writeLocal("laporan_setor_abu_potong", dataOnsend);
 
-        const response =
-          await api.LaporanSetorAbuPotong.getAllLaporanSetorAbuPotong(
-            dataOnsend
-          );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
+        api.LaporanSetorAbuPotong.getAllLaporanSetorAbuPotong(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanSetorAbuPotongSuccess({ feedback: res.value })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
+              );
+              dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
               dispatch(
-                setDataLaporanSetorAbuPotongSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanSetorAbuPotongFailed({ error: res.error })
               );
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanSetorAbuPotongFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanSetorAbuPotongFailed({ error: response.error })
-          );
-        }
+        );
       }
     }
   };

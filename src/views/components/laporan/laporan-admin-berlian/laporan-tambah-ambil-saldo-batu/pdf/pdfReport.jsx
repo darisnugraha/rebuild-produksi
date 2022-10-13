@@ -46,10 +46,10 @@ const pdfReport = (data = "") => {
   data.forEach((element) => {
     const row = [
       {
-        content: element.no_mutasi_batu,
+        content: element.no_mutasi,
       },
       {
-        content: element.tgl_mutasi,
+        content: element.tanggal_mutasi,
       },
       {
         content: element.kode_batu,

@@ -16,7 +16,7 @@ const pdfReport = (data = "") => {
   doc.setProperties({
     title: "Kirim Batu",
   });
-  doc.text(`PERIODE : ${datahead.tgl_awal} s/d ${datahead.tgl_akhir}`, 14, 25);
+  doc.text(`PERIODE : ${datahead.startDate} s/d ${datahead.endDate}`, 14, 25);
 
   tableColumn = [
     [
@@ -44,10 +44,10 @@ const pdfReport = (data = "") => {
   data.forEach((element) => {
     const row = [
       {
-        content: element.no_batu_kirim,
+        content: element.no_kirim_batu,
       },
       {
-        content: element.tgl_kirim,
+        content: element.tanggal_kirim,
       },
       {
         content: element.no_job_order,

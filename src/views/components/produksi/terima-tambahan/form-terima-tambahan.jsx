@@ -6,33 +6,34 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import TerimaTambahan from "../../../../application/selectors/terimatambahan";
 import Tukang from "../../../../application/selectors/mastertukang";
-import TerimaBahan from "../../../../application/selectors/terimabahan";
 import {
-  getSaldoBahanTukang,
+  addTerimaTambahan,
   getSaldoKirimBahanOpenChange,
-  setKodeStaff,
-} from "../../../../application/actions/terimabahan";
+} from "../../../../application/actions/terimatambahan";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.terimabahan.kodeStaff !== null) {
+  if (state.terimatambahan.dataTukang.length !== 0) {
     return {
       initialValues: {
         divisi: localStorage.getItem("divisi") || "",
-        staff: state.terimabahan.kodeStaff,
-        nama_bahan: state.form.FormTerimaTambahan?.values.nama_bahan,
-        berat_bahan: state.terimabahan.beratBahan[0]?.berat_total,
+        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
+        staff: state.terimatambahan.kodeStaff,
+        nama_bahan: state.terimatambahan.namaBahan,
+        berat_bahan: state.terimatambahan.berat,
       },
     };
   } else {
     return {
       initialValues: {
         divisi: localStorage.getItem("divisi") || "",
-        staff: state.mastertukang.feedback[0]?.kode_staff,
-        nama_bahan: state.form.FormTerimaTambahan?.values.nama_bahan,
-        berat_bahan: state.terimabahan.beratBahan[0]?.berat_total,
+        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
+        staff: "",
+        nama_bahan: "",
+        berat_bahan: "",
       },
     };
   }
@@ -43,8 +44,8 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataStaff = useSelector(Tukang.getAllMasterTukang);
-  const dataBahan = useSelector(TerimaBahan.getSaldoBahanTukang);
+  const dataStaffTujuan = useSelector(Tukang.getAllMasterTukang);
+  const dataBahan = useSelector(TerimaTambahan.getDataTambahan);
 
   return (
     <Modal
@@ -54,11 +55,13 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addTerimaTambahan);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="divisi"
               type="text"
@@ -69,33 +72,38 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={10} offset={1}>
             <Field
-              name="staff"
+              name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
-              onChange={(val) => {
-                dispatch(getSaldoBahanTukang({ staff: val }));
-                dispatch(setKodeStaff({ staff: val }));
-              }}
             >
-              {dataStaff.map((item) => {
+              {dataStaffTujuan.map((item) => {
                 return (
-                  <Option value={item.kode_staff} key={item.kode_staff}>
+                  <Option value={item.nama_tukang} key={item._id}>
                     <span style={{ fontSize: "13px" }}>
-                      {item.kode_staff === item.nama_staff
-                        ? item.nama_staff
-                        : item.nama_staff + " (" + item.kode_staff + ")"}
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
                     </span>
                   </Option>
                 );
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1} style={{ display: "none" }}>
+            <Field
+              name="staff"
+              label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Tukang Asal"
+            />
+          </Col>
+          <Col span={8} offset={1}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -109,7 +117,7 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.no_transaksi} key={item.no_transaksi}>
+                  <Option value={item._id} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );
@@ -117,7 +125,7 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="berat_bahan"
               type="text"

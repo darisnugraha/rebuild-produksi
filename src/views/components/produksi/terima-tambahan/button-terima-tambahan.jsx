@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import FormTerimaTambahan from "./form-terima-tambahan";
-import { getSaldoBahanTukang } from "../../../../application/actions/terimabahan";
 import { useDispatch } from "react-redux";
+import { getSaldoTamabahan } from "../../../../application/actions/terimatambahan";
 
 const ModalTerimaTambahan = () => {
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
+    console.log(values);
   };
+
+  const divisi = localStorage.getItem("divisi");
 
   return (
     <div>
@@ -19,7 +20,7 @@ const ModalTerimaTambahan = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
-          dispatch(getSaldoBahanTukang({ staff: null }));
+          dispatch(getSaldoTamabahan(divisi.toUpperCase()));
         }}
       >
         + Data Terima

@@ -17,7 +17,7 @@ const maptostate = (state) => {
   if (state.kirimbatupusat.feedback.length !== 0) {
     return {
       initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi: state.kirimbahanadmin.feedback[0]?.divisi,
         no_job_order: state.kirimbatupusat.no_job_order,
         kode_barang: state.kirimbatupusat.feedback[0]?.kode_barang,
         nama_barang: state.kirimbatupusat.feedback[0]?.nama_barang,
@@ -27,7 +27,7 @@ const maptostate = (state) => {
   } else {
     return {
       initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi: state.kirimbahanadmin.feedback[0]?.divisi,
       },
     };
   }
@@ -54,7 +54,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -65,14 +65,14 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataDivisi.map((item) => {
                 return (
-                  <Option value={item.kode_divisi} key={item.kode_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="no_job_order"
               type="text"
@@ -85,7 +85,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_barang"
               type="text"
@@ -96,7 +96,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="nama_barang"
               type="text"
@@ -107,7 +107,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               type="text"

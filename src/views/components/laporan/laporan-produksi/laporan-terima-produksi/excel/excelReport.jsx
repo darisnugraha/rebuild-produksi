@@ -14,8 +14,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename={`LAPORAN TERIMA PRODUKSI (${this.props.dataHead?.nama_divisi})`}
-          sheet={`LAPORAN TERIMA PRODUKSI (${this.props.dataHead?.nama_divisi})`}
+          filename={`LAPORAN TERIMA PRODUKSI (${this.props.dataHead?.divisi})`}
+          sheet={`LAPORAN TERIMA PRODUKSI (${this.props.dataHead?.divisi})`}
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -28,7 +28,7 @@ class ExcelReport extends Component {
                 }}
                 colSpan="5"
               >
-                LAPORAN TERIMA PRODUKSI ({this.props.dataHead?.nama_divisi})
+                LAPORAN TERIMA PRODUKSI ({this.props.dataHead?.divisi})
               </td>
             </tr>
             <tr>
@@ -135,14 +135,14 @@ class ExcelReport extends Component {
                 <>
                   <tr>
                     <td>{element.no_terima}</td>
-                    <td>{element.tgl_terima}</td>
+                    <td>{element.tanggal}</td>
                     <td>{element.tujuan_divisi}</td>
                     <td>{element.kode_jenis_bahan}</td>
                     <td>{element.kode_barang}</td>
                     <td>{element.no_job_order}</td>
                     <td style={{ textAlign: "right" }}>{element.stock_in}</td>
                     <td style={{ textAlign: "right" }}>{element.berat_in}</td>
-                    <td>{element.kode_staff}</td>
+                    <td>{element.kode_tukang}</td>
                   </tr>
                 </>
               );

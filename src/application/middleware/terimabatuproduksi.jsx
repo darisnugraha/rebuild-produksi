@@ -3,6 +3,7 @@ import {
   setDataKirimBatuFailed,
   GET_ALL_KIRIM_BATU,
   ADD_TERIMA_BATU_PRODUKSI,
+  GET_KIRIM_BATU_LOCAL,
 } from "../actions/terimabatuproduksi";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -14,31 +15,43 @@ const getAllDataKirimBatuProduksi =
     next(action);
     if (action.type === GET_ALL_KIRIM_BATU) {
       const data = getState().form.FormTerimaBatuProduksi.values;
-      const response = await api.TerimaBatuProduksi.getAllKirimBatuProduksi(
-        data
-      );
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          if (response.value.data.length !== 0) {
+      api.TerimaBatuProduksi.getAllKirimBatuProduksi(data).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
             writeLocal("produksiterimabatu", data);
-            sweetalert.default.SuccessNoReload(response.value.pesan);
-            dispatch(
-              setDataKirimBatuSuccess({ feedback: response.value.data })
-            );
+            writeLocal("detail_produksiterimabatu", res.value);
+            sweetalert.default.SuccessNoReload("Berhasil Menyimpan Data !");
+            dispatch(setDataKirimBatuSuccess({ feedback: res.value }));
           } else {
-            sweetalert.default.Failed(response.value.pesan);
+            sweetalert.default.Failed("Data Tidak Ada !");
             dispatch(setDataKirimBatuSuccess({ feedback: [] }));
-            dispatch(setDataKirimBatuFailed({ error: response.value.pesan }));
+            dispatch(setDataKirimBatuFailed({ error: res.value }));
           }
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed("Data Tidak Ada !");
           dispatch(setDataKirimBatuSuccess({ feedback: [] }));
-          dispatch(setDataKirimBatuFailed({ error: response.value.pesan }));
+          dispatch(setDataKirimBatuFailed({ error: res.error }));
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataKirimBatuSuccess({ feedback: [] }));
-        dispatch(setDataKirimBatuFailed({ error: response.error }));
+      });
+    }
+    if (action.type === GET_KIRIM_BATU_LOCAL) {
+      const data = action.payload.data;
+      if (data !== null) {
+        api.TerimaBatuProduksi.getAllKirimBatuProduksi(data).then((res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              writeLocal("produksiterimabatu", data);
+              writeLocal("detail_produksiterimabatu", res.value);
+              dispatch(setDataKirimBatuSuccess({ feedback: res.value }));
+            } else {
+              dispatch(setDataKirimBatuSuccess({ feedback: [] }));
+              dispatch(setDataKirimBatuFailed({ error: res.value }));
+            }
+          } else {
+            dispatch(setDataKirimBatuSuccess({ feedback: [] }));
+            dispatch(setDataKirimBatuFailed({ error: res.error }));
+          }
+        });
       }
     }
   };
@@ -52,26 +65,22 @@ const addTerimaBatuProduksi =
     if (action.type === ADD_TERIMA_BATU_PRODUKSI) {
       const data = getLocal("produksiterimabatu");
       const datakirim = {
-        nama_divisi: data.divisi,
+        divisi: data.divisi.toUpperCase(),
         no_job_order: data.no_job_order,
       };
-      const response = await api.TerimaBatuProduksi.addTerimaBatuProduksi(
-        datakirim
-      );
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          if (response.value.data.length !== 0) {
-            localStorage.removeItem("produksiterimabatu");
-            sweetalert.default.Success(response.value.pesan);
-          } else {
-            sweetalert.default.Failed(response.value.pesan);
-          }
+      api.TerimaBatuProduksi.addTerimaBatuProduksi(datakirim).then((res) => {
+        if (res.value !== null) {
+          localStorage.removeItem("produksiterimabatu");
+          localStorage.removeItem("detail_produksiterimabatu");
+          sweetalert.default.Success(
+            res.value.message || "Berhasil menambahkan Data !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.message || "Gagal menambahkan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

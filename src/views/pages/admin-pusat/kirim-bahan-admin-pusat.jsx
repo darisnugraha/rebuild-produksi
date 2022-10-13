@@ -10,7 +10,12 @@ import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimBahanAdminPusat from "../../components/admin-pusat/kirim-bahan-admin/button-kirim-bahan-admin-pusat";
 import { useLocation } from "react-router";
-import { getAllStaffStockBahanDivisi, getAllStockBahanDivisi } from "../../../application/actions/kirimbahanadminpusat.jsx";
+import {
+  getAllDivisi,
+  getAllStaffStockBahanDivisi,
+  getAllStockBahanDivisi,
+} from "../../../application/actions/kirimbahanadminpusat.jsx";
+import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
 
 const KirimBahanAdminPusat = () => {
   const dispatch = useDispatch();
@@ -20,7 +25,9 @@ const KirimBahanAdminPusat = () => {
     dispatch(pageLoadedLogin);
     dispatch(getAllStockBahanDivisi);
     dispatch(getAllStaffStockBahanDivisi);
-    localStorage.setItem("divisi", "Admin");
+    dispatch(getAllDivisi);
+    dispatch(getAllMasterTukang);
+    localStorage.setItem("divisi", "Admin Pusat");
     document.title = "Kirim Bahan Admin";
   }, [dispatch]);
 

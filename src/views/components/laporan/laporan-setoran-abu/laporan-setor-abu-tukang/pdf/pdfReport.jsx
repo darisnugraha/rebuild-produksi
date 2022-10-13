@@ -65,10 +65,10 @@ const pdfReport = (data = "") => {
         content: element.no_job_order,
       },
       {
-        content: element.nama_divisi,
+        content: element.divisi,
       },
       {
-        content: element.kode_staff,
+        content: element.kode_tukang,
       },
       {
         content: element.bahan_kembali,

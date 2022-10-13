@@ -18,12 +18,13 @@ const masterDivisiGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_DIVISI) {
-      const response = await api.MasterDivisi.getAllMasterDivisi();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterDivisiSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterDivisiFailed({ error: response.error }));
-      }
+      api.MasterDivisi.getAllMasterDivisi().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterDivisiSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterDivisiFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,10 @@ const masterDivisiGetByID =
     next(action);
     if (action.type === GET_MASTER_DIVISI_ID) {
       dispatch(setEditFormMasterDivisi(true));
-      const dataMasterDivisi = getState().masterdivisi.feedback;
-      const dataMasterDivisiFilter = dataMasterDivisi.filter((item) => {
-        return item.kode_divisi === action.payload;
+      const id = action.payload;
+      api.MasterDivisi.getMasterDivisiByID(id).then((res) => {
+        dispatch(setDataMasterDivisiEdit({ dataEdit: res.value }));
       });
-      dispatch(setDataMasterDivisiEdit({ dataEdit: dataMasterDivisiFilter }));
     }
   };
 
@@ -52,12 +52,15 @@ const addDataMasterDivisi =
     if (action.type === ADD_MASTER_DIVISI) {
       const data = getState().form.FormTambahMasterDivisi.values;
       delete data.kode_divisi;
-      const response = await api.MasterDivisi.addMasterDivisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterDivisi.addMasterDivisi(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -68,15 +71,16 @@ const deleteDataMasterDivisi =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_DIVISI) {
-      const data = {
-        kode_divisi: action.payload.data,
-      };
-      const response = await api.MasterDivisi.deleteMasterDivisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterDivisi.deleteMasterDivisi("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -88,12 +92,16 @@ const editDataMasterDivisi =
     next(action);
     if (action.type === EDIT_MASTER_DIVISI) {
       const data = getState().form.FormTambahMasterDivisi.values;
-      const response = await api.MasterDivisi.editMasterDivisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      api.MasterDivisi.editMasterDivisi("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 

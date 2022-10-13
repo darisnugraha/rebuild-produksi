@@ -8,9 +8,12 @@ export const COUNT_BERAT_KIRIM_JO = "[kirimjo] count berat kirim jo";
 export const SET_COUNT_BERAT_KIRIM_JO = "[kirimjo] set count berat kirim jo";
 export const SET_JUMLAH_KIRIM_JO = "[kirimjo] set jumlah kirim jo";
 export const SAVE_JUMLAH_KIRIM_JO = "[kirimjo] save jumlah kirim jo";
+export const SAVE_BERAT_BATU_TAK_TERPAKAI =
+  "[kirimjo] save berat batu tak terpakai";
 
 export const ADD_LOCAL_KIRIM_JO = "[kirimjo] add local kirim jo";
 export const ADD_LOCAL_TAMBAHAN = "[kirimjo] add local tambahan";
+export const ADD_LOCAL_BATU = "[kirimjo] add local batu";
 
 export const getDataDetailJO = ({ noJO }) => ({
   type: GET_DETAIL_JO_POST_METHOD,
@@ -39,6 +42,11 @@ export const simpanJumlahKirim = ({ jumlahKirim }) => ({
   payload: jumlahKirim,
 });
 
+export const simpanBeratBatuTakTerpakai = ({ beratBatuTakTerpakai }) => ({
+  type: SAVE_BERAT_BATU_TAK_TERPAKAI,
+  payload: { data: beratBatuTakTerpakai },
+});
+
 export const setJumlahKirimJO = (jumlah) => ({
   type: SET_JUMLAH_KIRIM_JO,
   payload: { data: jumlah },
@@ -50,4 +58,8 @@ export const addLocalKirimJO = {
 
 export const addLocalTambahan = {
   type: ADD_LOCAL_TAMBAHAN,
+};
+
+export const addLocalBatu = {
+  type: ADD_LOCAL_BATU,
 };

@@ -20,14 +20,15 @@ const saldoMurniGetAll =
     next(action);
     if (action.type === GET_ALL_SALDO_MURNI) {
       dispatch(setLoadPanel(true));
-      const response = await api.SaldoMurni.getAllSaldoMurni();
-      if (response.value?.status === "berhasil") {
+      api.SaldoMurni.getAllSaldoMurni().then((res) => {
         dispatch(setLoadPanel(false));
-        dispatch(setDataSaldoMurniSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setLoadPanel(false));
-        dispatch(setDataSaldoMurniFailed({ error: response.error }));
-      }
+        dispatch(setDataSaldoMurniSuccess({ feedback: res.value }));
+        if (res.value !== null) {
+        } else {
+          dispatch(setLoadPanel(false));
+          dispatch(setDataSaldoMurniFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -66,18 +67,21 @@ const addTambahSaldoBahan =
       const data = getState().form.FormTambahAmbilSaldoMurni.values;
       data.type_trx = "TAMBAH";
       data.berat = parseFloat(data.berat);
-      let data_arr = [];
-      data_arr.push(data);
-      const onSend = { data: data_arr };
-      const response = await api.TambahSaldoBahan.addTambahAmbilSaldoBahan(
-        onSend
-      );
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Saldo Bahan !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const dataKirim = {
+        nama_bahan: data.kode_bahan,
+        berat: data.berat,
+        kategori: data.type_trx,
+        keterangan: data.keterangan,
+      };
+      api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Saldo Bahan !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Saldo Bahan !"
+          );
+        }
+      });
     }
   };
 
@@ -91,18 +95,22 @@ const addAmbilSaldoBahan =
       const data = getState().form.FormTambahAmbilSaldoMurni.values;
       data.type_trx = "AMBIL";
       data.berat = parseFloat(data.berat);
-      let data_arr = [];
-      data_arr.push(data);
-      const onSend = { data: data_arr };
-      const response = await api.TambahSaldoBahan.addTambahAmbilSaldoBahan(
-        onSend
-      );
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Mengambil Saldo Bahan !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const dataKirim = {
+        nama_bahan: data.kode_bahan,
+        berat: data.berat,
+        kategori: data.type_trx,
+        keterangan: data.keterangan,
+      };
+      api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Mengambil Saldo Bahan !");
+          window.location.reload();
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengambil Saldo Bahan !"
+          );
+        }
+      });
     }
   };
 

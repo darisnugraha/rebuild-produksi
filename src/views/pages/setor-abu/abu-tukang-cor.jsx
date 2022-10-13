@@ -12,6 +12,7 @@ import { getAllMasterBatu } from "../../../application/actions/masterbatu";
 import ButtonAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/button-abu-tukang-cor";
 import TableAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/table-abu-tukang-cor";
 import FormAbuTukangCor from "../../components/setor-abu/abu-tukang-cor/form-abu-tukang-cor.jsx";
+import { addAbuCOR } from "../../../application/actions/abutukangcor.jsx";
 
 const AbuTukangCOR = () => {
   const dispatch = useDispatch();
@@ -64,12 +65,15 @@ const AbuTukangCOR = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button type="primary" onClick={() => dispatch(addAbuCOR)}>
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button
                       type="danger"
                       onClick={() => {
+                        localStorage.removeItem("data_select");
                         window.location.reload();
                       }}
                     >

@@ -92,7 +92,8 @@ const TerimaBatuProduksi = () => {
                     <Button
                       type="danger"
                       onClick={() => {
-                        localStorage.removeItem("data_detail_kirim_batu");
+                        localStorage.removeItem("detail_produksiterimabatu");
+                        localStorage.removeItem("produksiterimabatu");
                         window.location.reload();
                       }}
                     >

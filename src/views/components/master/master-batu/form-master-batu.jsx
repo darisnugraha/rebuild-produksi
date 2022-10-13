@@ -19,24 +19,26 @@ const maptostate = (state) => {
   if (state.masterbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_batu: state.masterbatu.dataEdit[0]?.kode_batu,
-        nama_batu: state.masterbatu.dataEdit[0]?.nama_batu,
-        ukuran: state.masterbatu.dataEdit[0]?.ukuran,
-        kode_jenis_batu: state.masterbatu.dataEdit[0]?.kode_jenis_batu,
-        kode_cutting_batu: state.masterbatu.dataEdit[0]?.kode_cutting_batu,
-        berat_batu: state.masterbatu.dataEdit[0]?.berat_batu,
+        id: state.masterbatu.dataEdit?._id,
+        kode_batu: state.masterbatu.dataEdit?.kode_batu,
+        nama_batu: state.masterbatu.dataEdit?.nama_batu,
+        ukuran: state.masterbatu.dataEdit?.ukuran,
+        kode_jenis_batu: state.masterbatu.dataEdit?.kode_jenis_batu,
+        kode_cutting_batu: state.masterbatu.dataEdit?.kode_cutting_batu,
+        // berat_batu: state.masterbatu.dataEdit?.berat_batu,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_batu: "",
         nama_batu: "",
         ukuran: "",
         kode_jenis_batu: state.masterjenisbatu.feedback[0]?.kode_jenis_batu,
         kode_cutting_batu:
           state.mastercuttingbatu.feedback[0]?.kode_cutting_batu,
-        berat_batu: "",
+        // berat_batu: "",
       },
     };
   }
@@ -76,6 +78,17 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="kode_batu"
@@ -156,7 +169,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} style={{ display: "none" }}>
             <Field
               name="berat_batu"
               type="text"

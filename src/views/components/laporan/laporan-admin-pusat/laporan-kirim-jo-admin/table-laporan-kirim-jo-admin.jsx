@@ -8,8 +8,8 @@ const TableLaporanKirimJoAdmin = () => {
   const columns = [
     {
       title: "Tgl Kirim",
-      dataIndex: "tgl_kirim",
-      key: "tgl_kirim",
+      dataIndex: "tanggal",
+      key: "tanggal",
       align: "center",
     },
     {
@@ -73,8 +73,8 @@ const TableLaporanKirimJoAdmin = () => {
     },
     {
       title: "Nama Tukang",
-      dataIndex: "kode_staff",
-      key: "kode_staff",
+      dataIndex: "kode_tukang",
+      key: "kode_tukang",
       align: "center",
     },
   ];

@@ -18,12 +18,13 @@ const masterjenisGetAllData =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_JENIS) {
-      const response = await api.masterjenis.getAllMasterJenis();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterJenisSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterJenisFailed({ error: response.error }));
-      }
+      api.masterjenis.getAllMasterJenis().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterJenisSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterJenisFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,10 @@ const masterjenisGetDataID =
     next(action);
     if (action.type === GET_MASTER_JENIS_ID) {
       dispatch(setEditFormMasterJenis(true));
-      const dataMasterJenis = getState().masterjenis.feedback;
-      const dataMasterJenisFilter = dataMasterJenis.filter((item) => {
-        return item.kode_jenis === action.payload;
+      const id = action.payload;
+      api.masterjenis.getMasterJenisByID(id).then((res) => {
+        dispatch(setDataMasterJenisEdit({ dataEdit: res.value }));
       });
-      dispatch(setDataMasterJenisEdit({ dataEdit: dataMasterJenisFilter }));
     }
   };
 
@@ -51,13 +51,15 @@ const addDataMasterJenis =
     next(action);
     if (action.type === ADD_MASTER_JENIS) {
       const data = getState().form.FormTambahMasterJenis.values;
-      const response = await api.masterjenis.addMasterJenis(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.masterjenis.addMasterJenis(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -68,16 +70,16 @@ const deleteDataMasterJenis =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_JENIS) {
-      const data = {
-        kode_jenis: action.payload.data,
-      };
-      const response = await api.masterjenis.deleteMasterJenis(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.masterjenis.deleteMasterJenis("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data"
+          );
+        }
+      });
     }
   };
 
@@ -89,13 +91,20 @@ const editDataMasterJenis =
     next(action);
     if (action.type === EDIT_MASTER_JENIS) {
       const data = getState().form.FormTambahMasterJenis.values;
-      const response = await api.masterjenis.editMasterJenis(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data._id;
+      const dataKirim = {
+        kode_jenis: data.kode_jenis,
+        nama_jenis: data.nama_jenis,
+      };
+      api.masterjenis.editMasterJenis("/" + id, dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengupdate Data"
+          );
+        }
+      });
     }
   };
 

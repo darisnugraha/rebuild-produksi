@@ -7,6 +7,7 @@ import {
   SET_DATA_TAMBAH_AMBIL_BATU,
   SET_COUNT_BERAT_TAMBAH_AMBIL_BATU,
   COUNT_BERAT_TAMBAH_AMBIL_BATU,
+  SET_SALDO_BATU,
 } from "../actions/tambahambilbatu";
 
 const initialState = {
@@ -57,6 +58,11 @@ const tambahambilbatu = (state = initialState, action) => {
       return {
         ...state,
         jumlah: action.payload,
+      };
+    case SET_SALDO_BATU:
+      return {
+        ...state,
+        feedback: action.payload.data,
       };
     default:
       return state;

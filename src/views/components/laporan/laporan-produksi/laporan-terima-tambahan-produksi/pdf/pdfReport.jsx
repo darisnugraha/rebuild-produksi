@@ -27,7 +27,7 @@ const pdfReport = (data = "") => {
   tableColumn = [
     [
       {
-        content: `TANGGAL KIRIM`,
+        content: `TANGGAL TERIMA`,
       },
       {
         content: `TAMBAHAN`,
@@ -47,7 +47,7 @@ const pdfReport = (data = "") => {
   data.forEach((element) => {
     const row = [
       {
-        content: element.tgl_kirim,
+        content: element.tanggal_terima,
       },
       {
         content: element.tambahan,
@@ -77,7 +77,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: "2",
+      colSpan: "3",
     },
     {
       content: data.reduce((a, b) => a + parseFloat(b.stock_in), 0),

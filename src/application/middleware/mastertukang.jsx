@@ -18,12 +18,13 @@ const masterTukangGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_TUKANG) {
-      const response = await api.MasterTukang.getAllMasterTukang();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterTukangSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterTukangFailed({ error: response.error }));
-      }
+      api.MasterTukang.getAllMasterTukang().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterTukangSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterTukangFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,14 @@ const masterTukangGetDataID =
     next(action);
     if (action.type === GET_MASTER_TUKANG_ID) {
       dispatch(setEditFormMasterTukang(true));
-      const dataMasterTukang = getState().mastertukang.feedback;
-      const dataMasterTukangFilter = dataMasterTukang.filter((item) => {
-        return item.kode_staff === action.payload;
+      const id = action.payload;
+      api.MasterTukang.getMasterTukangById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterTukangEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterTukangEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(setDataMasterTukangEdit({ dataEdit: dataMasterTukangFilter }));
     }
   };
 
@@ -51,13 +55,15 @@ const addDataMasterTukang =
     next(action);
     if (action.type === ADD_MASTER_TUKANG) {
       const data = getState().form.FormTambahMasterTukang.values;
-      const response = await api.MasterTukang.addMasterTukang(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterTukang.addMasterTukang(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -68,16 +74,16 @@ const deleteDataMasterTukang =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_TUKANG) {
-      const data = {
-        kode_staff: action.payload.data,
-      };
-      const response = await api.MasterTukang.deleteMasterTukang(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterTukang.deleteMasterTukang("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -89,13 +95,17 @@ const editDataMasterTukang =
     next(action);
     if (action.type === EDIT_MASTER_TUKANG) {
       const data = getState().form.FormTambahMasterTukang.values;
-      const response = await api.MasterTukang.editMasterTukang(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      delete data.id;
+      api.MasterTukang.editMasterTukang("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
     }
   };
 

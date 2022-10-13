@@ -18,12 +18,22 @@ const masterUserGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_USER) {
-      const response = await api.MasterUser.getAllMasterUser();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterUserSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterUserFailed({ error: response.error }));
-      }
+      api.MasterUser.getAllMasterUser().then((res) => {
+        if (res.value !== null) {
+          delete res.value.statusCode;
+          const newArr = [];
+          const result = Object.keys(res.value).map((key) => [
+            Number(key),
+            res.value[key],
+          ]);
+          result.forEach((val) => {
+            newArr.push(val[1]);
+          });
+          dispatch(setDataMasterUserSuccess({ feedback: newArr }));
+        } else {
+          dispatch(setDataMasterUserFailed({ error: res.error }));
+        }
+      });
     }
   };
 

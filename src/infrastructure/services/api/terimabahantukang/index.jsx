@@ -12,16 +12,16 @@ const TerimaBahanTukang = {
     return response;
   },
   getStaffByDivisi: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_STAFF_BY_DIVISI,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_STAFF_BY_DIVISI + dataKirim,
     });
     return response;
   },
   getBahanByStaff: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_BAHAN_BY_STAFF,
-      data: dataKirim,
+    const response = await get({
+      url:
+        word.URL_GET_BAHAN_BY_STAFF +
+        `divisi_tujuan=ADMIN%20BAHAN&tukang=${dataKirim.staff}`,
     });
     return response;
   },

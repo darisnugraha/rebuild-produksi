@@ -16,8 +16,14 @@ const makeField =
         validateStatus={hasError ? "error" : "success"}
         hasFeedback={hasFeedback && hasError}
         help={hasError && meta.error}
+        style={{ textTransform: "uppercase" }}
       >
-        <Component {...input} {...rest} children={children} />
+        <Component
+          {...input}
+          {...rest}
+          children={children}
+          style={{ textTransform: "uppercase" }}
+        />
       </FormItem>
     );
   };

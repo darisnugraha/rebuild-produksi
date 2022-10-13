@@ -18,6 +18,9 @@ export const SET_COUNT_BERAT_TAMBAH_AMBIL_BATU =
 export const ADD_TAMBAH_BATU = "[tambahambilbatu] add tambah batu";
 export const ADD_AMBIL_BATU = "[tambahambilbatu] add ambil batu";
 
+export const GET_SALDO_BATU = "[tambahambilbatu] get saldo batu";
+export const SET_SALDO_BATU = "[tambahambilbatu] set saldo batu";
+
 export const setTambahBatuForm = (isAdd) => ({
   type: isAdd ? SET_TAMBAH_BATU_ON : SET_TAMBAH_BATU_OFF,
   payload: isAdd,
@@ -52,3 +55,11 @@ export const addTambahBatu = {
 export const addAmbilBatu = {
   type: ADD_AMBIL_BATU,
 };
+
+export const getSaldoBatu = {
+  type: GET_SALDO_BATU,
+};
+export const setDataSaldoBatu = (feedback) => ({
+  type: SET_SALDO_BATU,
+  payload: { data: feedback },
+});

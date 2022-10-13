@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import FormKirimJO from "./form-kirim-jo";
 import FormDetailTambahan from "./form-detail-tambahan";
+import FormDetailBatu from "./form-detail-batu";
 
 const ModalKirimJO = () => {
   const [visible, setVisible] = useState(false);
   const [visibleTambahan, setVisibleTambahan] = useState(false);
+  const [visibleBatu, setVisibleBatu] = useState(false);
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
@@ -27,6 +29,22 @@ const ModalKirimJO = () => {
         onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
+        }}
+      />
+      <Button
+        type="primary"
+        style={{ marginLeft: "10px" }}
+        onClick={() => {
+          setVisibleBatu(true);
+        }}
+      >
+        + Detail Batu
+      </Button>
+      <FormDetailBatu
+        visible={visibleBatu}
+        onCreate={onCreate}
+        onCancel={() => {
+          setVisibleBatu(false);
         }}
       />
       <Button

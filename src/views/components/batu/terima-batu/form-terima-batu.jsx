@@ -21,7 +21,7 @@ const maptostate = (state) => {
   return {
     initialValues: {
       tanggal_kirim: moment(today, dateFormat),
-      no_kirim_batu: state.terimabatu.detailKirim[0]?.no_batu_kirim || "",
+      no_kirim_batu: state.terimabatu.detailKirim[0]?.no_kirim_batu || "",
       no_job_order: state.terimabatu.detailKirim[0]?.no_job_order || "",
     },
   };
@@ -46,7 +46,7 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="tanggal_kirim"
               type="date"
@@ -62,7 +62,7 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="no_kirim_batu"
               label={<span style={{ fontSize: "13px" }}>No Kirim Batu</span>}
@@ -78,9 +78,9 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataNOKirim.map((item) => {
                 return (
-                  <Option value={item.no_batu_kirim} key={item.no_batu_kirim}>
+                  <Option value={item.no_kirim_batu} key={item._id}>
                     <span style={{ fontSize: "13px" }}>
-                      {item.no_batu_kirim}
+                      {item.no_kirim_batu}
                     </span>
                   </Option>
                 );

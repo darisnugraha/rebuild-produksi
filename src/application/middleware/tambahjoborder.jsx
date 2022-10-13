@@ -15,6 +15,7 @@ const addCheckoutJobOrder =
     next(action);
     if (action.type === ADD_JOB_ORDER_CHECKOUT) {
       const data = getLocal("data_staff");
+      const dataDetail = getLocal("data_detail_jo");
       if (
         data === undefined ||
         getLocal("data_detail_jo") === undefined ||
@@ -25,26 +26,30 @@ const addCheckoutJobOrder =
           "Isi Data Staff dan Detail JO Terlebih Dahulu !"
         );
       } else {
+        const dataKirim = { job_order: [] };
         const onSend = {
-          pentolan: 0,
-          nama_bahan: data[0].nama_bahan,
-          no_buat: data[0].no_buat,
-          staff: data[0].staff,
+          no_job_order: dataDetail[0].no_job_order,
+          no_pohon: data[0].no_buat,
+          kode_barang: dataDetail[0].kode_barang,
+          nama_barang: dataDetail[0].nama_barang,
+          kode_jenis_bahan: dataDetail[0].kode_jenis_bahan,
+          berat: dataDetail[0].berat,
+          jumlah: dataDetail[0].jumlah,
+          tukang: data[0].staff,
+          kode_marketing: dataDetail[0].marketing,
+          kode_customer: dataDetail[0].customer,
+          catatan: dataDetail[0].catatan,
         };
-        const response = await api.TambahJobOrder.addTambahJobOrderCheckOut(
-          onSend
-        );
-        if (response.value !== null) {
-          if (response.value.status === "berhasil") {
-            sweetalert.default.Success(response.value.pesan);
+        dataKirim.job_order.push(onSend);
+        api.TambahJobOrder.addTambahJobOrderCheckOut(dataKirim).then((res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success(res.value.message);
             localStorage.removeItem("data_staff");
             localStorage.removeItem("data_detail_jo");
           } else {
-            sweetalert.default.Failed(response.value.pesan);
+            sweetalert.default.Failed(res.error.data.message);
           }
-        } else {
-          sweetalert.default.Failed(response.error.data.pesan);
-        }
+        });
       }
     }
   };
@@ -64,6 +69,7 @@ const addDataStaff =
       data.nama_bahan = dataBahanFill[0].nama_bahan;
       data.pentolan = 0;
       let dataLocal = [];
+      data.no_buat = data.no_buat.toUpperCase();
       if (data.no_buat === undefined) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
@@ -106,24 +112,15 @@ const addDataDetailJO =
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
           } else {
             data.staff = kodestaff;
-            delete data.nama_barang;
             data.berat = parseFloat(data.berat);
             data.jumlah = parseFloat(data.jumlah);
-            const response = await api.TambahJobOrder.addTambahJobOrderCart(
-              data
-            );
-            if (response.value !== null) {
-              if (response.value.status === "berhasil") {
-                sweetalert.default.Success("Berhasil Menambahkan Data !");
-                dispatch(setDataDetailJOSuccess({ feedback: data }));
-                dataLocal.push(data);
-                writeLocal("data_detail_jo", dataLocal);
-              } else {
-                sweetalert.default.Failed(response.value.pesan);
-              }
-            } else {
-              sweetalert.default.Failed(response.error.data.pesan);
-            }
+            data.catatan = data.catatan.toUpperCase();
+            data.nama_barang = data.nama_barang.toUpperCase();
+            data.no_job_order = data.no_job_order.toUpperCase();
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+            dispatch(setDataDetailJOSuccess({ feedback: data }));
+            dataLocal.push(data);
+            writeLocal("data_detail_jo", dataLocal);
           }
         } else {
           let data = getState().form.FormDetailJobOrder.values;
@@ -141,21 +138,13 @@ const addDataDetailJO =
             delete data.nama_barang;
             data.berat = parseFloat(data.berat);
             data.jumlah = parseFloat(data.jumlah);
-            const response = await api.TambahJobOrder.addTambahJobOrderCart(
-              data
-            );
-            if (response.value !== null) {
-              if (response.value.status === "berhasil") {
-                sweetalert.default.Success("Berhasil Menambahkan Data !");
-                dispatch(setDataDetailJOSuccess({ feedback: data }));
-                dataLocal.push(data);
-                writeLocal("data_detail_jo", dataLocal);
-              } else {
-                sweetalert.default.Failed(response.value.pesan);
-              }
-            } else {
-              sweetalert.default.Failed(response.error.data.pesan);
-            }
+            data.catatan = data.catatan.toUpperCase();
+            data.nama_barang = data.nama_barang.toUpperCase();
+            data.no_job_order = data.no_job_order.toUpperCase();
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+            dispatch(setDataDetailJOSuccess({ feedback: data }));
+            dataLocal.push(data);
+            writeLocal("data_detail_jo", dataLocal);
           }
         }
       }

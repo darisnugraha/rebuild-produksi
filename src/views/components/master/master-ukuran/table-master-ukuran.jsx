@@ -67,7 +67,13 @@ const TableMasterUkuran = () => {
       align: "right",
       children: [
         {
-          title: "Ukuran",
+          title: "Kode Ukuran",
+          dataIndex: "kode_ukuran",
+          key: "kode_ukuran",
+          align: "center",
+        },
+        {
+          title: "Nama Ukuran",
           dataIndex: "nama_ukuran",
           key: "nama_ukuran",
           align: "center",
@@ -87,7 +93,7 @@ const TableMasterUkuran = () => {
                     onClick={() => {
                       dispatch(
                         getMasterUkuranByID({
-                          dataID: text.kode_ukuran,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -99,7 +105,7 @@ const TableMasterUkuran = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.nama_ukuran, text.nama_ukuran);
+                      onDelete(text._id, text.nama_ukuran);
                     }}
                   >
                     DELETE

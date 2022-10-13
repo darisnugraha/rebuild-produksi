@@ -7,6 +7,7 @@ import {
   setDataDetailKirimBatuFailed,
   SET_DATA_KIRIM_BATU_LOKAL,
   ADD_TERIMA_BATU_PUSAT,
+  getDetailKirimBatu,
 } from "../actions/terimabatu";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -17,44 +18,45 @@ const getNoKirimBatuByTanggal =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_NO_KIRIM_BATU_BY_TANGGAL) {
-      const response = await api.TerimaBatu.getNoKirimBatuByTanggal({
+      api.TerimaBatu.getNoKirimBatuByTanggal({
         tanggal: action.payload.data,
+      }).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(
+              setDataNoKirimBatuByTanggalSuccess({ feedback: res.value })
+            );
+            dispatch(
+              getDetailKirimBatu({ noKirimBatu: res.value[0]?.no_kirim_batu })
+            );
+          } else {
+            dispatch(setDataNoKirimBatuByTanggalFailed({ error: [] }));
+            dispatch(setDataDetailKirimBatuSuccess({ feedback: res.value }));
+          }
+        } else {
+          dispatch(setDataNoKirimBatuByTanggalFailed({ error: [] }));
+          dispatch(setDataDetailKirimBatuSuccess({ feedback: [] }));
+        }
       });
-      if (response.value?.data.length !== 0) {
-        dispatch(
-          setDataNoKirimBatuByTanggalSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(
-          setDataNoKirimBatuByTanggalFailed({
-            error: response.error ? response.error : response.value?.pesan,
-          })
-        );
-      }
     }
   };
 
-const getDetailKirimBatu =
+const getDetailKirimBatuAct =
   ({ api, log, writeLocal, getLocal, toast }) =>
   ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     next(action);
     if (action.type === GET_DETAIL_KIRIM_BATU) {
-      const response = await api.TerimaBatu.getDataDetailKirimBatu({
+      api.TerimaBatu.getDataDetailKirimBatu({
         noKirimBatu: action.payload.data,
+      }).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataDetailKirimBatuSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataDetailKirimBatuFailed({ error: [] }));
+        }
       });
-      if (response.value?.data.length !== 0 || response?.value !== null) {
-        dispatch(
-          setDataDetailKirimBatuSuccess({ feedback: response.value?.data })
-        );
-      } else {
-        dispatch(
-          setDataDetailKirimBatuFailed({
-            error: response.error ? response.error : response.value?.pesan,
-          })
-        );
-      }
     }
   };
 
@@ -85,23 +87,22 @@ const simpanKirimBatuPOST =
     if (action.type === ADD_TERIMA_BATU_PUSAT) {
       const data_local = getLocal("data_detail_kirim_batu");
       const data = {
-        no_kirim_batu: data_local[0].no_batu_kirim,
+        no_kirim_batu: data_local[0].no_kirim_batu,
       };
-      const response = await api.TerimaBatu.addTerimaBatuPusat({
-        dataKirim: data,
+      api.TerimaBatu.addTerimaBatuPusat({ dataKirim: data }).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(res.value.message);
+          localStorage.removeItem("data_detail_kirim_batu");
+        } else {
+          sweetalert.default.Failed(res.error.data.message);
+        }
       });
-      if (response.value !== null) {
-        sweetalert.default.Success(response.value.pesan);
-        localStorage.removeItem("data_detail_kirim_batu");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
     }
   };
 
 const data = [
   getNoKirimBatuByTanggal,
-  getDetailKirimBatu,
+  getDetailKirimBatuAct,
   simpanKirimBatuLokal,
   simpanKirimBatuPOST,
 ];

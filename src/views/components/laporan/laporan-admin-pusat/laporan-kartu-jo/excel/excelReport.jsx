@@ -26,7 +26,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="10"
+                colSpan="8"
               >
                 LAPORAN KARTU JOB ORDER
               </td>
@@ -37,7 +37,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="10"
+                colSpan="8"
               >
                 NO JOB ORDER :{this.props.dataHead?.no_job_order}
               </td>
@@ -59,9 +59,9 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                DIVISI ASAL
+                DIVISI
               </td>
-              <td
+              {/* <td
                 style={{
                   backgroundColor: "#99CCFF",
                   color: "#000",
@@ -69,8 +69,8 @@ class ExcelReport extends Component {
                 }}
               >
                 DIVISI TUJUAN
-              </td>
-              <td
+              </td> */}
+              {/* <td
                 style={{
                   backgroundColor: "#99CCFF",
                   color: "#000",
@@ -78,7 +78,7 @@ class ExcelReport extends Component {
                 }}
               >
                 TUKANG
-              </td>
+              </td> */}
               <td
                 style={{
                   backgroundColor: "#99CCFF",
@@ -140,9 +140,9 @@ class ExcelReport extends Component {
               return (
                 <tr>
                   <td>{item.tanggal}</td>
-                  <td>{item.divisi_asal}</td>
-                  <td>{item.divisi_tujuan}</td>
-                  <td>{item.kode_staff}</td>
+                  <td>{item.divisi}</td>
+                  {/* <td>{item.divisi_tujuan}</td> */}
+                  {/* <td>{item.kode_staff}</td> */}
                   <td>{item.kategori}</td>
                   <td>{item.kode_jenis_bahan}</td>
                   <td style={{ textAlign: "right" }}>{item.berat_in}</td>
@@ -155,7 +155,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={6}>Total :</td>
+              <td colSpan={4}>Total :</td>
               <td>
                 {this.props.dataExel
                   .reduce((a, b) => a + parseFloat(b.berat_in), 0)

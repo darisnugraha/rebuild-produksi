@@ -2,10 +2,13 @@
 import {
   SET_DATA_DIVISI_SUCCESS,
   SET_DATA_DIVISI_FAILED,
+  SET_TUKANG_DIVISI_FAILED,
+  SET_TUKANG_DIVISI_SUCCESS,
 } from "../actions/kirimbahanadmin";
 
 const initialState = {
   feedback: [],
+  feedbackTukang: [],
   error: null,
   isEdit: false,
 };
@@ -21,6 +24,16 @@ const kirimbahanadmin = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_SUCCESS:
+      return {
+        ...state,
+        feedbackTukang: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_FAILED:
+      return {
+        ...state,
+        feedbackTukang: action.payload.data,
       };
     default:
       return state;

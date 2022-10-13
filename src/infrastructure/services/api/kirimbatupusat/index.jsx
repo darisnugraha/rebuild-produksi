@@ -10,9 +10,8 @@ const KirimBatuPusat = {
     return response;
   },
   getDetailBatu: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_DETAIL_BATU_KIRIM_PUSAT,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_DETAIL_BATU_KIRIM_PUSAT + dataKirim,
     });
     return response;
   },

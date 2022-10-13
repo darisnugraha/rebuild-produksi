@@ -10,7 +10,7 @@ import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
 import {
   addAmbilBatu,
   addTambahBatu,
-  countBeratTambahAmbilBatu,
+  // countBeratTambahAmbilBatu,
 } from "../../../../application/actions/tambahambilbatu";
 
 const maptostate = (state) => {
@@ -20,7 +20,7 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
           nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
-          berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          // berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
           jumlah: state.tambahambilbatu.jumlah,
           berat: state.tambahambilbatu.beratTambahAmbilBatu,
           keterangan: "",
@@ -32,7 +32,7 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
           nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
-          berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          // berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
           jumlah: state.tambahambilbatu.jumlah,
           berat: state.tambahambilbatu.beratTambahAmbilBatu,
           keterangan: "",
@@ -45,7 +45,7 @@ const maptostate = (state) => {
       initialValues: {
         kode_batu: "",
         nama_batu: "",
-        berat_batu: "",
+        // berat_batu: "",
         jumlah: state.tambahambilbatu.jumlah,
         berat: state.tambahambilbatu.beratTambahAmbilBatu,
         keterangan: "",
@@ -105,7 +105,7 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} style={{ display: "none" }}>
             <Field
               name="berat_batu"
               type="text"
@@ -130,10 +130,10 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               placeholder={
                 isAdd ? "Masukkan Jumlah Tambah" : "Masukkan Jumlah Ambil"
               }
-              onBlur={(e) => {
-                e.preventDefault();
-                dispatch(countBeratTambahAmbilBatu({ jumlah: e.target.value }));
-              }}
+              // onBlur={(e) => {
+              //   e.preventDefault();
+              //   dispatch(countBeratTambahAmbilBatu({ jumlah: e.target.value }));
+              // }}
             />
           </Col>
           <Col offset={1}>
@@ -144,7 +144,7 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat"
-              disabled
+              disabled={false}
             />
           </Col>
           <Col offset={1}>

@@ -30,7 +30,7 @@ const pdfReport = (data = "") => {
         content: `NO POHON`,
       },
       {
-        content: `KODE JENIS BAHAN`,
+        content: `JENIS BAHAN`,
       },
       {
         content: `BERAT AWAL`,
@@ -59,7 +59,7 @@ const pdfReport = (data = "") => {
         content: element.no_pohon,
       },
       {
-        content: element.kode_jenis_bahan,
+        content: element.nama_jenis_bahan,
       },
       {
         content: element.berat_awal,

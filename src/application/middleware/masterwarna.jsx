@@ -18,12 +18,13 @@ const masterwarnaGetAllData =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_WARNA) {
-      const response = await api.MasterWarna.getAllMasterWarna();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterWarnaSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterWarnaFailed({ error: response.error }));
-      }
+      api.MasterWarna.getAllMasterWarna().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterWarnaSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterWarnaFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,14 @@ const masterwarnaGetDataID =
     next(action);
     if (action.type === GET_MASTER_WARNA_ID) {
       dispatch(setEditFormMasterWarna(true));
-      const dataMasterWarna = getState().masterwarna.feedback;
-      const dataMasterWarnaFilter = dataMasterWarna.filter((item) => {
-        return item.kode_warna === action.payload;
+      const id = action.payload;
+      api.MasterWarna.getMasterWarnaByID(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterWarnaEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterWarnaEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(setDataMasterWarnaEdit({ dataEdit: dataMasterWarnaFilter }));
     }
   };
 
@@ -51,13 +55,13 @@ const addDataMasterWarna =
     next(action);
     if (action.type === ADD_MASTER_WARNA) {
       const data = getState().form.FormTambahMasterWarna.values;
-      const response = await api.MasterWarna.addMasterWarna(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterWarna.addMasterWarna(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(res.error.data.message);
+        }
+      });
     }
   };
 
@@ -68,16 +72,16 @@ const deleteDataMasterWarna =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_WARNA) {
-      const data = {
-        kode_warna: action.payload.data,
-      };
-      const response = await api.MasterWarna.deleteMasterWarna(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterWarna.deleteMasterWarna("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -89,13 +93,18 @@ const editDataMasterWarna =
     next(action);
     if (action.type === EDIT_MASTER_WARNA) {
       const data = getState().form.FormTambahMasterWarna.values;
-      const response = await api.MasterWarna.editMasterWarna(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      const dataKirim = {
+        kode_warna: data.kode_warna,
+        nama_warna: data.nama_warna,
+      };
+      api.MasterWarna.editMasterWarna("/" + id, dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(res.error.data.message);
+        }
+      });
     }
   };
 

@@ -33,7 +33,7 @@ const TableMasterKondisi = () => {
       confirmButtonText: "Ya",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMasterKondisi({ id: nama }));
+        dispatch(deleteMasterKondisi({ id: kode }));
       }
     });
   };
@@ -61,7 +61,13 @@ const TableMasterKondisi = () => {
       align: "right",
       children: [
         {
-          title: "Kondisi",
+          title: "Kode Kondisi",
+          dataIndex: "kode_kondisi",
+          key: "kode_kondisi",
+          align: "center",
+        },
+        {
+          title: "Nama Kondisi",
           dataIndex: "nama_kondisi",
           key: "nama_kondisi",
           align: "center",
@@ -81,7 +87,7 @@ const TableMasterKondisi = () => {
                     onClick={() => {
                       dispatch(
                         getMasterKondisiByID({
-                          dataID: text.kondisi,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -93,7 +99,7 @@ const TableMasterKondisi = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_kondisi, text.nama_kondisi);
+                      onDelete(text._id, text.nama_kondisi);
                     }}
                   >
                     DELETE

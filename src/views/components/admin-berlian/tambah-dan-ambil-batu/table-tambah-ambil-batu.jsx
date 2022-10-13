@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Input, Space, Table, Button } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
-import MasterBatu from "../../../../application/selectors/masterbatu";
+// import MasterBatu from "../../../../application/selectors/masterbatu";
 import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
 import {
   getTambahAmbilBatuByID,
@@ -15,7 +15,7 @@ import { destroy } from "redux-form";
 
 const TableMasterTambahAmbilBatu = () => {
   const dispatch = useDispatch();
-  const dataMasterBatu = useSelector(MasterBatu.getAllMasterBatu);
+  const dataMasterBatu = useSelector(TambahAmbilBatu.getAllTambahAmbilBatu);
 
   const [dataSource, setDataSource] = useState(dataMasterBatu);
   const [value, setValue] = useState("");
@@ -36,8 +36,8 @@ const TableMasterTambahAmbilBatu = () => {
             entry.nama_batu.includes(currValue.toUpperCase()) ||
             entry.kode_jenis_batu.includes(currValue.toUpperCase()) ||
             entry.kode_cutting_batu.includes(currValue.toUpperCase()) ||
-            entry.ukuran.includes(currValue.toUpperCase()) ||
-            entry.berat_batu.includes(currValue.toUpperCase())
+            entry.ukuran.includes(currValue.toUpperCase())
+          // entry.berat_batu.includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);
@@ -64,35 +64,47 @@ const TableMasterTambahAmbilBatu = () => {
           align: "center",
         },
         {
-          title: "Nama Batu",
-          dataIndex: "nama_batu",
-          key: "nama_batu",
+          title: "Jumlah Batu",
+          dataIndex: "jumlah",
+          key: "jumlah",
           align: "center",
         },
         {
-          title: "Ukuran",
-          dataIndex: "ukuran",
-          key: "ukuran",
+          title: "Berat Batu",
+          dataIndex: "berat",
+          key: "berat",
           align: "center",
         },
-        {
-          title: "Jenis Batu",
-          dataIndex: "kode_jenis_batu",
-          key: "kode_jenis_batu",
-          align: "center",
-        },
-        {
-          title: "Cuttin Batu",
-          dataIndex: "kode_cutting_batu",
-          key: "kode_cutting_batu",
-          align: "center",
-        },
-        {
-          title: "Berat",
-          dataIndex: "berat_batu",
-          key: "berat_batu",
-          align: "center",
-        },
+        // {
+        //   title: "Nama Batu",
+        //   dataIndex: "nama_batu",
+        //   key: "nama_batu",
+        //   align: "center",
+        // },
+        // {
+        //   title: "Ukuran",
+        //   dataIndex: "ukuran",
+        //   key: "ukuran",
+        //   align: "center",
+        // },
+        // {
+        //   title: "Jenis Batu",
+        //   dataIndex: "kode_jenis_batu",
+        //   key: "kode_jenis_batu",
+        //   align: "center",
+        // },
+        // {
+        //   title: "Cuttin Batu",
+        //   dataIndex: "kode_cutting_batu",
+        //   key: "kode_cutting_batu",
+        //   align: "center",
+        // },
+        // {
+        //   title: "Berat",
+        //   dataIndex: "berat_batu",
+        //   key: "berat_batu",
+        //   align: "center",
+        // },
         {
           title: "Action",
           key: "act",

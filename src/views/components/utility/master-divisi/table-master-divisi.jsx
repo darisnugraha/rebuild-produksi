@@ -63,14 +63,14 @@ const TableMasterDivisi = () => {
       children: [
         {
           title: "Kode Divisi",
-          dataIndex: "kode_divisi",
-          key: "kode_divisi",
+          dataIndex: "_id",
+          key: "_id",
           align: "center",
         },
         {
           title: "Nama Divisi",
-          dataIndex: "nama_divisi",
-          key: "nama_divisi",
+          dataIndex: "divisi",
+          key: "divisi",
           align: "center",
         },
         {
@@ -88,7 +88,7 @@ const TableMasterDivisi = () => {
                     onClick={() => {
                       dispatch(
                         getMasterDivisiByID({
-                          dataID: text.kode_divisi,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -100,7 +100,7 @@ const TableMasterDivisi = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_divisi, text.nama_divisi);
+                      onDelete(text._id, text.nama_divisi);
                     }}
                   >
                     DELETE

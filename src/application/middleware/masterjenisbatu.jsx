@@ -18,14 +18,13 @@ const masterJenisBatuGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_JENIS_BATU) {
-      const response = await api.MasterJenisBatu.getAllMasterJenisBatu();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataMasterJenisBatuSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataMasterJenisBatuFailed({ error: response.error }));
-      }
+      api.MasterJenisBatu.getAllMasterJenisBatu().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterJenisBatuSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterJenisBatuFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -37,13 +36,14 @@ const masterJenisBatuGetDataID =
     next(action);
     if (action.type === GET_MASTER_JENIS_BATU_ID) {
       dispatch(setEditFormMasterJenisBatu(true));
-      const dataMasterJenisBatu = getState().masterjenisbatu.feedback;
-      const dataMasterJenisBatuFilter = dataMasterJenisBatu.filter((item) => {
-        return item.kode_jenis_batu === action.payload;
+      const id = action.payload;
+      api.MasterJenisBatu.getMasterJenisBatuByID(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterJenisBatuEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterJenisBatuEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(
-        setDataMasterJenisBatuEdit({ dataEdit: dataMasterJenisBatuFilter })
-      );
     }
   };
 const addDataMasterJenisBatu =
@@ -54,13 +54,15 @@ const addDataMasterJenisBatu =
     next(action);
     if (action.type === ADD_MASTER_JENIS_BATU) {
       const data = getState().form.FormTambahMasterJenisBatu.values;
-      const response = await api.MasterJenisBatu.addMasterJenisBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterJenisBatu.addMasterJenisBatu(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -71,16 +73,16 @@ const deleteDataMasterJenisBatu =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_JENIS_BATU) {
-      const data = {
-        kode_jenis_batu: action.payload.data,
-      };
-      const response = await api.MasterJenisBatu.deleteMasterJenisBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterJenisBatu.deleteMasterJenisBatu("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -92,13 +94,22 @@ const editDataMasterJenisBatu =
     next(action);
     if (action.type === EDIT_MASTER_JENIS_BATU) {
       const data = getState().form.FormTambahMasterJenisBatu.values;
-      const response = await api.MasterJenisBatu.editMasterJenisBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      const data_kirim = {
+        kode_jenis_batu: data.kode_jenis_batu,
+        nama_jenis_batu: data.nama_jenis_batu,
+      };
+      api.MasterJenisBatu.editMasterJenisBatu("/" + id, data_kirim).then(
+        (res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Merubah Data !");
+          } else {
+            sweetalert.default.Failed(
+              res.error.data.message || "Gagal Merubah Data !"
+            );
+          }
+        }
+      );
     }
   };
 

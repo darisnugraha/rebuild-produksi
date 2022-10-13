@@ -15,15 +15,17 @@ const maptostate = (state) => {
   if (state.masterkondisi.dataEdit.length !== 0) {
     return {
       initialValues: {
-        nama_kondisi: state.masterkondisi.dataEdit[0]?.nama_kondisi,
-        kode_kondisi: state.masterkondisi.dataEdit[0]?.kode_kondisi,
+        id: state.masterkondisi.dataEdit?._id,
+        kode_kondisi: state.masterkondisi.dataEdit?.kode_kondisi,
+        nama_kondisi: state.masterkondisi.dataEdit?.nama_kondisi,
       },
     };
   } else {
     return {
       initialValues: {
-        nama_kondisi: "",
+        id: "",
         kode_kondisi: "",
+        nama_kondisi: "",
       },
     };
   }
@@ -59,12 +61,23 @@ let FormTambahMasterKondisi = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1} style={{ display: "none" }}>
             <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
               name="kode_kondisi"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Kondisi</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Kondisi"
+              disabled={isEdit ? true : false}
             />
           </Col>
           <Col offset={1}>

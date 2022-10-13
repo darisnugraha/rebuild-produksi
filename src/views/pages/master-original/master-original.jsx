@@ -10,12 +10,15 @@ import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import TableMasterOriginal from "../../components/master-original/table-master-original";
 import { getAllMasterOriginal } from "../../../application/actions/masteroriginal.jsx";
+import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
+import ModalMasterOriginal from "../../components/master-original/button-master-original";
 
 const MasterOriginal = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterOriginal);
+    dispatch(getAllMasterJenisBahan);
     document.title = "Master Original";
   }, [dispatch]);
 
@@ -38,6 +41,16 @@ const MasterOriginal = () => {
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
+              <div className="col-12">
+                <ModalMasterOriginal />
+              </div>
+            </div>
+            <div
+              className="row"
+              style={{
+                marginTop: 10,
+              }}
+            >
               <div className="col-12">
                 <TableMasterOriginal />
               </div>

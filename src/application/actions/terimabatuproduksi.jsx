@@ -20,3 +20,22 @@ export const setDataKirimBatuFailed = ({ error }) => ({
 export const addTerimaBatuProduksi = {
   type: ADD_TERIMA_BATU_PRODUKSI,
 };
+
+export const GET_KIRIM_BATU_LOCAL = "[terimabatuproduksi] get kirim batu local";
+export const SET_DATA_KIRIM_BATU_LOCAL_SUCCESS =
+  "[terimabatuproduksi] get  kirim batu local success";
+export const SET_DATA_KIRIM_BATU_LOCAL_FAILED =
+  "[terimabatuproduksi] get  kirim batu local failed";
+
+export const getKirimBatuByLocal = (onsend) => ({
+  type: GET_KIRIM_BATU_LOCAL,
+  payload: { data: onsend },
+});
+export const setDataKirimBatuLocalSuccess = ({ feedback }) => ({
+  type: SET_DATA_KIRIM_BATU_LOCAL_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataKirimBatuLocalFailed = ({ error }) => ({
+  type: SET_DATA_KIRIM_BATU_LOCAL_FAILED,
+  payload: { data: error },
+});

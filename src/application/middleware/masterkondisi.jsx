@@ -18,14 +18,13 @@ const masterKondisiGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_KONDISI) {
-      const response = await api.MasterKondisi.getAllMasterKondisi();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataMasterKondisiSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataMasterKondisiFailed({ error: response.error }));
-      }
+      api.MasterKondisi.getAllMasterKondisi().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterKondisiSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterKondisiFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -37,11 +36,14 @@ const masterKondisiGetDataID =
     next(action);
     if (action.type === GET_MASTER_KONDISI_ID) {
       dispatch(setEditFormMasterKondisi(true));
-      const dataMasterKondisi = getState().masterkondisi.feedback;
-      const dataMasterKondisiFilter = dataMasterKondisi.filter((item) => {
-        return item.kondisi === action.payload;
+      const id = action.payload;
+      api.MasterKondisi.getMasterKondisiById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterKondisiEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterKondisiEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(setDataMasterKondisiEdit({ dataEdit: dataMasterKondisiFilter }));
     }
   };
 
@@ -53,14 +55,15 @@ const addDataMasterKondisi =
     next(action);
     if (action.type === ADD_MASTER_KONDISI) {
       const data = getState().form.FormTambahMasterKondisi.values;
-      delete data.kode_kondisi;
-      const response = await api.MasterKondisi.addMasterKondisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterKondisi.addMasterKondisi(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -71,16 +74,16 @@ const deleteDataMasterKondisi =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_KONDISI) {
-      const data = {
-        nama_kondisi: action.payload.data,
-      };
-      const response = await api.MasterKondisi.deleteMasterKondisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterKondisi.deleteMasterKondisi("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -92,13 +95,17 @@ const editDataMasterKondisi =
     next(action);
     if (action.type === EDIT_MASTER_KONDISI) {
       const data = getState().form.FormTambahMasterKondisi.values;
-      const response = await api.MasterKondisi.editMasterKondisi(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      delete data.id;
+      api.MasterKondisi.editMasterKondisi("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
     }
   };
 

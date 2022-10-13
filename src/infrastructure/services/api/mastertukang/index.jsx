@@ -9,6 +9,10 @@ const MasterTukang = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_TUKANG });
     return response;
   },
+  getMasterTukangById: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_TUKANG_BY_ID + id });
+    return response;
+  },
   addMasterTukang: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_TUKANG,

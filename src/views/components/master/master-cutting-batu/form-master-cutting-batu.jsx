@@ -15,15 +15,15 @@ const maptostate = (state) => {
   if (state.mastercuttingbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_cutting_batu:
-          state.mastercuttingbatu.dataEdit[0]?.kode_cutting_batu,
-        nama_cutting_batu:
-          state.mastercuttingbatu.dataEdit[0]?.nama_cutting_batu,
+        id: state.mastercuttingbatu.dataEdit?._id,
+        kode_cutting_batu: state.mastercuttingbatu.dataEdit?.kode_cutting_batu,
+        nama_cutting_batu: state.mastercuttingbatu.dataEdit?.nama_cutting_batu,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_cutting_batu: "",
         nama_cutting_batu: "",
       },
@@ -59,6 +59,17 @@ let FormTambahMasterCuttingBatu = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="kode_cutting_batu"

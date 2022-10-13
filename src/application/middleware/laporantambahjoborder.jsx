@@ -45,40 +45,30 @@ const getAllDataLaporanTambahJobOrder =
         };
         writeLocal("laporan_tambah_job_order", dataOnsend);
 
-        const response =
-          await api.LaporanTambahJobOrder.getAllLaporanTambahJobOrder(
-            dataOnsend
-          );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
+        api.LaporanTambahJobOrder.getAllLaporanTambahJobOrder(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong");
+                dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanTambahJobOrderSuccess({ feedback: res.value })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
+              );
+              dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
               dispatch(
-                setDataLaporanTambahJobOrderSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanTambahJobOrderFailed({ error: res.error })
               );
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTambahJobOrderSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTambahJobOrderFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanTambahJobOrderFailed({ error: response.error })
-          );
-        }
+        );
       }
     }
   };

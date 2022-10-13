@@ -17,18 +17,17 @@ const getDataDetailPohon =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_DETAIL_POHON) {
-      const response = await api.TerimaCOR.getDetailPohon(action.payload.data);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataDetailPohonSuccess({ feedback: response.value.data }));
-        dispatch(setNoPohon({ feedback: action.payload.data }));
-      } else {
-        if (response.error === null) {
-          sweetalert.default.Failed(response.value?.pesan);
-          dispatch(setDataDetailPohonFailed({ error: response.value.pesan }));
+      api.TerimaCOR.getDetailPohon(action.payload.data).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataDetailPohonSuccess({ feedback: res.value }));
+          dispatch(setNoPohon({ feedback: action.payload.data }));
         } else {
-          dispatch(setDataDetailPohonFailed({ error: response.error }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengambil Data !"
+          );
+          dispatch(setDataDetailPohonFailed({ error: res.error }));
         }
-      }
+      });
     }
   };
 
@@ -59,16 +58,22 @@ const addDataTerimaCor =
       data.berat = parseFloat(data.berat);
       data.berat_susut = parseFloat(data.berat_susut);
       data.berat_terima = parseFloat(data.berat_terima);
-      const response = await api.TerimaCOR.addTerimaCOR(data);
-      if (response.value !== null) {
-        if (response.value.status === "berhasil") {
-          sweetalert.default.Success(response.value?.pesan);
+      const dataKirim = {
+        no_pohon: data.pohon,
+        kode_jenis_bahan: data.kode_jenis_bahan,
+        berat_awal: data.berat,
+        berat_terima: data.berat_terima,
+        berat_susut: data.berat_susut,
+      };
+      api.TerimaCOR.addTerimaCOR(dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menerima Casting !"
+          );
         } else {
-          sweetalert.default.Failed(response.value?.pesan);
+          sweetalert.default.Failed(res.error?.data.message);
         }
-      } else {
-        sweetalert.default.Failed(response.error?.data.pesan);
-      }
+      });
     }
   };
 

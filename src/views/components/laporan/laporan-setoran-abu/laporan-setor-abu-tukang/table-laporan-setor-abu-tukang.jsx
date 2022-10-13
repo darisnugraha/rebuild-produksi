@@ -20,14 +20,14 @@ const TableLaporanSetorAbuTukang = () => {
     },
     {
       title: "Divisi",
-      dataIndex: "nama_divisi",
-      key: "nama_divisi",
+      dataIndex: "divisi",
+      key: "divisi",
       align: "center",
     },
     {
       title: "Tukang",
-      dataIndex: "kode_staff",
-      key: "kode_staff",
+      dataIndex: "kode_tukang",
+      key: "kode_tukang",
       align: "center",
     },
     {

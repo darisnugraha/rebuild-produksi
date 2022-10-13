@@ -88,7 +88,7 @@ const TableMasterBahan = () => {
                     onClick={() => {
                       dispatch(
                         getMasterBahanByID({
-                          dataID: text.kode_bahan,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -100,7 +100,7 @@ const TableMasterBahan = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.nama_bahan, text.nama_bahan);
+                      onDelete(text._id, text.nama_bahan);
                     }}
                   >
                     DELETE

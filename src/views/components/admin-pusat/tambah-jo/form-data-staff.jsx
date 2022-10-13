@@ -14,14 +14,14 @@ const maptostate = (state) => {
   if (state.mastertukang.feedback !== undefined) {
     return {
       initialValues: {
-        staff: state.mastertukang.feedback[0]?.kode_staff,
+        staff: state.mastertukang.feedback[0]?.kode_tukang,
         nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
       },
     };
   } else {
     return {
       initialValues: {
-        staff: state.mastertukang.feedback[0]?.kode_staff,
+        staff: state.mastertukang.feedback[0]?.kode_tukang,
         nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
       },
     };
@@ -59,9 +59,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataStaff.map((item) => {
                 return (
-                  <Option value={item.kode_staff} key={item.kode_staff}>
+                  <Option value={item.kode_tukang} key={item._id}>
                     <span style={{ fontSize: "13px" }}>
-                      {item.nama_staff + " (" + item.kode_staff + ")"}
+                      {item.nama_tukang + " (" + item.kode_tukang + ")"}
                     </span>
                   </Option>
                 );
@@ -89,7 +89,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                  <Option value={item.kode_bahan} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );

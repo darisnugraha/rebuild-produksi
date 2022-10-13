@@ -16,12 +16,12 @@ const maptostate = (state) => {
   if (state.closejo.feedback.length !== 0) {
     return {
       initialValues: {
-        no_job_order: state.closejo.feedback[0].no_job_order,
-        lokasi_job_order: state.closejo.feedback[0].nama_divisi,
-        kode_barang: state.closejo.feedback[0].kode_barang,
-        nama_barang: state.closejo.feedback[0].nama_barang,
-        kode_jenis_bahan: state.closejo.feedback[0].kode_jenis_bahan,
-        berat_asal: state.closejo.feedback[0].berat_out,
+        no_job_order: state.closejo.feedback.no_job_order,
+        lokasi_job_order: state.closejo.feedback.divisi,
+        kode_barang: state.closejo.feedback.kode_barang,
+        nama_barang: state.closejo.feedback.nama_barang,
+        kode_jenis_bahan: state.closejo.feedback.kode_jenis_bahan,
+        berat_asal: state.closejo.feedback.berat_out,
         berat_close: state.closejo.beratClose,
         berat_akhir: state.closejo.beratAkhir,
       },
@@ -131,7 +131,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Close"
-              onBlur={(e) => {
+              onChange={(e) => {
                 dispatch(countBeratAkhir({ beratTerima: e.target.value }));
               }}
             />

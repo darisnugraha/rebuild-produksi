@@ -15,13 +15,15 @@ const maptostate = (state) => {
   if (state.masterjenis.isEdit) {
     return {
       initialValues: {
-        kode_jenis: state.masterjenis.dataEdit[0]?.kode_jenis,
-        nama_jenis: state.masterjenis.dataEdit[0]?.nama_jenis,
+        _id: state.masterjenis.dataEdit._id,
+        kode_jenis: state.masterjenis.dataEdit.kode_jenis,
+        nama_jenis: state.masterjenis.dataEdit.nama_jenis,
       },
     };
   } else {
     return {
       initialValues: {
+        _id: "",
         kode_jenis: "",
         nama_jenis: "",
       },
@@ -57,6 +59,17 @@ let FormTambahMasterJenis = ({ visible, onCreate, onCancel, onEdit }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="kode_jenis"

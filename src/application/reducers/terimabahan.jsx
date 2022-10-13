@@ -6,6 +6,16 @@ import {
   SET_DATA_SALDO_KIRIM_BAHAN_OPEN_FAILED,
   SET_KODE_STAFF,
   SET_BAHAN,
+  SET_DATA_BAHAN_SUCCESS,
+  SET_DATA_BAHAN_FAILED,
+  SET_BERAT,
+  SET_DIVISI,
+  SET_TUKANG_DIVISI_SUCCESS,
+  SET_TUKANG_DIVISI_FAILED,
+  SET_DETAIL_BAHAN_SUCCESS,
+  SET_DETAIL_BAHAN_FAILED,
+  SET_TUKANG_DIVISI_PUSAT_SUCCESS,
+  SET_TUKANG_DIVISI_PUSAT_FAILED,
 } from "../actions/terimabahan";
 
 const initialState = {
@@ -16,7 +26,11 @@ const initialState = {
   errorBerat: null,
   isEdit: false,
   kodeStaff: null,
-  noTransaksi: null,
+  namaBahan: null,
+  berat: 0,
+  divisi: "",
+  feedbackTukang: [],
+  feedbackTukangByTukang: [],
 };
 
 const terimabahan = (state = initialState, action) => {
@@ -49,7 +63,57 @@ const terimabahan = (state = initialState, action) => {
     case SET_BAHAN:
       return {
         ...state,
-        noTransaksi: action.payload.data,
+        namaBahan: action.payload.data,
+      };
+    case SET_BERAT:
+      return {
+        ...state,
+        berat: action.payload.data,
+      };
+    case SET_DATA_BAHAN_SUCCESS:
+      return {
+        ...state,
+        feedback: action.payload.data,
+      };
+    case SET_DATA_BAHAN_FAILED:
+      return {
+        ...state,
+        feedback: [],
+      };
+    case SET_DIVISI:
+      return {
+        ...state,
+        divisi: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_SUCCESS:
+      return {
+        ...state,
+        feedbackTukang: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_FAILED:
+      return {
+        ...state,
+        feedbackTukang: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_PUSAT_SUCCESS:
+      return {
+        ...state,
+        feedbackTukangByTukang: action.payload.data,
+      };
+    case SET_TUKANG_DIVISI_PUSAT_FAILED:
+      return {
+        ...state,
+        feedbackTukangByTukang: action.payload.data,
+      };
+    case SET_DETAIL_BAHAN_SUCCESS:
+      return {
+        ...state,
+        detailBahan: action.payload.data,
+      };
+    case SET_DETAIL_BAHAN_FAILED:
+      return {
+        ...state,
+        detailBahan: undefined,
       };
     default:
       return state;

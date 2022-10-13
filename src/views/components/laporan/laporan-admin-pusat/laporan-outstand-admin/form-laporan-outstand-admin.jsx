@@ -11,19 +11,11 @@ import { getAllLaporanOutstandAdmin } from "../../../../../application/actions/l
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanOutstandAdmin?.values !== undefined) {
-    return {
-      initialValues: {
-        tukang: state.form.FormLaporanOutstandAdmin?.values.tukang,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        tukang: state.mastertukang.feedback[0]?.kode_staff,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+    },
+  };
 };
 
 let FormLaporanOutstandAdmin = (prop) => {
@@ -34,7 +26,7 @@ let FormLaporanOutstandAdmin = (prop) => {
   return (
     <Form layout="vertical">
       <Row>
-        <Col>
+        <Col span={6}>
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
@@ -45,11 +37,11 @@ let FormLaporanOutstandAdmin = (prop) => {
           >
             {dataMasterTukang.map((item) => {
               return (
-                <Option value={item.kode_staff} key={item.kode_staff}>
+                <Option value={item.kode_tukang} key={item.kode_tukang}>
                   <span style={{ fontSize: "13px" }}>
-                    {item.kode_staff === item.nama_staff
-                      ? item.nama_staff
-                      : item.nama_staff + " (" + item.kode_staff + ")"}
+                    {item.kode_tukang === item.nama_tukang
+                      ? item.nama_tukang
+                      : item.nama_tukang + " (" + item.kode_tukang + ")"}
                   </span>
                 </Option>
               );

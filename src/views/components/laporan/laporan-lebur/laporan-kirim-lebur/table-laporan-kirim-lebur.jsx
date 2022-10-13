@@ -8,14 +8,14 @@ const TableLaporanKirimLebur = () => {
   const columns = [
     {
       title: "No Kirim",
-      dataIndex: "no_kirim",
-      key: "no_kirim",
+      dataIndex: "no_kirim_lebur",
+      key: "no_kirim_lebur",
       align: "center",
     },
     {
       title: "Tanggal Kirim",
-      dataIndex: "tgl_kirim",
-      key: "tgl_kirim",
+      dataIndex: "tanggal_kirim",
+      key: "tanggal_kirim",
       align: "center",
     },
     {
@@ -82,7 +82,7 @@ const TableLaporanKirimLebur = () => {
               {dataLaporanKirimLebur
                 .reduce(
                   (a, b) =>
-                    a + (parseFloat(b.berat) * (parseFloat(b.kadar) / 100)),
+                    a + parseFloat(b.berat) * (parseFloat(b.kadar) / 100),
                   0
                 )
                 .toFixed(3)}

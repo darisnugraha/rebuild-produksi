@@ -8,6 +8,7 @@ import {
   setDataBeratPentolan,
   SET_SUSUT,
   ADD_TERIMA_TUKANG_POTONG,
+  setDataJenisBahan,
 } from "../actions/terimatukangpotong";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -18,36 +19,36 @@ const getDataPohon =
   async (action) => {
     next(action);
     if (action.type === GET_TERIMA_TUKANG_POTONG) {
-      const response = await api.TerimaTukangPotong.getTerimaTukangPotong({
-        data: action.payload.data,
-      });
       dispatch(setNoPohon({ feedback: action.payload.data }));
-      log(response);
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          dispatch(
-            setDataTerimaTukangPotongSuccess({ feedback: response.value.data })
-          );
+      api.TerimaTukangPotong.getTerimaTukangPotong({
+        data: action.payload.data,
+      }).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setDataTerimaTukangPotongSuccess({ feedback: res.value }));
+            api.TerimaTukangPotong.getTerimaTukangPotongJenisBahan({
+              data: res.value[0].kode_jenis_bahan,
+            }).then((res) => {
+              if (res.value !== null) {
+                dispatch(setDataJenisBahan({ feedback: res.value }));
+              } else {
+                dispatch(setDataJenisBahan({ feedback: res.error }));
+              }
+            });
+          } else {
+            sweetalert.default.Failed("Data Tidak Ada !");
+          }
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengambil Data !"
+          );
           dispatch(setDataSusutSuccess({ feedback: "" }));
           dispatch(setDataBeratTerima({ beratTerima: "" }));
           dispatch(setDataBeratPentolan({ beratPentolan: "" }));
           dispatch(setDataTerimaTukangPotongSuccess({ feedback: [] }));
-          dispatch(
-            setDataTerimaTukangPotongFailed({ error: response.value.pesan })
-          );
+          dispatch(setDataTerimaTukangPotongFailed({ error: res.error }));
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataSusutSuccess({ feedback: "" }));
-        dispatch(setDataBeratTerima({ beratTerima: "" }));
-        dispatch(setDataBeratPentolan({ beratPentolan: "" }));
-        dispatch(setDataTerimaTukangPotongSuccess({ feedback: [] }));
-        dispatch(
-          setDataTerimaTukangPotongFailed({ error: response.error.data.pesan })
-        );
-      }
+      });
     }
   };
 
@@ -87,16 +88,22 @@ const addDataTerimaTukangPotong =
         data.berat_susut = parseFloat(data.berat_susut);
         data.berat_terima = parseFloat(data.berat_terima);
         data.berat_barang = parseFloat(data.berat_barang);
-        const response = await api.TerimaTukangPotong.addTerimaPotong(data);
-        if (response.value !== null) {
-          if (response.value.status === "berhasil") {
-            sweetalert.default.Success(response.value?.pesan);
+        const dataKirim = {
+          no_pohon: data.pohon.toUpperCase(),
+          kode_jenis_bahan: data.kode_jenis_bahan.toUpperCase(),
+          nama_jenis_bahan: data.nama_jenis_bahan.toUpperCase(),
+          berat_awal: data.berat,
+          berat_pentolan: data.berat_terima,
+          berat_barang: data.berat_barang,
+          berat_susut: data.berat_susut,
+        };
+        api.TerimaTukangPotong.addTerimaPotong(dataKirim).then((res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success(res.value?.message);
           } else {
-            sweetalert.default.Failed(response.value?.pesan);
+            sweetalert.default.Failed(res.error?.data.message);
           }
-        } else {
-          sweetalert.default.Failed(response.error?.data.pesan);
-        }
+        });
       } else {
         sweetalert.default.Failed("Mohon Isi Form Terlebih Dahulu !");
       }

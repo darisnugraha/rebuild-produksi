@@ -47,13 +47,13 @@ const pdfReport = (data = "") => {
   data.forEach((element) => {
     const row = [
       {
-        content: element.no_terima,
+        content: element.no_terima_masak,
       },
       {
-        content: element.tgl_terima,
+        content: element.tanggal_terima,
       },
       {
-        content: element.no_kirim,
+        content: element.no_kirim_masak,
       },
       {
         content: element.nama_bahan,

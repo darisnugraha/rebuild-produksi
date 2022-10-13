@@ -14,7 +14,7 @@ const maptostate = (state) => {
   if (state.kirimmasak.feedback.length !== 0) {
     return {
       initialValues: {
-        no_terima_lebur: state.kirimmasak.feedback[0]?.no_terima,
+        no_terima_lebur: state.kirimmasak.feedback[0]?.no_terima_lebur,
         berat: state.kirimmasak.feedback[0]?.berat_kirim,
         kadar: state.kirimmasak.beratTerima,
         karat: state.kirimmasak.karat24,

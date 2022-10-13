@@ -14,8 +14,8 @@ const TableLaporanPembuatanJenisBahan = () => {
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_mutasi",
-      key: "tgl_mutasi",
+      dataIndex: "tanggal_mutasi",
+      key: "tanggal_mutasi",
       align: "center",
     },
     {

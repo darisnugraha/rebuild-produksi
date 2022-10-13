@@ -14,8 +14,8 @@ const TableLaporanTerimaBatu = () => {
     },
     {
       title: "Tanggal Terima",
-      dataIndex: "tgl_terima",
-      key: "tgl_terima",
+      dataIndex: "tanggal_terima",
+      key: "tanggal_terima",
       align: "center",
     },
     {

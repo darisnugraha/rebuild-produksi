@@ -52,8 +52,8 @@ const TableMasterBatu = () => {
             entry.nama_batu.includes(currValue.toUpperCase()) ||
             entry.kode_jenis_batu.includes(currValue.toUpperCase()) ||
             entry.kode_cutting_batu.includes(currValue.toUpperCase()) ||
-            entry.ukuran.includes(currValue.toUpperCase()) ||
-            entry.berat_batu.includes(currValue.toUpperCase())
+            entry.ukuran.includes(currValue.toUpperCase())
+          // entry.berat_batu.includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);
@@ -96,12 +96,12 @@ const TableMasterBatu = () => {
           key: "kode_cutting_batu",
           align: "center",
         },
-        {
-          title: "Berat",
-          dataIndex: "berat_batu",
-          key: "berat_batu",
-          align: "center",
-        },
+        // {
+        //   title: "Berat",
+        //   dataIndex: "berat_batu",
+        //   key: "berat_batu",
+        //   align: "center",
+        // },
         {
           title: "Action",
           key: "act",
@@ -115,7 +115,7 @@ const TableMasterBatu = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      dispatch(getMasterBatuByID({ dataID: text.kode_batu }));
+                      dispatch(getMasterBatuByID({ dataID: text._id }));
                     }}
                   >
                     EDIT
@@ -125,7 +125,7 @@ const TableMasterBatu = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_batu, text.nama_batu);
+                      onDelete(text._id, text.nama_batu);
                     }}
                   >
                     DELETE

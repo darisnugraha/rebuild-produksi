@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
+import { addKirimBahanProduksi } from "../../../../application/actions/kirimbahanadminpusat";
 
 const { Option } = Select;
 
@@ -15,7 +16,8 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi: localStorage.getItem("divisi"),
-        staff: state.kirimbahanadminpusat.dataStaff[0]?.staff,
+        staff: state.kirimbahanadminpusat.dataStaff[0]?.tukang,
+        staff_tujuan: state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
         nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
       },
     };
@@ -24,6 +26,7 @@ const maptostate = (state) => {
       initialValues: {
         divisi: "",
         staff: "",
+        staff_tujuan: "",
         nama_bahan: "",
       },
     };
@@ -38,6 +41,7 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
   const dataStaff = useSelector(
     KirimBahanAdminPusat.getAllStaffStockBahanDivisi
   );
+  const dataStaffAll = useSelector(KirimBahanAdminPusat.getStaffByDivisi);
   const dataStockBahan = useSelector(
     KirimBahanAdminPusat.getAllStockBahanByStaff
   );
@@ -50,11 +54,13 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
       cancelText="Batal"
       confirmLoading={btnLoading}
       onCancel={onCancel}
-      onOk={() => {}}
+      onOk={() => {
+        dispatch(addKirimBahanProduksi);
+      }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="divisi"
               type="text"
@@ -66,7 +72,7 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
@@ -77,14 +83,32 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataStaff.map((item) => {
                 return (
-                  <Option value={item.staff} key={item.staff}>
-                    <span style={{ fontSize: "13px" }}>{item.staff}</span>
+                  <Option value={item.tukang} key={item.tukang}>
+                    <span style={{ fontSize: "13px" }}>{item.tukang}</span>
                   </Option>
                 );
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="staff_tujuan"
+              label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
+              style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Tukang Tujuan"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataStaffAll.map((item) => {
+                return (
+                  <Option value={item.nama_tukang} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_tukang}</span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -102,7 +126,7 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_bahan"
               type="text"

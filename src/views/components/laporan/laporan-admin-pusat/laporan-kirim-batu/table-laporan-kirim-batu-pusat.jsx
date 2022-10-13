@@ -8,14 +8,14 @@ const TableLaporanKirimBatuPusat = () => {
   const columns = [
     {
       title: "No Transaksi",
-      dataIndex: "no_batu_kirim",
-      key: "no_batu_kirim",
+      dataIndex: "no_kirim_batu",
+      key: "no_kirim_batu",
       align: "center",
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_batu_kirim",
-      key: "tgl_batu_kirim",
+      dataIndex: "tanggal_kirim_batu",
+      key: "tanggal_kirim_batu",
       align: "center",
     },
     {

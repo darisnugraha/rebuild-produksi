@@ -11,6 +11,8 @@ import {
   setDataHistoryKirimBatuProduksiSuccess,
   setDataHistoryKirimBatuProduksiFailed,
   ADD_DATA_KIRIM_BATU,
+  POST_DATA_DETAIL_BATU_LOKAL,
+  setDataDetailBatuProduksiSuccess,
 } from "../actions/kirimbatuproduksi";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -21,20 +23,23 @@ const kirimbatuproduksiGetJO =
   async (action) => {
     next(action);
     if (action.type === GET_DETAIL_JO_BY_ID) {
-      const response = await api.KirimBatuProduksi.getAllKirimBatuProduksi(
-        action.payload.data
-      );
-      if (response.value?.status === "berhasil") {
-        if (response.value.data.length === 0) {
-          sweetalert.default.Failed(response.value.pesan);
-        } else {
-          dispatch(
-            setDataJoKirimBatuProduksiSuccess({ feedback: response.value.data })
-          );
+      api.KirimBatuProduksi.getAllKirimBatuProduksi(action.payload.data).then(
+        (res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              dispatch(
+                setDataJoKirimBatuProduksiSuccess({
+                  feedback: res.value,
+                })
+              );
+            } else {
+              sweetalert.default.Failed("Data yg Anda Cari Tidak Ada !");
+            }
+          } else {
+            dispatch(setDataJoKirimBatuProduksiFailed({ error: res.error }));
+          }
         }
-      } else {
-        dispatch(setDataJoKirimBatuProduksiFailed({ error: response.error }));
-      }
+      );
     }
   };
 
@@ -83,30 +88,21 @@ const simpanDataKirimBatuLocal =
       ) {
         const data = getState().form.FormTambahKirimBatuProduksi.values;
         let datalocal = [];
-        if (data.no_job_order === undefined || data.kode_batu === undefined) {
+        if (data.no_job_order === undefined) {
           sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
-        } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
-          sweetalert.default.Failed("Jumlah Kirim Minimal 1");
         } else {
-          const response =
-            await api.KirimBatuProduksi.getHistoryKirimBatuProduksi(
-              data.no_job_order
-            );
-
-          if (response.value !== null) {
-            dispatch(
-              setDataHistoryKirimBatuProduksiSuccess({
-                feedback: response.value.data,
-              })
-            );
-            writeLocal("data_history_kirim_batu_produksi", response.value.data);
-          } else {
-            dispatch(
-              setDataHistoryKirimBatuProduksiFailed({
-                error: response.error.data.pesan,
-              })
-            );
-          }
+          api.KirimBatuProduksi.getHistoryKirimBatuProduksi(
+            data.no_job_order
+          ).then((res) => {
+            if (res.value !== null) {
+              dispatch(
+                setDataHistoryKirimBatuProduksiSuccess({ feedback: res.value })
+              );
+              writeLocal("data_history_kirim_batu_produksi", res.value);
+            } else {
+              dispatch(setDataHistoryKirimBatuProduksiFailed({ error: [] }));
+            }
+          });
           sweetalert.default.Success("Berhasil Menambahkan Data !");
           dispatch(setDataKirimBatuProduksiSuccess({ feedback: data }));
           datalocal.push(data);
@@ -121,37 +117,67 @@ const simpanDataKirimBatuLocal =
         if (datalocalFill.length === 0) {
           sweetalert.default.Failed("No Job Order Harus Sama !");
         } else {
-          if (data.no_job_order === undefined || data.kode_batu === undefined) {
+          if (data.no_job_order === undefined) {
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
-          } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
-            sweetalert.default.Failed("Jumlah Kirim Minimal 1");
           } else {
-            const response =
-              await api.KirimBatuProduksi.getHistoryKirimBatuProduksi(
-                data.no_job_order
-              );
-
-            if (response.value?.pesan === "berhasil") {
-              dispatch(
-                setDataHistoryKirimBatuProduksiSuccess({
-                  feedback: response.value.data,
-                })
-              );
-              writeLocal(
-                "data_history_kirim_batu_produksi",
-                response.value.data
-              );
-            } else {
-              dispatch(
-                setDataHistoryKirimBatuProduksiFailed({
-                  error: response.error.data.pesan,
-                })
-              );
-            }
+            api.KirimBatuProduksi.getHistoryKirimBatuProduksi(
+              data.no_job_order
+            ).then((res) => {
+              if (res.value !== null) {
+                dispatch(
+                  setDataHistoryKirimBatuProduksiSuccess({
+                    feedback: res.value,
+                  })
+                );
+                writeLocal("data_history_kirim_batu_produksi", res.value);
+              } else {
+                dispatch(setDataHistoryKirimBatuProduksiFailed({ error: [] }));
+              }
+            });
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataKirimBatuProduksiSuccess({ feedback: data }));
             datalocal.push(data);
             writeLocal("data_kirim_batu_produksi", datalocal);
+            window.location.reload();
+          }
+        }
+      }
+    }
+    if (action.type === POST_DATA_DETAIL_BATU_LOKAL) {
+      if (
+        getLocal("data_detail_kirim_batu") === undefined ||
+        getLocal("data_detail_kirim_batu") === null
+      ) {
+        const data = getState().form.FormDetailBatuProduksi.values;
+        let datalocal = [];
+        if (data.kode_batu === undefined) {
+          sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+        } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
+          sweetalert.default.Failed("Jumlah Kirim Minimal 1");
+        } else {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+          dispatch(setDataDetailBatuProduksiSuccess({ feedback: data }));
+          datalocal.push(data);
+          writeLocal("data_detail_kirim_batu", datalocal);
+        }
+      } else {
+        const data = getState().form.FormTambahKirimBatuProduksi.values;
+        let datalocal = getLocal("data_detail_kirim_batu");
+        const datalocalFill = datalocal.filter((item) => {
+          return item.no_job_order === data.no_job_order;
+        });
+        if (datalocalFill.length === 0) {
+          sweetalert.default.Failed("No Job Order Harus Sama !");
+        } else {
+          if (data.no_job_order === undefined) {
+            sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+          } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
+            sweetalert.default.Failed("Jumlah Kirim Minimal 1");
+          } else {
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+            dispatch(setDataDetailBatuProduksiSuccess({ feedback: data }));
+            datalocal.push(data);
+            writeLocal("data_detail_kirim_batu", datalocal);
             window.location.reload();
           }
         }
@@ -167,12 +193,13 @@ const addDataKirimBatuProduksiPost =
     next(action);
     if (action.type === ADD_DATA_KIRIM_BATU) {
       const data = getLocal("data_kirim_batu_produksi");
+      const dataBatu = getLocal("data_detail_kirim_batu");
       let detail_batu = [];
-      for (let index = 0; index < data.length; index++) {
+      for (let index = 0; index < dataBatu.length; index++) {
         const data_detail = {
-          kode_batu: data[index].kode_batu,
-          qty_kirim: parseFloat(data[index].jumlah_kirim),
-          berat_kirim: parseFloat(data[index].berat_kirim),
+          kode_batu: dataBatu[index].kode_batu,
+          jumlah_kirim: parseFloat(dataBatu[index].jumlah_kirim),
+          berat_kirim: parseFloat(dataBatu[index].berat_kirim),
         };
         detail_batu.push(data_detail);
       }
@@ -182,15 +209,20 @@ const addDataKirimBatuProduksiPost =
         kode_jenis_bahan: data[0].kode_jenis_bahan,
         no_job_order: data[0].no_job_order,
       };
-      const response = await api.KirimBatuProduksi.addKirimBatuProduksi(onSend);
-      if (response.value !== null) {
-        sweetalert.default.Success("Berhasil Menambahkan Data");
-        localStorage.removeItem("data_history_kirim_batu_produksi");
-        localStorage.removeItem("data_kirim_batu_produksi");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.KirimBatuProduksi.addKirimBatuProduksi(onSend).then((res) => {
+        if (res.value !== null) {
+          localStorage.removeItem("data_history_kirim_batu_produksi");
+          localStorage.removeItem("data_detail_kirim_batu");
+          localStorage.removeItem("data_kirim_batu_produksi");
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 

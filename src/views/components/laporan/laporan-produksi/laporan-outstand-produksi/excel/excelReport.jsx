@@ -164,7 +164,7 @@ class ExcelReport extends Component {
                       ).toFixed(3)}
                     </td>
                     <td>{element.update_date}</td>
-                    <td>{element.kode_staff}</td>
+                    <td>{element.kode_tukang}</td>
                   </tr>
                 </>
               );

@@ -8,13 +8,13 @@ const pdfReport = (data = "") => {
   let tableColumn = [];
 
   let finalY = 30;
-  doc.text(`Laporan Terima Produksi (${datahead.nama_divisi})`, 14, 15);
+  doc.text(`Laporan Terima Produksi (${datahead.divisi})`, 14, 15);
   doc.setFontSize(20);
   doc.text("PRODUKSI", 200, 15);
 
   doc.setFontSize(10);
   doc.setProperties({
-    title: `Terima Produksi  (${datahead.nama_divisi})`,
+    title: `Terima Produksi  (${datahead.divisi})`,
   });
   doc.text(`PERIODE : ${datahead.tgl_awal} s/d ${datahead.tgl_akhir}`, 14, 25);
 
@@ -56,7 +56,7 @@ const pdfReport = (data = "") => {
         content: element.no_terima,
       },
       {
-        content: element.tgl_terima,
+        content: element.tanggal,
       },
       {
         content: element.tujuan_divisi,
@@ -83,7 +83,7 @@ const pdfReport = (data = "") => {
         },
       },
       {
-        content: element.kode_staff,
+        content: element.kode_tukang,
       },
     ];
     tableRows.push(row);
@@ -167,7 +167,7 @@ const pdfReport = (data = "") => {
   x.document.write(
     `<html>
     <head>
-    <title>Terima Produksi (${datahead.nama_divisi})</title>
+    <title>Terima Produksi (${datahead.divisi})</title>
     </head>
     <body style='margin:0 !important'>
     <embed width='100%' height='100%'src='${string}'></embed>

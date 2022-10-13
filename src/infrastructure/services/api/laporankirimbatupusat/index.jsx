@@ -1,11 +1,12 @@
-import post from "../../../axios/post";
+import get from "../../../axios/get";
 import word from "../../../shared/static";
 
 const LaporanKirimBatuPusat = {
   getAllLaporanKirimBatuPusat: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_LAPORAN_KIRIM_BATU_PUSAT,
-      data: dataKirim,
+    const response = await get({
+      url:
+        word.URL_GET_LAPORAN_KIRIM_BATU_PUSAT +
+        `startDate=${dataKirim.tgl_awal}&endDate=${dataKirim.tgl_akhir}`,
     });
     return response;
   },

@@ -9,6 +9,10 @@ const MasterKondisi = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_KONDISI });
     return response;
   },
+  getMasterKondisiById: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_KONDISI_BY_ID + id });
+    return response;
+  },
   addMasterKondisi: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_KONDISI,
@@ -17,11 +21,11 @@ const MasterKondisi = {
     return response;
   },
   deleteMasterKondisi: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_KONDISI, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_KONDISI + data);
     return response;
   },
-  editMasterKondisi: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_KONDISI, data);
+  editMasterKondisi: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_KONDISI + id, data);
     return response;
   },
 };

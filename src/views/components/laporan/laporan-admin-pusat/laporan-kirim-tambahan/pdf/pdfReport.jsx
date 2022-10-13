@@ -68,7 +68,7 @@ const pdfReport = (data = "") => {
     element.forEach((item) => {
       const row = [
         {
-          content: item.tgl_kirim,
+          content: item.tanggal_kirim,
         },
         {
           content: item.divisi,

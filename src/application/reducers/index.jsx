@@ -26,6 +26,7 @@ import tambahjoborder from "./tambahjoborder";
 import kirimjo from "./kirimjo";
 import terimabatu from "./terimabatu";
 import terimabahan from "./terimabahan";
+import terimatambahan from "./terimatambahan";
 import kirimbahanadminpusat from "./kirimbahanadminpusat";
 import kirimtambahan from "./kirimtambahan";
 import abutukangcor from "./abutukangcor";
@@ -95,6 +96,7 @@ export default combineReducers({
   kirimjo,
   terimabatu,
   terimabahan,
+  terimatambahan,
   kirimbahanadminpusat,
   kirimtambahan,
   abutukangcor,

@@ -15,13 +15,15 @@ const maptostate = (state) => {
   if (state.masterukuran.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_ukuran: state.masterukuran.dataEdit[0]?.kode_ukuran,
-        nama_ukuran: state.masterukuran.dataEdit[0]?.nama_ukuran,
+        id: state.masterukuran.dataEdit?._id,
+        kode_ukuran: state.masterukuran.dataEdit?.kode_ukuran,
+        nama_ukuran: state.masterukuran.dataEdit?.nama_ukuran,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_ukuran: "",
         nama_ukuran: "",
       },
@@ -57,14 +59,35 @@ let FormTambahMasterUkuran = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="kode_ukuran"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kode Ukuran</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kode Ukuran"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="nama_ukuran"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Ukuran</span>}
+              label={<span style={{ fontSize: "13px" }}>Nama Ukuran</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Ukuran"
+              placeholder="Masukkan Nama Ukuran"
             />
           </Col>
         </Row>

@@ -54,10 +54,10 @@ const pdfReport = (data = "") => {
 
     const row = [
       {
-        content: element.no_transaksi,
+        content: element.no_mutasi,
       },
       {
-        content: element.tgl_mutasi,
+        content: element.tanggal_mutasi,
       },
       {
         content: element.keterangan,

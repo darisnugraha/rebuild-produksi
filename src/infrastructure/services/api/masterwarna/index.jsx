@@ -9,6 +9,10 @@ const MasterWarna = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_WARNA });
     return response;
   },
+  getMasterWarnaByID: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_WARNA_BY_ID + id });
+    return response;
+  },
   addMasterWarna: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_WARNA,
@@ -17,11 +21,11 @@ const MasterWarna = {
     return response;
   },
   deleteMasterWarna: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_WARNA, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_WARNA + data);
     return response;
   },
-  editMasterWarna: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_WARNA, data);
+  editMasterWarna: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_WARNA + id, data);
     return response;
   },
 };

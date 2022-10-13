@@ -118,8 +118,8 @@ class ExcelReport extends Component {
               return (
                 <>
                   <tr>
-                    <td>{element.no_kirim}</td>
-                    <td>{element.tgl_kirim}</td>
+                    <td>{element.no_kirim_lebur}</td>
+                    <td>{element.tanggal_kirim}</td>
                     <td>{element.asal_bahan}</td>
                     <td>{element.jenis_bahan}</td>
                     <td style={{ textAlign: "right" }}>{element.berat}</td>

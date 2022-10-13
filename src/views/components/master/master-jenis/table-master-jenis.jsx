@@ -87,7 +87,7 @@ const TableMasterJenis = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      dispatch(getMasterJenisByID({ dataID: text.kode_jenis }));
+                      dispatch(getMasterJenisByID({ dataID: text._id }));
                     }}
                   >
                     EDIT
@@ -97,7 +97,7 @@ const TableMasterJenis = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_jenis, text.nama_jenis);
+                      onDelete(text._id, text.nama_jenis);
                     }}
                   >
                     DELETE

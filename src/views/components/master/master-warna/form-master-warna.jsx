@@ -15,13 +15,15 @@ const maptostate = (state) => {
   if (state.masterwarna.dataEdit !== undefined) {
     return {
       initialValues: {
-        kode_warna: state.masterwarna.dataEdit[0]?.kode_warna,
-        nama_warna: state.masterwarna.dataEdit[0]?.nama_warna,
+        id: state.masterwarna.dataEdit?._id,
+        kode_warna: state.masterwarna.dataEdit?.kode_warna,
+        nama_warna: state.masterwarna.dataEdit?.nama_warna,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_warna: "",
         nama_warna: "",
       },
@@ -65,6 +67,17 @@ let FormTambahMasterWarna = ({ visible, onCancel }, prop) => {
         }}
       >
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="kode_warna"

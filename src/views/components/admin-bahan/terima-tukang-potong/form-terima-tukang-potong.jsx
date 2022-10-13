@@ -1,42 +1,54 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Row, Col, Select, Modal } from "antd";
+import {
+  Form,
+  Row,
+  Col,
+  // Select,
+  Modal,
+} from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import JenisBahan from "../../../../application/selectors/masterbahan";
+// import JenisBahan from "../../../../application/selectors/masterbahan";
 import {
   addDataTerimaTukangPotong,
   countSusut,
   getTerimaTukangPotong,
 } from "../../../../application/actions/terimatukangpotong";
 
-const { Option } = Select;
+// const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.terimatukangpotong.feedback.length !== 0) {
-    return {
-      initialValues: {
-        pohon: state.terimatukangpotong.noPohon,
-        kode_jenis_bahan:
-          state.terimatukangpotong.feedback[0]?.kode_jenis_bahan,
-        berat: state.terimatukangpotong.feedback[0]?.berat_casting,
-        berat_terima: state.terimatukangpotong.beratPentolan,
-        berat_barang: state.terimatukangpotong.beratTerima,
-        berat_susut: state.terimatukangpotong.susut,
-        tanggal: state.terimatukangpotong.feedback[0]?.tgl_terima_casting,
-      },
-    };
+    if (state.terimatukangpotong.jenisBahan !== undefined) {
+      return {
+        initialValues: {
+          pohon: state.terimatukangpotong.noPohon,
+          kode_jenis_bahan:
+            state.terimatukangpotong.feedback[0]?.kode_jenis_bahan,
+          nama_jenis_bahan:
+            state.terimatukangpotong.jenisBahan[0]?.nama_jenis_bahan,
+          berat: state.terimatukangpotong.feedback[0]?.berat_casting,
+          berat_terima: state.terimatukangpotong.beratPentolan,
+          berat_barang: state.terimatukangpotong.beratTerima,
+          berat_susut: state.terimatukangpotong.susut,
+          tanggal: state.terimatukangpotong.feedback[0]?.tgl_terima_casting,
+        },
+      };
+    }
   } else {
     return {
       initialValues: {
         pohon: "",
-        kode_jenis_bahan: state.masterbahan.feedback[0]?.kode_bahan,
-        berat: "",
-        berat_terima: "",
-        berat_barang: "",
-        berat_susut: "",
+        // kode_jenis_bahan: state.masterbahan.feedback[0]?.kode_bahan,
+        kode_jenis_bahan: "",
+        nama_jenis_bahan: "",
+        berat: 0,
+        berat_terima: 0,
+        berat_barang: 0,
+        berat_susut: 0,
         tanggal: "",
       },
     };
@@ -48,7 +60,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
+  // const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
 
   return (
     <Modal
@@ -79,7 +91,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          {/* <Col offset={1}>
             <Field
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
@@ -96,6 +108,28 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
                 );
               })}
             </Field>
+          </Col> */}
+          <Col offset={1}>
+            <Field
+              name="kode_jenis_bahan"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kode Jenis Bahan"
+              disabled
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="nama_jenis_bahan"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Nama Jenis Bahan</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Nama Jenis Bahan"
+              disabled
+            />
           </Col>
           <Col offset={1}>
             <Field

@@ -14,8 +14,8 @@ const TableLaporanTerimaProduksi = () => {
     },
     {
       title: "Tanggal Terima",
-      dataIndex: "tgl_terima",
-      key: "tgl_terima",
+      dataIndex: "tanggal",
+      key: "tanggal",
       align: "center",
     },
     {
@@ -56,8 +56,8 @@ const TableLaporanTerimaProduksi = () => {
     },
     {
       title: "Nama Tukang",
-      dataIndex: "kode_staff",
-      key: "kode_staff",
+      dataIndex: "kode_tukang",
+      key: "kode_tukang",
     },
   ];
 

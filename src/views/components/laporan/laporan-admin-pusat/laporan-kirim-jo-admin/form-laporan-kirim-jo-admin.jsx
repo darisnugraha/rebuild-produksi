@@ -14,21 +14,12 @@ const dateFormat = "DD/MM/YYYY";
 const today = new Date();
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanKirimJoAdmin?.values !== undefined) {
-    return {
-      initialValues: {
-        date: state.form.FormLaporanKirimJoAdmin?.values.date,
-        tukang: state.form.FormLaporanKirimJoAdmin?.values.tukang,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        date: [moment(today, dateFormat), moment(today, dateFormat)],
-        tukang: state.mastertukang.feedback[0]?.kode_staff,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      date: [moment(today, dateFormat), moment(today, dateFormat)],
+      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+    },
+  };
 };
 
 let FormLaporanKirimJoAdmin = (prop) => {
@@ -49,7 +40,7 @@ let FormLaporanKirimJoAdmin = (prop) => {
             onBlur={(e) => e.preventDefault()}
           />
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
@@ -60,11 +51,11 @@ let FormLaporanKirimJoAdmin = (prop) => {
           >
             {dataMasterTukang.map((item) => {
               return (
-                <Option value={item.kode_staff} key={item.kode_staff}>
+                <Option value={item.kode_tukang} key={item.kode_tukang}>
                   <span style={{ fontSize: "13px" }}>
-                    {item.kode_staff === item.nama_staff
-                      ? item.nama_staff
-                      : item.nama_staff + " (" + item.kode_staff + ")"}
+                    {item.kode_tukang === item.nama_tukang
+                      ? item.nama_tukang
+                      : item.nama_tukang + " (" + item.kode_tukang + ")"}
                   </span>
                 </Option>
               );

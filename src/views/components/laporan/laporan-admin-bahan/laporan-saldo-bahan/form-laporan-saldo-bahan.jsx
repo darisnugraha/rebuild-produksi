@@ -14,21 +14,12 @@ const dateFormat = "DD/MM/YYYY";
 const today = new Date();
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanSaldoBahan?.values !== undefined) {
-    return {
-      initialValues: {
-        date: state.form.FormLaporanSaldoBahan?.values.date,
-        kelompok_bahan: state.form.FormLaporanSaldoBahan?.values.kelompok_bahan,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        date: [moment(today, dateFormat), moment(today, dateFormat)],
-        kelompok_bahan: state.groupbahan.feedback[0]?.nama_bahan,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      date: [moment(today, dateFormat), moment(today, dateFormat)],
+      kelompok_bahan: state.groupbahan.feedback[0]?.nama_bahan,
+    },
+  };
 };
 
 let FormLaporanSaldoBahan = (prop) => {

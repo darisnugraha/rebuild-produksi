@@ -18,14 +18,13 @@ const masterCuttingBatuGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_CUTTING_BATU) {
-      const response = await api.MasterCuttingBatu.getAllMasterCuttingBatu();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataMasterCuttingBatuSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataMasterCuttingBatuFailed({ error: response.error }));
-      }
+      api.MasterCuttingBatu.getAllMasterCuttingBatu().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterCuttingBatuSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterCuttingBatuFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -37,15 +36,14 @@ const masterCuttingBatuGetDataID =
     next(action);
     if (action.type === GET_MASTER_CUTTING_BATU_ID) {
       dispatch(setEditFormMasterCuttingBatu(true));
-      const dataMasterCuttingBatu = getState().mastercuttingbatu.feedback;
-      const dataMasterCuttingBatuFilter = dataMasterCuttingBatu.filter(
-        (item) => {
-          return item.kode_cutting_batu === action.payload;
+      const id = action.payload;
+      api.MasterCuttingBatu.getMasterCuttingBatuById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterCuttingBatuEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterCuttingBatuEdit({ dataEdit: [] }));
         }
-      );
-      dispatch(
-        setDataMasterCuttingBatuEdit({ dataEdit: dataMasterCuttingBatuFilter })
-      );
+      });
     }
   };
 
@@ -57,13 +55,15 @@ const addDataMasterCuttinBatu =
     next(action);
     if (action.type === ADD_MASTER_CUTTING_BATU) {
       const data = getState().form.FormTambahMasterCuttingBatu.values;
-      const response = await api.MasterCuttingBatu.addMasterCuttingBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterCuttingBatu.addMasterCuttingBatu(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -74,18 +74,16 @@ const deleteDataMasterCuttinBatu =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_CUTTING_BATU) {
-      const data = {
-        kode_cutting_batu: action.payload.data,
-      };
-      const response = await api.MasterCuttingBatu.deleteMasterCuttingBatu(
-        data
-      );
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterCuttingBatu.deleteMasterCuttingBatu("/" + id).then((res) => {
+        if (res.value) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -97,16 +95,25 @@ const editDataMasterCuttinBatu =
     next(action);
     if (action.type === EDIT_MASTER_CUTTING_BATU) {
       const data = getState().form.FormTambahMasterCuttingBatu.values;
-      const response = await api.MasterCuttingBatu.editMasterCuttingBatu(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      const datakirim = {
+        kode_cutting_batu: data.kode_cutting_batu,
+        nama_cutting_batu: data.nama_cutting_batu,
+      };
+      api.MasterCuttingBatu.editMasterCuttingBatu("/" + id, datakirim).then(
+        (res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Merubah Data !");
+          } else {
+            sweetalert.default.Failed(
+              res.error.data.message || "Gagal Merubah Data !"
+            );
+          }
+        }
+      );
     }
   };
-  
+
 const data = [
   masterCuttingBatuGetAll,
   masterCuttingBatuGetDataID,

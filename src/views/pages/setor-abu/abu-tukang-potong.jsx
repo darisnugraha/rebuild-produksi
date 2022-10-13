@@ -12,6 +12,7 @@ import { getAllMasterBatu } from "../../../application/actions/masterbatu";
 import ButtonAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/button-abu-tukang-potong";
 import TableAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/table-abu-tukang-potong";
 import FormAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/form-abu-tukang-potong.jsx";
+import { addAbuPotong } from "../../../application/actions/abutukangpotong.jsx";
 
 const AbuTukangPotong = () => {
   const dispatch = useDispatch();
@@ -64,12 +65,18 @@ const AbuTukangPotong = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      onClick={() => dispatch(addAbuPotong)}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button
                       type="danger"
                       onClick={() => {
+                        localStorage.removeItem("data_select_potong");
                         window.location.reload();
                       }}
                     >

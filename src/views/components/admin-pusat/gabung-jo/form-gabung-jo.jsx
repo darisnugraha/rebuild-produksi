@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Row, Col, Modal } from "antd";
+import { Form, Row, Col, Modal, Divider } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
@@ -21,12 +21,12 @@ const maptostate = (state) => {
       initialValues: {
         no_job_order: state.gabungjo.jobOrder,
         kode_barang: state.gabungjo.feedback[0].kode_barang,
-        nama_barang: state.gabungjo.feedback[0].nama_barang,
+        asal_divisi: state.gabungjo.feedback[0].asal_divisi,
         kode_jenis_bahan: state.gabungjo.feedback[0].kode_jenis_bahan,
         berat_akhir: state.gabungjo.feedback[0].berat_akhir,
         no_job_order_dua: state.gabungjo.jobOrderDua,
         kode_barang_dua: state.gabungjo.feedbackDua[0]?.kode_barang,
-        nama_barang_dua: state.gabungjo.feedbackDua[0]?.nama_barang,
+        asal_divisi_dua: state.gabungjo.feedbackDua[0]?.asal_divisi,
         kode_jenis_bahan_dua: state.gabungjo.feedbackDua[0]?.kode_jenis_bahan,
         berat_akhir_dua: state.gabungjo.feedbackDua[0]?.berat_akhir,
         berat_gabung: state.gabungjo.beratGabung,
@@ -87,12 +87,12 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_barang"
+              name="asal_divisi"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Nama Barang</span>}
+              label={<span style={{ fontSize: "13px" }}>Asal Divisi</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Nama Barang"
+              placeholder="Masukkan Asal Divisi"
               disabled
             />
           </Col>
@@ -119,6 +119,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
         </Row>
+        <Divider plain>Data Job Order Dua</Divider>
         <Row>
           <Col offset={1}>
             <Field
@@ -146,12 +147,12 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_barang_dua"
+              name="asal_divisi_dua"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Nama Barang</span>}
+              label={<span style={{ fontSize: "13px" }}>Asal Divisi</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Nama Barang"
+              placeholder="Masukkan Asal Divisi"
               disabled
             />
           </Col>

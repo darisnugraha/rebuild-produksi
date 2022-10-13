@@ -7,7 +7,12 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
-import { addKirimBahanAdminPusat } from "../../../../application/actions/kirimbahanadminpusat";
+import MasterTukang from "../../../../application/selectors/mastertukang";
+import {
+  addKirimBahanAdminPusat,
+  getAllStockBahanByStaff,
+} from "../../../../application/actions/kirimbahanadminpusat";
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
@@ -15,8 +20,10 @@ const maptostate = (state) => {
   if (state.kirimbahanadminpusat.feedback !== undefined) {
     return {
       initialValues: {
-        divisi: state.kirimbahanadminpusat.feedback[0]?.divisi,
-        staff: state.kirimbahanadminpusat.dataStaff[0]?.staff,
+        divisi: getLocal("divisi"),
+        divisi_tujuan: state.kirimbahanadminpusat.feedback[0]?.divisi,
+        staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
+        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
         nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
       },
     };
@@ -24,7 +31,9 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi: "",
+        divisi_tujuan: "",
         staff: "",
+        staff_tujuan: "",
         nama_bahan: "",
       },
     };
@@ -36,10 +45,11 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataDivisi = useSelector(KirimBahanAdminPusat.getAllStockBahanDivisi);
+  const dataDivisi = useSelector(KirimBahanAdminPusat.getAllDivisi);
   const dataStaff = useSelector(
     KirimBahanAdminPusat.getAllStaffStockBahanDivisi
   );
+  const dataStaffAll = useSelector(MasterTukang.getAllMasterTukang);
   const dataStockBahan = useSelector(
     KirimBahanAdminPusat.getAllStockBahanByStaff
   );
@@ -58,10 +68,22 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="divisi"
-              label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Divisi</span>}
+              component={styleAntd.AInput}
+              style={{ width: 250 }}
+              className="form-item-group"
+              placeholder="Masukkan Divisi"
+              disabled
+            />
+          </Col>
+          <Col span={8} offset={1}>
+            <Field
+              name="divisi_tujuan"
+              label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Asal"
@@ -76,7 +98,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
@@ -84,17 +106,40 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getAllStockBahanByStaff({ staff: e }))}
             >
               {dataStaff.map((item) => {
                 return (
-                  <Option value={item.staff} key={item.staff}>
-                    <span style={{ fontSize: "13px" }}>{item.staff}</span>
+                  <Option value={item._id} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>{item.tukang}</span>
                   </Option>
                 );
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
+            <Field
+              name="staff_tujuan"
+              label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
+              style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Tukang Tujuan"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataStaffAll.map((item) => {
+                return (
+                  <Option value={item.nama_tukang} key={item.nama_tukang}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col span={8} offset={1}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -112,7 +157,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="berat_bahan"
               type="text"

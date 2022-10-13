@@ -26,6 +26,8 @@ import {
   GET_ALL_TERIMA_GUDANG_PRODUKSI,
   setDataTerimaGudangProduksiSuccess,
   setDataTerimaGudangProduksiFailed,
+  GET_DIVISI_GUDANG,
+  setDivisiGudang,
 } from "../actions/laporanproduksi";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
@@ -55,43 +57,30 @@ const getAllDataTerimaProduksi =
           "YYYY-MM-DD"
         );
         const dataOnsend = {
-          nama_divisi: data.divisi,
+          divisi: data.divisi,
           tgl_awal: tgl_dari_string,
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_terima_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getTerimaProduksi(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanProduksi.getTerimaProduksi(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataTerimaProduksiSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataTerimaProduksiSuccess({
-                  feedback: response?.value.data,
-                })
-              );
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+              dispatch(setDataTerimaProduksiSuccess({ feedback: res.value }));
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataTerimaProduksiSuccess({ feedback: [] }));
-            dispatch(
-              setDataTerimaProduksiFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataTerimaProduksiSuccess({ feedback: [] }));
+            dispatch(setDataTerimaProduksiFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataTerimaProduksiFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -124,42 +113,31 @@ const getAllDataKirimProduksi =
           "YYYY-MM-DD"
         );
         const dataOnsend = {
-          nama_divisi: data.divisi,
+          divisi: data.divisi,
           staff: data.tukang,
           tgl_awal: tgl_dari_string,
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_kirim_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getKirimProduksi(dataOnsend);
-        if (response?.value !== null) {
+        api.LaporanProduksi.getKirimProduksi(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataKirimProduksiSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataKirimProduksiSuccess({
-                  feedback: response?.value.data,
-                })
-              );
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+              dispatch(setDataKirimProduksiSuccess({ feedback: res.value }));
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataKirimProduksiSuccess({ feedback: [] }));
-            dispatch(
-              setDataKirimProduksiFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataKirimProduksiSuccess({ feedback: [] }));
+            dispatch(setDataKirimProduksiFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataKirimProduksiFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -194,39 +172,32 @@ const getAllDataTerimaTambahanProduksi =
         };
         writeLocal("laporan_terima_tambahan_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getTerimaTambahanProduksi(
-          dataOnsend
-        );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataTerimaTambahanProduksiSuccess({ feedback: [] }));
+        api.LaporanProduksi.getTerimaTambahanProduksi(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(
+                  setDataTerimaTambahanProduksiSuccess({ feedback: [] })
+                );
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataTerimaTambahanProduksiSuccess({ feedback: res.value })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan"
+              );
+              dispatch(setDataTerimaTambahanProduksiSuccess({ feedback: [] }));
               dispatch(
-                setDataTerimaTambahanProduksiSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataTerimaTambahanProduksiFailed({ error: res.error })
               );
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataTerimaTambahanProduksiSuccess({ feedback: [] }));
-            dispatch(
-              setDataTerimaTambahanProduksiFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataTerimaTambahanProduksiFailed({ error: response.error })
-          );
-        }
+        );
       }
     }
   };
@@ -261,37 +232,26 @@ const getAllDataTerimaBatuProduksi =
         };
         writeLocal("laporan_terima_batu_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getTerimaBatuProduksi(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanProduksi.getTerimaBatuProduksi(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataTerimaBatuProduksiSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataTerimaBatuProduksiSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataTerimaBatuProduksiSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataTerimaBatuProduksiSuccess({ feedback: [] }));
-            dispatch(
-              setDataTerimaBatuProduksiFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataTerimaBatuProduksiSuccess({ feedback: [] }));
+            dispatch(setDataTerimaBatuProduksiFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataTerimaBatuProduksiFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -317,37 +277,28 @@ const getAllDataOutstandProduksi =
         };
         writeLocal("laporan_outstand_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getOutstandProduksi(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanProduksi.getOutstandProduksi(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataOutstandProduksiSuccess({
-                  feedback: response?.value.data,
-                })
-              );
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+              dispatch(setDataOutstandProduksiSuccess({ feedback: res.value }));
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan"
+            );
             dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
             dispatch(
               setDataOutstandProduksiFailed({
-                error: response.value.pesan,
+                error: res.error,
               })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataOutstandProduksiFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -358,6 +309,23 @@ const getAllDataTerimaGudangProduksi =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_DIVISI_GUDANG) {
+      api.KirimBahanAdmin.getAllDivisi().then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            const newArr = [];
+            res.value.forEach((val) => {
+              if (val.divisi.includes("GUDANG")) {
+                newArr.push(val);
+              }
+            });
+            dispatch(setDivisiGudang({ feedback: newArr }));
+          }
+        } else {
+          dispatch(setDivisiGudang({ error: [] }));
+        }
+      });
+    }
     if (action.type === GET_ALL_TERIMA_GUDANG_PRODUKSI) {
       dispatch(setLoadingButton(true));
       dispatch(setDataTerimaGudangProduksiSuccess({ feedback: [] }));
@@ -376,45 +344,36 @@ const getAllDataTerimaGudangProduksi =
           "YYYY-MM-DD"
         );
         const dataOnsend = {
-          nama_divisi: data.divisi,
+          divisi: data.divisi,
           tgl_awal: tgl_dari_string,
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_terima_gudang_produksi", dataOnsend);
 
-        const response = await api.LaporanProduksi.getTerimaProduksi(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanProduksi.getTerimaProduksi(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataTerimaGudangProduksiSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataTerimaGudangProduksiSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataTerimaGudangProduksiSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
+            );
             dispatch(setDataTerimaGudangProduksiSuccess({ feedback: [] }));
             dispatch(
               setDataTerimaGudangProduksiFailed({
-                error: response.value.pesan,
+                error: res.error,
               })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataTerimaGudangProduksiFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

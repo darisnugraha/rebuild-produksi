@@ -12,11 +12,11 @@ import {
 } from "../../../../application/actions/masterdivisi";
 
 const maptostate = (state) => {
-  if (state.masterdivisi.dataEdit.length !== 0) {
+  if (state.masterdivisi.dataEdit !== undefined) {
     return {
       initialValues: {
-        kode_divisi: state.masterdivisi.dataEdit[0]?.kode_divisi,
-        nama_divisi: state.masterdivisi.dataEdit[0]?.nama_divisi,
+        kode_divisi: state.masterdivisi.dataEdit?._id,
+        nama_divisi: state.masterdivisi.dataEdit?.divisi,
       },
     };
   } else {

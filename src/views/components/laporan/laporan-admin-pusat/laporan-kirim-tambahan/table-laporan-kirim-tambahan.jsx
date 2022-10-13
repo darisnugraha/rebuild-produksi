@@ -14,8 +14,8 @@ const TableLaporanKirimTambahan = () => {
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_kirim",
-      key: "tgl_kirim",
+      dataIndex: "tanggal_kirim",
+      key: "tanggal_kirim",
       align: "center",
     },
     {

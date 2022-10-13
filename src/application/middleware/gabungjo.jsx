@@ -16,59 +16,68 @@ const getDataJO =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_JOB_ORDER) {
-      const response = await api.GabungJO.getDetailJOGabung(
-        action.payload.data
-      );
-      if (response.value !== null) {
-        if (response.value.data.length !== 0) {
-          const berat_dua = parseFloat(response.value.data[0].berat_akhir);
-          const berat_satu =
-            parseFloat(getState().form.FormGabungJO.values.berat_akhir_dua) ||
-            0;
-          let total = 0;
-          total = berat_satu + berat_dua;
-          dispatch(
-            setDataJobOrderSuccess({
-              feedback: response.value.data,
-              noJO: action.payload.data,
-              beratGabung: total,
-            })
-          );
-          writeLocal("gabungJOSatu", action.payload.data);
+      api.GabungJO.getDetailJOGabung(action.payload.data).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            const berat_dua = parseFloat(res.value[0].berat_akhir);
+            const berat_satu =
+              parseFloat(getState().form.FormGabungJO.values.berat_akhir_dua) ||
+              0;
+            let total = 0;
+            total = berat_satu + berat_dua;
+            dispatch(
+              setDataJobOrderSuccess({
+                feedback: res.value,
+                noJO: action.payload.data,
+                beratGabung: total,
+              })
+            );
+            writeLocal("gabungJOSatu", action.payload.data);
+          } else {
+            sweetalert.default.Failed("Data Tidak Ada !");
+            dispatch(setDataJobOrderSuccess({ feedback: [], noJO: "" }));
+            dispatch(setDataJobOrderFailed({ error: res.value }));
+          }
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(res.error.data.message);
           dispatch(setDataJobOrderSuccess({ feedback: [], noJO: "" }));
-          dispatch(setDataJobOrderFailed({ error: response.value.pesan }));
+          dispatch(setDataJobOrderFailed({ error: res.error }));
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-        dispatch(setDataJobOrderSuccess({ feedback: [], noJO: "" }));
-        dispatch(setDataJobOrderFailed({ error: response.error }));
-      }
+      });
     } else if (action.type === GET_ALL_JOB_ORDER_DUA) {
       const JO_satu = getLocal("gabungJOSatu");
       if (JO_satu === action.payload.data) {
         sweetalert.default.Failed("No Jo Ini Sudah Ada !");
       } else {
-        const response = await api.GabungJO.getDetailJOGabung(
-          action.payload.data
-        );
-        if (response.value !== null) {
-          if (response.value.data.length !== 0) {
-            const berat_satu =
-              parseFloat(getState().form.FormGabungJO.values.berat_akhir) || 0;
-            const berat_dua = parseFloat(response.value.data[0].berat_akhir);
-            let total = 0;
-            total = berat_satu + berat_dua;
-            dispatch(
-              setDataJobOrderSuccessDua({
-                feedback: response.value.data,
-                noJO: action.payload.data,
-                beratGabung: total,
-              })
-            );
+        api.GabungJO.getDetailJOGabung(action.payload.data).then((res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              const berat_satu =
+                parseFloat(getState().form.FormGabungJO.values.berat_akhir) ||
+                0;
+              const berat_dua = parseFloat(res.value[0].berat_akhir);
+              let total = 0;
+              total = berat_satu + berat_dua;
+              dispatch(
+                setDataJobOrderSuccessDua({
+                  feedback: res.value,
+                  noJO: action.payload.data,
+                  beratGabung: total,
+                })
+              );
+            } else {
+              sweetalert.default.Failed("Data Tidak Ada !");
+              dispatch(
+                setDataJobOrderSuccessDua({
+                  feedback: [],
+                  noJO: "",
+                  beratGabung: 0,
+                })
+              );
+              dispatch(setDataJobOrderFailedDua({ error: res.value }));
+            }
           } else {
-            sweetalert.default.Failed(response.value.pesan);
+            sweetalert.default.Failed(res.error.data.message);
             dispatch(
               setDataJobOrderSuccessDua({
                 feedback: [],
@@ -76,19 +85,9 @@ const getDataJO =
                 beratGabung: 0,
               })
             );
-            dispatch(setDataJobOrderFailedDua({ error: response.value.pesan }));
+            dispatch(setDataJobOrderFailedDua({ error: res.error }));
           }
-        } else {
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataJobOrderSuccessDua({
-              feedback: [],
-              noJO: "",
-              beratGabung: 0,
-            })
-          );
-          dispatch(setDataJobOrderFailedDua({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -102,8 +101,8 @@ const addDataGabungJO =
     if (action.type === ADD_GABUNG_JO) {
       const data = getState().form.FormGabungJO.values;
       const onSend = {
-        asal_divisi: "ADMIN",
-        asal_divisi_dua: "ADMIN",
+        asal_divisi: data.asal_divisi,
+        asal_divisi_dua: data.asal_divisi_dua,
         berat_akhir: parseFloat(data.berat_gabung),
         berat_in: parseFloat(data.berat_akhir),
         berat_out: parseFloat(data.berat_akhir_dua),
@@ -112,16 +111,17 @@ const addDataGabungJO =
         no_job_order: data.no_job_order,
         no_job_order_dua: data.no_job_order_dua,
       };
-      const response = await api.GabungJO.addGabungJO(onSend);
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      api.GabungJO.addGabungJO(onSend).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

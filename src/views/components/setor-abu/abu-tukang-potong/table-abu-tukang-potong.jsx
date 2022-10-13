@@ -1,28 +1,32 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Table, Button } from "antd";
+import { Input, Table, Button, Divider } from "antd";
 import "antd/dist/antd.css";
 import "antd-button-color/dist/css/style.css";
 import AbuTukangPotong from "../../../../application/selectors/abutukangpotong";
+import { pilihDataPotong } from "../../../../application/actions/abutukangpotong";
 
 const TableAbuTukanPotong = () => {
-  // eslint-disable-next-line
   const dispatch = useDispatch();
   const dataSetorAbuPotong = useSelector(
     AbuTukangPotong.getAllSetorOutstandPotong
   );
+  const totalAbu = useSelector(AbuTukangPotong.getTotalAbu);
+  const total24k = useSelector(AbuTukangPotong.getTotal24K);
 
   const data = [];
   for (let i = 0; i < dataSetorAbuPotong.length; i++) {
     data.push({
       key: i,
       no_mutasi: dataSetorAbuPotong[i].no_mutasi,
-      pohon: dataSetorAbuPotong[i].pohon,
+      pohon: dataSetorAbuPotong[i].no_pohon,
       kode_jenis_bahan: dataSetorAbuPotong[i].kode_jenis_bahan,
       kadar: dataSetorAbuPotong[i].kadar,
       berat_pentolan: dataSetorAbuPotong[i].berat_pentolan,
       berat_barang: dataSetorAbuPotong[i].berat_barang,
-      berat: dataSetorAbuPotong[i].berat,
+      berat_casting: dataSetorAbuPotong[i].berat_casting,
+      abu: dataSetorAbuPotong[i].abu,
+      karat_24: dataSetorAbuPotong[i].karat_24,
     });
   }
 
@@ -51,7 +55,11 @@ const TableAbuTukanPotong = () => {
     />
   );
 
-  const TakeAllData = <Button type="primary">Ambil Semua Data</Button>;
+  const TakeAllData = (
+    <Button type="primary" onClick={() => dispatch(pilihDataPotong)}>
+      Pilih Data
+    </Button>
+  );
 
   const columns = [
     {
@@ -82,8 +90,8 @@ const TableAbuTukanPotong = () => {
             },
             {
               title: "Berat Awal",
-              dataIndex: "berat",
-              key: "berat",
+              dataIndex: "berat_casting",
+              key: "berat_casting",
               align: "center",
             },
             {
@@ -99,6 +107,12 @@ const TableAbuTukanPotong = () => {
               align: "center",
             },
             {
+              title: "Abu",
+              dataIndex: "abu",
+              key: "abu",
+              align: "center",
+            },
+            {
               title: "Kadar",
               dataIndex: "kadar",
               key: "kadar",
@@ -106,16 +120,9 @@ const TableAbuTukanPotong = () => {
             },
             {
               title: "24K",
+              dataIndex: "karat_24",
               key: "24k",
               align: "center",
-              render: (text) => {
-                let beratsisa =
-                  parseFloat(text.berat) -
-                  (parseFloat(text.berat_pentolan) +
-                    parseFloat(text.berat_barang));
-                let k24 = (text.kadar / 100) * beratsisa;
-                return k24.toFixed(3);
-              },
             },
           ],
         },
@@ -128,7 +135,7 @@ const TableAbuTukanPotong = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      localStorage.setItem("data_select", JSON.stringify(selectedRows));
+      localStorage.setItem("data_select_potong", JSON.stringify(selectedRows));
     },
     getCheckboxProps: (record) => ({
       no_mutasi: record.no_mutasi,
@@ -143,6 +150,11 @@ const TableAbuTukanPotong = () => {
         columns={columns}
         scroll={{ x: 500, y: 1500 }}
       />
+      <Divider orientation="left" style={{ fontSize: "14px" }}>
+        Total Data Di Pilih
+      </Divider>
+      <p>Total Abu : {totalAbu}</p>
+      <p>Total 24K : {total24k}</p>
     </>
   );
 };

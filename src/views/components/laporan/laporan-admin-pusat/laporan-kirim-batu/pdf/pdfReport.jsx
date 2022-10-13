@@ -47,13 +47,13 @@ const pdfReport = (data = "") => {
     }, {});
   };
 
-  const dataGroup = groupBy(data, "no_batu_kirim");
+  const dataGroup = groupBy(data, "no_kirim_batu");
   const dataGroupArr = Object.values(dataGroup);
 
   dataGroupArr.forEach((element) => {
     const rowHead = [
       {
-        content: "NO KIRIM : " + element[0].no_batu_kirim,
+        content: "NO KIRIM : " + element[0].no_kirim_batu,
         styles: {
           halign: "left",
           fillColor: "#bbbbbb",
@@ -65,7 +65,7 @@ const pdfReport = (data = "") => {
     element.forEach((item) => {
       const row = [
         {
-          content: item.tgl_batu_kirim,
+          content: item.tanggal_kirim_batu,
         },
         {
           content: item.no_job_order,

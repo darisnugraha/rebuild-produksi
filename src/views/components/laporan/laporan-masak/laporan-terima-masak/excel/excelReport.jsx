@@ -116,9 +116,9 @@ class ExcelReport extends Component {
               return (
                 <>
                   <tr>
-                    <td>{element.no_terima}</td>
-                    <td>{element.tgl_terima}</td>
-                    <td>{element.no_kirim}</td>
+                    <td>{element.no_terima_masak}</td>
+                    <td>{element.tanggal_terima}</td>
+                    <td>{element.no_kirim_masak}</td>
                     <td>{element.nama_bahan}</td>
                     <td style={{ textAlign: "right" }}>
                       {element.berat_kirim}

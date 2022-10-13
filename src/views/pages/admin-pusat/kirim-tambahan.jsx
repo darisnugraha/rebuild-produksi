@@ -14,28 +14,28 @@ import TableKirimTambahan from "../../components/admin-pusat/kirim-tambahan/tabl
 import { getAllDivisi } from "../../../application/actions/kirimbahanadmin";
 import {
   getAllAsalStockBahan,
-  addKirimTambahanDivisi,
+  // addKirimTambahanDivisi,
   deleteKirimTambahanCart,
   addKirimTambahanCheckout,
 } from "../../../application/actions/kirimtambahan.jsx";
 
 const KirimTambahan = () => {
   const dispatch = useDispatch();
-  const data = JSON.parse(localStorage.getItem("divisi_detail_tambahan"));
-  const getDataDivisiKirimTambahan = (val) => {
-    if (val !== null) {
-      dispatch(addKirimTambahanDivisi);
-    } else {
-      return false;
-    }
-  };
+  // const data = JSON.parse(localStorage.getItem("divisi_detail_tambahan"));
+  // const getDataDivisiKirimTambahan = (val) => {
+  //   if (val !== null) {
+  //     dispatch(addKirimTambahanDivisi);
+  //   } else {
+  //     return false;
+  //   }
+  // };
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllDivisi);
     dispatch(getAllAsalStockBahan);
     document.title = "Kirim Tambahan";
     /* eslint-disable-next-line */
-    getDataDivisiKirimTambahan(data);
+    // getDataDivisiKirimTambahan(data);
     /* eslint-disable-next-line */
   }, [dispatch]);
 

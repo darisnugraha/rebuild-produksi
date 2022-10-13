@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import FormKirimBahanAdminPusat from "./form-kirim-bahan-admin-pusat";
-import { useDispatch } from "react-redux";
-import { getAllStockBahanByStaff } from "../../../../application/actions/kirimbahanadminpusat";
-import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
-import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { getAllStockBahanByStaff } from "../../../../application/actions/kirimbahanadminpusat";
+// import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
+// import { useSelector } from "react-redux";
 
 const ModalKirimBahanAdminPusat = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const dataStaff = useSelector(
-    KirimBahanAdminPusat.getAllStaffStockBahanDivisi
-  );
+  // const dataStaff = useSelector(
+  //   KirimBahanAdminPusat.getAllStaffStockBahanDivisi
+  // );
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
@@ -23,7 +23,7 @@ const ModalKirimBahanAdminPusat = () => {
       <Button
         type="primary"
         onClick={() => {
-          dispatch(getAllStockBahanByStaff({ staff: dataStaff[0]?.staff }));
+          // dispatch(getAllStockBahanByStaff({ staff: dataStaff[0]?.staff }));
           setVisible(true);
         }}
       >

@@ -47,36 +47,26 @@ const getAllDataLaporanKirimMasak =
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_kirim_masak", dataOnsend);
-
-        const response = await api.LaporanMasak.getAllKirimMasak(dataOnsend);
-        if (response?.value !== null) {
+        api.LaporanMasak.getAllKirimMasak(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanKirimMasakSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanKirimMasakSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanKirimMasakSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanKirimMasakSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanKirimMasakFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanKirimMasakSuccess({ feedback: [] }));
+            dispatch(setDataLaporanKirimMasakFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanKirimMasakFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -110,35 +100,26 @@ const getAllDataLaporanTerimaMasak =
         };
         writeLocal("laporan_terima_masak", dataOnsend);
 
-        const response = await api.LaporanMasak.getAllTerimaMasak(dataOnsend);
-        if (response?.value !== null) {
+        api.LaporanMasak.getAllTerimaMasak(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanTerimaMasakSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanTerimaMasakSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanTerimaMasakSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTerimaMasakSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTerimaMasakFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanTerimaMasakSuccess({ feedback: [] }));
+            dispatch(setDataLaporanTerimaMasakFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanTerimaMasakFailed({ error: response.error }));
-        }
+        });
       }
     }
   };

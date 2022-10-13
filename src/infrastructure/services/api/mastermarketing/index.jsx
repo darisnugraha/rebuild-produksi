@@ -9,6 +9,12 @@ const MasterMarketing = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_MARKETING });
     return response;
   },
+  getMasterMarketingById: async (id) => {
+    const response = await get({
+      url: word.URL_GET_MASTER_MARKETING_BY_ID + id,
+    });
+    return response;
+  },
   addMasterMarketing: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_MARKETING,
@@ -17,11 +23,11 @@ const MasterMarketing = {
     return response;
   },
   deleteMasterMarketing: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_MARKETING, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_MARKETING + data);
     return response;
   },
-  editMasterMarketing: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_MARKETING, data);
+  editMasterMarketing: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_MARKETING + id, data);
     return response;
   },
 };

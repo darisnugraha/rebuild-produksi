@@ -18,14 +18,13 @@ const masterjenisbahanGetAllData =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_JENIS_BAHAN) {
-      const response = await api.MasterJenisBahan.getAllMasterJenisBahan();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataMasterJenisBahanSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataMasterJenisBahanFailed({ error: response.error }));
-      }
+      api.MasterJenisBahan.getAllMasterJenisBahan().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterJenisBahanSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterJenisBahanFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -37,13 +36,22 @@ const masterjenisbahanGetDataID =
     next(action);
     if (action.type === GET_MASTER_JENIS_BAHAN_ID) {
       dispatch(setEditFormMasterJenisBahan(true));
-      const dataMasterJenisBahan = getState().masterjenisbahan.feedback;
-      const dataMasterJenisBahanFilter = dataMasterJenisBahan.filter((item) => {
-        return item.kode_jenis_bahan === action.payload;
+      const id = action.payload;
+      api.MasterJenisBahan.getMasterJenisBahanById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(
+            setDataMasterJenisBahanEdit({
+              dataEdit: res.value,
+            })
+          );
+        } else {
+          dispatch(
+            setDataMasterJenisBahanEdit({
+              dataEdit: [],
+            })
+          );
+        }
       });
-      dispatch(
-        setDataMasterJenisBahanEdit({ dataEdit: dataMasterJenisBahanFilter })
-      );
     }
   };
 
@@ -55,13 +63,16 @@ const addDataMasterJenisBahan =
     next(action);
     if (action.type === ADD_MASTER_JENIS_BAHAN) {
       const data = getState().form.FormTambahMasterJenisBahan.values;
-      const response = await api.MasterJenisBahan.addMasterJenisBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      data.kadar = parseFloat(data.kadar);
+      api.MasterJenisBahan.addMasterJenisBahan(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -72,16 +83,16 @@ const deleteDataMasterJenisBahan =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_JENIS_BAHAN) {
-      const data = {
-        kode_jenis_bahan: action.payload.data,
-      };
-      const response = await api.MasterJenisBahan.deleteMasterJenisBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterJenisBahan.deleteMasterJenisBahan("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data"
+          );
+        }
+      });
     }
   };
 
@@ -93,13 +104,22 @@ const editDataMasterJenisBahan =
     next(action);
     if (action.type === EDIT_MASTER_JENIS_BAHAN) {
       const data = getState().form.FormTambahMasterJenisBahan.values;
-      const response = await api.MasterJenisBahan.editMasterJenisBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      const dataKirim = {
+        kode_jenis_bahan: data.kode_jenis_bahan,
+        nama_jenis_bahan: data.nama_jenis_bahan,
+        kode_warna: data.kode_warna,
+        kadar: parseFloat(data.kadar),
+      };
+      api.MasterJenisBahan.editMasterJenisBahan("/" + id, dataKirim).then(
+        (res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Merubah Data !");
+          } else {
+            sweetalert.default.Failed(res.error.data.message);
+          }
+        }
+      );
     }
   };
 

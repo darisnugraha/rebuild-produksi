@@ -21,6 +21,9 @@ const pdfReport = (data = "") => {
   tableColumn = [
     [
       {
+        content: `NO TERIMA`,
+      },
+      {
         content: `TGL TRANSAKSI`,
       },
       {
@@ -47,25 +50,28 @@ const pdfReport = (data = "") => {
     }, {});
   };
 
-  const dataGroup = groupBy(data, "no_batu_kirim");
+  const dataGroup = groupBy(data, "no_kirim_batu");
   const dataGroupArr = Object.values(dataGroup);
 
   dataGroupArr.forEach((element) => {
     const rowHead = [
       {
-        content: "NO KIRIM : " + element[0].no_batu_kirim,
+        content: "NO KIRIM : " + element[0].no_kirim_batu,
         styles: {
           halign: "left",
           fillColor: "#bbbbbb",
         },
-        colSpan: 5,
+        colSpan: 6,
       },
     ];
     tableRows.push(rowHead);
     element.forEach((item) => {
       const row = [
         {
-          content: item.tgl_terima_batu,
+          content: item.no_admin_terima_batu,
+        },
+        {
+          content: item.tanggal_terima_batu,
         },
         {
           content: item.no_job_order,
@@ -94,7 +100,7 @@ const pdfReport = (data = "") => {
         styles: {
           halign: "right",
         },
-        colSpan: "3",
+        colSpan: "4",
       },
       {
         content: element.reduce((a, b) => a + parseFloat(b.stock_batu), 0),
@@ -120,7 +126,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: "3",
+      colSpan: "4",
     },
     {
       content: data.reduce((a, b) => a + parseFloat(b.stock_batu), 0),

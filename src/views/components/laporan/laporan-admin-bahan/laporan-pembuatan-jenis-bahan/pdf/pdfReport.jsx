@@ -73,7 +73,7 @@ const pdfReport = (data = "") => {
       karat24TotalAll = karat24TotalAll + karat24;
       const row = [
         {
-          content: item.tgl_mutasi,
+          content: item.tanggal_mutasi,
         },
         {
           content: item.nama_bahan,

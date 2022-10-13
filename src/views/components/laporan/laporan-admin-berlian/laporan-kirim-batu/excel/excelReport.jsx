@@ -42,9 +42,9 @@ class ExcelReport extends Component {
                 colSpan="6"
               >
                 TANGGAL{" "}
-                {this.props.dataHead?.tgl_awal +
+                {this.props.dataHead?.startDate +
                   " s/d " +
-                  this.props.dataHead?.tgl_akhir}
+                  this.props.dataHead?.endDate}
               </td>
             </tr>
             <tr>
@@ -108,8 +108,8 @@ class ExcelReport extends Component {
             {this.props.dataExel.map((item) => {
               return (
                 <tr>
-                  <td>{item.no_batu_kirim}</td>
-                  <td>{item.tgl_kirim}</td>
+                  <td>{item.no_kirim_batu}</td>
+                  <td>{item.tanggal_kirim}</td>
                   <td>{item.no_job_order}</td>
                   <td>{item.kode_batu}</td>
                   <td style={{ textAlign: "right" }}>{item.stock_batu}</td>

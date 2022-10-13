@@ -8,14 +8,14 @@ const TableLaporanKirimMasak = () => {
   const columns = [
     {
       title: "No Kirim",
-      dataIndex: "no_kirim",
-      key: "no_kirim",
+      dataIndex: "no_kirim_masak",
+      key: "no_kirim_masak",
       align: "center",
     },
     {
       title: "Tanggal Kirim",
-      dataIndex: "tgl_kirim",
-      key: "tgl_kirim",
+      dataIndex: "tanggal_kirim",
+      key: "tanggal_kirim",
       align: "center",
     },
     {

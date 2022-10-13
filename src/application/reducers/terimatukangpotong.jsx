@@ -6,6 +6,7 @@ import {
   SET_SUSUT_SUCCESS,
   SET_BERAT_TERIMA,
   SET_BERAT_PENTOLAN,
+  SET_JENIS_BAHAN,
 } from "../actions/terimatukangpotong";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   susut: 0,
   beratTerima: 0,
   beratPentolan: 0,
+  jenisBahan: undefined,
 };
 
 const terimatukangpotong = (state = initialState, action) => {
@@ -49,6 +51,11 @@ const terimatukangpotong = (state = initialState, action) => {
       return {
         ...state,
         beratPentolan: action.payload.data,
+      };
+    case SET_JENIS_BAHAN:
+      return {
+        ...state,
+        jenisBahan: action.payload.data,
       };
     default:
       return state;

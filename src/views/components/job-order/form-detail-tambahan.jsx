@@ -56,7 +56,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
               </Option>
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                  <Option value={item.nama_bahan} key={item.kode_bahan}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );

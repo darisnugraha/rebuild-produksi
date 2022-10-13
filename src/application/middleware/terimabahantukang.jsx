@@ -11,6 +11,9 @@ import {
   GET_BERAT_BAHAN,
   setDataBeratBahanSuccess,
   setDataBeratBahanFailed,
+  getAllBahanAsalTukang,
+  getBeratBahan,
+  GET_BERAT_BAHAN_BY_STAFF,
 } from "../actions/terimabahantukang";
 
 const divisiAsalGetAll =
@@ -38,15 +41,22 @@ const tukangAsalDivisiGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_TUKANG_ASAL_DIVISI) {
-      const data = { divisi: action.payload.data };
-      const response = await api.TerimaBahanTukang.getStaffByDivisi(data);
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataTukangAsalDivisiSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataTukangAsalDivisiFailed({ error: response.error }));
-      }
+      const divisi = action.payload.data;
+      api.TerimaBahanTukang.getStaffByDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          dispatch(
+            setDataTukangAsalDivisiSuccess({
+              feedback: res.value,
+              divisi_asal: action.payload.data,
+              staff_asal: res.value[0].tukang,
+            })
+          );
+          dispatch(getAllBahanAsalTukang({ staff: res.value[0].tukang }));
+          dispatch(getBeratBahan({ bahan: res.value[0].nama_bahan }));
+        } else {
+          dispatch(setDataTukangAsalDivisiFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -60,16 +70,15 @@ const bahanAsalTukangGetAll =
       const data = {
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
-        staff: action.payload.data,
+        staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
       };
-      const response = await api.TerimaBahanTukang.getBahanByStaff(data);
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataBahanAsalTukangSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataBahanAsalTukangFailed({ error: response.error }));
-      }
+      api.TerimaBahanTukang.getBahanByStaff(data).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataBahanAsalTukangSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataBahanAsalTukangFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -84,7 +93,7 @@ const beratBahanAsalGetAll =
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
         staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
-        bahan: action.payload.data,
+        nama_bahan: action.payload.data,
       };
       const response = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
         data
@@ -97,11 +106,41 @@ const beratBahanAsalGetAll =
     }
   };
 
+const beratBahanAsalGetByStaffAll =
+  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_BERAT_BAHAN_BY_STAFF) {
+      const data = {
+        divisi:
+          getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
+        staff: action.payload.data,
+        nama_bahan: getState().form.FormTerimaBahanTukang.values.bahan || null,
+      };
+      const response = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
+        data
+      );
+      if (response.value?.status === "berhasil") {
+        dispatch(
+          setDataBeratBahanSuccess({
+            feedback: response.value.data,
+            staff: action.payload.data,
+          })
+        );
+      } else {
+        dispatch(setDataBeratBahanFailed({ error: response.error }));
+      }
+    }
+  };
+
 const data = [
   divisiAsalGetAll,
   tukangAsalDivisiGetAll,
   bahanAsalTukangGetAll,
   beratBahanAsalGetAll,
+  beratBahanAsalGetByStaffAll,
 ];
 
 export default data;

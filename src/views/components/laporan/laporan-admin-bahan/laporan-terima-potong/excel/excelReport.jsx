@@ -80,7 +80,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                KODE JENIS BAHAN
+                JENIS BAHAN
               </td>
               <td
                 style={{
@@ -127,7 +127,7 @@ class ExcelReport extends Component {
                   <td>{item.no_transaksi}</td>
                   <td>{item.tanggal}</td>
                   <td>{item.no_pohon}</td>
-                  <td>{item.kode_jenis_bahan}</td>
+                  <td>{item.nama_jenis_bahan}</td>
                   <td style={{ textAlign: "right" }}>{item.berat_awal}</td>
                   <td style={{ textAlign: "right" }}>{item.berat_pentolan}</td>
                   <td style={{ textAlign: "right" }}>{item.berat_barang}</td>

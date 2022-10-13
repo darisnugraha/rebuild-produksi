@@ -11,12 +11,14 @@ const getAllDataGroupBahan =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_GROUP_BAHAN) {
-      const response = await api.GroupBahan.getAllGroupBahan();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataGroupBahanSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataGroupBahanFailed({ error: response.error }));
-      }
+      api.GroupBahan.getAllGroupBahan().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataGroupBahanSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataGroupBahanSuccess({ feedback: [] }));
+          dispatch(setDataGroupBahanFailed({ error: res.error }));
+        }
+      });
     }
   };
 

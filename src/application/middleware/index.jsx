@@ -23,6 +23,7 @@ import terimabahantukang from "./terimabahantukang";
 import tambahjoborder from "./tambahjoborder";
 import kirimjo from "./kirimjo";
 import terimabatu from "./terimabatu";
+import terimatambahan from "./terimatambahan";
 import terimabahan from "./terimabahan";
 import kirimbahanadminpusat from "./kirimbahanadminpusat";
 import kirimtambahan from "./kirimtambahan";
@@ -92,6 +93,7 @@ const midd = [
   ...tambahjoborder,
   ...kirimjo,
   ...terimabatu,
+  ...terimatambahan,
   ...terimabahan,
   ...kirimbahanadminpusat,
   ...kirimtambahan,

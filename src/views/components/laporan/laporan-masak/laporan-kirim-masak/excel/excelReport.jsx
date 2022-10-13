@@ -100,8 +100,8 @@ class ExcelReport extends Component {
               return (
                 <>
                   <tr>
-                    <td>{element.no_kirim}</td>
-                    <td>{element.tgl_kirim}</td>
+                    <td>{element.no_kirim_masak}</td>
+                    <td>{element.tanggal_kirim}</td>
                     <td style={{ textAlign: "right" }}>{element.berat}</td>
                     <td style={{ textAlign: "right" }}>{element.kadar}</td>
                     <td style={{ textAlign: "right" }}>{karat.toFixed(3)}</td>

@@ -12,21 +12,12 @@ import { getAllOutstandProduksi } from "../../../../../application/actions/lapor
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanOutstandProduksi?.values !== undefined) {
-    return {
-      initialValues: {
-        divisi: state.form.FormLaporanOutstandProduksi?.values.divisi,
-        tukang: state.form.FormLaporanOutstandProduksi?.values.tukang,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.nama_divisi,
-        tukang: state.mastertukang.feedback[0]?.kode_staff,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      divisi: state.kirimbahanadmin.feedback[0]?.divisi,
+      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+    },
+  };
 };
 
 let FormLaporanOutstandProduksi = (prop) => {
@@ -38,7 +29,7 @@ let FormLaporanOutstandProduksi = (prop) => {
   return (
     <Form layout="vertical">
       <Row>
-        <Col>
+        <Col span={6}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -49,21 +40,21 @@ let FormLaporanOutstandProduksi = (prop) => {
           >
             {dataDivisi.map((item) => {
               if (
-                item.nama_divisi === "GUDANG QC JC" ||
-                item.nama_divisi === "GUDANG QC VV"
+                item.divisi === "GUDANG QC JC" ||
+                item.divisi === "GUDANG QC VV"
               ) {
                 return false;
               } else {
                 return (
-                  <Option value={item.nama_divisi} key={item.nama_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               }
             })}
           </Field>
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
@@ -74,11 +65,11 @@ let FormLaporanOutstandProduksi = (prop) => {
           >
             {dataTukang.map((item) => {
               return (
-                <Option value={item.kode_staff} key={item.kode_staff}>
+                <Option value={item.kode_tukang} key={item.kode_tukang}>
                   <span style={{ fontSize: "13px" }}>
-                    {item.kode_staff === item.nama_staff
-                      ? item.nama_staff
-                      : item.nama_staff + " (" + item.kode_staff + ")"}
+                    {item.kode_tukang === item.nama_tukang
+                      ? item.nama_tukang
+                      : item.nama_tukang + " (" + item.kode_tukang + ")"}
                   </span>
                 </Option>
               );

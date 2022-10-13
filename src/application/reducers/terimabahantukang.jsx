@@ -8,6 +8,8 @@ import {
   SET_DATA_BAHAN_ASAL_TUKANG_FAILED,
   SET_DATA_BERAT_BAHAN_SUCCESS,
   SET_DATA_BERAT_BAHAN_FAILED,
+  GET_BERAT_BAHAN_BY_STAFF,
+  GET_BAHAN_ASAL_TUKANG,
 } from "../actions/terimabahantukang";
 
 const initialState = {
@@ -20,6 +22,8 @@ const initialState = {
   errorBahan: null,
   errorBerat: null,
   isEdit: false,
+  divisi_asal: "",
+  tukang_asal: "",
 };
 
 const terimabahantukang = (state = initialState, action) => {
@@ -28,6 +32,7 @@ const terimabahantukang = (state = initialState, action) => {
       return {
         ...state,
         feedback: action.payload.data,
+        divisi_asal: action.payload.data[0].divisi,
       };
     case SET_DATA_DIVISI_ASAL_SALDO_BAHAN_FAILED:
       return {
@@ -38,6 +43,18 @@ const terimabahantukang = (state = initialState, action) => {
       return {
         ...state,
         feedbackTukang: action.payload.data,
+        divisi_asal: action.payload.datadivisi,
+        tukang_asal: action.payload.datastaff,
+      };
+    case GET_BERAT_BAHAN_BY_STAFF:
+      return {
+        ...state,
+        tukang_asal: action.payload.data,
+      };
+    case GET_BAHAN_ASAL_TUKANG:
+      return {
+        ...state,
+        tukang_asal: action.payload.data,
       };
     case SET_DATA_TUKANG_ASAL_DIVISI_FAILED:
       return {

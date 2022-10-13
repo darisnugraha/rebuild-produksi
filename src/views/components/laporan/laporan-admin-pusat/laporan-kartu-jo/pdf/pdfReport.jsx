@@ -24,14 +24,14 @@ const pdfReport = (data = "") => {
         content: `TGL KIRIM`,
       },
       {
-        content: `DIVISI ASAL`,
+        content: `DIVISI`,
       },
-      {
-        content: `DIVISI TUJUAN`,
-      },
-      {
-        content: `TUKANG`,
-      },
+      // {
+      //   content: `DIVISI TUJUAN`,
+      // },
+      // {
+      //   content: `TUKANG`,
+      // },
       {
         content: `KATEGORI`,
       },
@@ -59,14 +59,14 @@ const pdfReport = (data = "") => {
         content: element.tanggal,
       },
       {
-        content: element.divisi_asal,
+        content: element.divisi,
       },
-      {
-        content: element.divisi_tujuan,
-      },
-      {
-        content: element.kode_staff,
-      },
+      // {
+      //   content: element.divisi_tujuan,
+      // },
+      // {
+      //   content: element.kode_staff,
+      // },
       {
         content: element.kategori,
       },
@@ -104,7 +104,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: 6,
+      colSpan: 4,
     },
     {
       content: data.reduce((a, b) => a + parseFloat(b.berat_in), 0).toFixed(3),
@@ -136,7 +136,7 @@ const pdfReport = (data = "") => {
   const printed = [
     {
       content: `Printed By Admin`,
-      colSpan: 12,
+      colSpan: 10,
       styles: {
         fontStyle: "italic",
         textColor: "#000",

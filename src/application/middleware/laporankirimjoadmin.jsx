@@ -47,37 +47,26 @@ const getAllDataLaporanKirimJoAdmin =
         };
         writeLocal("laporan_kirim_jo_admin", dataOnsend);
 
-        const response = await api.LaporanKirimJO.getAllLaporanKirimJO(
-          dataOnsend
-        );
-        if (response?.value !== null) {
+        api.LaporanKirimJO.getAllLaporanKirimJO(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanKirimJoAdminSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanKirimJoAdminSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanKirimJoAdminSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanKirimJoAdminSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanKirimJoAdminFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanKirimJoAdminSuccess({ feedback: [] }));
+            dispatch(setDataLaporanKirimJoAdminFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanKirimJoAdminFailed({ error: response.error }));
-        }
+        });
       }
     }
   };

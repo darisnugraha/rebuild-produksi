@@ -99,7 +99,7 @@ class ExcelReport extends Component {
               return (
                 <>
                   <tr>
-                    <td>{element.tgl_kirim}</td>
+                    <td>{element.tanggal_terima}</td>
                     <td>{element.no_job_order}</td>
                     <td>{element.tambahan}</td>
                     <td style={{ textAlign: "right" }}>{element.stock_in}</td>
@@ -111,7 +111,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={2} style={{ textAlign: "right" }}>
+              <td colSpan={3} style={{ textAlign: "right" }}>
                 Grand Total :
               </td>
               <td style={{ textAlign: "right" }}>

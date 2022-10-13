@@ -3,10 +3,9 @@ import post from "../../../axios/post";
 import word from "../../../shared/static";
 
 const KirimJO = {
-  getDetailJO: async ({ dataKirim }) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_DETAIL_JO_BY_POST,
-      data: dataKirim,
+  getDetailJO: async (noJO, divisi) => {
+    const response = await get({
+      url: word.URL_GET_DETAIL_TAMBAH_JO + noJO + "/" + divisi,
     });
     return response;
   },

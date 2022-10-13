@@ -22,14 +22,13 @@ const getDataHistoryKirimLebur =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_HISTORY_KIRIM_LEBUR) {
-      const response = await api.KirimLebur.getAllHistoryKirimLebur();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataHistoryKirimLeburSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataHistoryKirimLeburFailed({ error: response.error }));
-      }
+      api.KirimLebur.getAllHistoryKirimLebur().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataHistoryKirimLeburSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataHistoryKirimLeburFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -45,47 +44,45 @@ const getDataSaldoBahanOpen =
         const data = getState().form.FormTambahKirimLebur.values;
         dispatch(setDataAsalBahan({ asalBahan: data.asal_bahan }));
         const onSendData = { asal_bahan: data.asal_bahan };
-        const response = await api.KirimLebur.getAllSaldoBahanOpen({
+        api.KirimLebur.getAllSaldoBahanOpen({
           dataKirim: onSendData,
-        });
-        if (response.value?.status === "berhasil") {
-          if (response.value.data.length !== 0) {
-            const kadarkali = parseFloat(response.value.data[0].kadar) / 100;
-            const karat = parseFloat(response.value.data[0].berat) * kadarkali;
-            dispatch(setData24K({ karat24: karat.toFixed(4) }));
-            dispatch(
-              setDataSaldoBahanOpenSuccess({ feedback: response.value.data })
-            );
+        }).then((res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              const kadarkali = parseFloat(res.value[0].kadar) / 100;
+              const karat = parseFloat(res.value[0].berat) * kadarkali;
+              dispatch(setData24K({ karat24: karat.toFixed(4) }));
+              dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
+            } else {
+              dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
+            }
           } else {
+            dispatch(setData24K({ karat24: "" }));
             dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
+            dispatch(setDataSaldoBahanOpenFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setData24K({ karat24: "" }));
-          dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
-          dispatch(setDataSaldoBahanOpenFailed({ error: response.error }));
-        }
+        });
       } else {
         const onSendData = { asal_bahan: action.payload.data };
         dispatch(setDataAsalBahan({ asalBahan: action.payload.data }));
-        const response = await api.KirimLebur.getAllSaldoBahanOpen({
+        api.KirimLebur.getAllSaldoBahanOpen({
           dataKirim: onSendData,
-        });
-        if (response.value?.status === "berhasil") {
-          if (response.value.data.length !== 0) {
-            const kadarkali = parseFloat(response.value.data[0].kadar) / 100;
-            const karat = parseFloat(response.value.data[0].berat) * kadarkali;
-            dispatch(setData24K({ karat24: karat.toFixed(4) }));
-            dispatch(
-              setDataSaldoBahanOpenSuccess({ feedback: response.value.data })
-            );
+        }).then((res) => {
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              const kadarkali = parseFloat(res.value[0].kadar) / 100;
+              const karat = parseFloat(res.value[0].berat) * kadarkali;
+              dispatch(setData24K({ karat24: karat.toFixed(4) }));
+              dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
+            } else {
+              dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
+            }
           } else {
+            dispatch(setData24K({ karat24: "" }));
             dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
+            dispatch(setDataSaldoBahanOpenFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setData24K({ karat24: "" }));
-          dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
-          dispatch(setDataSaldoBahanOpenFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -101,24 +98,28 @@ const getDataSaldoBahan =
       const data = getState().form.FormTambahKirimLebur.values;
       const dataSaldoBahan = getState().kirimlebur.feedbackSaldoBahan;
       const dataSaldoBahanFill = dataSaldoBahan.filter((item) => {
-        return item.id === id;
+        return item.jenis_bahan === id;
       });
       const onSendData = {
         asal_bahan: data.asal_bahan,
-        id: id,
-        jenis_bahan: dataSaldoBahanFill[0].jenis_bahan,
+        jenis_bahan: id,
+        no_abu:
+          dataSaldoBahanFill[0].no_abu_cor ||
+          dataSaldoBahanFill[0].no_abu_potong ||
+          dataSaldoBahanFill[0].no_abu,
       };
-      const response = await api.KirimLebur.getAllSaldoBahan({
+      api.KirimLebur.getAllSaldoBahan({
         dataKirim: onSendData,
+      }).then((res) => {
+        if (res.value !== null) {
+          const kadarkali = parseFloat(res.value[0].kadar) / 100;
+          const karat = parseFloat(res.value[0].berat) * kadarkali;
+          dispatch(setData24K({ karat24: karat.toFixed(4) }));
+          dispatch(setDataSaldoBahanSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataSaldoBahanFailed({ error: res.error }));
+        }
       });
-      if (response.value?.status === "berhasil") {
-        const kadarkali = parseFloat(response.value.data[0].kadar) / 100;
-        const karat = parseFloat(response.value.data[0].berat) * kadarkali;
-        dispatch(setData24K({ karat24: karat.toFixed(4) }));
-        dispatch(setDataSaldoBahanSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataSaldoBahanFailed({ error: response.error }));
-      }
     }
   };
 
@@ -142,7 +143,7 @@ const setDataLocalKirimLebur =
         log(data);
         if (
           data.asal_bahan === undefined ||
-          data.id === undefined ||
+          data.jenis_bahan === undefined ||
           data.berat === undefined ||
           data.kadar === undefined ||
           data.karat === undefined ||
@@ -163,7 +164,7 @@ const setDataLocalKirimLebur =
         data.jenis_bahan = jenisbahan;
         if (
           data.asal_bahan === undefined ||
-          data.id === undefined ||
+          data.jenis_bahan === undefined ||
           data.berat === undefined ||
           data.kadar === undefined ||
           data.karat === undefined ||
@@ -187,22 +188,36 @@ const addKirimLebur =
     next(action);
     if (action.type === ADD_KIRIM_LEBUR) {
       const data = getLocal("data_kirim_lebur");
-      const onSend = {
-        detail: data,
-      };
-      const response = await api.KirimLebur.addDataKirimLebur({
-        dataKirim: onSend,
+      const newArr = [];
+      data.forEach((element) => {
+        const row = {
+          asal_bahan: element.asal_bahan,
+          no_abu: element.no_abu,
+          jenis_bahan: element.jenis_bahan,
+          keterangan: element.keterangan,
+          berat: element.berat,
+          kadar: element.kadar,
+          karat: parseFloat(element.karat),
+        };
+        newArr.push(row);
       });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      const onSend = {
+        detail_kirim_lebur: newArr,
+      };
+      api.KirimLebur.addDataKirimLebur({
+        dataKirim: onSend,
+      }).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Mengirim Data !"
+          );
           localStorage.removeItem("data_kirim_lebur");
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Mengirim Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

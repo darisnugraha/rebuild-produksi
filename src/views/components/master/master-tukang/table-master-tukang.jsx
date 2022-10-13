@@ -47,8 +47,8 @@ const TableMasterTukang = () => {
         setValue(currValue);
         const filteredData = dataMasterTukang.filter(
           (entry) =>
-            entry.kode_staff.includes(currValue.toUpperCase()) ||
-            entry.nama_staff.includes(currValue.toUpperCase()) ||
+            entry.kode_tukang.includes(currValue.toUpperCase()) ||
+            entry.nama_tukang.includes(currValue.toUpperCase()) ||
             entry.no_hp.includes(currValue.toUpperCase()) ||
             entry.email.includes(currValue.toUpperCase())
         );
@@ -65,14 +65,14 @@ const TableMasterTukang = () => {
       children: [
         {
           title: "Kode Tukang",
-          dataIndex: "kode_staff",
-          key: "kode_staff",
+          dataIndex: "kode_tukang",
+          key: "kode_tukang",
           align: "center",
         },
         {
           title: "Nama Tukang",
-          dataIndex: "nama_staff",
-          key: "nama_staff",
+          dataIndex: "nama_tukang",
+          key: "nama_tukang",
           align: "center",
         },
         {
@@ -102,7 +102,7 @@ const TableMasterTukang = () => {
                     onClick={() => {
                       dispatch(
                         getMasterTukangByID({
-                          dataID: text.kode_staff,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -114,7 +114,7 @@ const TableMasterTukang = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_staff, text.nama_staff);
+                      onDelete(text._id, text.nama_tukang);
                     }}
                   >
                     DELETE

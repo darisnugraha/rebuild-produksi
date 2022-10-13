@@ -45,37 +45,28 @@ const getAllDataLaporanTambahJobOrder =
         };
         writeLocal("laporan_terima_batu", dataOnsend);
 
-        const response = await api.LaporanTerimaBatu.getAllLaporanTerimaBatu(
-          dataOnsend
-        );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
+        api.LaporanTerimaBatu.getAllLaporanTerimaBatu(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanTerimaBatuSuccess({ feedback: res.value })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataLaporanTerimaBatuSuccess({
-                  feedback: response?.value.data,
-                })
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
               );
+              dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
+              dispatch(setDataLaporanTerimaBatuFailed({ error: res.error }));
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTerimaBatuFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanTerimaBatuFailed({ error: response.error }));
-        }
+        );
       }
     }
   };

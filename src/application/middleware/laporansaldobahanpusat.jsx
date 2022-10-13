@@ -53,40 +53,28 @@ const getAllDataLaporanSaldoBahanPusat =
         };
         writeLocal("laporan_saldo_bahan_pusat", dataOnsend);
 
-        const response =
-          await api.LaporanSaldoBahanPusat.getAllLaporanSaldoBahanPusat(
-            dataOnsend
-          );
-        if (response?.value !== null) {
+        api.LaporanSaldoBahanPusat.getAllLaporanSaldoBahanPusat(
+          dataOnsend
+        ).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanSaldoBahanPusatSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanSaldoBahanPusatSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanSaldoBahanPusatSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanSaldoBahanPusatSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanSaldoBahanPusatFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanSaldoBahanPusatSuccess({ feedback: [] }));
+            dispatch(setDataLaporanSaldoBahanPusatFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanSaldoBahanPusatFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

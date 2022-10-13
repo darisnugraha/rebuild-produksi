@@ -12,7 +12,7 @@ const initialState = {
   error: null,
   isEdit: false,
   isVisible: false,
-  dataEdit: [],
+  dataEdit: undefined,
 };
 
 const masterdivisi = (state = initialState, action) => {

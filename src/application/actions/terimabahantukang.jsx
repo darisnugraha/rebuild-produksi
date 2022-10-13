@@ -20,6 +20,8 @@ export const SET_DATA_BAHAN_ASAL_TUKANG_FAILED =
   "[terimabahantukang] get all bahan asal tukang failed";
 
 export const GET_BERAT_BAHAN = "[terimabahantukang] get berat bahan";
+export const GET_BERAT_BAHAN_BY_STAFF =
+  "[terimabahantukang] get berat bahan by staff";
 export const SET_DATA_BERAT_BAHAN_SUCCESS =
   "[terimabahantukang] get berat bahan success";
 export const SET_DATA_BERAT_BAHAN_FAILED =
@@ -41,9 +43,13 @@ export const getAllTukangAsalDivisi = ({ divisi }) => ({
   type: GET_ALL_TUKANG_ASAL_DIVISI,
   payload: { data: divisi },
 });
-export const setDataTukangAsalDivisiSuccess = ({ feedback }) => ({
+export const setDataTukangAsalDivisiSuccess = ({
+  feedback,
+  divisi_asal,
+  staff_asal,
+}) => ({
   type: SET_DATA_TUKANG_ASAL_DIVISI_SUCCESS,
-  payload: { data: feedback },
+  payload: { data: feedback, datadivisi: divisi_asal, datastaff: staff_asal },
 });
 export const setDataTukangAsalDivisiFailed = ({ error }) => ({
   type: SET_DATA_TUKANG_ASAL_DIVISI_FAILED,
@@ -66,6 +72,11 @@ export const setDataBahanAsalTukangFailed = ({ error }) => ({
 export const getBeratBahan = ({ bahan }) => ({
   type: GET_BERAT_BAHAN,
   payload: { data: bahan },
+});
+
+export const getBeratBahanByStaff = ({ staff }) => ({
+  type: GET_BERAT_BAHAN_BY_STAFF,
+  payload: { data: staff },
 });
 export const setDataBeratBahanSuccess = ({ feedback }) => ({
   type: SET_DATA_BERAT_BAHAN_SUCCESS,

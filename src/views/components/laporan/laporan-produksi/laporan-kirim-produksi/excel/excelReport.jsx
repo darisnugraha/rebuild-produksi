@@ -14,8 +14,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename={`LAPORAN KIRIM PRODUKSI (${this.props.dataHead?.nama_divisi})`}
-          sheet={`LAPORAN KIRIM PRODUKSI (${this.props.dataHead?.nama_divisi})`}
+          filename={`LAPORAN KIRIM PRODUKSI (${this.props.dataHead?.divisi})`}
+          sheet={`LAPORAN KIRIM PRODUKSI (${this.props.dataHead?.divisi})`}
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -28,7 +28,7 @@ class ExcelReport extends Component {
                 }}
                 colSpan="5"
               >
-                LAPORAN KIRIM PRODUKSI ({this.props.dataHead?.nama_divisi})
+                LAPORAN KIRIM PRODUKSI ({this.props.dataHead?.divisi})
               </td>
             </tr>
             <tr>
@@ -162,7 +162,7 @@ class ExcelReport extends Component {
                 <>
                   <tr>
                     <td>{element.no_kirim}</td>
-                    <td>{element.tgl_kirim}</td>
+                    <td>{element.tanggal}</td>
                     <td>{element.no_job_order}</td>
                     <td>{element.kode_barang}</td>
                     <td>{element.tujuan_divisi}</td>
@@ -179,7 +179,7 @@ class ExcelReport extends Component {
                         (parseFloat(element.kadar) / 100)
                       ).toFixed(3)}
                     </td>
-                    <td>{element.kode_staff}</td>
+                    <td>{element.kode_tukang}</td>
                   </tr>
                 </>
               );

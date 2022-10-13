@@ -16,25 +16,14 @@ const dateFormat = "DD/MM/YYYY";
 const today = new Date();
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanSaldoBahanPusat?.values !== undefined) {
-    return {
-      initialValues: {
-        date: state.form.FormLaporanSaldoBahanPusat?.values.date,
-        tukang: state.form.FormLaporanSaldoBahanPusat?.values.tukang,
-        bahan: state.form.FormLaporanSaldoBahanPusat?.values.bahan,
-        divisi: state.form.FormLaporanSaldoBahanPusat?.values.divisi,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        date: [moment(today, dateFormat), moment(today, dateFormat)],
-        tukang: state.mastertukang.feedback[0]?.kode_staff,
-        bahan: state.groupbahan.feedback[0]?.nama_bahan,
-        divisi: state.kirimbahanadmin.feedback[0]?.nama_divisi,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      date: [moment(today, dateFormat), moment(today, dateFormat)],
+      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+      bahan: state.groupbahan.feedback[0]?.nama_bahan,
+      divisi: state.kirimbahanadmin.feedback[0]?.divisi,
+    },
+  };
 };
 
 let FormLaporanSaldoBahanPusat = (prop) => {
@@ -57,7 +46,7 @@ let FormLaporanSaldoBahanPusat = (prop) => {
             onBlur={(e) => e.preventDefault()}
           />
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
@@ -68,18 +57,18 @@ let FormLaporanSaldoBahanPusat = (prop) => {
           >
             {dataMasterTukang.map((item) => {
               return (
-                <Option value={item.kode_staff} key={item.kode_staff}>
+                <Option value={item.kode_tukang} key={item.kode_tukang}>
                   <span style={{ fontSize: "13px" }}>
-                    {item.kode_staff === item.nama_staff
-                      ? item.nama_staff
-                      : item.nama_staff + " (" + item.kode_staff + ")"}
+                    {item.kode_tukang === item.nama_tukang
+                      ? item.nama_tukang
+                      : item.nama_tukang + " (" + item.kode_tukang + ")"}
                   </span>
                 </Option>
               );
             })}
           </Field>
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="bahan"
             label={<span style={{ fontSize: "13px" }}>Kelompok Bahan</span>}
@@ -97,7 +86,7 @@ let FormLaporanSaldoBahanPusat = (prop) => {
             })}
           </Field>
         </Col>
-        <Col offset={1}>
+        <Col span={6}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -109,8 +98,8 @@ let FormLaporanSaldoBahanPusat = (prop) => {
             {dataDivisi.map((item) => {
               console.log(item);
               return (
-                <Option value={item.nama_divisi} key={item.nama_divisi}>
-                  <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                <Option value={item.divisi} key={item.divisi}>
+                  <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                 </Option>
               );
             })}

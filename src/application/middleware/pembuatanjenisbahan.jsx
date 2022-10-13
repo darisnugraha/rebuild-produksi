@@ -7,8 +7,12 @@ import {
   addDataDetailBahanSuccess,
   ADD_DETAIL_BAHAN,
   ADD_PEMBUATAN_JENIS_BAHAN,
+  DELETE_DETAIL_JENIS_BAHAN,
+  DELETE_BAHAN,
+  RESET_PEMBUATAN_JENIS_BAHAN,
 } from "../actions/pembuatanjenisbahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import Swal from "sweetalert2";
 
 const saldoBahanGetAll =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -17,14 +21,13 @@ const saldoBahanGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_SALDO_BAHAN_STOCK) {
-      const response = await api.PembuatanJenisBahan.getAllSaldoBahanStock();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataSaldoBahanStockSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataSaldoBahanStockFailed({ error: response.error }));
-      }
+      api.PembuatanJenisBahan.getAllSaldoBahanStock().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataSaldoBahanStockSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataSaldoBahanStockFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -44,10 +47,30 @@ const addDetailJenisBahan =
       ) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
-        datalocal.push(data);
-        writeLocal("data_detail_jenis_bahan", datalocal);
+        const dataDetail = getLocal("data_detail_jenis_bahan");
+        if (dataDetail === null || dataDetail.length === 0) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+          dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
+          datalocal.push(data);
+          writeLocal("data_detail_jenis_bahan", datalocal);
+        } else {
+          Swal.fire({
+            title: "Add Data",
+            text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sweetalert.default.Success("Berhasil Menambahkan Data !");
+              dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
+              datalocal.push(data);
+              writeLocal("data_detail_jenis_bahan", datalocal);
+            }
+          });
+        }
       }
     }
   };
@@ -80,11 +103,18 @@ const addDetailBahan =
       } else {
         const data = getState().form.FormTambahBahan?.values;
         let datalocal = getLocal("data_detail_bahan");
+        const cekData = datalocal.find((val) => {
+          return val.nama_bahan === data.nama_bahan;
+        });
         if (data.berat_bahan === undefined) {
           sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
         } else if (!getLocal("data_detail_jenis_bahan")) {
           sweetalert.default.Failed(
             "Tambahkan Detail Jenis Bahan Terlebih Dahulu !"
+          );
+        } else if (cekData) {
+          sweetalert.default.Failed(
+            `Bahan ${data.nama_bahan} Sudah Ada Pada Tabel !`
           );
         } else {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -105,23 +135,76 @@ const addDataPembuatanJenisBahan =
     if (action.type === ADD_PEMBUATAN_JENIS_BAHAN) {
       const dataDetailJenisBahan = getLocal("data_detail_jenis_bahan");
       const dataDetailBahan = getLocal("data_detail_bahan");
+      let dataDetailNewArr = [];
+      dataDetailBahan.forEach((element) => {
+        const row = {
+          nama_bahan: element.nama_bahan,
+          berat_bahan: parseFloat(element.berat_bahan),
+        };
+        dataDetailNewArr.push(row);
+      });
       const onSendData = {
         berat: parseFloat(dataDetailJenisBahan[0].berat_dibutuhkan),
         berat_susut: parseFloat(dataDetailJenisBahan[0].berat_susut),
-        detail_bahan: dataDetailBahan,
+        detail_bahan: dataDetailNewArr,
         kode_jenis_bahan: dataDetailJenisBahan[0].kode_jenis_bahan,
-        pohon: dataDetailJenisBahan[0].no_pohon,
+        no_pohon: dataDetailJenisBahan[0].no_pohon,
       };
-      const response = await api.PembuatanJenisBahan.addPembuatanJenisBahan(
-        onSendData
-      );
-      if (response.value !== null) {
-        sweetalert.default.Success(response.value.pesan);
-        localStorage.removeItem("data_detail_jenis_bahan");
-        localStorage.removeItem("data_detail_bahan");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.PembuatanJenisBahan.addPembuatanJenisBahan(onSendData).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Membuat Bahan !");
+          localStorage.removeItem("data_detail_jenis_bahan");
+          localStorage.removeItem("data_detail_bahan");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Membuat Bahan !"
+          );
+        }
+      });
+    }
+  };
+
+const deleteDetailJenisBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_DETAIL_JENIS_BAHAN) {
+      // console.log(action.payload.data);
+      const id = action.payload.data;
+      const data = getLocal("data_detail_jenis_bahan");
+      const dataFill = data.filter((val) => val.no_pohon !== id);
+      writeLocal("data_detail_jenis_bahan", dataFill);
+      sweetalert.default.Success("Berhasil Menghapus Data !");
+    }
+  };
+
+const deleteBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === DELETE_BAHAN) {
+      const id = action.payload.data;
+      const data = getLocal("data_detail_bahan");
+      const dataFill = data.filter((val) => val.nama_bahan !== id);
+      writeLocal("data_detail_bahan", dataFill);
+      sweetalert.default.Success("Berhasil Menghapus Data !");
+    }
+  };
+
+const resetPembuatanJenisBahan =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === RESET_PEMBUATAN_JENIS_BAHAN) {
+      localStorage.removeItem("data_detail_bahan");
+      localStorage.removeItem("data_detail_jenis_bahan");
+      sweetalert.default.Success("Berhasil Menghapus Data !");
     }
   };
 
@@ -130,6 +213,9 @@ const data = [
   addDetailJenisBahan,
   addDetailBahan,
   addDataPembuatanJenisBahan,
+  deleteDetailJenisBahan,
+  deleteBahan,
+  resetPembuatanJenisBahan,
 ];
 
 export default data;

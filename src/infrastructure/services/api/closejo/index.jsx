@@ -1,11 +1,11 @@
 import post from "../../../axios/post";
+import get from "../../../axios/get";
 import word from "../../../shared/static";
 
 const CloseJO = {
   getDetailCloseJO: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_DETAIL_JO_CLOSE,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_DETAIL_JO_CLOSE + dataKirim,
     });
     return response;
   },

@@ -133,7 +133,7 @@ class ExcelReport extends Component {
                   {item.map((element) => {
                     return (
                       <tr>
-                        <td>{element.tgl_kirim}</td>
+                        <td>{element.tanggal_kirim}</td>
                         <td>{element.divisi}</td>
                         <td>{element.no_job_order}</td>
                         <td>{element.tambahan}</td>

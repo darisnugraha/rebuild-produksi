@@ -1,32 +1,38 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Row, Col, Select, Modal } from "antd";
+import {
+  Form,
+  Row,
+  Col,
+  // Select,
+  Modal,
+} from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import MasterBatu from "../../../../application/selectors/masterbatu";
+// import MasterBatu from "../../../../application/selectors/masterbatu";
 import {
-  countBeratKirimBatuProduksi,
-  getBeratBatuByID,
+  // countBeratKirimBatuProduksi,
+  // getBeratBatuByID,
   getJOKirimBatuByID,
 } from "../../../../application/actions/kirimbatuproduksi";
 
-const { Option } = Select;
+// const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.kirimbatuproduksi.feedback !== undefined) {
-    if (state.kirimbatuproduksi.dataBatu !== undefined) {
+    if (state.kirimbatuproduksi.dataBatu.length !== 0) {
       return {
         initialValues: {
           no_job_order: state.kirimbatuproduksi.feedback[0]?.no_job_order,
           kode_barang: state.kirimbatuproduksi.feedback[0]?.kode_barang,
           kode_jenis_bahan:
             state.kirimbatuproduksi.feedback[0]?.kode_jenis_bahan,
-          kode_batu: state.kirimbatuproduksi.dataBatu[0]?.kode_batu,
-          berat_pcs: state.kirimbatuproduksi.dataBatu[0]?.berat_batu,
-          jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
-          berat_kirim: state.kirimbatuproduksi.beratKirim,
+          // kode_batu: state.kirimbatuproduksi.dataBatu[0]?.kode_batu,
+          // // berat_pcs: state.kirimbatuproduksi.dataBatu[0]?.berat_batu,
+          // jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+          // berat_kirim: state.kirimbatuproduksi.beratKirim,
         },
       };
     } else {
@@ -36,10 +42,10 @@ const maptostate = (state) => {
           kode_barang: state.kirimbatuproduksi.feedback[0]?.kode_barang,
           kode_jenis_bahan:
             state.kirimbatuproduksi.feedback[0]?.kode_jenis_bahan,
-          kode_batu: state.masterbatu.feedback[0]?.kode_batu,
-          berat_pcs: state.masterbatu.feedback[0]?.berat_batu,
-          jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
-          berat_kirim: state.kirimbatuproduksi.beratKirim,
+          // kode_batu: state.masterbatu.feedback[0]?.kode_batu,
+          // // berat_pcs: state.masterbatu.feedback[0]?.berat_batu,
+          // jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+          // berat_kirim: state.kirimbatuproduksi.beratKirim,
         },
       };
     }
@@ -49,10 +55,10 @@ const maptostate = (state) => {
         no_job_order: "",
         kode_barang: "",
         kode_jenis_bahan: "",
-        kode_batu: state.masterbatu.feedback[0]?.kode_batu,
-        berat_pcs: state.masterbatu.feedback[0]?.berat_batu,
-        jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
-        berat_kirim: state.kirimbatuproduksi.beratKirim,
+        // kode_batu: state.masterbatu.feedback[0]?.kode_batu,
+        // // berat_pcs: state.masterbatu.feedback[0]?.berat_batu,
+        // jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+        // berat_kirim: state.kirimbatuproduksi.beratKirim,
       },
     };
   }
@@ -63,7 +69,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
+  // const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
 
   return (
     <Modal
@@ -77,7 +83,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="no_job_order"
               type="text"
@@ -90,7 +96,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="kode_barang"
               type="text"
@@ -101,7 +107,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -112,7 +118,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          {/* <Col span={8} offset={1}>
             <Field
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
@@ -133,7 +139,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1} style={{ display: "none" }}>
             <Field
               name="berat_pcs"
               type="text"
@@ -144,7 +150,7 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="jumlah_kirim"
               type="number"
@@ -152,14 +158,14 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Jumlah Kirim"
-              onBlur={(e) => {
-                dispatch(
-                  countBeratKirimBatuProduksi({ jumlah: e.target.value })
-                );
-              }}
+              // onBlur={(e) => {
+              //   dispatch(
+              //     countBeratKirimBatuProduksi({ jumlah: e.target.value })
+              //   );
+              // }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="berat_kirim"
               type="text"
@@ -167,9 +173,9 @@ let FormTambahKirimBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Kirim"
-              disabled
+              // disabled
             />
-          </Col>
+          </Col> */}
         </Row>
       </Form>
     </Modal>

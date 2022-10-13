@@ -100,7 +100,7 @@ const pdfReport = (data = "") => {
         content: element.update_date,
       },
       {
-        content: element.kode_staff,
+        content: element.kode_tukang,
       },
     ];
     tableRows.push(row);

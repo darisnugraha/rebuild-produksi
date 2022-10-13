@@ -18,12 +18,13 @@ const masterBahanGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_BAHAN) {
-      const response = await api.MasterBahan.getAllMasterBahan();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterBahanSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterBahanFailed({ error: response.error }));
-      }
+      api.MasterBahan.getAllMasterBahan().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterBahanSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterBahanFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,14 @@ const masterBahanGetDataID =
     next(action);
     if (action.type === GET_MASTER_BAHAN_ID) {
       dispatch(setEditFormMasterBahan(true));
-      const dataMasterBahan = getState().masterbahan.feedback;
-      const dataMasterBahanFilter = dataMasterBahan.filter((item) => {
-        return item.kode_bahan === action.payload;
+      const id = action.payload;
+      api.MasterBahan.getMasterBahanById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterBahanEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterBahanEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(setDataMasterBahanEdit({ dataEdit: dataMasterBahanFilter }));
     }
   };
 
@@ -52,13 +56,16 @@ const addDataMasterBahan =
     if (action.type === ADD_MASTER_BAHAN) {
       const data = getState().form.FormTambahMasterBahan.values;
       delete data.kode_bahan;
-      const response = await api.MasterBahan.addMasterBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      data.kadar = parseFloat(data.kadar);
+      api.MasterBahan.addMasterBahan(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -69,16 +76,16 @@ const deleteDataMasterBahan =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_BAHAN) {
-      const data = {
-        nama_bahan: action.payload.data,
-      };
-      const response = await api.MasterBahan.deleteMasterBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterBahan.deleteMasterBahan("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -90,13 +97,18 @@ const editDataMasterBahan =
     next(action);
     if (action.type === EDIT_MASTER_BAHAN) {
       const data = getState().form.FormTambahMasterBahan.values;
-      const response = await api.MasterBahan.editMasterBahan(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      delete data.id;
+      data.kadar = parseFloat(data.kadar);
+      api.MasterBahan.editMasterBahan("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
     }
   };
 

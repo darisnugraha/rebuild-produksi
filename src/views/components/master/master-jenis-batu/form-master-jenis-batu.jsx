@@ -15,13 +15,15 @@ const maptostate = (state) => {
   if (state.masterjenisbatu.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_jenis_batu: state.masterjenisbatu.dataEdit[0]?.kode_jenis_batu,
-        nama_jenis_batu: state.masterjenisbatu.dataEdit[0]?.nama_jenis_batu,
+        id: state.masterjenisbatu.dataEdit?._id,
+        kode_jenis_batu: state.masterjenisbatu.dataEdit?.kode_jenis_batu,
+        nama_jenis_batu: state.masterjenisbatu.dataEdit?.nama_jenis_batu,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_jenis_batu: "",
         nama_jenis_batu: "",
       },

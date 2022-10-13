@@ -8,16 +8,18 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import { getAllMasterTukang } from "../../../application/actions/mastertukang";
 import { getAllSaldoBahanStock } from "../../../application/actions/pembuatanjenisbahan";
 import FormKirimBahanAdmin from "../../components/admin-bahan/kirim-bahan-admin/button-kirim-bahan-admin";
-import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
+import {
+  getAllDivisi,
+  getTukangByDivisi,
+} from "../../../application/actions/kirimbahanadmin.jsx";
 
 const KirimBahanAdmin = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllMasterTukang);
+    dispatch(getTukangByDivisi("ADMIN PUSAT"));
     dispatch(getAllSaldoBahanStock);
     dispatch(getAllDivisi);
     document.title = "Kirim Bahan Admin";

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import FormTerimaBahan from "./form-terima-bahan";
-import { getSaldoBahanTukang } from "../../../application/actions/terimabahan";
+import {
+  setDivisi,
+  getTukangByDivisi,
+} from "../../../application/actions/terimabahan";
 import { useDispatch } from "react-redux";
+import getLocal from "../../../infrastructure/services/local/get-local";
 
 const ModalTerimaBahan = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const divisi = getLocal("divisi");
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
@@ -19,7 +24,12 @@ const ModalTerimaBahan = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
-          dispatch(getSaldoBahanTukang({ staff: null }));
+          dispatch(
+            getTukangByDivisi(
+              divisi === "Admin" ? "ADMIN PUSAT" : divisi.toUpperCase()
+            )
+          );
+          dispatch(setDivisi(divisi));
         }}
       >
         + Data Terima

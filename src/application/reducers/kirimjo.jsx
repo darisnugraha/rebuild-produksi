@@ -5,6 +5,7 @@ import {
   SET_COUNT_BERAT_KIRIM_JO,
   COUNT_BERAT_KIRIM_JO,
   SET_JUMLAH_KIRIM_JO,
+  SAVE_BERAT_BATU_TAK_TERPAKAI,
 } from "../actions/kirimjo";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   jumlahKirim: 0,
   beratKirim: 0,
   beratSusut: 0,
+  beratBatuTakTerpakai: 0,
 };
 
 const kirimjo = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const kirimjo = (state = initialState, action) => {
       return {
         ...state,
         jumlahKirim: action.payload.data,
+      };
+    case SAVE_BERAT_BATU_TAK_TERPAKAI:
+      return {
+        ...state,
+        beratBatuTakTerpakai: action.payload.data,
       };
     default:
       return state;

@@ -15,17 +15,19 @@ const maptostate = (state) => {
   if (state.mastertukang.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_staff: state.mastertukang.dataEdit[0]?.kode_staff,
-        nama_staff: state.mastertukang.dataEdit[0]?.nama_staff,
-        no_hp: state.mastertukang.dataEdit[0]?.no_hp,
-        email: state.mastertukang.dataEdit[0]?.email,
+        id: state.mastertukang.dataEdit?._id,
+        kode_tukang: state.mastertukang.dataEdit?.kode_tukang,
+        nama_tukang: state.mastertukang.dataEdit?.nama_tukang,
+        no_hp: state.mastertukang.dataEdit?.no_hp,
+        email: state.mastertukang.dataEdit?.email,
       },
     };
   } else {
     return {
       initialValues: {
-        kode_staff: "",
-        nama_staff: "",
+        id: "",
+        kode_tukang: "",
+        nama_tukang: "",
         no_hp: "",
         email: "",
       },
@@ -61,9 +63,20 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
+          <Col offset={1} style={{ display: "none" }}>
+            <Field
+              name="id"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled={isEdit ? true : false}
+            />
+          </Col>
           <Col offset={1}>
             <Field
-              name="kode_staff"
+              name="kode_tukang"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Tukang</span>}
               component={styleAntd.AInput}
@@ -74,7 +87,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="nama_staff"
+              name="nama_tukang"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Nama Tukang</span>}
               component={styleAntd.AInput}

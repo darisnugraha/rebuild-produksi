@@ -88,7 +88,7 @@ const TableMasterWarna = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      dispatch(getMasterWarnaByID({ dataID: text.kode_warna }));
+                      dispatch(getMasterWarnaByID({ dataID: text._id }));
                     }}
                   >
                     EDIT
@@ -98,7 +98,7 @@ const TableMasterWarna = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_warna, text.nama_warna);
+                      onDelete(text._id, text.nama_warna);
                     }}
                   >
                     DELETE

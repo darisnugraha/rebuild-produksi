@@ -7,6 +7,12 @@ const TableKirimLebur = () => {
   const dataTable = getLocal("data_kirim_lebur") || [];
   const columns = [
     {
+      title: "No Abu",
+      dataIndex: "no_abu",
+      key: "no_abu",
+      align: "center",
+    },
+    {
       title: "Asal Bahan",
       dataIndex: "asal_bahan",
       key: "asal_bahan",

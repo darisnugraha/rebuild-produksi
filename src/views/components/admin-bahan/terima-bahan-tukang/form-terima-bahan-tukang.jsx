@@ -6,23 +6,27 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import TerimaBahanTukang from "../../../../application/selectors/terimabahantukang";
+import {
+  // getAllTukangAsalDivisi,
+  getBeratBahanByStaff,
+} from "../../../../application/actions/terimabahantukang";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.terimabahantukang.feedback.length !== 0) {
+  if (state.terimabahantukang.feedbackTukang.length !== 0) {
     return {
       initialValues: {
-        divisi_asal: state.terimabahantukang.feedback[0]?.kode_divisi,
-        tukang_asal: state.terimabahantukang.feedbackTukang[0]?.kode_staff,
-        bahan: state.terimabahantukang.feedbackBahan[0]?.kode_bahan,
-        berat_bahan: state.terimabahantukang.feedbackBerat[0]?.berat_total,
+        divisi_asal: "ADMIN PUSAT",
+        tukang_asal: state.terimabahantukang.tukang_asal,
+        bahan: state.terimabahantukang.feedbackBahan[0]?.nama_bahan,
+        berat_bahan: state.terimabahantukang.feedbackBahan[0]?.berat,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi_asal: "",
+        divisi_asal: "ADMIN PUSAT",
         tukang_asal: "",
         bahan: "",
         berat_bahan: "",
@@ -36,9 +40,9 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataDivisiAsal = useSelector(
-    TerimaBahanTukang.getAllDivisiAsalSaldoBahan
-  );
+  // const dataDivisiAsal = useSelector(
+  //   TerimaBahanTukang.getAllDivisiAsalSaldoBahan
+  // );
   const dataTukangAsal = useSelector(TerimaBahanTukang.getAllTukangAsal);
   const dataBahanAsal = useSelector(TerimaBahanTukang.getAllBahanAsal);
 
@@ -64,7 +68,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical">
         <Row>
-          <Col offset={1}>
+          {/* <Col offset={1}>
             <Field
               name="divisi_asal"
               label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
@@ -72,15 +76,28 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getAllTukangAsalDivisi({ divisi: e }))}
             >
               {dataDivisiAsal.map((item) => {
                 return (
-                  <Option value={item.kode_divisi} key={item.kode_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               })}
             </Field>
+          </Col> */}
+          <Col offset={1}>
+            <Field
+              name="divisi_asal"
+              type="text"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Divisi Asal"
+              disabled
+            />
           </Col>
           <Col offset={1}>
             <Field
@@ -90,13 +107,12 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getBeratBahanByStaff({ staff: e }))}
             >
               {dataTukangAsal.map((item) => {
                 return (
-                  <Option value={item.kode_staff} key={item.kode_staff}>
-                    <span style={{ fontSize: "13px" }}>
-                      {item.nama_staff + " (" + item.kode_staff + ")"}
-                    </span>
+                  <Option value={item.tukang} key={item.tukang}>
+                    <span style={{ fontSize: "13px" }}>{item.tukang}</span>
                   </Option>
                 );
               })}
@@ -110,6 +126,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => console.log(e)}
             >
               {dataBahanAsal.map((item) => {
                 return (

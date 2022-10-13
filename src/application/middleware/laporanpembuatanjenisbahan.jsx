@@ -44,45 +44,38 @@ const getAllLaporanPembuatanJenisBahan =
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_pembuatan_jenis_bahan", dataOnsend);
-
-        const response =
-          await api.LaporanPembuatanJenisBahan.getAllLaporanPembuatanJenisBahan(
-            dataOnsend
-          );
-        if (response?.value !== null) {
+        api.LaporanPembuatanJenisBahan.getAllLaporanPembuatanJenisBahan(
+          dataOnsend
+        ).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(
                 setDataLaporanPembuatanJenisBahanSuccess({ feedback: [] })
               );
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
                 setDataLaporanPembuatanJenisBahanSuccess({
-                  feedback: response?.value.data,
+                  feedback: res.value,
                 })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
+            sweetalert.default.Failed(
+              res?.error.data.message || "Terjadi Kesalahan !"
+            );
             dispatch(
               setDataLaporanPembuatanJenisBahanSuccess({ feedback: [] })
             );
             dispatch(
               setDataLaporanPembuatanJenisBahanFailed({
-                error: response.value.pesan,
+                error: res.error,
               })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanPembuatanJenisBahanFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

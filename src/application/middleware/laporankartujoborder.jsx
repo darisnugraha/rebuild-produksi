@@ -23,35 +23,24 @@ const getAllDataKartuJobOrder =
       } else {
         writeLocal("laporan_kartu_jo", data);
 
-        const response = await api.KartuJobOrder.getAllKartuJobOrder(data);
-        if (response?.value !== null) {
+        api.KartuJobOrder.getAllKartuJobOrder(data).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataKartuJoSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataKartuJoSuccess({
-                  feedback: response?.value.data,
-                })
-              );
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+              dispatch(setDataKartuJoSuccess({ feedback: res.value }));
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataKartuJoSuccess({ feedback: [] }));
-            dispatch(
-              setDataKartuJoFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataKartuJoSuccess({ feedback: [] }));
+            dispatch(setDataKartuJoFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataKartuJoFailed({ error: response.error }));
-        }
+        });
       }
     }
   };

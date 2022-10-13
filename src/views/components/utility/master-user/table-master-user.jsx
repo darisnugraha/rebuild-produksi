@@ -69,14 +69,14 @@ const TableMasterUser = () => {
         },
         {
           title: "Nama Lengkap",
-          dataIndex: "nama_lkp",
-          key: "nama_lkp",
+          dataIndex: "user_name",
+          key: "user_name",
           align: "center",
         },
         {
           title: "Type",
-          dataIndex: "type",
-          key: "type",
+          dataIndex: "level",
+          key: "level",
           align: "center",
         },
         {

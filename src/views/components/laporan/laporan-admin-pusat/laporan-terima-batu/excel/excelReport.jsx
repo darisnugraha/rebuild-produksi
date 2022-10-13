@@ -17,7 +17,7 @@ class ExcelReport extends Component {
       }, {});
     };
 
-    const dataGroup = groupBy(this.props.dataExel, "no_batu_kirim");
+    const dataGroup = groupBy(this.props.dataExel, "no_kirim_batu");
     const dataGroupArr = Object.values(dataGroup);
 
     return (
@@ -38,7 +38,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="5"
+                colSpan="6"
               >
                 LAPORAN TERIMA BATU
               </td>
@@ -49,7 +49,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="5"
+                colSpan="6"
               >
                 TANGGAL{" "}
                 {this.props.dataHead?.tgl_awal +
@@ -58,6 +58,15 @@ class ExcelReport extends Component {
               </td>
             </tr>
             <tr>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                NO TERIMA
+              </td>
               <td
                 style={{
                   backgroundColor: "#99CCFF",
@@ -111,20 +120,21 @@ class ExcelReport extends Component {
                 <>
                   <tr>
                     <td
-                      colSpan="5"
+                      colSpan="6"
                       style={{
                         backgroundColor: "#bbbbbb",
                         textAlign: "left",
                       }}
                     >
                       {" "}
-                      NO KIRIM : {item[0].no_batu_kirim}
+                      NO KIRIM : {item[0].no_kirim_batu}
                     </td>
                   </tr>
                   {item.map((element) => {
                     return (
                       <tr>
-                        <td>{element.tgl_terima_batu}</td>
+                        <td>{element.no_admin_terima_batu}</td>
+                        <td>{element.tanggal_terima_batu}</td>
                         <td>{element.no_job_order}</td>
                         <td>{element.kode_batu}</td>
                         <td style={{ textAlign: "right" }}>
@@ -137,7 +147,7 @@ class ExcelReport extends Component {
                     );
                   })}
                   <tr>
-                    <td colSpan={3} style={{ textAlign: "right" }}>
+                    <td colSpan={4} style={{ textAlign: "right" }}>
                       Sub Total :
                     </td>
                     <td style={{ textAlign: "right" }}>
@@ -155,7 +165,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={3} style={{ textAlign: "right" }}>
+              <td colSpan={4} style={{ textAlign: "right" }}>
                 Grand Total :
               </td>
               <td style={{ textAlign: "right" }}>

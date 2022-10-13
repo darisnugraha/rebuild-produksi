@@ -18,14 +18,13 @@ const masteCustomerGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_CUSTOMER) {
-      const response = await api.MasterCustomer.getAllMasterCustomer();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataMasterCustomerSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataMasterCustomerFailed({ error: response.error }));
-      }
+      api.MasterCustomer.getAllMasterCustomer().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterCustomerSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterCustomerFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -37,13 +36,14 @@ const masteCustomerGetDataID =
     next(action);
     if (action.type === GET_MASTER_CUSTOMER_ID) {
       dispatch(setEditFormMasterCustomer(true));
-      const dataMasterCustomer = getState().mastercustomer.feedback;
-      const dataMasterCustomerFilter = dataMasterCustomer.filter((item) => {
-        return item.kode_customer === action.payload;
+      const id = action.payload;
+      api.MasterCustomer.getMasterCustomerById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterCustomerEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterCustomerEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(
-        setDataMasterCustomerEdit({ dataEdit: dataMasterCustomerFilter })
-      );
     }
   };
 
@@ -55,13 +55,15 @@ const addDataMasterCustomer =
     next(action);
     if (action.type === ADD_MASTER_CUSTOMER) {
       const data = getState().form.FormTambahMasterCustomer.values;
-      const response = await api.MasterCustomer.addMasterCustomer(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterCustomer.addMasterCustomer(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -72,16 +74,16 @@ const deleteDataMasterCustomer =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_CUSTOMER) {
-      const data = {
-        kode_customer: action.payload.data,
-      };
-      const response = await api.MasterCustomer.deleteMasterCustomer(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterCustomer.deleteMasterCustomer("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -93,13 +95,17 @@ const editDataMasterCustomer =
     next(action);
     if (action.type === EDIT_MASTER_CUSTOMER) {
       const data = getState().form.FormTambahMasterCustomer.values;
-      const response = await api.MasterCustomer.editMasterCustomer(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      delete data.id;
+      api.MasterCustomer.editMasterCustomer("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
     }
   };
 

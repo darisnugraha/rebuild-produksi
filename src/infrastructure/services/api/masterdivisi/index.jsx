@@ -9,6 +9,10 @@ const MasterDivisi = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_DIVISI });
     return response;
   },
+  getMasterDivisiByID: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_DIVISI_BY_ID + id });
+    return response;
+  },
   addMasterDivisi: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_DIVISI,
@@ -17,11 +21,11 @@ const MasterDivisi = {
     return response;
   },
   deleteMasterDivisi: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_DIVISI, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_DIVISI + data);
     return response;
   },
-  editMasterDivisi: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_DIVISI, data);
+  editMasterDivisi: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_DIVISI + id, data);
     return response;
   },
 };

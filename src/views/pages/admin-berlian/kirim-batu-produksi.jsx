@@ -13,11 +13,11 @@ import FormKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-pro
 import TableKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-kirim-batu-produksi";
 import TableHistoryKirimBatuProduksi from "../../components/admin-berlian/kirim-batu-produksi/table-history-kirim-batu-produksi";
 import { addDataKirimBatuPost } from "../../../application/actions/kirimbatuproduksi.jsx";
+import getLocal from "../../../infrastructure/services/local/get-local.jsx";
 
 const KirimBatuProduksi = () => {
   const dispatch = useDispatch();
-  const dataKirim =
-    JSON.parse(localStorage.getItem("data_kirim_batu_produksi")) || [];
+  const dataKirim = getLocal("data_kirim_batu_produksi") || [];
   console.log(dataKirim);
   useEffect(() => {
     dispatch(pageLoadedLogin);
@@ -60,6 +60,16 @@ const KirimBatuProduksi = () => {
                 </Divider>
               </div>
               <div className="col-12">
+                <div className="row">
+                  <div className="col-lg-12">
+                    No Job Order : {dataKirim[0]?.no_job_order}
+                  </div>
+                  <div className="col-lg-12">
+                    Kode Barang : {dataKirim[0]?.kode_barang}
+                  </div>
+                </div>
+              </div>
+              <div className="col-12">
                 <TableKirimBatuProduksi />
               </div>
               <div className="col-12" style={{ marginTop: "10px" }}>
@@ -80,6 +90,7 @@ const KirimBatuProduksi = () => {
                       type="danger"
                       onClick={() => {
                         localStorage.removeItem("data_kirim_batu_produksi");
+                        localStorage.removeItem("data_detail_kirim_batu");
                         localStorage.removeItem(
                           "data_history_kirim_batu_produksi"
                         );

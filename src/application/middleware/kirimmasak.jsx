@@ -20,14 +20,13 @@ const getHistoryKirimMasak =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_HISTORY_KIRIM_MASAK) {
-      const response = await api.KirimMasak.getAllHistoryKirimMasak();
-      if (response.value?.status === "berhasil") {
-        dispatch(
-          setDataHistoryKirimMasakSuccess({ feedback: response.value.data })
-        );
-      } else {
-        dispatch(setDataHistoryKirimMasakFailed({ error: response.error }));
-      }
+      api.KirimMasak.getAllHistoryKirimMasak().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataHistoryKirimMasakSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataHistoryKirimMasakFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -38,24 +37,25 @@ const getDataTerimaLebur =
   async (action) => {
     next(action);
     if (action.type === GET_TERIMA_LEBUR_MASAK) {
-      const response = await api.KirimMasak.getDataTerimaLebur({
+      api.KirimMasak.getDataTerimaLebur({
         data: action.payload.data,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          dispatch(
-            setDataTerimaLeburMasakSuccess({ feedback: response.value.data })
-          );
+      }).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setDataTerimaLeburMasakSuccess({ feedback: res.value }));
+          } else {
+            dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
+            sweetalert.default.Failed("Data Tidak Ada !");
+            dispatch(setDataTerimaLeburMasakFailed({ error: res.value }));
+          }
         } else {
           dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataTerimaLeburMasakFailed({ error: response.value }));
+          sweetalert.default.Failed(
+            res.error.data.message || "Terjadi Kesalahan !"
+          );
+          dispatch(setDataTerimaLeburMasakFailed({ error: res.error }));
         }
-      } else {
-        dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
-        sweetalert.default.Failed(response.error);
-        dispatch(setDataTerimaLeburMasakFailed({ error: response.error }));
-      }
+      });
     }
   };
 
@@ -140,21 +140,20 @@ const addDataKirimMasak =
     if (action.type === ADD_KIRIM_MASAK) {
       const data = getLocal("data_kirim_masak");
       const onSend = {
-        detail: data,
+        detail_kirim_masak_bahan: data,
       };
-      const response = await api.KirimMasak.addKirimMasak({
-        dataKirim: onSend,
-      });
-      if (response.value !== null) {
-        if (response.value?.status === "berhasil") {
-          sweetalert.default.Success(response.value.pesan);
+      api.KirimMasak.addKirimMasak({ dataKirim: onSend }).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menambahkan Data !"
+          );
           localStorage.removeItem("data_kirim_masak");
         } else {
-          sweetalert.default.Failed(response.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      });
     }
   };
 

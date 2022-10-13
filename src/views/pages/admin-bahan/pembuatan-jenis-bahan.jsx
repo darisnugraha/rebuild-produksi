@@ -7,7 +7,7 @@ import {
   PanelBody,
   PanelFooter,
 } from "./../../components/panel/panel.jsx";
-import { Card, Divider, Button } from "antd";
+import { Card, Divider, Button, Space } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
 import FormPembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jenis-bahan/button-add-pembuatan-jenis-bahan";
@@ -15,7 +15,10 @@ import TablePembuatanJenisBahan from "../../components/admin-bahan/pembuatan-jen
 import {
   addPembuatanJenisBahan,
   getAllSaldoBahanStock,
+  resetPembuatanJenisBahan,
 } from "../../../application/actions/pembuatanjenisbahan.jsx";
+import getLocal from "../../../infrastructure/services/local/get-local.jsx";
+import Swal from "sweetalert2";
 
 const PembuatanJenisBahan = () => {
   const dispatch = useDispatch();
@@ -25,6 +28,24 @@ const PembuatanJenisBahan = () => {
     dispatch(getAllSaldoBahanStock);
     document.title = "Pembuatan Jenis Bahan";
   }, [dispatch]);
+
+  const dataJenisBahan = getLocal("data_detail_jenis_bahan");
+
+  const handelReset = () => {
+    Swal.fire({
+      title: "Reset",
+      text: "Apakah Anda Yakin Akan Mengahapus Data Ini ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(resetPembuatanJenisBahan);
+      }
+    });
+  };
 
   return (
     <div>
@@ -67,14 +88,38 @@ const PembuatanJenisBahan = () => {
           </Card>
         </PanelBody>
         <PanelFooter>
-          <Button
-            type="primary"
-            onClick={() => {
-              dispatch(addPembuatanJenisBahan);
-            }}
-          >
-            Simpan
-          </Button>
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => {
+                dispatch(addPembuatanJenisBahan);
+              }}
+              disabled={
+                dataJenisBahan === undefined ||
+                dataJenisBahan === null ||
+                dataJenisBahan.length === 0
+                  ? true
+                  : false
+              }
+            >
+              Simpan
+            </Button>
+            <Button
+              type="danger"
+              disabled={
+                dataJenisBahan === undefined ||
+                dataJenisBahan === null ||
+                dataJenisBahan.length === 0
+                  ? true
+                  : false
+              }
+              onClick={() => {
+                handelReset();
+              }}
+            >
+              Reset
+            </Button>
+          </Space>
         </PanelFooter>
       </Panel>
     </div>

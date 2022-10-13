@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import FormTerimaBatu from "./form-terima-batu";
 import { useDispatch } from "react-redux";
-import { simpanDataDetailKirimBatuLokal } from "../../../../application/actions/terimabatu";
+import {
+  getAllNoKirimBatuByTanggal,
+  simpanDataDetailKirimBatuLokal,
+} from "../../../../application/actions/terimabatu";
+import moment from "moment";
 
 const ModalTerimaJO = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const today = moment().format("YYYY-MM-D");
 
   return (
     <div>
@@ -14,6 +19,7 @@ const ModalTerimaJO = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
+          dispatch(getAllNoKirimBatuByTanggal({ tanggal: today }));
         }}
       >
         + Data Terima

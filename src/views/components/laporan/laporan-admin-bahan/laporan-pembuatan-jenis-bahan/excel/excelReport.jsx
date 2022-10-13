@@ -134,7 +134,7 @@ class ExcelReport extends Component {
                       parseFloat(item.berat) * (item.kadar / 100);
                     return (
                       <tr>
-                        <td>{item.tgl_mutasi}</td>
+                        <td>{item.tanggal_mutasi}</td>
                         <td>{item.nama_bahan}</td>
                         <td style={{ textAlign: "right" }}>{item.berat}</td>
                         <td style={{ textAlign: "right" }}>{item.kadar}</td>

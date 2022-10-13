@@ -45,40 +45,30 @@ const getAllDataLaporanKirimBatuPusat =
         };
         writeLocal("laporan_kirim_batu_pusat", dataOnsend);
 
-        const response =
-          await api.LaporanKirimBatuPusat.getAllLaporanKirimBatuPusat(
-            dataOnsend
-          );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanKirimBatuPusatSuccess({ feedback: [] }));
+        api.LaporanKirimBatuPusat.getAllLaporanKirimBatuPusat(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(setDataLaporanKirimBatuPusatSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanKirimBatuPusatSuccess({ feedback: res.value })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
+              );
+              dispatch(setDataLaporanKirimBatuPusatSuccess({ feedback: [] }));
               dispatch(
-                setDataLaporanKirimBatuPusatSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanKirimBatuPusatFailed({ error: res.error })
               );
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanKirimBatuPusatSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanKirimBatuPusatFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanKirimBatuPusatFailed({ error: response.error })
-          );
-        }
+        );
       }
     }
   };

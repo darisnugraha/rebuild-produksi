@@ -17,7 +17,7 @@ const maptostate = (state) => {
       initialValues: {
         divisi_terima: localStorage.getItem("divisi") || "",
         no_job_order: state.terimajo.feedback[0]?.no_job_order,
-        tukang_terima: state.terimajo.feedback[0]?.kode_staff,
+        tukang_terima: state.terimajo.feedback[0]?.kode_tukang,
         kode_barang: state.terimajo.feedback[0]?.kode_barang,
         nama_barang: state.terimajo.feedback[0]?.nama_barang,
         kode_jenis_bahan: state.terimajo.feedback[0]?.kode_jenis_bahan,

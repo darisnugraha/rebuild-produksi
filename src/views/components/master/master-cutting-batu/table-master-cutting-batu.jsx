@@ -90,7 +90,7 @@ const TableMasterCuttingBatu = () => {
                     onClick={() => {
                       dispatch(
                         getMasterCuttingBatuByID({
-                          dataID: text.kode_cutting_batu,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -102,7 +102,7 @@ const TableMasterCuttingBatu = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_cutting_batu, text.nama_cutting_batu);
+                      onDelete(text._id, text.nama_cutting_batu);
                     }}
                   >
                     DELETE

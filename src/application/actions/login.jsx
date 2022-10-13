@@ -1,11 +1,16 @@
-export const SEND_LOGIN = '[login] sending login';
-export const CHECK_LOGIN = '[login] check login';
-export const SET_LOGIN_STATE = '[login] set login state';
-export const LOGIN_SUCCESS = '[login] login success';
-export const LOGIN_FAILED = '[login] login failed';
+export const SEND_LOGIN = "[login] sending login";
+export const CHECK_LOGIN = "[login] check login";
+export const SET_LOGIN_STATE = "[login] set login state";
+export const LOGIN_SUCCESS = "[login] login success";
+export const LOGIN_FAILED = "[login] login failed";
+export const LOGOUT = "[logout] logout";
 
 export const sendLogin = {
   type: SEND_LOGIN,
+};
+
+export const doLogout = {
+  type: LOGOUT,
 };
 
 export const loginSuccess = (feedback) => ({

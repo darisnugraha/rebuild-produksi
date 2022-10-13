@@ -13,6 +13,7 @@ import ButtonAbuTukang from "../../components/setor-abu/abu-tukang/button-abu-tu
 import TableAbuTukang from "../../components/setor-abu/abu-tukang/table-abu-tukang";
 import FormAbuTukang from "../../components/setor-abu/abu-tukang/form-abu-tukang.jsx";
 import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
+import { addAbuTukang } from "../../../application/actions/abutukang.jsx";
 
 const AbuTukang = () => {
   const dispatch = useDispatch();
@@ -66,12 +67,18 @@ const AbuTukang = () => {
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
                   <div className="col-1">
-                    <Button type="primary">Simpan</Button>
+                    <Button
+                      type="primary"
+                      onClick={() => dispatch(addAbuTukang)}
+                    >
+                      Simpan
+                    </Button>
                   </div>
                   <div className="col-1">
                     <Button
                       type="danger"
                       onClick={() => {
+                        localStorage.removeItem("data_select_tukang");
                         window.location.reload();
                       }}
                     >

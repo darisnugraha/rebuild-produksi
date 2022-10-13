@@ -17,18 +17,19 @@ const getDataDetailJo =
         nama_divisi: localStorage.getItem("divisi"),
         no_job_order: action.payload.data,
       };
-      const response = await api.TerimaJO.getDetailTerimaJO(data);
-      if (response.value?.status === "berhasil") {
-        if (response.value.data.length === 0) {
-          sweetalert.default.Failed(response.value.pesan);
-          dispatch(setDataDetailJOSuccess({ feedback: response.value.data }));
+      api.TerimaJO.getDetailTerimaJO(data).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length === 0) {
+            sweetalert.default.Failed("Data Tidak Ada !");
+            dispatch(setDataDetailJOSuccess({ feedback: res.value }));
+          } else {
+            sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+            dispatch(setDataDetailJOSuccess({ feedback: res.value }));
+          }
         } else {
-          sweetalert.default.SuccessNoReload(response.value.pesan);
-          dispatch(setDataDetailJOSuccess({ feedback: response.value.data }));
+          dispatch(setDataDetailJOFailed({ error: res.error }));
         }
-      } else {
-        dispatch(setDataDetailJOFailed({ error: response.error }));
-      }
+      });
     }
   };
 
@@ -40,39 +41,27 @@ const addTerimaJO =
     next(action);
     if (action.type === ADD_TERIMA_JO) {
       const dataTerimaJO = getState().form.FormTerimaJO.values;
-      const onSendCart = {
-        berat: parseFloat(dataTerimaJO.berat_akhir),
-        jumlah: parseFloat(dataTerimaJO.jumlah_akhir),
-        nama_divisi: dataTerimaJO.divisi_terima,
-        no_job_order: dataTerimaJO.no_job_order,
-      };
       const onSendCheckOut = {
-        nama_divisi: dataTerimaJO.divisi_terima,
-        no_job_order: dataTerimaJO.no_job_order,
-        staff: dataTerimaJO.tukang_terima,
-        tujuan_divisi: dataTerimaJO.divisi_terima,
+        no_job_order: dataTerimaJO.no_job_order.toUpperCase(),
+        divisi_tujuan: dataTerimaJO.divisi_terima.toUpperCase(),
+        tukang_tujuan: dataTerimaJO.tukang_terima.toUpperCase(),
+        kode_barang: dataTerimaJO.kode_barang.toUpperCase(),
+        kode_jenis_bahan: dataTerimaJO.kode_jenis_bahan.toUpperCase(),
+        jumlah_terima: parseFloat(dataTerimaJO.jumlah_akhir),
+        berat_terima: parseFloat(dataTerimaJO.berat_akhir),
       };
-      const responseCart = await api.TerimaJO.addTerimaJOCart(onSendCart);
-      if (responseCart.value !== null) {
-        if (responseCart.value.status === "berhasil") {
-          const responseCheckout = await api.TerimaJO.addTerimaJOCheckout(
-            onSendCheckOut
+
+      api.TerimaJO.addTerimaJOCheckout(onSendCheckOut).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success(
+            res.value.message || "Berhasil Menyimpan Data !"
           );
-          if (responseCheckout.value !== null) {
-            if (responseCheckout.value.status === "berhasil") {
-              sweetalert.default.Success(responseCheckout.value.pesan);
-            } else {
-              sweetalert.default.Failed(responseCheckout.value.pesan);
-            }
-          } else {
-            sweetalert.default.Failed(responseCheckout.error.data.pesan);
-          }
         } else {
-          sweetalert.default.Failed(responseCart.value.pesan);
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menyimpan Data !"
+          );
         }
-      } else {
-        sweetalert.default.Failed(responseCart.error.data.pesan);
-      }
+      });
     }
   };
 

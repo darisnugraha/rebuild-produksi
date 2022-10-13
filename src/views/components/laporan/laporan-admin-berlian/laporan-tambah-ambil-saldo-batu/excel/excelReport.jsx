@@ -21,30 +21,14 @@ class ExcelReport extends Component {
         <table id="table-to-xls" style={{ display: "none" }}>
           <thead>
             <tr>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-                colSpan="6"
-              >
-                LAPORAN TAMBAH DAN AMBIL SALDO BATU
-              </td>
+              <td colSpan="6">LAPORAN TAMBAH DAN AMBIL SALDO BATU</td>
             </tr>
             <tr>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-                colSpan="6"
-              >
+              <td colSpan="6">
                 TANGGAL{" "}
-                {this.props.dataHead?.tgl_awal +
+                {this.props.dataHead?.startDate +
                   " s/d " +
-                  this.props.dataHead?.tgl_akhir}
+                  this.props.dataHead?.endDate}
               </td>
             </tr>
             <tr>
@@ -108,8 +92,8 @@ class ExcelReport extends Component {
             {this.props.dataExel.map((item) => {
               return (
                 <tr>
-                  <td>{item.no_mutasi_batu}</td>
-                  <td>{item.tgl_mutasi}</td>
+                  <td>{item.no_mutasi}</td>
+                  <td>{item.tanggal_mutasi}</td>
                   <td>{item.kode_batu}</td>
                   <td style={{ textAlign: "right" }}>{item.jumlah}</td>
                   <td style={{ textAlign: "right" }}>{item.berat}</td>

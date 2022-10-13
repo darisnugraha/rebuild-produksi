@@ -137,7 +137,7 @@ const TableMasterCustomer = () => {
                     onClick={() => {
                       dispatch(
                         getMasterCustomerByID({
-                          dataID: text.kode_customer,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -149,7 +149,7 @@ const TableMasterCustomer = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.kode_customer, text.nama_customer);
+                      onDelete(text._id, text.nama_customer);
                     }}
                   >
                     DELETE

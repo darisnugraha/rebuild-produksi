@@ -48,35 +48,26 @@ const getAllDataLaporanKirimLebur =
         };
         writeLocal("laporan_kirim_lebur", dataOnsend);
 
-        const response = await api.LaporanLebur.getAllKirimLebur(dataOnsend);
-        if (response?.value !== null) {
+        api.LaporanLebur.getAllKirimLebur(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanKirimLeburSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanKirimLeburSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanKirimLeburSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanKirimLeburSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanKirimLeburFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanKirimLeburSuccess({ feedback: [] }));
+            dispatch(setDataLaporanKirimLeburFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanKirimLeburFailed({ error: response.error }));
-        }
+        });
       }
     }
   };
@@ -110,35 +101,26 @@ const getAllDataLaporanTerimaLebur =
         };
         writeLocal("laporan_terima_lebur", dataOnsend);
 
-        const response = await api.LaporanLebur.getAllTerimaLebur(dataOnsend);
-        if (response?.value !== null) {
+        api.LaporanLebur.getAllTerimaLebur(dataOnsend).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
               dispatch(setDataLaporanTerimaLeburSuccess({ feedback: [] }));
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
               dispatch(
-                setDataLaporanTerimaLeburSuccess({
-                  feedback: response?.value.data,
-                })
+                setDataLaporanTerimaLeburSuccess({ feedback: res.value })
               );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanTerimaLeburSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanTerimaLeburFailed({
-                error: response.value.pesan,
-              })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
+            dispatch(setDataLaporanTerimaLeburSuccess({ feedback: [] }));
+            dispatch(setDataLaporanTerimaLeburFailed({ error: res.error }));
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanTerimaLeburFailed({ error: response.error }));
-        }
+        });
       }
     }
   };

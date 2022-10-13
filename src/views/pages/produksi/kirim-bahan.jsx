@@ -11,10 +11,11 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimBahanProduksi from "../../components/produksi/kirim-bahan/button-kirim-bahan";
 import { useLocation } from "react-router";
 import {
-  getAllStaffStockBahanDivisi,
+  // getAllStaffStockBahanDivisi,
   getAllStockBahanDivisi,
 } from "../../../application/actions/kirimbahanadminpusat.jsx";
 import routes from "../../../infrastructure/config/page-route.jsx";
+import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
 
 const KirimBahanProduksi = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,8 @@ const KirimBahanProduksi = () => {
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllStockBahanDivisi);
-    dispatch(getAllStaffStockBahanDivisi);
+    dispatch(getAllMasterTukang);
+    // dispatch(getAllStaffStockBahanDivisi);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

@@ -41,49 +41,40 @@ const getAllDataLaporanTambahAmbilSaldoBatu =
         );
         const dataOnsend = {
           kategori: data.transaksi,
-          tgl_awal: tgl_dari_string,
-          tgl_akhir: tgl_sampai_string,
+          startDate: tgl_dari_string,
+          endDate: tgl_sampai_string,
         };
         writeLocal("laporan_tambah_ambil_batu", dataOnsend);
 
-        const response =
-          await api.LaporanTambahAmbilSaldoBatu.getAllLaporanTambahAmbilSaldoBatu(
-            dataOnsend
-          );
-        if (response?.value !== null) {
+        api.LaporanTambahAmbilSaldoBatu.getAllLaporanTambahAmbilSaldoBatu(
+          dataOnsend
+        ).then((res) => {
           dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
+          if (res.value !== null) {
+            if (res.value.length !== 0) {
+              sweetalert.default.SuccessNoReload("Berhasil Menampilkan Data !");
+              dispatch(
+                setDataLaporanTambahAmbilSaldoBatuSuccess({
+                  feedback: res.value,
+                })
+              );
+            } else {
+              sweetalert.default.Failed("Data Laporan Kosong");
               dispatch(
                 setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] })
               );
-            } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataLaporanTambahAmbilSaldoBatuSuccess({
-                  feedback: response?.value.data,
-                })
-              );
             }
           } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(
-              setDataLaporanTambahAmbilSaldoBatuSuccess({ feedback: [] })
+            sweetalert.default.Failed(
+              res.error.data.message || "Terjadi Kesalahan !"
             );
             dispatch(
               setDataLaporanTambahAmbilSaldoBatuFailed({
-                error: response.value.pesan,
+                error: res.error,
               })
             );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(
-            setDataLaporanTambahAmbilSaldoBatuFailed({ error: response.error })
-          );
-        }
+        });
       }
     }
   };

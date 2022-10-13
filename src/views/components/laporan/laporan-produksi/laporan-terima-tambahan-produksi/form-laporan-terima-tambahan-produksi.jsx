@@ -14,21 +14,12 @@ const today = new Date();
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanTerimaTambahanProduksi?.values !== undefined) {
-    return {
-      initialValues: {
-        date: state.form.FormLaporanTerimaTambahanProduksi?.values.date,
-        divisi: state.form.FormLaporanTerimaTambahanProduksi?.values.divisi,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        date: [moment(today, dateFormat), moment(today, dateFormat)],
-        divisi: state.kirimbahanadmin.feedback[0]?.nama_divisi,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      date: [moment(today, dateFormat), moment(today, dateFormat)],
+      divisi: state.kirimbahanadmin.feedback[0]?.divisi,
+    },
+  };
 };
 
 let FormLaporanTerimaTambahanProduksi = (prop) => {
@@ -49,7 +40,7 @@ let FormLaporanTerimaTambahanProduksi = (prop) => {
             onBlur={(e) => e.preventDefault()}
           />
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -60,14 +51,14 @@ let FormLaporanTerimaTambahanProduksi = (prop) => {
           >
             {dataDivisi.map((item) => {
               if (
-                item.nama_divisi === "GUDANG QC JC" ||
-                item.nama_divisi === "GUDANG QC VV"
+                item.divisi === "GUDANG QC JC" ||
+                item.divisi === "GUDANG QC VV"
               ) {
                 return false;
               } else {
                 return (
-                  <Option value={item.nama_divisi} key={item.nama_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               }

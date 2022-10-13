@@ -11,17 +11,18 @@ import { addKirimTambahanDivisi } from "../../../../application/actions/kirimtam
 const { Option } = Select;
 
 const maptostate = (state) => {
-  const data = JSON.parse(localStorage.getItem("divisi_detail_tambahan"));
+  const data =
+    JSON.parse(localStorage.getItem("divisi_detail_tambahan")) || null;
   if (data !== null) {
     return {
       initialValues: {
-        divisi: data[0]?.kode_divisi,
+        divisi: data?.divisi_tujuan,
       },
     };
   } else {
     return {
       initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.kode_divisi,
+        divisi: state.kirimbahanadmin.feedback[0]?.divisi,
       },
     };
   }
@@ -59,8 +60,8 @@ let FormDetailJOKirimTambahan = ({ visible, onCancel }, prop) => {
             >
               {dataDivisi.map((item) => {
                 return (
-                  <Option value={item.kode_divisi} key={item.kode_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               })}

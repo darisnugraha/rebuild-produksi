@@ -1,11 +1,10 @@
-import post from "../../../axios/post";
+import get from "../../../axios/get";
 import word from "../../../shared/static";
 
 const KartuJobOrder = {
   getAllKartuJobOrder: async (dataKirim) => {
-    const response = await post.AxiosPost({
-      url: word.URL_GET_KARTU_JO,
-      data: dataKirim,
+    const response = await get({
+      url: word.URL_GET_KARTU_JO + `no_job_order=${dataKirim.no_job_order}`,
     });
     return response;
   },

@@ -9,6 +9,10 @@ const MasterBatu = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_BATU });
     return response;
   },
+  getMasterBatuById: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_BATU_BY_ID + id });
+    return response;
+  },
   addMasterBatu: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_BATU,
@@ -17,11 +21,11 @@ const MasterBatu = {
     return response;
   },
   deleteMasterBatu: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_BATU, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_BATU + data);
     return response;
   },
-  editMasterBatu: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_BATU, data);
+  editMasterBatu: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_BATU + id, data);
     return response;
   },
 };

@@ -11,6 +11,7 @@ import {
   addLocalKirimJO,
   countBeratKirimJO,
   getDataDetailJO,
+  simpanBeratBatuTakTerpakai,
   simpanJumlahKirim,
 } from "../../../application/actions/kirimjo";
 
@@ -19,16 +20,17 @@ const { Option } = Select;
 const maptostate = (state) => {
   return {
     initialValues: {
-      divisi_tujuan: state.kirimbahanadmin.feedback[0]?.kode_divisi,
-      tukang_tujuan: state.mastertukang.feedback[0]?.kode_staff,
+      divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
+      tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
       no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
-      tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_staff,
+      tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
       kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
       nama_barang: state.kirimjo.dataDetailJO[0]?.nama_barang,
       kode_jenis_bahan: state.kirimjo.dataDetailJO[0]?.kode_jenis_bahan,
       jumlah_akhir: state.kirimjo.dataDetailJO[0]?.stock_akhir,
       berat_akhir: state.kirimjo.dataDetailJO[0]?.berat_akhir,
       berat_batu: state.kirimjo.dataDetailJO[0]?.berat_batu || 0,
+      jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
       susut: state.kirimjo.beratSusut,
       jumlah_kirim: state.kirimjo.jumlahKirim,
       berat_kirim: state.kirimjo.beratKirim,
@@ -69,8 +71,8 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             >
               {dataDivisi.map((item) => {
                 return (
-                  <Option value={item.kode_divisi} key={item.kode_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               })}
@@ -88,11 +90,11 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             >
               {dataTukang.map((item) => {
                 return (
-                  <Option value={item.kode_staff} key={item.kode_staff}>
+                  <Option value={item.kode_tukang} key={item.kode_tukang}>
                     <span style={{ fontSize: "13px" }}>
-                      {item.kode_staff === item.nama_staff
-                        ? item.nama_staff
-                        : item.nama_staff + " (" + item.kode_staff + ")"}
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
                     </span>
                   </Option>
                 );
@@ -187,6 +189,28 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
+              name="jumlah_berat_batu_tak_terpakai"
+              type="text"
+              style={{ width: 250 }}
+              label={
+                <span style={{ fontSize: "13px" }}>
+                  Berat Batu Tak Terpakai
+                </span>
+              }
+              onChange={(e) => {
+                dispatch(
+                  simpanBeratBatuTakTerpakai({
+                    beratBatuTakTerpakai: e.target.value,
+                  })
+                );
+              }}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Batu"
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
               name="berat_akhir"
               type="text"
               style={{ width: 250 }}
@@ -200,13 +224,13 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
           <Col offset={1}>
             <Field
               name="jumlah_kirim"
-              type="text"
+              type="number"
               style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Jumlah Kirim</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Jumlah Kirim"
-              onBlur={(e) => {
+              onChange={(e) => {
                 dispatch(simpanJumlahKirim({ jumlahKirim: e.target.value }));
               }}
             />
@@ -214,13 +238,13 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
           <Col offset={1}>
             <Field
               name="berat_kirim"
-              type="text"
+              type="number"
               style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Berat Kirim</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Kirim"
-              onBlur={(e) => {
+              onChange={(e) => {
                 dispatch(countBeratKirimJO({ beratKirim: e.target.value }));
               }}
             />

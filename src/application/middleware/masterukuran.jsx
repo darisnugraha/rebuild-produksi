@@ -18,12 +18,13 @@ const masterUkuranGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_MASTER_UKURAN) {
-      const response = await api.MasterUkuran.getAllMasterUkuran();
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataMasterUkuranSuccess({ feedback: response.value.data }));
-      } else {
-        dispatch(setDataMasterUkuranFailed({ error: response.error }));
-      }
+      api.MasterUkuran.getAllMasterUkuran().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterUkuranSuccess({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterUkuranFailed({ error: res.error }));
+        }
+      });
     }
   };
 
@@ -35,11 +36,14 @@ const masterUkuranGetDataID =
     next(action);
     if (action.type === GET_MASTER_UKURAN_ID) {
       dispatch(setEditFormMasterUkuran(true));
-      const dataMasterUkuran = getState().masterukuran.feedback;
-      const dataMasterUkuranFilter = dataMasterUkuran.filter((item) => {
-        return item.kode_ukuran === action.payload;
+      const id = action.payload;
+      api.MasterUkuran.getMasterUkuranById(id).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterUkuranEdit({ dataEdit: res.value }));
+        } else {
+          dispatch(setDataMasterUkuranEdit({ dataEdit: [] }));
+        }
       });
-      dispatch(setDataMasterUkuranEdit({ dataEdit: dataMasterUkuranFilter }));
     }
   };
 
@@ -51,14 +55,15 @@ const addDataMasterUkuran =
     next(action);
     if (action.type === ADD_MASTER_UKURAN) {
       const data = getState().form.FormTambahMasterUkuran.values;
-      delete data.kode_ukuran;
-      const response = await api.MasterUkuran.addMasterUkuran(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      api.MasterUkuran.addMasterUkuran(data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 
@@ -69,16 +74,16 @@ const deleteDataMasterUkuran =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_UKURAN) {
-      const data = {
-        nama_ukuran: action.payload.data,
-      };
-      const response = await api.MasterUkuran.deleteMasterUkuran(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = action.payload.data;
+      api.MasterUkuran.deleteMasterUkuran("/" + id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menghapus Data !"
+          );
+        }
+      });
     }
   };
 
@@ -90,13 +95,17 @@ const editDataMasterUkuran =
     next(action);
     if (action.type === EDIT_MASTER_UKURAN) {
       const data = getState().form.FormTambahMasterUkuran.values;
-      const response = await api.MasterUkuran.editMasterUkuran(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-        window.location.reload();
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = data.id;
+      delete data.id;
+      api.MasterUkuran.editMasterUkuran("/" + id, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
     }
   };
 

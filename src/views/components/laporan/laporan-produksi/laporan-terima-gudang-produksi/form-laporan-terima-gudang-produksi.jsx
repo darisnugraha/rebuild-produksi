@@ -5,7 +5,7 @@ import { Field, reduxForm } from "redux-form";
 import moment from "moment";
 import styleAntd from "../../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../../application/selectors/ui";
-import divisimaster from "../../../../../application/selectors/kirimbahanadmin";
+import lapproduksi from "../../../../../application/selectors/laporanproduksi";
 import "antd/dist/antd.css";
 import { getAllTerimaGudangProduksi } from "../../../../../application/actions/laporanproduksi";
 
@@ -14,28 +14,19 @@ const today = new Date();
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.form.FormLaporanTerimaGudangProduksi?.values !== undefined) {
-    return {
-      initialValues: {
-        date: state.form.FormLaporanTerimaGudangProduksi?.values.date,
-        divisi: state.form.FormLaporanTerimaGudangProduksi?.values.divisi,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        date: [moment(today, dateFormat), moment(today, dateFormat)],
-        divisi: state.kirimbahanadmin.feedback[3]?.nama_divisi,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      date: [moment(today, dateFormat), moment(today, dateFormat)],
+      divisi: state.laporanproduksi.divisiGudang[0]?.divisi,
+    },
+  };
 };
 
 let FormLaporanTerimaGudangProduksi = (prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const btnLoading = useSelector(ui.getBtnLoading);
-  const dataDivisi = useSelector(divisimaster.getAllDivisi);
+  const dataDivisi = useSelector(lapproduksi.getDivisiGudang);
   return (
     <Form layout="vertical">
       <Row>
@@ -49,7 +40,7 @@ let FormLaporanTerimaGudangProduksi = (prop) => {
             onBlur={(e) => e.preventDefault()}
           />
         </Col>
-        <Col offset={1}>
+        <Col offset={1} span={6}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -60,12 +51,12 @@ let FormLaporanTerimaGudangProduksi = (prop) => {
           >
             {dataDivisi.map((item) => {
               if (
-                item.nama_divisi === "GUDANG QC JC" ||
-                item.nama_divisi === "GUDANG QC VV"
+                item.divisi === "GUDANG QC JC" ||
+                item.divisi === "GUDANG QC VV"
               ) {
                 return (
-                  <Option value={item.nama_divisi} key={item.nama_divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_divisi}</span>
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
                   </Option>
                 );
               } else {

@@ -1,16 +1,20 @@
 import React from "react";
 import { Table } from "antd";
 import "antd/dist/antd.css";
-import kirimTambahan from "../../../../application/selectors/kirimtambahan";
-import { useSelector } from "react-redux";
+import getLocal from "../../../../infrastructure/services/local/get-local";
+// import kirimTambahan from "../../../../application/selectors/kirimtambahan";
+// import { useSelector } from "react-redux";
 
 const TableKirimBatu = () => {
-  const dataTable = useSelector(kirimTambahan.getAllKirimTambahanDivisi);
+  // const dataTable = useSelector(kirimTambahan.getAllKirimTambahanDivisi);
+  const dataTable = getLocal("data_tambahan_cart");
+  const dataTableArr = [];
+  dataTableArr.push(dataTable);
   const columns = [
     {
       title: "Divisi Tujuan",
-      dataIndex: "divisi",
-      key: "divisi",
+      dataIndex: "divisi_tujuan",
+      key: "divisi_tujuan",
       align: "center",
     },
     {
@@ -21,32 +25,32 @@ const TableKirimBatu = () => {
     },
     {
       title: "Asal Saldo",
-      dataIndex: "asal_saldo",
-      key: "asal_saldo",
+      dataIndex: "asal_saldo_tukang",
+      key: "asal_saldo_tukang",
       align: "center",
     },
     {
       title: "Bahan",
-      dataIndex: "tambahan",
-      key: "tambahan",
+      dataIndex: "nama_bahan",
+      key: "nama_bahan",
       align: "center",
     },
     {
       title: "Jumlah",
-      dataIndex: "stock_out",
-      key: "stock_out",
+      dataIndex: "jumlah",
+      key: "jumlah",
       align: "center",
     },
     {
       title: "Tambahan",
-      dataIndex: "berat_out",
-      key: "berat_out",
+      dataIndex: "berat",
+      key: "berat",
       align: "center",
     },
   ];
   return (
     <Table
-      dataSource={dataTable}
+      dataSource={dataTableArr}
       columns={columns}
       scroll={{ x: 500, y: 1500 }}
     />

@@ -17,19 +17,21 @@ const maptostate = (state) => {
   if (state.mastercustomer.dataEdit.length !== 0) {
     return {
       initialValues: {
-        kode_customer: state.mastercustomer.dataEdit[0]?.kode_customer,
-        nama_customer: state.mastercustomer.dataEdit[0]?.nama_customer,
-        nama_toko: state.mastercustomer.dataEdit[0]?.nama_toko,
-        alamat: state.mastercustomer.dataEdit[0]?.alamat,
-        negara: state.mastercustomer.dataEdit[0]?.negara,
-        lokasi: state.mastercustomer.dataEdit[0]?.lokasi,
-        no_hp: state.mastercustomer.dataEdit[0]?.no_hp,
-        email: state.mastercustomer.dataEdit[0]?.email,
+        id: state.mastercustomer.dataEdit?._id,
+        kode_customer: state.mastercustomer.dataEdit?.kode_customer,
+        nama_customer: state.mastercustomer.dataEdit?.nama_customer,
+        nama_toko: state.mastercustomer.dataEdit?.nama_toko,
+        alamat: state.mastercustomer.dataEdit?.alamat,
+        negara: state.mastercustomer.dataEdit?.negara,
+        lokasi: state.mastercustomer.dataEdit?.lokasi,
+        no_hp: state.mastercustomer.dataEdit?.no_hp,
+        email: state.mastercustomer.dataEdit?.email,
       },
     };
   } else {
     return {
       initialValues: {
+        id: "",
         kode_customer: "",
         nama_customer: "",
         nama_toko: "",

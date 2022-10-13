@@ -25,9 +25,9 @@ const TableLaporanTerimaPotong = () => {
       align: "center",
     },
     {
-      title: "Kode Jenis Bahan",
-      dataIndex: "kode_jenis_bahan",
-      key: "kode_jenis_bahan",
+      title: "Jenis Bahan",
+      dataIndex: "nama_jenis_bahan",
+      key: "nama_jenis_bahan",
       align: "center",
     },
     {

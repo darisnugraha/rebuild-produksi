@@ -14,8 +14,8 @@ const TableLaporanTambahJobOrder = () => {
     },
     {
       title: "Tgl Transaksi",
-      dataIndex: "tgl_tambah",
-      key: "tgl_tambah",
+      dataIndex: "tanggal_tambah",
+      key: "tanggal_tambah",
       align: "center",
     },
     {

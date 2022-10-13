@@ -9,6 +9,10 @@ const MasterUkuran = {
     const response = await get({ url: word.URL_GET_ALL_MASTER_UKURAN });
     return response;
   },
+  getMasterUkuranById: async (id) => {
+    const response = await get({ url: word.URL_GET_MASTER_UKURAN_BY_ID + id });
+    return response;
+  },
   addMasterUkuran: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_UKURAN,
@@ -17,11 +21,11 @@ const MasterUkuran = {
     return response;
   },
   deleteMasterUkuran: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_UKURAN, data);
+    const response = await deleteAxios(word.URL_DELETE_MASTER_UKURAN + data);
     return response;
   },
-  editMasterUkuran: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_UKURAN, data);
+  editMasterUkuran: async (id, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_UKURAN + id, data);
     return response;
   },
 };

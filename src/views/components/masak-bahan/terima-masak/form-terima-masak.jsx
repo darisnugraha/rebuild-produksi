@@ -19,8 +19,8 @@ const maptostate = (state) => {
   if (state.terimamasak.feedback.length !== 0) {
     return {
       initialValues: {
-        no_kirim: state.terimamasak.feedback[0]?.no_kirim,
-        berat_tot_kirim: state.terimamasak.feedback[0]?.tot_berat_murni,
+        no_kirim: state.terimamasak.feedback[0]?.no_kirim_masak,
+        berat_tot_kirim: state.terimamasak.feedback[0]?.total_berat_murni,
         berat_jadi: state.terimamasak.beratTerima,
         kode_bahan: state.masterbahan.feedback[0]?.kode_bahan,
         berat_susut: state.terimamasak.susut,
@@ -60,21 +60,21 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="no_kirim"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>No Kirim Lebur</span>}
+              label={<span style={{ fontSize: "13px" }}>No Kirim Masak</span>}
               component={styleAntd.AInput}
               style={{ width: 250 }}
               className="form-item-group"
-              placeholder="Masukkan No Kirim Lebur"
+              placeholder="Masukkan No Kirim Masak"
               onBlur={(e) => {
                 dispatch(getTerimaMasak({ noKirim: e.target.value }));
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_tot_kirim"
               type="text"
@@ -88,7 +88,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Jadi</span>}
@@ -106,7 +106,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_jadi"
               type="text"
@@ -120,7 +120,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_susut"
               type="text"

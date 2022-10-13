@@ -8,20 +8,20 @@ const TableLaporanTerimaLebur = () => {
   const columns = [
     {
       title: "No Terima",
-      dataIndex: "no_terima",
-      key: "no_terima",
+      dataIndex: "no_terima_lebur",
+      key: "no_terima_lebur",
       align: "center",
     },
     {
       title: "Tanggal Terima",
-      dataIndex: "tgl_terima",
-      key: "tgl_terima",
+      dataIndex: "tanggal_terima",
+      key: "tanggal_terima",
       align: "center",
     },
     {
       title: "No Kirim",
-      dataIndex: "no_kirim",
-      key: "no_kirim",
+      dataIndex: "no_kirim_lebur",
+      key: "no_kirim_lebur",
       align: "center",
     },
     {

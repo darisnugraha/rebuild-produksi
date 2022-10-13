@@ -20,6 +20,7 @@ import KirimBahanAdmin from "./kirim-bahan-admin";
 import TerimaBahanTukang from "./terimabahantukang";
 import KirimJO from "./kirimjo";
 import TerimaBatu from "./terimabatu";
+import TerimaTambahan from "./terimatambahan";
 import TerimaBahan from "./terimabahan";
 import KirimBahanAdminPusat from "./kirimbahanadminpusat";
 import KirimTambahan from "./kirimtambahan";
@@ -89,6 +90,7 @@ const api = {
   TerimaBahanTukang,
   KirimJO,
   TerimaBatu,
+  TerimaTambahan,
   TerimaBahan,
   KirimBahanAdminPusat,
   KirimTambahan,

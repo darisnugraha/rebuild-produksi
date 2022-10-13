@@ -44,38 +44,30 @@ const getAllDataSetorAbuCOR =
           tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_setor_abu_cor", dataOnsend);
-
-        const response = await api.LaporanSetorAbuCOR.getAllLaporanSetorAbuCOR(
-          dataOnsend
-        );
-        if (response?.value !== null) {
-          dispatch(setLoadingButton(false));
-          if (response?.value.status === "berhasil") {
-            if (response?.value.data.length === 0) {
-              sweetalert.default.Failed(response?.value.pesan);
-              dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
+        api.LaporanSetorAbuCOR.getAllLaporanSetorAbuCOR(dataOnsend).then(
+          (res) => {
+            dispatch(setLoadingButton(false));
+            if (res.value !== null) {
+              if (res.value.length === 0) {
+                sweetalert.default.Failed("Data Laporan Kosong !");
+                dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
+              } else {
+                sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+                dispatch(
+                  setDataLaporanSetorAbuCorSuccess({
+                    feedback: res.value,
+                  })
+                );
+              }
             } else {
-              sweetalert.default.SuccessNoReload(response?.value.pesan);
-              dispatch(
-                setDataLaporanSetorAbuCorSuccess({
-                  feedback: response?.value.data,
-                })
+              sweetalert.default.Failed(
+                res.error.data.message || "Terjadi Kesalahan !"
               );
+              dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
+              dispatch(setDataLaporanSetorAbuCorFailed({ error: res.error }));
             }
-          } else {
-            sweetalert.default.Failed(response?.value.pesan);
-            dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
-            dispatch(
-              setDataLaporanSetorAbuCorFailed({
-                error: response.value.pesan,
-              })
-            );
           }
-        } else {
-          dispatch(setLoadingButton(false));
-          sweetalert.default.Failed(response.error.data.pesan);
-          dispatch(setDataLaporanSetorAbuCorFailed({ error: response.error }));
-        }
+        );
       }
     }
   };
