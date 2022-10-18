@@ -84,6 +84,10 @@ import LaporanOutstandProduksi from "../../views/pages/laporan/laporan-produksi/
 import LaporanTerimaGudangProduksi from "../../views/pages/laporan/laporan-produksi/laporan-terima-gudang-produksi";
 import MasterUser from "../../views/pages/utility/master-user";
 import MasterDivisi from "../../views/pages/utility/master-divisi";
+import HakAksesPage from "../../views/pages/utility/hak-akses";
+import MasterKelompokJenisBahan from "../../views/pages/master/master-kelompok-jenis-bahan";
+import MasterBillOfMaterials from "../../views/pages/master/master-bill-of-materials";
+import MasterStatus from "../../views/pages/master/master-status";
 
 const routes = [
   // {
@@ -117,6 +121,16 @@ const routes = [
     path: "/master/jenis-bahan",
     title: "Master Jenis Bahan",
     component: () => <MasterJenisBahan />,
+  },
+  {
+    path: "/master/kelompok-jenis-bahan",
+    title: "Master Kelompok Jenis Bahan",
+    component: () => <MasterKelompokJenisBahan />,
+  },
+  {
+    path: "/master/bill-of-materials",
+    title: "Master Bill Of Materials",
+    component: () => <MasterBillOfMaterials />,
   },
   {
     path: "/master/batu",
@@ -162,6 +176,11 @@ const routes = [
     path: "/master/ukuran",
     title: "Master Ukuran",
     component: () => <MasterUkuran />,
+  },
+  {
+    path: "/master/status",
+    title: "Master Status Job Order",
+    component: () => <MasterStatus />,
   },
   //Master Original
   {
@@ -939,6 +958,11 @@ const routes = [
     path: "/utility/master-divisi",
     title: "Master Divisi",
     component: () => <MasterDivisi />,
+  },
+  {
+    path: "/utility/hak-akses",
+    title: "Hak Akses",
+    component: () => <HakAksesPage />,
   },
   {
     path: "/notfound",

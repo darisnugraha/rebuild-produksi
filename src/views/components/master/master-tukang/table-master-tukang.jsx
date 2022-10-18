@@ -88,6 +88,12 @@ const TableMasterTukang = () => {
           align: "center",
         },
         {
+          title: "Divisi",
+          dataIndex: "divisi",
+          key: "divisi",
+          align: "center",
+        },
+        {
           title: "Action",
           key: "act",
           align: "center",

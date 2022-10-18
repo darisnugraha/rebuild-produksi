@@ -35,7 +35,7 @@ const getAllDataKartuJobOrder =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataKartuJoSuccess({ feedback: [] }));
             dispatch(setDataKartuJoFailed({ error: res.error }));

@@ -11,12 +11,14 @@ import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormMasterTukang from "../../components/master/master-tukang/button-add-master-tukang";
 import TableMasterTukang from "../../components/master/master-tukang/table-master-tukang";
 import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
+import { getAllMasterDivisi } from "../../../application/actions/masterdivisi";
 
 const MasterTukang = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterTukang);
+    dispatch(getAllMasterDivisi);
     document.title = "Master Tukang";
   }, [dispatch]);
 

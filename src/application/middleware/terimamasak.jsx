@@ -29,7 +29,7 @@ const getDataTerimaMasak =
           } else {
             setDataTerimaMasakSuccess({ feedback: [] });
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataTerimaMasakFailed({ error: res.error }));
           }
@@ -82,7 +82,7 @@ const addDataTerimaMasak =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

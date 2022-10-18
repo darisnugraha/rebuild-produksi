@@ -60,7 +60,7 @@ const getAllDataSetorAbuPotong =
               }
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Terjadi Kesalahan !"
+                res.error?.data.message || "Terjadi Kesalahan !"
               );
               dispatch(setDataLaporanSetorAbuPotongSuccess({ feedback: [] }));
               dispatch(

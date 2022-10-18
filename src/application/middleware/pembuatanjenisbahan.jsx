@@ -10,6 +10,7 @@ import {
   DELETE_DETAIL_JENIS_BAHAN,
   DELETE_BAHAN,
   RESET_PEMBUATAN_JENIS_BAHAN,
+  setDetailBillOfMaterials,
 } from "../actions/pembuatanjenisbahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import Swal from "sweetalert2";
@@ -48,29 +49,37 @@ const addDetailJenisBahan =
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
         const dataDetail = getLocal("data_detail_jenis_bahan");
-        if (dataDetail === null || dataDetail.length === 0) {
-          sweetalert.default.Success("Berhasil Menambahkan Data !");
-          dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
-          datalocal.push(data);
-          writeLocal("data_detail_jenis_bahan", datalocal);
-        } else {
-          Swal.fire({
-            title: "Add Data",
-            text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
-            icon: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ya",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              sweetalert.default.Success("Berhasil Menambahkan Data !");
+        api.PembuatanJenisBahan.getBillOfMaterials(data).then((res) => {
+          if (res.value !== null) {
+            dispatch(setDetailBillOfMaterials({ feedback: res.value }));
+            writeLocal("data_detail_bahan", res.value);
+            if (dataDetail === null || dataDetail.length === 0) {
               dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
               datalocal.push(data);
               writeLocal("data_detail_jenis_bahan", datalocal);
+              sweetalert.default.Success("Berhasil Menambahkan Data !");
+            } else {
+              Swal.fire({
+                title: "Add Data",
+                text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  sweetalert.default.Success("Berhasil Menambahkan Data !");
+                  dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
+                  datalocal.push(data);
+                  writeLocal("data_detail_jenis_bahan", datalocal);
+                }
+              });
             }
-          });
-        }
+          } else {
+            dispatch(setDetailBillOfMaterials({ feedback: [] }));
+          }
+        });
       }
     }
   };
@@ -104,9 +113,9 @@ const addDetailBahan =
         const data = getState().form.FormTambahBahan?.values;
         let datalocal = getLocal("data_detail_bahan");
         const cekData = datalocal.find((val) => {
-          return val.nama_bahan === data.nama_bahan;
+          return val.kode_bahan === data.kode_bahan;
         });
-        if (data.berat_bahan === undefined) {
+        if (data.berat === undefined) {
           sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
         } else if (!getLocal("data_detail_jenis_bahan")) {
           sweetalert.default.Failed(
@@ -114,7 +123,7 @@ const addDetailBahan =
           );
         } else if (cekData) {
           sweetalert.default.Failed(
-            `Bahan ${data.nama_bahan} Sudah Ada Pada Tabel !`
+            `Bahan ${data.kode_bahan} Sudah Ada Pada Tabel !`
           );
         } else {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -138,8 +147,8 @@ const addDataPembuatanJenisBahan =
       let dataDetailNewArr = [];
       dataDetailBahan.forEach((element) => {
         const row = {
-          nama_bahan: element.nama_bahan,
-          berat_bahan: parseFloat(element.berat_bahan),
+          nama_bahan: element.kode_bahan,
+          berat_bahan: parseFloat(element.berat),
         };
         dataDetailNewArr.push(row);
       });
@@ -157,7 +166,7 @@ const addDataPembuatanJenisBahan =
           localStorage.removeItem("data_detail_bahan");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Membuat Bahan !"
+            res.error?.data.message || "Gagal Membuat Bahan !"
           );
         }
       });

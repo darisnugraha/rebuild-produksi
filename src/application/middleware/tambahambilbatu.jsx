@@ -94,7 +94,7 @@ const addTambahBatu =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Batu !"
+            res.error?.data.message || "Gagal Menambahkan Batu !"
           );
         }
       });
@@ -123,7 +123,7 @@ const addAmbilBatu =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengambil Batu !"
+            res.error?.data.message || "Gagal Mengambil Batu !"
           );
         }
       });

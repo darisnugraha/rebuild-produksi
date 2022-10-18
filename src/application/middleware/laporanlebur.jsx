@@ -62,7 +62,7 @@ const getAllDataLaporanKirimLebur =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanKirimLeburSuccess({ feedback: [] }));
             dispatch(setDataLaporanKirimLeburFailed({ error: res.error }));
@@ -115,7 +115,7 @@ const getAllDataLaporanTerimaLebur =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanTerimaLeburSuccess({ feedback: [] }));
             dispatch(setDataLaporanTerimaLeburFailed({ error: res.error }));

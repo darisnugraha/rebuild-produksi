@@ -5,6 +5,7 @@ import {
   ADD_DATA_DETAIL_JENIS_BAHAN_SUCCESS,
   ADD_DATA_DETAIL_JENIS_BAHAN_FAILED,
   ADD_DATA_DETAIL_BAHAN_SUCCESS,
+  SET_DETAIL_BILL_OF_MATERIALS,
 } from "../actions/pembuatanjenisbahan";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   isEdit: false,
   detailJenisBahan: [],
   detailBahan: [],
+  billOfMaterials: [],
 };
 
 const pembuatanjenisbahan = (state = initialState, action) => {
@@ -41,6 +43,11 @@ const pembuatanjenisbahan = (state = initialState, action) => {
       return {
         ...state,
         detailBahan: action.payload.data,
+      };
+    case SET_DETAIL_BILL_OF_MATERIALS:
+      return {
+        ...state,
+        billOfMaterials: action.payload.data,
       };
     default:
       return state;

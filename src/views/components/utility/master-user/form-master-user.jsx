@@ -16,10 +16,10 @@ const maptostate = (state) => {
     return {
       initialValues: {
         user_id: state.masteruser.dataEdit[0]?.user_id,
-        nama_lkp: state.masteruser.dataEdit[0]?.nama_lkp,
+        nama_lkp: state.masteruser.dataEdit[0]?.user_name,
         password: state.masteruser.dataEdit[0]?.password,
         retype_password: state.masteruser.dataEdit[0]?.password,
-        type: state.masteruser.dataEdit[0]?.type,
+        type: state.masteruser.dataEdit[0]?.level,
       },
     };
   } else {
@@ -78,10 +78,11 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
             <Field
               name="nama_lkp"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Nama Lengkap</span>}
+              label={<span style={{ fontSize: "13px" }}>User Name</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Nama Lengkap"
+              placeholder="Masukkan User Name"
+              disabled={isEdit}
             />
           </Col>
           <Col offset={1} style={{ display: isEdit ? "none" : "" }}>
@@ -94,17 +95,7 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Password"
             />
           </Col>
-          <Col offset={1} style={{ display: isEdit ? "none" : "" }}>
-            <Field
-              name="retype_password"
-              type="password"
-              label={<span style={{ fontSize: "13px" }}>RE-Password</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan RE-Password"
-            />
-          </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="type"
               label={<span style={{ fontSize: "13px" }}>Type</span>}
@@ -113,11 +104,17 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               placeholder="Pilih Type"
               onBlur={(e) => e.preventDefault()}
             >
-              <Option value="OWN" key="OWN">
-                <span style={{ fontSize: "13px" }}>OWN</span>
+              <Option value="OWNER" key="OWN">
+                <span style={{ fontSize: "13px" }}>OWNER</span>
               </Option>
-              <Option value="ADM" key="ADM">
-                <span style={{ fontSize: "13px" }}>ADM</span>
+              <Option value="SPV" key="SPV">
+                <span style={{ fontSize: "13px" }}>SUPERVISOR</span>
+              </Option>
+              <Option value="MANAGER" key="MANAGER">
+                <span style={{ fontSize: "13px" }}>MANAGER</span>
+              </Option>
+              <Option value="ADMIN" key="ADM">
+                <span style={{ fontSize: "13px" }}>ADMIN</span>
               </Option>
             </Field>
           </Col>

@@ -37,7 +37,7 @@ const getDataDetailJO =
           }
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengambil Data !"
+            res.error?.data.message || "Gagal Mengambil Data !"
           );
           dispatch(setDataDetailJOFailed({ error: res.error }));
         }
@@ -156,7 +156,7 @@ const addLocalDataTambahan =
             );
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Gagal Mengirim Data !"
+              res.error?.data.message || "Gagal Mengirim Data !"
             );
           }
         });

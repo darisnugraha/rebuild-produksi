@@ -6,10 +6,12 @@ import SaldoMurni from "../../../../application/selectors/saldomurni";
 import {
   getSaldoMurniByID,
   setAmbilSaldoMurniForm,
+  setIsShow,
   setTambahSaldoMurniForm,
 } from "../../../../application/actions/saldomurni";
 import FormTambahAmbilSaldoBahan from "./form-tambah-ambil-saldo-bahan";
 import { destroy } from "redux-form";
+import FormAuthorize from "../../authorize/form-authorize";
 
 const TableSaldoBahan = () => {
   // eslint-disable-next-line
@@ -20,6 +22,7 @@ const TableSaldoBahan = () => {
   const [value, setValue] = useState("");
   const [search, setSearch] = useState(false);
   const visible = useSelector(SaldoMurni.getIsVisibleSaldoMurni);
+  const visibleAuth = useSelector(SaldoMurni.getisShowSaldoMurni);
 
   const SearchBar = (
     <Input
@@ -126,6 +129,15 @@ const TableSaldoBahan = () => {
           dispatch(destroy("FormTambahAmbilSaldoBahan"));
           dispatch(setTambahSaldoMurniForm(false));
           dispatch(setAmbilSaldoMurniForm(false));
+        }}
+      />
+      <FormAuthorize
+        visible={visibleAuth}
+        onCreate={() => {
+          console.log("test");
+        }}
+        onCancel={() => {
+          dispatch(setIsShow({ show: false }));
         }}
       />
     </>

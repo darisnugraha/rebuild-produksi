@@ -23,7 +23,7 @@ const getDataDetailPohon =
           dispatch(setNoPohon({ feedback: action.payload.data }));
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengambil Data !"
+            res.error?.data.message || "Gagal Mengambil Data !"
           );
           dispatch(setDataDetailPohonFailed({ error: res.error }));
         }

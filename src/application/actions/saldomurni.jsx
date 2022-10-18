@@ -20,7 +20,13 @@ export const SET_DATA_SALDO_MURNI =
   "[saldomurni] set tambah ambil saldo murni edit";
 
 export const ADD_TAMBAH_SALDO_BAHAN = "[saldomurni] add tambah saldo bahan";
+export const SET_TAMBAH_SALDO_BAHAN = "[saldomurni] set tambah saldo bahan";
 export const ADD_AMBIL_SALDO_BAHAN = "[saldomurni] add ambil saldo bahan";
+export const SET_AMBIL_SALDO_BAHAN = "[saldomurni] set ambil saldo bahan";
+
+export const SET_IS_SHOW = "[saldomurni] set is show";
+
+export const SAVE_SALDO_BAHAN = "[saldomurni] save saldo bahan";
 
 export const getAllSaldoMurni = {
   type: GET_ALL_SALDO_MURNI,
@@ -56,6 +62,24 @@ export const setDataSaldoMurniID = ({ dataSaldoMurni }) => ({
 export const addTambahSaldoBahan = {
   type: ADD_TAMBAH_SALDO_BAHAN,
 };
+export const setTambahSaldoBahan = ({ dataSaldoMurni }) => ({
+  type: SET_TAMBAH_SALDO_BAHAN,
+  payload: { data: dataSaldoMurni },
+});
+
 export const addAmbilSaldoBahan = {
   type: ADD_AMBIL_SALDO_BAHAN,
+};
+export const setAmbilhSaldoBahan = ({ dataSaldoMurni }) => ({
+  type: SET_AMBIL_SALDO_BAHAN,
+  payload: { data: dataSaldoMurni },
+});
+
+export const setIsShow = ({ show }) => ({
+  type: SET_IS_SHOW,
+  payload: { data: show },
+});
+
+export const simpanSaldoBahan = {
+  type: SAVE_SALDO_BAHAN,
 };

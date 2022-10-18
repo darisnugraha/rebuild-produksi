@@ -39,7 +39,7 @@ const getDataJO =
             dispatch(setDataJobOrderFailed({ error: res.value }));
           }
         } else {
-          sweetalert.default.Failed(res.error.data.message);
+          sweetalert.default.Failed(res.error?.data.message);
           dispatch(setDataJobOrderSuccess({ feedback: [], noJO: "" }));
           dispatch(setDataJobOrderFailed({ error: res.error }));
         }
@@ -77,7 +77,7 @@ const getDataJO =
               dispatch(setDataJobOrderFailedDua({ error: res.value }));
             }
           } else {
-            sweetalert.default.Failed(res.error.data.message);
+            sweetalert.default.Failed(res.error?.data.message);
             dispatch(
               setDataJobOrderSuccessDua({
                 feedback: [],
@@ -118,7 +118,7 @@ const addDataGabungJO =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

@@ -214,7 +214,7 @@ const addKirimLebur =
           localStorage.removeItem("data_kirim_lebur");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengirim Data !"
+            res.error?.data.message || "Gagal Mengirim Data !"
           );
         }
       });

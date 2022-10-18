@@ -40,7 +40,7 @@ const getDataPohon =
           }
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengambil Data !"
+            res.error?.data.message || "Gagal Mengambil Data !"
           );
           dispatch(setDataSusutSuccess({ feedback: "" }));
           dispatch(setDataBeratTerima({ beratTerima: "" }));

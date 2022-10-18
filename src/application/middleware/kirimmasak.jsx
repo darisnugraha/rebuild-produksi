@@ -51,7 +51,7 @@ const getDataTerimaLebur =
         } else {
           dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
           dispatch(setDataTerimaLeburMasakFailed({ error: res.error }));
         }
@@ -150,7 +150,7 @@ const addDataKirimMasak =
           localStorage.removeItem("data_kirim_masak");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

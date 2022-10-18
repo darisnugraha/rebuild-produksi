@@ -40,7 +40,7 @@ const getDataJOKirimBatuPusat =
           }
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
           dispatch(setDataJOKirimBatuPusatFailed({ error: res.error }));
         }
@@ -78,7 +78,7 @@ const getDataDetailBatu =
           dispatch(setDataDetailBatuSuccess({ feedback: res.value }));
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
           dispatch(setDataDetailBatuFailed({ error: res.error }));
         }
@@ -161,7 +161,7 @@ const checkoutDataKirimBatu =
         } else {
           dispatch(checkoutKirimBatuFailed({ error: res.error }));
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

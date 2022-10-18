@@ -69,7 +69,7 @@ const getAllDataLaporanSaldoBahanPusat =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanSaldoBahanPusatSuccess({ feedback: [] }));
             dispatch(setDataLaporanSaldoBahanPusatFailed({ error: res.error }));

@@ -75,7 +75,7 @@ const getAllDataTerimaProduksi =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataTerimaProduksiSuccess({ feedback: [] }));
             dispatch(setDataTerimaProduksiFailed({ error: res.error }));
@@ -132,7 +132,7 @@ const getAllDataKirimProduksi =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataKirimProduksiSuccess({ feedback: [] }));
             dispatch(setDataKirimProduksiFailed({ error: res.error }));
@@ -189,7 +189,7 @@ const getAllDataTerimaTambahanProduksi =
               }
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Terjadi Kesalahan"
+                res.error?.data.message || "Terjadi Kesalahan"
               );
               dispatch(setDataTerimaTambahanProduksiSuccess({ feedback: [] }));
               dispatch(
@@ -246,7 +246,7 @@ const getAllDataTerimaBatuProduksi =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataTerimaBatuProduksiSuccess({ feedback: [] }));
             dispatch(setDataTerimaBatuProduksiFailed({ error: res.error }));
@@ -289,7 +289,7 @@ const getAllDataOutstandProduksi =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan"
+              res.error?.data.message || "Terjadi Kesalahan"
             );
             dispatch(setDataOutstandProduksiSuccess({ feedback: [] }));
             dispatch(
@@ -364,7 +364,7 @@ const getAllDataTerimaGudangProduksi =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataTerimaGudangProduksiSuccess({ feedback: [] }));
             dispatch(

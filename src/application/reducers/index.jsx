@@ -68,6 +68,9 @@ import kirimbatupusat from "./kirimbatupusat";
 import terimabatuproduksi from "./terimabatuproduksi";
 import masteruser from "./masteruser";
 import masterdivisi from "./masterdivisi";
+import masterkelompokjenisbahan from "./masterkelompokjenisbahan";
+import masterbillofmaterials from "./masterbillofmaterials";
+import masterstatus from "./masterstatus";
 
 export default combineReducers({
   login,
@@ -138,5 +141,8 @@ export default combineReducers({
   terimabatuproduksi,
   masteruser,
   masterdivisi,
+  masterkelompokjenisbahan,
+  masterbillofmaterials,
+  masterstatus,
   form: formReducer,
 });

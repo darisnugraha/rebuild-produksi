@@ -30,7 +30,7 @@ const getDataTerimaLebur =
         } else {
           dispatch(setDataTerimaLeburSuccess({ feedback: [] }));
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
           dispatch(setDataTerimaLeburFailed({ error: res.error }));
         }
@@ -73,7 +73,7 @@ const addDataTerimaLebur =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

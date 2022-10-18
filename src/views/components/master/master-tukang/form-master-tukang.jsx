@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Row, Col, Modal } from "antd";
+import { Form, Row, Col, Modal, Select } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
@@ -10,6 +10,7 @@ import {
   addMasterTukang,
   editMasterTukang,
 } from "../../../../application/actions/mastertukang";
+import divisimaster from "../../../../application/selectors/masterdivisi";
 
 const maptostate = (state) => {
   if (state.mastertukang.dataEdit.length !== 0) {
@@ -20,6 +21,7 @@ const maptostate = (state) => {
         nama_tukang: state.mastertukang.dataEdit?.nama_tukang,
         no_hp: state.mastertukang.dataEdit?.no_hp,
         email: state.mastertukang.dataEdit?.email,
+        divisi: state.mastertukang.dataEdit?.divisi,
       },
     };
   } else {
@@ -30,10 +32,13 @@ const maptostate = (state) => {
         nama_tukang: "",
         no_hp: "",
         email: "",
+        divisi: state.masterdivisi.feedback[0]?.divisi,
       },
     };
   }
 };
+
+const { Option } = Select;
 
 let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
@@ -49,6 +54,8 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
     }
   };
 
+  const dataDivisi = useSelector(divisimaster.getAllMasterDivisi);
+
   return (
     <Modal
       visible={visible}
@@ -63,7 +70,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1} style={{ display: "none" }}>
+          <Col offset={1} span={8} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -74,7 +81,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_tukang"
               type="text"
@@ -85,7 +92,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="nama_tukang"
               type="text"
@@ -95,7 +102,25 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Tukang"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="divisi"
+              label={<span style={{ fontSize: "13px" }}>Divisi</span>}
+              style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Divisi"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataDivisi.map((item) => {
+                return (
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="no_hp"
               type="text"
@@ -105,7 +130,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan No Hp"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="email"
               type="text"

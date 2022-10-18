@@ -59,7 +59,7 @@ const getAllDataLaporanKirimBatu =
               );
             }
           } else {
-            sweetalert.default.Failed(res.error.data.message);
+            sweetalert.default.Failed(res.error?.data.message);
             dispatch(setDataLaporanKirimBatuSuccess({ feedback: [] }));
             dispatch(
               setDataLaporanKirimBatuFailed({

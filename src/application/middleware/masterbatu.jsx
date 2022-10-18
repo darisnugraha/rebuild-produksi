@@ -82,7 +82,7 @@ const deleteDataMasterBatu =
           sweetalert.default.Success("Berhasil Menghapus Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menghapus Data !"
+            res.error?.data.message || "Gagal Menghapus Data !"
           );
         }
       });
@@ -104,7 +104,7 @@ const editDataMasterBatu =
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");
         } else {
-          sweetalert.default.Failed(res.error.data.message);
+          sweetalert.default.Failed(res.error?.data.message);
         }
       });
     }

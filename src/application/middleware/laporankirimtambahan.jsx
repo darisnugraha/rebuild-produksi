@@ -60,7 +60,7 @@ const getAllDataLaporanKirimTambahan =
               }
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Terjadi Kesalahan"
+                res.error?.data.message || "Terjadi Kesalahan"
               );
               dispatch(setDataLaporanKirimTambahanSuccess({ feedback: [] }));
               dispatch(setDataLaporanKirimTambahanFailed({ error: res.error }));

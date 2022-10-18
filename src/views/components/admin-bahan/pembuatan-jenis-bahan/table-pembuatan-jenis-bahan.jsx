@@ -84,14 +84,14 @@ const TablePembuatanJenisBahan = () => {
   const columns = [
     {
       title: "Nama Bahan",
-      dataIndex: "nama_bahan",
-      key: "nama_bahan",
+      dataIndex: "kode_bahan",
+      key: "kode_bahan",
       align: "center",
     },
     {
       title: "Berat",
-      dataIndex: "berat_bahan",
-      key: "berat_bahan",
+      dataIndex: "berat",
+      key: "berat",
       align: "right",
     },
     {
@@ -163,7 +163,7 @@ const TablePembuatanJenisBahan = () => {
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={1} align="right">
                     {dataTable
-                      .reduce((a, b) => a + Number(b.berat_bahan), 0)
+                      .reduce((a, b) => a + Number(b.berat), 0)
                       .toLocaleString()}
                   </Table.Summary.Cell>
                 </Table.Summary.Row>

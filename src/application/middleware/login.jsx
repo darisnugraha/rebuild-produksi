@@ -30,13 +30,20 @@ const handleLoginFlow =
       const data = getState().form.LoginForm.values;
       const response = await api.login.doLogin(data);
       if (response?.value !== null) {
-        dispatch(setLoadingButton(false));
-        dispatch(loginSuccess(response?.value));
-        writeLocal("userInfo", response?.value);
-        writeLocal("isLogin", true);
-        message.success({ content: "Login Berhasil!", key, duration: 2 });
-        window.history.pushState(null, "", "/dashboard");
-        window.history.go(0);
+        api.HakAkses.getHakAkses(response.value.user_id).then((res) => {
+          if (res.value !== null) {
+            writeLocal("hakAksesMenu", res.value);
+          } else {
+            writeLocal("hakAksesMenu", []);
+          }
+          dispatch(setLoadingButton(false));
+          dispatch(loginSuccess(response?.value));
+          writeLocal("userInfo", response?.value);
+          writeLocal("isLogin", true);
+          message.success({ content: "Login Berhasil!", key, duration: 2 });
+          window.history.pushState(null, "", "/dashboard");
+          window.history.go(0);
+        });
       } else {
         dispatch(setLoadingButton(false));
         dispatch(loginFailed(response?.error));
@@ -65,16 +72,18 @@ const handleLogout =
   async (action) => {
     next(action);
     if (action.type === LOGOUT) {
-      const data = getLocal("userInfo");
+      const data = action.payload.data;
       const dataKirim = {
         user_id: data.user_id,
         refresh_token: data.refresh_token,
       };
       api.login.LogoutDo(dataKirim).then((res) => {
         if (res.value !== null) {
+          window.location.href = "/";
           localStorage.clear();
         } else {
           sweetalert.default.Failed("User Telah Logout !");
+          window.location.href = "/";
           localStorage.clear();
         }
       });

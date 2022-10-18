@@ -5,6 +5,7 @@ import {
   SET_EDIT_FORM_ON,
   SET_EDIT_FORM_OFF,
   SET_DATA_MASTER_USER_EDIT,
+  SET_USER,
 } from "../actions/masteruser";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   isEdit: false,
   isVisible: false,
   dataEdit: [],
+  userID: "",
 };
 
 const masteruser = (state = initialState, action) => {
@@ -39,6 +41,11 @@ const masteruser = (state = initialState, action) => {
       return {
         ...state,
         dataEdit: action.payload.data,
+      };
+    case SET_USER:
+      return {
+        ...state,
+        userID: action.payload.data,
       };
     default:
       return state;

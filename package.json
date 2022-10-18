@@ -46,6 +46,7 @@
     "react-scripts": "^4.0.3",
     "react-select": "^3.0.4",
     "react-service-worker": "^0.1.1",
+    "react-sortable-tree": "^2.8.0",
     "react-table": "^6.10.0",
     "react-tag-autocomplete": "^5.11.1",
     "reactstrap": "^8.0.1",
@@ -53,6 +54,7 @@
     "serve-build": "^0.1.0",
     "simple-line-icons": "^2.4.1",
     "sweetalert2": "^11.1.9",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.2"
   },
   "build": {
@@ -76,7 +78,7 @@
     "build-local": "set REACT_APP_BACKEND_URL=http://localhost:5757/api/v1/&& react-scripts build",
     "start-dede": "export REACT_APP_BACKEND_URL=http://192.168.1.5:3757/api/&& react-scripts start",
     "start-ngrok": "export REACT_APP_BACKEND_URL=https://5400-125-164-16-2.ap.ngrok.io/api/v1/&& react-scripts start",
-    "start-dede-rebuild": "export REACT_APP_BACKEND_URL=http://192.168.1.11:7777/api/v1/&& react-scripts start",
+    "start-dede-rebuild": "export REACT_APP_BACKEND_URL=http://192.168.1.14:7777/api/v1/&& react-scripts start",
     "start-dede-new": "export REACT_APP_BACKEND_URL=http://192.168.3.22:3757/api/&& react-scripts start",
     "start-dede-prog": "export REACT_APP_BACKEND_URL=http://10.20.30.77:3757/api/&& react-scripts start",
     "start-devlocal": "export REACT_APP_BACKEND_URL=http://103.119.55.28:7777/api/v1/&& react-scripts start",

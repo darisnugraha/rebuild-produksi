@@ -59,7 +59,7 @@ const addDataMasterWarna =
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
         } else {
-          sweetalert.default.Failed(res.error.data.message);
+          sweetalert.default.Failed(res.error?.data.message);
         }
       });
     }
@@ -78,7 +78,7 @@ const deleteDataMasterWarna =
           sweetalert.default.Success("Berhasil Menghapus Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menghapus Data !"
+            res.error?.data.message || "Gagal Menghapus Data !"
           );
         }
       });
@@ -102,7 +102,7 @@ const editDataMasterWarna =
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");
         } else {
-          sweetalert.default.Failed(res.error.data.message);
+          sweetalert.default.Failed(res.error?.data.message);
         }
       });
     }

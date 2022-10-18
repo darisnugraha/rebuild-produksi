@@ -9,9 +9,10 @@ export const sendLogin = {
   type: SEND_LOGIN,
 };
 
-export const doLogout = {
+export const doLogout = (userinfo) => ({
   type: LOGOUT,
-};
+  payload: { data: userinfo },
+});
 
 export const loginSuccess = (feedback) => ({
   type: LOGIN_SUCCESS,

@@ -14,6 +14,8 @@ export const ADD_MASTER_USER = "[masteruser] add master user";
 export const DELETE_MASTER_USER = "[masteruser] delete master user";
 export const EDIT_MASTER_USER = "[masteruser] edit master user";
 
+export const SET_USER = "[masteruser] set user";
+
 export const getAllMasterUser = {
   type: GET_ALL_MASTER_USER,
 };
@@ -47,6 +49,11 @@ export const deleteMasterUser = ({ id }) => ({
   type: DELETE_MASTER_USER,
   payload: { data: id },
 });
+export const setMasterUser = ({ id }) => ({
+  type: SET_USER,
+  payload: { data: id },
+});
+
 export const editMasterUser = {
   type: EDIT_MASTER_USER,
 };

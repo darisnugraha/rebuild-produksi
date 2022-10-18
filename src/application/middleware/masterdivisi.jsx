@@ -57,7 +57,7 @@ const addDataMasterDivisi =
           sweetalert.default.Success("Berhasil Menambahkan Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });
@@ -77,7 +77,7 @@ const deleteDataMasterDivisi =
           sweetalert.default.Success("Berhasil Menghapus Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });
@@ -98,7 +98,7 @@ const editDataMasterDivisi =
           sweetalert.default.Success("Berhasil Merubah Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

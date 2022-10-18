@@ -62,7 +62,7 @@ const addDataMasterBahan =
           sweetalert.default.Success("Berhasil Menambahkan Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });
@@ -82,7 +82,7 @@ const deleteDataMasterBahan =
           sweetalert.default.Success("Berhasil Menghapus Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menghapus Data !"
+            res.error?.data.message || "Gagal Menghapus Data !"
           );
         }
       });
@@ -105,7 +105,7 @@ const editDataMasterBahan =
           sweetalert.default.Success("Berhasil Merubah Data !");
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Merubah Data !"
+            res.error?.data.message || "Gagal Merubah Data !"
           );
         }
       });

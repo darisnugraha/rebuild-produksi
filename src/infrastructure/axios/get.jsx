@@ -2,7 +2,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const AxiosGet = async ({ url }) => {
-  const token = JSON.parse(localStorage.getItem("userInfo")).access_token;
+  const token =
+    JSON.parse(localStorage.getItem("userInfo"))?.access_token || "-";
   try {
     let percentComplete = 0;
     const config = {
@@ -25,19 +26,26 @@ const AxiosGet = async ({ url }) => {
       percentCompleted: percentComplete,
     };
   } catch (error) {
-    if (error.response.data.statusCode === 401) {
-      Swal.fire({
-        title: "Ops..",
-        text: "Session Anda Habis Silahkan Login Kembali !",
-        icon: "error",
-      }).then(() => {
-        localStorage.clear();
-      });
-    } else {
+    if (error.response === undefined) {
       return {
         value: null,
-        error: error.response,
+        error: null,
       };
+    } else {
+      if (error.response.data.statusCode === 401) {
+        Swal.fire({
+          title: "Ops..",
+          text: "Session Anda Habis Silahkan Login Kembali !",
+          icon: "error",
+        }).then(() => {
+          localStorage.clear();
+        });
+      } else {
+        return {
+          value: null,
+          error: error.response,
+        };
+      }
     }
   }
 };

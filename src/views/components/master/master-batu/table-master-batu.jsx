@@ -96,12 +96,19 @@ const TableMasterBatu = () => {
           key: "kode_cutting_batu",
           align: "center",
         },
-        // {
-        //   title: "Berat",
-        //   dataIndex: "berat_batu",
-        //   key: "berat_batu",
-        //   align: "center",
-        // },
+        {
+          title: "Sintetis",
+          dataIndex: "status_sintetis",
+          key: "status_sintetis",
+          align: "center",
+          render: (text) => {
+            if (text) {
+              return "SINTETIS";
+            } else {
+              return "TIDAK SINTETIS";
+            }
+          },
+        },
         {
           title: "Action",
           key: "act",

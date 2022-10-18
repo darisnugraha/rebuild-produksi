@@ -13,13 +13,13 @@ const maptostate = (state) => {
   if (state.pembuatanjenisbahan.feedback !== undefined) {
     return {
       initialValues: {
-        nama_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
+        kode_bahan: state.pembuatanjenisbahan.feedback[0]?.nama_bahan,
       },
     };
   } else {
     return {
       initialValues: {
-        nama_bahan: "",
+        kode_bahan: "",
       },
     };
   }
@@ -46,7 +46,7 @@ let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1}>
             <Field
-              name="nama_bahan"
+              name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
               style={{ width: 250 }}
               component={styleAntd.ASelect}
@@ -64,7 +64,7 @@ let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
-              name="berat_bahan"
+              name="berat"
               type="number"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}

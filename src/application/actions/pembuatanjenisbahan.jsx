@@ -27,6 +27,8 @@ export const DELETE_DETAIL_JENIS_BAHAN =
 export const DELETE_BAHAN = "[pembuatanjenisbahan] delete bahan";
 
 export const RESET_PEMBUATAN_JENIS_BAHAN = "[pembuatanjenisbahan] reset bahan";
+export const SET_DETAIL_BILL_OF_MATERIALS =
+  "[pembuatanjenisbahan] set detail bill of materials";
 
 export const getAllSaldoBahanStock = {
   type: GET_ALL_SALDO_BAHAN_STOCK,
@@ -79,3 +81,8 @@ export const addPembuatanJenisBahan = {
 export const resetPembuatanJenisBahan = {
   type: RESET_PEMBUATAN_JENIS_BAHAN,
 };
+
+export const setDetailBillOfMaterials = ({ feedback }) => ({
+  type: SET_DETAIL_BILL_OF_MATERIALS,
+  payload: { data: feedback },
+});

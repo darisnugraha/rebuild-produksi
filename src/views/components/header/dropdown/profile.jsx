@@ -6,6 +6,13 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { doLogout } from "../../../../application/actions/login";
+import { connect } from "react-redux";
+import getLocal from "../../../../infrastructure/services/local/get-local";
+
+// const mapDispatchToProps = {
+//   doLogout,
+// };
 
 class DropdownProfile extends React.Component {
   constructor(props) {
@@ -23,6 +30,18 @@ class DropdownProfile extends React.Component {
     }));
   }
 
+  componentDidMount() {
+    const data = getLocal("userInfo");
+    this.setState({
+      username: data.user_id,
+    });
+  }
+
+  LogOutAction = () => {
+    const data = getLocal("userInfo");
+    this.props.doLogout(data);
+  };
+
   render() {
     return (
       <Dropdown
@@ -33,7 +52,7 @@ class DropdownProfile extends React.Component {
       >
         <DropdownToggle tag="a">
           {/* <img src="../assets/img/user/user-13.jpg" alt="" />  */}
-          <span className="d-none d-md-inline">Admin</span>{" "}
+          <span className="d-none d-md-inline">{this.state.username}</span>{" "}
           <b className="caret"></b>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu dropdown-menu-right" tag="ul">
@@ -46,10 +65,9 @@ class DropdownProfile extends React.Component {
           <div className="dropdown-divider"></div> */}
           <DropdownItem>
             <Link
-              to="/"
+              // to="/"
               onClick={() => {
-                // localStorage.clear();
-                console.log(this.props);
+                this.LogOutAction();
               }}
             >
               Log Out
@@ -61,4 +79,4 @@ class DropdownProfile extends React.Component {
   }
 }
 
-export default DropdownProfile;
+export default connect(null, { doLogout })(DropdownProfile);

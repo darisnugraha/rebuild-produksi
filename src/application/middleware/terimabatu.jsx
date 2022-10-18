@@ -94,7 +94,7 @@ const simpanKirimBatuPOST =
           sweetalert.default.Success(res.value.message);
           localStorage.removeItem("data_detail_kirim_batu");
         } else {
-          sweetalert.default.Failed(res.error.data.message);
+          sweetalert.default.Failed(res.error?.data.message);
         }
       });
     }

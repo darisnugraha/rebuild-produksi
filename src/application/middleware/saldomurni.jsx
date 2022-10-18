@@ -8,6 +8,9 @@ import {
   setAmbilSaldoMurniForm,
   ADD_TAMBAH_SALDO_BAHAN,
   ADD_AMBIL_SALDO_BAHAN,
+  setTambahSaldoBahan,
+  setAmbilhSaldoBahan,
+  SAVE_SALDO_BAHAN,
 } from "../actions/saldomurni";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { setLoadPanel } from "../actions/ui";
@@ -73,15 +76,7 @@ const addTambahSaldoBahan =
         kategori: data.type_trx,
         keterangan: data.keterangan,
       };
-      api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then((res) => {
-        if (res.value !== null) {
-          sweetalert.default.Success("Berhasil Menambahkan Saldo Bahan !");
-        } else {
-          sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Saldo Bahan !"
-          );
-        }
-      });
+      dispatch(setTambahSaldoBahan({ dataSaldoMurni: dataKirim }));
     }
   };
 
@@ -101,13 +96,53 @@ const addAmbilSaldoBahan =
         kategori: data.type_trx,
         keterangan: data.keterangan,
       };
-      api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then((res) => {
+      dispatch(setAmbilhSaldoBahan({ dataSaldoMurni: dataKirim }));
+    }
+  };
+
+const saveSaldoBahanAuth =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === SAVE_SALDO_BAHAN) {
+      const data = getState().form.FormAuthorize.values;
+      const dataKirim = getState().saldomurni.dataTambahBahan;
+      api.MasterUser.authorizeUser(data).then((res) => {
         if (res.value !== null) {
-          sweetalert.default.Success("Berhasil Mengambil Saldo Bahan !");
-          window.location.reload();
+          if (dataKirim.kategori === "TAMBAH") {
+            api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then(
+              (res) => {
+                if (res.value !== null) {
+                  sweetalert.default.Success(
+                    "Berhasil Menambahkan Saldo Bahan !"
+                  );
+                } else {
+                  sweetalert.default.Failed(
+                    res.error?.data.message || "Gagal Menambahkan Saldo Bahan !"
+                  );
+                }
+              }
+            );
+          } else {
+            api.TambahSaldoBahan.addTambahAmbilSaldoBahan(dataKirim).then(
+              (res) => {
+                if (res.value !== null) {
+                  sweetalert.default.Success(
+                    "Berhasil Mengambil Saldo Bahan !"
+                  );
+                } else {
+                  sweetalert.default.Failed(
+                    res.error?.data.message || "Gagal Mengambil Saldo Bahan !"
+                  );
+                }
+              }
+            );
+          }
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Mengambil Saldo Bahan !"
+            res.error?.data.message || "Gagal Melakukan Otorisasi !"
           );
         }
       });
@@ -119,6 +154,7 @@ const data = [
   saldomurniGetDataID,
   addTambahSaldoBahan,
   addAmbilSaldoBahan,
+  saveSaldoBahanAuth,
 ];
 
 export default data;

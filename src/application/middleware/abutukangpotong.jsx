@@ -118,7 +118,7 @@ const getDataSetorAbuTukangPotong =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menyimpan Data !"
+            res.error?.data.message || "Gagal Menyimpan Data !"
           );
         }
       });

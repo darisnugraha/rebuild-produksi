@@ -7,6 +7,9 @@ import {
   SET_AMBIL_SALDO_MURNI_ON,
   SET_AMBIL_SALDO_MURNI_OFF,
   SET_DATA_SALDO_MURNI,
+  SET_TAMBAH_SALDO_BAHAN,
+  SET_AMBIL_SALDO_BAHAN,
+  SET_IS_SHOW,
 } from "../actions/saldomurni";
 
 const initialState = {
@@ -19,6 +22,8 @@ const initialState = {
   dataSaldo: [],
   beratKirim: 0,
   jumlahKirim: 0,
+  dataTambahBahan: undefined,
+  isShow: false,
 };
 
 const saldomurni = (state = initialState, action) => {
@@ -57,6 +62,23 @@ const saldomurni = (state = initialState, action) => {
       return {
         ...state,
         dataSaldo: action.payload.data,
+      };
+    case SET_TAMBAH_SALDO_BAHAN:
+      return {
+        ...state,
+        dataTambahBahan: action.payload.data,
+        isShow: true,
+      };
+    case SET_AMBIL_SALDO_BAHAN:
+      return {
+        ...state,
+        dataTambahBahan: action.payload.data,
+        isShow: true,
+      };
+    case SET_IS_SHOW:
+      return {
+        ...state,
+        isShow: action.payload.data,
       };
     default:
       return state;

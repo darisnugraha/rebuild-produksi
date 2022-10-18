@@ -169,6 +169,15 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
+          <Col offset={1}>
+            <Field
+              label="Sintetis"
+              name="status_sintetis"
+              id="status_sintetis"
+              component={styleAntd.ACheckBox}
+              type="checkbox"
+            />
+          </Col>
           <Col offset={1} style={{ display: "none" }}>
             <Field
               name="berat_batu"

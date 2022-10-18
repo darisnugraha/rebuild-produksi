@@ -28,7 +28,7 @@ const getAllDataLaporanSaldoBatu =
         } else {
           dispatch(setDataLaporanSaldoBatuSuccess({ feedback: [] }));
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
           dispatch(setDataLaporanSaldoBatuFailed({ error: res.error }));
         }

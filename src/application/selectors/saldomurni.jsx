@@ -4,6 +4,7 @@ const getIsEditSaldoMurni = (state) => state.saldomurni.isEdit;
 const getIsAddSaldoMurni = (state) => state.saldomurni.isAdd;
 const getIsTakeSaldoMurni = (state) => state.saldomurni.isTake;
 const getIsVisibleSaldoMurni = (state) => state.saldomurni.isVisible;
+const getisShowSaldoMurni = (state) => state.saldomurni.isShow;
 const data = {
   getAllSaldoMurni,
   getErrorSaldoMurni,
@@ -11,5 +12,6 @@ const data = {
   getIsAddSaldoMurni,
   getIsTakeSaldoMurni,
   getIsVisibleSaldoMurni,
+  getisShowSaldoMurni,
 };
 export default data;

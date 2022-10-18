@@ -68,7 +68,7 @@ const TableMasterUser = () => {
           align: "center",
         },
         {
-          title: "Nama Lengkap",
+          title: "User Name",
           dataIndex: "user_name",
           key: "user_name",
           align: "center",
@@ -94,7 +94,7 @@ const TableMasterUser = () => {
                     onClick={() => {
                       dispatch(
                         getMasterUserByID({
-                          dataID: text.user_id,
+                          dataID: text._id,
                         })
                       );
                     }}
@@ -106,7 +106,7 @@ const TableMasterUser = () => {
                     htmltype="button"
                     danger
                     onClick={() => {
-                      onDelete(text.user_id, text.nama_lkp);
+                      onDelete(text._id, text.user_id);
                     }}
                   >
                     DELETE

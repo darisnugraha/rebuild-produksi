@@ -1,6 +1,7 @@
 const baseurl = process.env.REACT_APP_BACKEND_URL;
 
 const URL_LOGIN = `${baseurl}auth/login`;
+const URL_LOGOUT = `${baseurl}auth/logout`;
 
 const URL_GET_JO_OUTSTAND_ALL = `${baseurl}produksi/outstand/`;
 const URL_GET_OUTSTAND_ABU_CASTING_ALL = `${baseurl}abu-cor/setor-outstand-casting`;
@@ -26,6 +27,18 @@ const URL_GET_MASTER_JENIS_BAHAN_BY_ID = `${baseurl}jenis-bahan/by-id/`;
 const URL_ADD_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 const URL_DELETE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 const URL_UPDATE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
+
+const URL_GET_ALL_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
+const URL_GET_MASTER_KELOMPOK_JENIS_BAHAN_BY_ID = `${baseurl}kelompok-jenis-bahan/by-id/`;
+const URL_ADD_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
+const URL_DELETE_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
+const URL_UPDATE_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
+
+const URL_GET_ALL_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
+const URL_GET_MASTER_BILL_OF_MATERIALS_BY_ID = `${baseurl}bill-of-materials/by-id/`;
+const URL_ADD_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
+const URL_DELETE_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
+const URL_UPDATE_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
 
 const URL_GET_ALL_MASTER_BATU = `${baseurl}batu/open`;
 const URL_GET_MASTER_BATU_BY_ID = `${baseurl}batu/by-id/`;
@@ -83,6 +96,12 @@ const URL_ADD_MASTER_UKURAN = `${baseurl}ukuran`;
 const URL_DELETE_MASTER_UKURAN = `${baseurl}ukuran`;
 const URL_UPDATE_MASTER_UKURAN = `${baseurl}ukuran`;
 
+const URL_GET_ALL_MASTER_STATUS = `${baseurl}status-job-order`;
+const URL_GET_MASTER_STATUS_BY_ID = `${baseurl}status-job-order/by-id/`;
+const URL_ADD_MASTER_STATUS = `${baseurl}status-job-order`;
+const URL_DELETE_MASTER_STATUS = `${baseurl}status-job-order`;
+const URL_UPDATE_MASTER_STATUS = `${baseurl}status-job-order`;
+
 const URL_GET_ALL_MASTER_ORIGINAL = `${baseurl}barang-master/open`;
 const URL_GET_MASTER_ORIGINAL_BY_ID = `${baseurl}barang-master/by-id/`;
 const URL_ADD_MASTER_ORIGINAL = `${baseurl}barang-master`;
@@ -104,6 +123,7 @@ const URL_GET_POTONG_POHON = `${baseurl}saldo-bahan/potong-pohon/`;
 const URL_GET_POTONG_POHON_JENIS_BAHAN = `${baseurl}jenis-bahan/by-kode/`;
 
 const URL_GET_ALL_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-murni/get/bahan/all`;
+const URL_GET_BILL_OF_MATERIALS = `${baseurl}bill-of-materials/find-bom-by-jenis-bahan?`;
 const URL_ADD_PEMBUATAN_JENIS_BAHAN = `${baseurl}saldo-bahan`;
 
 const URL_GET_ALL_DIVISI = `${baseurl}divisi/open`;
@@ -232,10 +252,11 @@ const URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI = `${baseurl}produksi-report/terima-b
 const URL_GET_LAPORAN_OUTSTAND_PRODUKSI = `${baseurl}produksi-report/outstand-by-divisi?`;
 
 const URL_GET_ALL_MASTER_USER = `${baseurl}users`;
+const URL_AUTHORIZE_USER = `${baseurl}users/authorize?`;
 const URL_GET_ALL_MASTER_USER_BY_ID = `${baseurl}users/`;
-const URL_ADD_MASTER_USER = `${baseurl}user`;
-const URL_DELETE_MASTER_USER = `${baseurl}user`;
-const URL_UPDATE_MASTER_USER = `${baseurl}user`;
+const URL_ADD_MASTER_USER = `${baseurl}auth/register`;
+const URL_DELETE_MASTER_USER = `${baseurl}users/`;
+const URL_UPDATE_MASTER_USER = `${baseurl}users/`;
 
 const URL_GET_ALL_MASTER_DIVISI = `${baseurl}divisi/open`;
 const URL_GET_MASTER_DIVISI_BY_ID = `${baseurl}divisi/by-id/`;
@@ -245,8 +266,12 @@ const URL_UPDATE_MASTER_DIVISI = `${baseurl}divisi`;
 
 const URL_GET_DETAIL_TAMBAH_JO = `${baseurl}kirim-job-order/detail-jo/`;
 
+const URL_GET_MENU_HAK_AKSES_USER = `${baseurl}hak-akses/by-user-id/`;
+const URL_ADD_MENU_HAK_AKSES_USER = `${baseurl}hak-akses`;
+
 const data = {
   URL_LOGIN,
+  URL_LOGOUT,
 
   URL_GET_JO_OUTSTAND_ALL,
   URL_GET_OUTSTAND_ABU_CASTING_ALL,
@@ -273,6 +298,18 @@ const data = {
   URL_ADD_MASTER_JENIS_BAHAN,
   URL_DELETE_MASTER_JENIS_BAHAN,
   URL_UPDATE_MASTER_JENIS_BAHAN,
+
+  URL_GET_ALL_MASTER_KELOMPOK_JENIS_BAHAN,
+  URL_GET_MASTER_KELOMPOK_JENIS_BAHAN_BY_ID,
+  URL_ADD_MASTER_KELOMPOK_JENIS_BAHAN,
+  URL_DELETE_MASTER_KELOMPOK_JENIS_BAHAN,
+  URL_UPDATE_MASTER_KELOMPOK_JENIS_BAHAN,
+
+  URL_GET_ALL_MASTER_BILL_OF_MATERIALS,
+  URL_GET_MASTER_BILL_OF_MATERIALS_BY_ID,
+  URL_ADD_MASTER_BILL_OF_MATERIALS,
+  URL_DELETE_MASTER_BILL_OF_MATERIALS,
+  URL_UPDATE_MASTER_BILL_OF_MATERIALS,
 
   URL_GET_ALL_MASTER_BATU,
   URL_GET_MASTER_BATU_BY_ID,
@@ -330,6 +367,12 @@ const data = {
   URL_DELETE_MASTER_UKURAN,
   URL_UPDATE_MASTER_UKURAN,
 
+  URL_GET_ALL_MASTER_STATUS,
+  URL_GET_MASTER_STATUS_BY_ID,
+  URL_ADD_MASTER_STATUS,
+  URL_DELETE_MASTER_STATUS,
+  URL_UPDATE_MASTER_STATUS,
+
   URL_GET_ALL_MASTER_ORIGINAL,
   URL_GET_MASTER_ORIGINAL_BY_ID,
   URL_ADD_MASTER_ORIGINAL,
@@ -346,6 +389,7 @@ const data = {
   URL_GET_ALL_SALDO_BAHAN_STOCK,
 
   URL_GET_ALL_PEMBUATAN_JENIS_BAHAN,
+  URL_GET_BILL_OF_MATERIALS,
   URL_ADD_PEMBUATAN_JENIS_BAHAN,
 
   URL_GET_ALL_DIVISI,
@@ -475,6 +519,7 @@ const data = {
   URL_ADD_TERIMA_BATU_PRODUKSI,
 
   URL_GET_ALL_MASTER_USER,
+  URL_AUTHORIZE_USER,
   URL_GET_ALL_MASTER_USER_BY_ID,
   URL_ADD_MASTER_USER,
   URL_DELETE_MASTER_USER,
@@ -487,6 +532,9 @@ const data = {
   URL_UPDATE_MASTER_DIVISI,
 
   URL_GET_DETAIL_TAMBAH_JO,
+
+  URL_GET_MENU_HAK_AKSES_USER,
+  URL_ADD_MENU_HAK_AKSES_USER,
 };
 
 export default data;

@@ -60,7 +60,7 @@ const getAllDataLaporanTambahJobOrder =
               }
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Terjadi Kesalahan !"
+                res.error?.data.message || "Terjadi Kesalahan !"
               );
               dispatch(setDataLaporanTerimaBatuSuccess({ feedback: [] }));
               dispatch(setDataLaporanTerimaBatuFailed({ error: res.error }));

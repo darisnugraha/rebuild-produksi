@@ -239,7 +239,7 @@ const addKirimTambahanCheckout =
             );
           } else {
             sweetalert.default.Failed(
-              res.error.data.message ||
+              res.error?.data.message ||
                 "Terjadi Kesalahan Saat Menambahkan Data !"
             );
           }

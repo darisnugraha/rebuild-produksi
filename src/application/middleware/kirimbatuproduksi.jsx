@@ -219,7 +219,7 @@ const addDataKirimBatuProduksiPost =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Gagal Menambahkan Data !"
+            res.error?.data.message || "Gagal Menambahkan Data !"
           );
         }
       });

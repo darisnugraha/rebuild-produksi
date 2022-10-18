@@ -50,7 +50,7 @@ const getAllDataLaporanOutstand =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanOutstandAdminSuccess({ feedback: [] }));
             dispatch(setDataLaporanOutstandAdminFailed({ error: res.error }));

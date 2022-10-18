@@ -66,6 +66,10 @@ import KirimBatuPusat from "./kirimbatupusat";
 import TerimaBatuProduksi from "./terimabatuproduksi";
 import MasterUser from "./masteruser";
 import MasterDivisi from "./masterdivisi";
+import HakAkses from "./hakakses";
+import MasterKelompokJenisBahan from "./masterkelompokjenisbahan";
+import MasterBillOfMaterials from "./masterbillofmaterials";
+import MasterStatus from "./masterstatus";
 
 const api = {
   login,
@@ -136,6 +140,10 @@ const api = {
   TerimaBatuProduksi,
   MasterUser,
   MasterDivisi,
+  HakAkses,
+  MasterKelompokJenisBahan,
+  MasterBillOfMaterials,
+  MasterStatus,
 };
 
 export default api;

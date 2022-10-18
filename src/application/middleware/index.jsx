@@ -66,6 +66,10 @@ import kirimbatupusat from "./kirimbatupusat";
 import terimabatuproduksi from "./terimabatuproduksi";
 import masteruser from "./masteruser";
 import masterdivisi from "./masterdivisi";
+import hakakses from "./hakakses";
+import masterkelompokjenisbahan from "./masterkelompokjenisbahan";
+import masterbillofmaterials from "./masterbillofmaterials";
+import masterstatus from "./masterstatus";
 
 const midd = [
   ...ui,
@@ -136,6 +140,10 @@ const midd = [
   ...terimabatuproduksi,
   ...masteruser,
   ...masterdivisi,
+  ...hakakses,
+  ...masterkelompokjenisbahan,
+  ...masterbillofmaterials,
+  ...masterstatus,
 ];
 
 export default midd;

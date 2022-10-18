@@ -8,6 +8,7 @@ import {
   DELETE_MASTER_USER,
   EDIT_MASTER_USER,
   setEditFormMasterUser,
+  setMasterUser,
 } from "../actions/masteruser";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -19,19 +20,21 @@ const masterUserGetAll =
     next(action);
     if (action.type === GET_ALL_MASTER_USER) {
       api.MasterUser.getAllMasterUser().then((res) => {
-        if (res.value !== null) {
-          delete res.value.statusCode;
-          const newArr = [];
-          const result = Object.keys(res.value).map((key) => [
-            Number(key),
-            res.value[key],
-          ]);
-          result.forEach((val) => {
-            newArr.push(val[1]);
-          });
-          dispatch(setDataMasterUserSuccess({ feedback: newArr }));
-        } else {
-          dispatch(setDataMasterUserFailed({ error: res.error }));
+        if (res !== undefined) {
+          if (res.value !== null) {
+            delete res.value.statusCode;
+            const newArr = [];
+            const result = Object.keys(res.value).map((key) => [
+              Number(key),
+              res.value[key],
+            ]);
+            result.forEach((val) => {
+              newArr.push(val[1]);
+            });
+            dispatch(setDataMasterUserSuccess({ feedback: newArr }));
+          } else {
+            dispatch(setDataMasterUserFailed({ error: res.error }));
+          }
         }
       });
     }
@@ -47,9 +50,9 @@ const masterUserGetByID =
       dispatch(setEditFormMasterUser(true));
       const dataMasterUser = getState().masteruser.feedback;
       const dataMasterUserFilter = dataMasterUser.filter((item) => {
-        return item.user_id === action.payload;
+        return item._id === action.payload;
       });
-      console.log(dataMasterUserFilter);
+      dispatch(setMasterUser({ id: dataMasterUserFilter[0]?._id || "" }));
       dispatch(setDataMasterUserEdit({ dataEdit: dataMasterUserFilter }));
     }
   };
@@ -62,12 +65,23 @@ const addDataMasterUser =
     next(action);
     if (action.type === ADD_MASTER_USER) {
       const data = getState().form.FormTambahMasterUser.values;
-      const response = await api.MasterUser.addMasterUser(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menambahkan Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const dataKirim = {
+        user_name: data.nama_lkp,
+        user_id: data.user_id,
+        password: data.password,
+        level: data.type,
+      };
+      api.MasterUser.addMasterUser(dataKirim).then((res) => {
+        if (res !== undefined) {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Menambahkan Data !"
+            );
+          }
+        }
+      });
     }
   };
 
@@ -78,15 +92,18 @@ const deleteDataMasterUser =
   async (action) => {
     next(action);
     if (action.type === DELETE_MASTER_USER) {
-      const data = {
-        user_id: action.payload.data,
-      };
-      const response = await api.MasterUser.deleteMasterUser(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Menghapus Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const data = action.payload.data;
+      api.MasterUser.deleteMasterUser(data).then((res) => {
+        if (res !== undefined) {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Menghapus Data !");
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Menghapus Data !"
+            );
+          }
+        }
+      });
     }
   };
 
@@ -98,12 +115,22 @@ const editDataMasterUser =
     next(action);
     if (action.type === EDIT_MASTER_USER) {
       const data = getState().form.FormTambahMasterUser.values;
-      const response = await api.MasterUser.editMasterUser(data);
-      if (response.value?.status === "berhasil") {
-        sweetalert.default.Success("Berhasil Merubah Data !");
-      } else {
-        sweetalert.default.Failed(response.error.data.pesan);
-      }
+      const id = getState().masteruser.userID;
+      const dataKirim = {
+        user_id: data.user_id,
+        level: data.type,
+      };
+      api.MasterUser.editMasterUser(dataKirim, id).then((res) => {
+        if (res !== undefined) {
+          if (res.value !== null) {
+            sweetalert.default.Success("Berhasil Merubah Data !");
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Merubah Data !"
+            );
+          }
+        }
+      });
     }
   };
 

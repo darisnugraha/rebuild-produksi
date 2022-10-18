@@ -207,7 +207,7 @@ const addTerimaTambahan =
             );
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Gagal Menambahkan Data !"
+              res.error?.data.message || "Gagal Menambahkan Data !"
             );
           }
         });
@@ -227,7 +227,7 @@ const addTerimaTambahan =
             );
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Gagal Menambahkan Data !"
+              res.error?.data.message || "Gagal Menambahkan Data !"
             );
           }
         });

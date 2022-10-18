@@ -61,7 +61,7 @@ const getAllDataLaporanKirimMasak =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanKirimMasakSuccess({ feedback: [] }));
             dispatch(setDataLaporanKirimMasakFailed({ error: res.error }));
@@ -114,7 +114,7 @@ const getAllDataLaporanTerimaMasak =
             }
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Terjadi Kesalahan !"
+              res.error?.data.message || "Terjadi Kesalahan !"
             );
             dispatch(setDataLaporanTerimaMasakSuccess({ feedback: [] }));
             dispatch(setDataLaporanTerimaMasakFailed({ error: res.error }));

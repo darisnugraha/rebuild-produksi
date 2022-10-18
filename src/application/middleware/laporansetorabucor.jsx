@@ -61,7 +61,7 @@ const getAllDataSetorAbuCOR =
               }
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Terjadi Kesalahan !"
+                res.error?.data.message || "Terjadi Kesalahan !"
               );
               dispatch(setDataLaporanSetorAbuCorSuccess({ feedback: [] }));
               dispatch(setDataLaporanSetorAbuCorFailed({ error: res.error }));

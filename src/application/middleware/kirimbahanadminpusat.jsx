@@ -185,7 +185,7 @@ const addKirimBahan =
             );
           } else {
             sweetalert.default.Failed(
-              res.error.data.message || "Gagal Mengirimkan Data !"
+              res.error?.data.message || "Gagal Mengirimkan Data !"
             );
           }
         }
@@ -212,7 +212,7 @@ const addKirimBahan =
               );
             } else {
               sweetalert.default.Failed(
-                res.error.data.message || "Gagal Mengirimkan Data !"
+                res.error?.data.message || "Gagal Mengirimkan Data !"
               );
             }
           }

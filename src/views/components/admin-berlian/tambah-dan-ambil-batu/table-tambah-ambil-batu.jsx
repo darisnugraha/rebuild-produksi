@@ -74,6 +74,13 @@ const TableMasterTambahAmbilBatu = () => {
           dataIndex: "berat",
           key: "berat",
           align: "center",
+          render: (text, row) => {
+            if (row.status_sintetis) {
+              return `${text} Carat`;
+            } else {
+              return `${text} Gram`;
+            }
+          },
         },
         // {
         //   title: "Nama Batu",

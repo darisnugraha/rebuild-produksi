@@ -6,6 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterBatu from "../../../../application/selectors/masterbatu";
+import KirimBatuProduksi from "../../../../application/selectors/kirimbatuproduksi";
 import { getBeratBatuByID } from "../../../../application/actions/kirimbatuproduksi";
 
 const { Option } = Select;
@@ -46,6 +47,8 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
+  const dataBatuFilter = useSelector(KirimBatuProduksi.getFilterBatu);
+  const is_sintetic = dataBatuFilter[0]?.status_sintetis;
 
   return (
     <Modal
@@ -59,7 +62,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col span={8} offset={1}>
+          <Col offset={1}>
             <Field
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
@@ -80,7 +83,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col span={8} offset={1} style={{ display: "none" }}>
+          <Col offset={1} style={{ display: "none" }}>
             <Field
               name="berat_pcs"
               type="text"
@@ -91,7 +94,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col span={8} offset={1}>
+          <Col offset={1}>
             <Field
               name="jumlah_kirim"
               type="number"
@@ -106,11 +109,15 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               // }}
             />
           </Col>
-          <Col span={8} offset={1}>
+          <Col offset={1}>
             <Field
               name="berat_kirim"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Berat Kirim</span>}
+              label={
+                <span style={{ fontSize: "13px" }}>
+                  Berat Kirim {is_sintetic ? "(CARAT)" : "(GRAM)"}
+                </span>
+              }
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Kirim"

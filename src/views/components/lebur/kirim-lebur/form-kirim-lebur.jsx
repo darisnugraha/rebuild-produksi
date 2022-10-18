@@ -102,7 +102,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="asal_bahan"
               label={<span style={{ fontSize: "13px" }}>Asal Bahan</span>}
-              style={{ width: 250 }}
+              // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Asal Bahan"
               onBlur={(e) => e.preventDefault()}

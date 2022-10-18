@@ -69,7 +69,7 @@ const addCloseJO =
           );
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Terjadi Kesalahan !"
+            res.error?.data.message || "Terjadi Kesalahan !"
           );
         }
       });

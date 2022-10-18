@@ -47,7 +47,7 @@ const addCheckoutJobOrder =
             localStorage.removeItem("data_staff");
             localStorage.removeItem("data_detail_jo");
           } else {
-            sweetalert.default.Failed(res.error.data.message);
+            sweetalert.default.Failed(res.error?.data.message);
           }
         });
       }
