@@ -6,6 +6,18 @@ import {
   COUNT_BERAT_KIRIM_JO,
   SET_JUMLAH_KIRIM_JO,
   SAVE_BERAT_BATU_TAK_TERPAKAI,
+  SET_NO_INDUK_JOB_ORDER,
+  SET_DATA_BY_NO_INDUK_JOB_ORDER,
+  GET_DATA_BY_NO_INDUK_JOB_ORDER,
+  EDIT_JOB_ORDER,
+  SET_DATA_EDIT_JOB_ORDER,
+  SET_IS_EDIT_JOB_ORDER,
+  EDIT_BATU,
+  SET_IS_EDIT_BATU,
+  SET_DATA_EDIT_BATU,
+  EDIT_TAMBAHAN,
+  SET_IS_EDIT_TAMBAHAN,
+  SET_DATA_EDIT_TAMBAHAN,
 } from "../actions/kirimjo";
 
 const initialState = {
@@ -17,6 +29,15 @@ const initialState = {
   beratKirim: 0,
   beratSusut: 0,
   beratBatuTakTerpakai: 0,
+  dataNoInduk: [],
+  detailJO: [],
+  NoIndukJO: undefined,
+  isEditJO: false,
+  dataEditJO: undefined,
+  isEditBatu: false,
+  dataEditBatu: undefined,
+  isEditTambahan: false,
+  dataEditTambahan: undefined,
 };
 
 const kirimjo = (state = initialState, action) => {
@@ -50,6 +71,66 @@ const kirimjo = (state = initialState, action) => {
       return {
         ...state,
         beratBatuTakTerpakai: action.payload.data,
+      };
+    case SET_NO_INDUK_JOB_ORDER:
+      return {
+        ...state,
+        dataNoInduk: action.payload.data,
+      };
+    case SET_DATA_BY_NO_INDUK_JOB_ORDER:
+      return {
+        ...state,
+        detailJO: action.payload.data,
+      };
+    case GET_DATA_BY_NO_INDUK_JOB_ORDER:
+      return {
+        ...state,
+        NoIndukJO: action.payload.data,
+      };
+    case EDIT_JOB_ORDER:
+      return {
+        ...state,
+        isEditJO: true,
+      };
+    case SET_IS_EDIT_JOB_ORDER:
+      return {
+        ...state,
+        isEditJO: action.payload.data,
+      };
+    case SET_DATA_EDIT_JOB_ORDER:
+      return {
+        ...state,
+        dataEditJO: action.payload.data,
+      };
+    case EDIT_BATU:
+      return {
+        ...state,
+        isEditBatu: true,
+      };
+    case SET_IS_EDIT_BATU:
+      return {
+        ...state,
+        isEditBatu: action.payload.data,
+      };
+    case SET_DATA_EDIT_BATU:
+      return {
+        ...state,
+        dataEditBatu: action.payload.data,
+      };
+    case EDIT_TAMBAHAN:
+      return {
+        ...state,
+        isEditTambahan: true,
+      };
+    case SET_IS_EDIT_TAMBAHAN:
+      return {
+        ...state,
+        isEditTambahan: action.payload.data,
+      };
+    case SET_DATA_EDIT_TAMBAHAN:
+      return {
+        ...state,
+        dataEditTambahan: action.payload.data,
       };
     default:
       return state;

@@ -48,6 +48,12 @@ const TableTambahJO = () => {
       key: "catatan",
       align: "center",
     },
+    {
+      title: "Status",
+      dataIndex: "kode_status_job_order",
+      key: "kode_status_job_order",
+      align: "center",
+    },
   ];
 
   return (

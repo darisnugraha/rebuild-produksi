@@ -12,6 +12,7 @@ import FormMasterJenisBahan from "../../components/master/master-jenis-bahan/but
 import TableMasterJenisBahan from "../../components/master/master-jenis-bahan/table-master-jenis-bahan";
 import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan.jsx";
 import { getAllMasterWarna } from "../../../application/actions/masterwarna.jsx";
+import { getAllMasterKelompokJenisBahan } from "../../../application/actions/masterkelompokjenisbahan.jsx";
 
 const MasterJenisBahan = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const MasterJenisBahan = () => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterJenisBahan);
     dispatch(getAllMasterWarna);
+    dispatch(getAllMasterKelompokJenisBahan);
     document.title = "Master Jenis Bahan";
   }, [dispatch]);
 

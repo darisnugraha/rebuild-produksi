@@ -2,7 +2,9 @@
 import {
   SET_DATA_STAFF_SUCCESS,
   SET_DATA_STAFF_FAILED,
-  SET_DATA_DETAIL_JO_SUCCESS
+  SET_DATA_DETAIL_JO_SUCCESS,
+  SET_DATA_BY_POHON,
+  GET_DATA_BY_POHON,
 } from "../actions/tambahjoborder";
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   dataDetailJO: [],
   error: null,
   isEdit: false,
+  dataPohon: undefined,
+  noPohon: undefined,
 };
 
 const tambahjoborder = (state = initialState, action) => {
@@ -29,6 +33,16 @@ const tambahjoborder = (state = initialState, action) => {
       return {
         ...state,
         dataDetailJO: action.payload.data,
+      };
+    case SET_DATA_BY_POHON:
+      return {
+        ...state,
+        dataPohon: action.payload.data,
+      };
+    case GET_DATA_BY_POHON:
+      return {
+        ...state,
+        noPohon: action.payload.data,
       };
     default:
       return state;

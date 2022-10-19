@@ -7,10 +7,13 @@ import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
 import KirimBahanAdmin from "../../../application/selectors/kirimbahanadmin";
 import Tukang from "../../../application/selectors/mastertukang";
+import KirimJO from "../../../application/selectors/kirimjo";
 import {
   addLocalKirimJO,
   countBeratKirimJO,
+  getDataByNoInduk,
   getDataDetailJO,
+  saveEditJobOrder,
   simpanBeratBatuTakTerpakai,
   simpanJumlahKirim,
 } from "../../../application/actions/kirimjo";
@@ -18,24 +21,116 @@ import {
 const { Option } = Select;
 
 const maptostate = (state) => {
-  return {
-    initialValues: {
-      divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-      tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
-      no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
-      tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
-      kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
-      nama_barang: state.kirimjo.dataDetailJO[0]?.nama_barang,
-      kode_jenis_bahan: state.kirimjo.dataDetailJO[0]?.kode_jenis_bahan,
-      jumlah_akhir: state.kirimjo.dataDetailJO[0]?.stock_akhir,
-      berat_akhir: state.kirimjo.dataDetailJO[0]?.berat_akhir,
-      berat_batu: state.kirimjo.dataDetailJO[0]?.berat_batu || 0,
-      jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
-      susut: state.kirimjo.beratSusut,
-      jumlah_kirim: state.kirimjo.jumlahKirim,
-      berat_kirim: state.kirimjo.beratKirim,
-    },
-  };
+  if (state.kirimjo.dataEditJO !== undefined) {
+    return {
+      initialValues: {
+        divisi_tujuan: state.kirimjo.dataEditJO.divisi_tujuan,
+        tukang_tujuan: state.kirimjo.dataEditJO.tukang_tujuan,
+        no_job_order: state.kirimjo.dataEditJO.no_job_order,
+        tukang_asal: state.kirimjo.dataEditJO.tukang_asal,
+        kode_barang: state.kirimjo.dataEditJO.kode_barang,
+        nama_barang: state.kirimjo.dataEditJO.nama_barang,
+        kode_jenis_bahan: state.kirimjo.dataEditJO.kode_jenis_bahan,
+        jumlah_akhir: state.kirimjo.dataEditJO.jumlah_akhir,
+        berat_akhir: state.kirimjo.dataEditJO.berat_akhir,
+        berat_batu: state.kirimjo.dataEditJO.berat_batu,
+        jumlah_berat_batu_tak_terpakai:
+          state.kirimjo.dataEditJO.jumlah_berat_batu_tak_terpakai,
+        susut: state.kirimjo.beratSusut,
+        jumlah_kirim: state.kirimjo.dataEditJO.jumlah_kirim,
+        berat_kirim: state.kirimjo.beratKirim,
+        no_induk_job_order: state.kirimjo.dataEditJO.no_induk_job_order,
+      },
+    };
+  } else {
+    if (state.kirimjo.NoIndukJO !== undefined) {
+      if (state.kirimjo.detailJO.length !== 0) {
+        if (state.kirimjo.dataDetailJO.length !== 0) {
+          return {
+            initialValues: {
+              divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
+              tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+              no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
+              tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
+              kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
+              nama_barang: state.kirimjo.dataDetailJO[0]?.nama_barang,
+              kode_jenis_bahan: state.kirimjo.dataDetailJO[0]?.kode_jenis_bahan,
+              jumlah_akhir: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+              berat_akhir: state.kirimjo.dataDetailJO[0]?.berat_akhir,
+              berat_batu: state.kirimjo.dataDetailJO[0]?.berat_batu || 0,
+              jumlah_berat_batu_tak_terpakai:
+                state.kirimjo.beratBatuTakTerpakai,
+              susut: state.kirimjo.beratSusut,
+              jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+              berat_kirim: state.kirimjo.beratKirim,
+              no_induk_job_order: state.kirimjo.NoIndukJO,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
+              tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+              no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
+              tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
+              kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
+              nama_barang: state.kirimjo.dataDetailJO[0]?.nama_barang,
+              kode_jenis_bahan: state.kirimjo.dataDetailJO[0]?.kode_jenis_bahan,
+              jumlah_akhir: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+              berat_akhir: state.kirimjo.dataDetailJO[0]?.berat_akhir,
+              berat_batu: state.kirimjo.dataDetailJO[0]?.berat_batu || 0,
+              jumlah_berat_batu_tak_terpakai:
+                state.kirimjo.beratBatuTakTerpakai,
+              susut: state.kirimjo.beratSusut,
+              jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+              berat_kirim: state.kirimjo.beratKirim,
+              no_induk_job_order: state.kirimjo.NoIndukJO,
+            },
+          };
+        }
+      } else {
+        return {
+          initialValues: {
+            divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
+            tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+            no_job_order: "",
+            tukang_asal: "",
+            kode_barang: "",
+            nama_barang: "",
+            kode_jenis_bahan: "",
+            jumlah_akhir: "",
+            berat_akhir: "",
+            berat_batu: "",
+            jumlah_berat_batu_tak_terpakai: 0,
+            susut: 0,
+            jumlah_kirim: 0,
+            berat_kirim: 0,
+            no_induk_job_order: state.kirimjo.NoIndukJO,
+          },
+        };
+      }
+    } else {
+      return {
+        initialValues: {
+          divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
+          tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+          no_job_order: "",
+          tukang_asal: "",
+          kode_barang: "",
+          nama_barang: "",
+          kode_jenis_bahan: "",
+          jumlah_akhir: "",
+          berat_akhir: "",
+          berat_batu: "",
+          jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
+          susut: state.kirimjo.beratSusut,
+          jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+          berat_kirim: state.kirimjo.beratKirim,
+          no_induk_job_order: state.kirimjo.dataNoInduk[1]?.no_induk_job_order,
+        },
+      };
+    }
+  }
 };
 
 let FormKirimJO = ({ visible, onCancel }, prop) => {
@@ -45,6 +140,9 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
   const [form] = Form.useForm();
   const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
   const dataTukang = useSelector(Tukang.getAllMasterTukang);
+  const dataInduk = useSelector(KirimJO.getDataNoInduk);
+  const dataJO = useSelector(KirimJO.getDataNoJO);
+  const isEdit = useSelector(KirimJO.getIsEditJO);
 
   return (
     <Modal
@@ -55,7 +153,11 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        dispatch(addLocalKirimJO);
+        if (isEdit) {
+          dispatch(saveEditJobOrder);
+        } else {
+          dispatch(addLocalKirimJO);
+        }
       }}
     >
       <Form layout="vertical" form={form}>
@@ -101,7 +203,56 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
+
           <Col offset={1}>
+            <Field
+              name="no_induk_job_order"
+              label={
+                <span style={{ fontSize: "13px" }}>No Induk Job Order</span>
+              }
+              style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Induk Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getDataByNoInduk(e))}
+              disabled={isEdit}
+            >
+              {dataInduk.map((item) => {
+                return (
+                  <Option value={item.no_induk_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_induk_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="no_job_order"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) =>
+                dispatch(getDataDetailJO({ noJO: e, type: "CHANGE" }))
+              }
+              disabled={isEdit}
+            >
+              {dataJO.map((item) => {
+                return (
+                  <Option value={item.no_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          {/* <Col offset={1}>
             <Field
               name="no_job_order"
               type="text"
@@ -114,7 +265,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
                 dispatch(getDataDetailJO({ noJO: e.target.value }));
               }}
             />
-          </Col>
+          </Col> */}
           <Col offset={1}>
             <Field
               name="tukang_asal"
@@ -230,6 +381,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Jumlah Kirim"
+              disabled
               onChange={(e) => {
                 dispatch(simpanJumlahKirim({ jumlahKirim: e.target.value }));
               }}

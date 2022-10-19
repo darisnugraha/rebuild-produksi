@@ -3,6 +3,7 @@ import { Button } from "antd";
 import FormKirimJO from "./form-kirim-jo";
 import FormDetailTambahan from "./form-detail-tambahan";
 import FormDetailBatu from "./form-detail-batu";
+import getLocal from "../../../infrastructure/services/local/get-local";
 
 const ModalKirimJO = () => {
   const [visible, setVisible] = useState(false);
@@ -13,6 +14,9 @@ const ModalKirimJO = () => {
     console.log("Received values of form: ", values);
     setVisible(false);
   };
+
+  const dataHead = getLocal("kirim_jo_head") || [];
+  const dataTambahan = getLocal("detail_tambahan") || [];
 
   return (
     <div>
@@ -53,6 +57,7 @@ const ModalKirimJO = () => {
         onClick={() => {
           setVisibleTambahan(true);
         }}
+        disabled={dataHead.length === dataTambahan.length}
       >
         + Detail Tambahan
       </Button>

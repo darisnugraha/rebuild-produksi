@@ -13,6 +13,16 @@ const KirimJO = {
     const response = await get({ url: word.URL_ADD_KIRIM_JO });
     return response;
   },
+  getNoIndulJO: async () => {
+    const response = await get({ url: word.URL_GET_NO_INDUK_JO });
+    return response;
+  },
+  getJobOrderDetail: async (data) => {
+    const response = await get({
+      url: word.URL_GET_JO_BY_NO_INDUK + `/${data.no_induk}/${data.divisi}`,
+    });
+    return response;
+  },
   addKirimJOCart: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_KIRIM_JOB_ORDER_CART,

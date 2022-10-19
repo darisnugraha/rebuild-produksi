@@ -7,6 +7,8 @@ export const SET_DATA_DETAIL_JO_SUCCESS =
 export const SET_DATA_DETAIL_JO_FAILED =
   "[tambahjoborder] add data detail jo failed";
 export const ADD_JOB_ORDER_CHECKOUT = "[tambahjoborder] add job order checkout";
+export const GET_DATA_BY_POHON = "[tambahjoborder] get data by pohon";
+export const SET_DATA_BY_POHON = "[tambahjoborder] set data by pohon";
 
 export const addDataStaff = {
   type: ADD_DATA_STAFF,
@@ -35,3 +37,13 @@ export const setDataDetailJOFailed = ({ error }) => ({
 export const addCheckOutJO = {
   type: ADD_JOB_ORDER_CHECKOUT,
 };
+
+export const getDataByPohon = ({ pohon }) => ({
+  type: GET_DATA_BY_POHON,
+  payload: { data: pohon },
+});
+
+export const setDataByPohon = ({ feedback }) => ({
+  type: SET_DATA_BY_POHON,
+  payload: { data: feedback },
+});

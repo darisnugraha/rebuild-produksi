@@ -5,20 +5,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
+import getLocal from "../../../infrastructure/services/local/get-local";
 import ui from "../../../application/selectors/ui";
 import Batu from "../../../application/selectors/masterbatu";
-import { addLocalBatu } from "../../../application/actions/kirimjo";
+import KirimJO from "../../../application/selectors/kirimjo";
+import {
+  addLocalBatu,
+  saveEditBatu,
+} from "../../../application/actions/kirimjo";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  return {
-    initialValues: {
-      kode_batu: "TIDAK ADA",
-      jumlah_tak_terpakai: 0,
-      berat_tak_terpakai: 0,
-    },
-  };
+  const dataJO = getLocal("kirim_jo_head");
+  if (state.kirimjo.dataEditBatu !== undefined) {
+    if (dataJO !== null) {
+      return {
+        initialValues: {
+          no_job_order: state.kirimjo.dataEditBatu.no_job_order,
+          kode_batu: state.kirimjo.dataEditBatu.kode_batu,
+          jumlah_tak_terpakai: state.kirimjo.dataEditBatu.jumlah_tak_terpakai,
+          berat_tak_terpakai: state.kirimjo.dataEditBatu.berat_tak_terpakai,
+        },
+      };
+    }
+  } else {
+    if (dataJO !== null) {
+      return {
+        initialValues: {
+          no_job_order: dataJO[0]?.no_job_order,
+          kode_batu: "TIDAK ADA",
+          jumlah_tak_terpakai: 0,
+          berat_tak_terpakai: 0,
+        },
+      };
+    }
+  }
 };
 
 let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
@@ -27,6 +49,8 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBatu = useSelector(Batu.getAllMasterBatu);
+  const dataJO = getLocal("kirim_jo_head") || [];
+  const isEdit = useSelector(KirimJO.getIsEditBatu);
 
   return (
     <Modal
@@ -37,19 +61,45 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        dispatch(addLocalBatu);
+        if (isEdit) {
+          dispatch(saveEditBatu);
+        } else {
+          dispatch(addLocalBatu);
+        }
       }}
     >
       <Form layout="vertical" form={form}>
         <Row>
           <Col offset={1} span={8}>
             <Field
+              name="no_job_order"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              // style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Job Order"
+              onBlur={(e) => e.preventDefault()}
+              disabled={isEdit}
+            >
+              {dataJO.map((item) => {
+                return (
+                  <Option value={item.no_job_order} key={item.no_job_order}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
+            <Field
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
-              style={{ width: 250 }}
+              // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Batu"
               onBlur={(e) => e.preventDefault()}
+              disabled={isEdit}
             >
               <Option value="TIDAK ADA" key="TIDAK ADA">
                 <span style={{ fontSize: "13px" }}>Tidak Ada</span>

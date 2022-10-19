@@ -7,6 +7,7 @@ import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterJenisBahan from "../../../../application/selectors/masterjenisbahan";
 import MasterWarna from "../../../../application/selectors/masterwarna";
+import MasterKelompokJenisBahan from "../../../../application/selectors/masterkelompokjenisbahan";
 import {
   addMasterJenisBahan,
   editMasterJenisBahan,
@@ -20,6 +21,7 @@ const maptostate = (state) => {
       initialValues: {
         id: state.masterjenisbahan.dataEdit?._id,
         kode_jenis_bahan: state.masterjenisbahan.dataEdit?.kode_jenis_bahan,
+        kode_kelompok: state.masterjenisbahan.dataEdit?.kode_kelompok,
         nama_jenis_bahan: state.masterjenisbahan.dataEdit?.nama_jenis_bahan,
         kode_warna: state.masterjenisbahan.dataEdit?.kode_warna,
         kadar: state.masterjenisbahan.dataEdit?.kadar,
@@ -32,6 +34,8 @@ const maptostate = (state) => {
         kode_jenis_bahan: "",
         nama_jenis_bahan: "",
         kode_warna: state.masterwarna.feedback[0]?.kode_warna,
+        kode_kelompok:
+          state.masterkelompokjenisbahan.feedback[0]?.kode_kelompok,
         kadar: "",
       },
     };
@@ -44,6 +48,9 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataMasterWarna = useSelector(MasterWarna.getAllMasterWarna);
+  const dataMasterKelompok = useSelector(
+    MasterKelompokJenisBahan.getAllMasterKelompokJenisBahan
+  );
   const isEdit = useSelector(MasterJenisBahan.getIsEditMasterJenisBahan);
   const handleSubmit = () => {
     if (isEdit) {
@@ -78,7 +85,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -89,7 +96,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="nama_jenis_bahan"
               type="text"
@@ -99,11 +106,32 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Jenis Bahan"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="kode_kelompok"
+              label={<span style={{ fontSize: "13px" }}>Kode Kelompok</span>}
+              // style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Kelompok"
+              // defaultValue="bg"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataMasterKelompok.map((list) => {
+                return (
+                  <Option value={list.kode_kelompok} key={list.kode_kelompok}>
+                    <span style={{ fontSize: "13px" }}>
+                      {list.nama_kelompok}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="kode_warna"
               label={<span style={{ fontSize: "13px" }}>Warna</span>}
-              style={{ width: 250 }}
+              // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Warna"
               // defaultValue="bg"
@@ -118,7 +146,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kadar"
               type="text"

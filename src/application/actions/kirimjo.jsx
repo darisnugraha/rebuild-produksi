@@ -13,11 +13,39 @@ export const SAVE_BERAT_BATU_TAK_TERPAKAI =
 
 export const ADD_LOCAL_KIRIM_JO = "[kirimjo] add local kirim jo";
 export const ADD_LOCAL_TAMBAHAN = "[kirimjo] add local tambahan";
+export const ADD_LOCAL_TAMBAHAN_BAHAN = "[kirimjo] add local tambahan bahan";
 export const ADD_LOCAL_BATU = "[kirimjo] add local batu";
 
-export const getDataDetailJO = ({ noJO }) => ({
+export const GET_NO_INDUK_JOB_ORDER = "[kirimjo] get no induk job order";
+export const SET_NO_INDUK_JOB_ORDER = "[kirimjo] set no induk job order";
+
+export const GET_DATA_BY_NO_INDUK_JOB_ORDER =
+  "[kirimjo] get data by no induk job order";
+export const SET_DATA_BY_NO_INDUK_JOB_ORDER =
+  "[kirimjo] set data by no induk job order";
+
+export const DELETE_JOB_ORDER = "[kirimjo] delete job order";
+export const DELETE_DETAIL_BATU = "[kirimjo] delete detail batu";
+export const DELETE_DETAIL_TAMBAHAN = "[kirimjo] delete detail tambahan";
+
+export const EDIT_JOB_ORDER = "[kirimjo] edit job order";
+export const SET_DATA_EDIT_JOB_ORDER = "[kirimjo] set data edit job order";
+export const SET_IS_EDIT_JOB_ORDER = "[kirimjo] set is edit job order";
+export const SAVE_EDIT_JOB_ORDER = "[kirimjo] save edit job order";
+
+export const EDIT_BATU = "[kirimjo] edit batu";
+export const SET_DATA_EDIT_BATU = "[kirimjo] set data edit batu";
+export const SET_IS_EDIT_BATU = "[kirimjo] set is edit batu";
+export const SAVE_EDIT_BATU = "[kirimjo] save edit batu";
+
+export const EDIT_TAMBAHAN = "[kirimjo] edit tambahan";
+export const SET_DATA_EDIT_TAMBAHAN = "[kirimjo] set data edit tambahan";
+export const SET_IS_EDIT_TAMBAHAN = "[kirimjo] set is edit tambahan";
+export const SAVE_EDIT_TAMBAHAN = "[kirimjo] save edit tambahan";
+
+export const getDataDetailJO = ({ noJO, type }) => ({
   type: GET_DETAIL_JO_POST_METHOD,
-  payload: { data: noJO },
+  payload: { data: noJO, dataType: type },
 });
 export const setDataDetailJOSuccess = ({ feedback }) => ({
   type: SET_DATA_DETAIL_JO_SUCCESS,
@@ -60,6 +88,104 @@ export const addLocalTambahan = {
   type: ADD_LOCAL_TAMBAHAN,
 };
 
+export const addLocalTambahanBahan = {
+  type: ADD_LOCAL_TAMBAHAN_BAHAN,
+};
+
 export const addLocalBatu = {
   type: ADD_LOCAL_BATU,
+};
+
+export const getNoIndukJobOrder = {
+  type: GET_NO_INDUK_JOB_ORDER,
+};
+
+export const setNoIndukJobOrder = (feedback) => ({
+  type: SET_NO_INDUK_JOB_ORDER,
+  payload: { data: feedback },
+});
+
+export const getDataByNoInduk = (noInduk) => ({
+  type: GET_DATA_BY_NO_INDUK_JOB_ORDER,
+  payload: { data: noInduk },
+});
+
+export const setDataByNoInduk = (feedback) => ({
+  type: SET_DATA_BY_NO_INDUK_JOB_ORDER,
+  payload: { data: feedback },
+});
+
+export const deleteJobOrder = (noJO) => ({
+  type: DELETE_JOB_ORDER,
+  payload: { data: noJO },
+});
+
+export const deleteBatu = (noJO, kode_batu) => ({
+  type: DELETE_DETAIL_BATU,
+  payload: { data: noJO, batu: kode_batu },
+});
+
+export const deleteTambahan = (noJO, kode_tambahan) => ({
+  type: DELETE_DETAIL_TAMBAHAN,
+  payload: { data: noJO, tambahan: kode_tambahan },
+});
+
+//editjo
+export const editJobOrder = (noJO) => ({
+  type: EDIT_JOB_ORDER,
+  payload: { data: noJO },
+});
+
+export const setDataEditJobOrder = (feedback) => ({
+  type: SET_DATA_EDIT_JOB_ORDER,
+  payload: { data: feedback },
+});
+
+export const setIsEditJobOrder = (isEdit) => ({
+  type: SET_IS_EDIT_JOB_ORDER,
+  payload: { data: isEdit },
+});
+
+export const saveEditJobOrder = {
+  type: SAVE_EDIT_JOB_ORDER,
+};
+
+//editbatu
+export const editBatu = (noJO, dataBatu) => ({
+  type: EDIT_BATU,
+  payload: { data: noJO, batu: dataBatu },
+});
+
+export const setDataEditBatu = (feedback) => ({
+  type: SET_DATA_EDIT_BATU,
+  payload: { data: feedback },
+});
+
+export const setIsEditBatu = (isEdit) => ({
+  type: SET_IS_EDIT_BATU,
+  payload: { data: isEdit },
+});
+
+export const saveEditBatu = {
+  type: SAVE_EDIT_BATU,
+};
+
+//edittambahan
+export const editTambahan = (noJO, dataTambahan) => ({
+  type: EDIT_TAMBAHAN,
+  payload: { data: noJO, tambahan: dataTambahan },
+});
+
+export const setDataEditTambahan = (feedback) => ({
+  type: SET_DATA_EDIT_TAMBAHAN,
+  payload: { data: feedback },
+});
+
+export const setIsEditTambahan = (isEdit) => ({
+  type: SET_IS_EDIT_TAMBAHAN,
+  payload: { data: isEdit },
+});
+
+export const saveEditTambahan = {
+  type: SAVE_EDIT_TAMBAHAN,
 };

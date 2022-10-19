@@ -9,6 +9,7 @@ import DataMarketing from "../../../../application/selectors/mastermarketing";
 import DataCustomer from "../../../../application/selectors/mastercustomer";
 import DataBarang from "../../../../application/selectors/masteroriginal";
 import DataJenisBahan from "../../../../application/selectors/masterjenisbahan";
+import DataStatus from "../../../../application/selectors/masterstatus";
 
 const { Option } = Select;
 
@@ -20,6 +21,8 @@ const maptostate = (state) => {
         customer: state.mastercustomer.feedback[0]?.kode_customer,
         kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
         kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        kode_status_job_order:
+          state.masterstatus.feedback[0]?.kode_status_job_order,
       },
     };
   } else {
@@ -29,6 +32,8 @@ const maptostate = (state) => {
         kode_customer: state.mastercustomer.feedback[0]?.kode_customer,
         kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
         kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        kode_status_job_order:
+          state.masterstatus.feedback[0]?.kode_status_job_order,
       },
     };
   }
@@ -43,6 +48,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
   const dataCustomer = useSelector(DataCustomer.getAllMasterCustomer);
   const dataBarang = useSelector(DataBarang.getAllMasterOriginal);
   const dataJenisBahan = useSelector(DataJenisBahan.getAllMasterJenisBahan);
+  const dataStatus = useSelector(DataStatus.getAllMasterStatus);
 
   return (
     <Modal
@@ -149,6 +155,33 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
                       {item.nama_jenis_bahan +
                         " (" +
                         item.kode_jenis_bahan +
+                        ")"}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col span={12}>
+            <Field
+              name="kode_status_job_order"
+              label={
+                <span style={{ fontSize: "13px" }}>Kode Status Job Order</span>
+              }
+              component={styleAntd.ASelect}
+              placeholder="Pilih Kode Status Job Order"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataStatus.map((item) => {
+                return (
+                  <Option
+                    value={item.kode_status_job_order}
+                    key={item.kode_status_job_order}
+                  >
+                    <span style={{ fontSize: "13px" }}>
+                      {item.nama_status_job_order +
+                        " (" +
+                        item.kode_status_job_order +
                         ")"}
                     </span>
                   </Option>

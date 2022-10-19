@@ -72,6 +72,12 @@ const TableMasterJenisBahan = () => {
           align: "center",
         },
         {
+          title: "Kode Kelompok",
+          dataIndex: "kode_kelompok",
+          key: "kode_kelompok",
+          align: "center",
+        },
+        {
           title: "Nama Jenis bahan",
           dataIndex: "nama_jenis_bahan",
           key: "nama_jenis_bahan",

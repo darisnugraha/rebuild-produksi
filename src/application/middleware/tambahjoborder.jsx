@@ -4,6 +4,8 @@ import {
   ADD_DATA_DETAIL_JO,
   setDataDetailJOSuccess,
   ADD_JOB_ORDER_CHECKOUT,
+  GET_DATA_BY_POHON,
+  setDataByPohon,
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -27,20 +29,23 @@ const addCheckoutJobOrder =
         );
       } else {
         const dataKirim = { job_order: [] };
-        const onSend = {
-          no_job_order: dataDetail[0].no_job_order,
-          no_pohon: data[0].no_buat,
-          kode_barang: dataDetail[0].kode_barang,
-          nama_barang: dataDetail[0].nama_barang,
-          kode_jenis_bahan: dataDetail[0].kode_jenis_bahan,
-          berat: dataDetail[0].berat,
-          jumlah: dataDetail[0].jumlah,
-          tukang: data[0].staff,
-          kode_marketing: dataDetail[0].marketing,
-          kode_customer: dataDetail[0].customer,
-          catatan: dataDetail[0].catatan,
-        };
-        dataKirim.job_order.push(onSend);
+        dataDetail.forEach((element) => {
+          const onSend = {
+            no_job_order: element.no_job_order,
+            no_pohon: data[0].no_buat,
+            kode_barang: element.kode_barang,
+            nama_barang: element.nama_barang,
+            kode_jenis_bahan: element.kode_jenis_bahan,
+            berat: element.berat,
+            jumlah: element.jumlah,
+            tukang: data[0].staff,
+            kode_marketing: element.marketing,
+            kode_customer: element.customer,
+            catatan: element.catatan,
+            kode_status_job_order: element.kode_status_job_order,
+          };
+          dataKirim.job_order.push(onSend);
+        });
         api.TambahJobOrder.addTambahJobOrderCheckOut(dataKirim).then((res) => {
           if (res.value !== null) {
             sweetalert.default.Success(res.value.message);
@@ -60,6 +65,16 @@ const addDataStaff =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_DATA_BY_POHON) {
+      const pohon = action.payload.data;
+      api.TambahJobOrder.getDataPohon(pohon).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataByPohon({ feedback: res.value[0] }));
+        } else {
+          dispatch(setDataByPohon({ feedback: undefined }));
+        }
+      });
+    }
     if (action.type === ADD_DATA_STAFF) {
       const data = getState().form.FormDataStaff.values;
       const dataBahan = getState().masterbahan.feedback;
@@ -135,7 +150,6 @@ const addDataDetailJO =
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
           } else {
             data.staff = kodestaff;
-            delete data.nama_barang;
             data.berat = parseFloat(data.berat);
             data.jumlah = parseFloat(data.jumlah);
             data.catatan = data.catatan.toUpperCase();

@@ -15,6 +15,7 @@ import { getAllMasterMarketing } from "../../../application/actions/mastermarket
 import { getAllMasterCustomer } from "../../../application/actions/mastercustomer";
 import { getAllMasterOriginal } from "../../../application/actions/masteroriginal";
 import { getAllMasterJenisBahan } from "../../../application/actions/masterjenisbahan";
+import { getAllMasterStatus } from "../../../application/actions/masterstatus";
 import FormTambahJO from "../../components/admin-pusat/tambah-jo/button-add-tambah-jo";
 import TableTambahJO from "../../components/admin-pusat/tambah-jo/table-tambah-jo";
 import { addCheckOutJO } from "../../../application/actions/tambahjoborder.jsx";
@@ -29,6 +30,7 @@ const TambahJO = () => {
     dispatch(getAllMasterCustomer);
     dispatch(getAllMasterOriginal);
     dispatch(getAllMasterJenisBahan);
+    dispatch(getAllMasterStatus);
 
     document.title = "Tambah Job Order";
   }, [dispatch]);

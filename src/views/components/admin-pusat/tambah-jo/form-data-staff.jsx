@@ -6,23 +6,27 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import DataStaff from "../../../../application/selectors/mastertukang";
-import DataBahan from "../../../../application/selectors/masterbahan";
+import DataBahan from "../../../../application/selectors/masterjenisbahan";
+import TambahJobOrder from "../../../../application/selectors/tambahjoborder";
+import { getDataByPohon } from "../../../../application/actions/tambahjoborder";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.mastertukang.feedback !== undefined) {
+  if (state.tambahjoborder.dataPohon !== undefined) {
     return {
       initialValues: {
         staff: state.mastertukang.feedback[0]?.kode_tukang,
-        nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
+        nama_bahan: state.tambahjoborder.dataPohon.kode_jenis_bahan,
+        no_buat: state.tambahjoborder.noPohon,
       },
     };
   } else {
     return {
       initialValues: {
         staff: state.mastertukang.feedback[0]?.kode_tukang,
-        nama_bahan: state.masterbahan.feedback[0]?.kode_bahan,
+        nama_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        no_buat: state.tambahjoborder.noPohon,
       },
     };
   }
@@ -34,7 +38,8 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataStaff = useSelector(DataStaff.getAllMasterTukang);
-  const dataBahan = useSelector(DataBahan.getAllMasterBahan);
+  const dataBahan = useSelector(DataBahan.getAllMasterJenisBahan);
+  const dataPohon = useSelector(TambahJobOrder.getDataPohon);
 
   return (
     <Modal
@@ -76,6 +81,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Pohon"
+              onChange={(e) => {
+                dispatch(getDataByPohon({ pohon: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
@@ -86,11 +94,14 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
               onBlur={(e) => e.preventDefault()}
+              disabled={dataPohon !== undefined ? true : false}
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.kode_bahan} key={item._id}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  <Option value={item.kode_jenis_bahan} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.nama_jenis_bahan + ` (${item.kode_jenis_bahan})`}
+                    </span>
                   </Option>
                 );
               })}

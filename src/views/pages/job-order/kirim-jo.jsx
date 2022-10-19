@@ -17,6 +17,10 @@ import { getAllMasterTukang } from "../../../application/actions/mastertukang.js
 import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
 import TableKirimJO from "../../components/job-order/table-kirim-jo.jsx";
+import {
+  addLocalTambahan,
+  getNoIndukJobOrder,
+} from "../../../application/actions/kirimjo.jsx";
 
 const KirimJO = () => {
   const dispatch = useDispatch();
@@ -42,6 +46,7 @@ const KirimJO = () => {
     dispatch(getAllMasterTukang);
     dispatch(getAllMasterBahan);
     dispatch(getAllMasterBatu);
+    dispatch(getNoIndukJobOrder);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -84,10 +89,21 @@ const KirimJO = () => {
           <div className="row">
             <div className="col-1">
               <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(addLocalTambahan);
+                }}
+              >
+                Simpan
+              </Button>
+            </div>
+            <div className="col-1">
+              <Button
                 type="danger"
                 onClick={() => {
                   localStorage.removeItem("kirim_jo_head");
                   localStorage.removeItem("detail_batu");
+                  localStorage.removeItem("detail_tambahan");
                   window.location.reload();
                 }}
               >

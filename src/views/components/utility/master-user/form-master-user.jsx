@@ -29,7 +29,7 @@ const maptostate = (state) => {
         nama_lkp: "",
         password: "",
         retype_password: "",
-        type: "",
+        type: "OWNER",
       },
     };
   }
@@ -115,6 +115,15 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               </Option>
               <Option value="ADMIN" key="ADM">
                 <span style={{ fontSize: "13px" }}>ADMIN</span>
+              </Option>
+              <Option value="ADMIN BERLIAN" key="ADMBRL">
+                <span style={{ fontSize: "13px" }}>ADMIN BERLIAN</span>
+              </Option>
+              <Option value="ADMIN BAHAN" key="ADMBHN">
+                <span style={{ fontSize: "13px" }}>ADMIN BAHAN</span>
+              </Option>
+              <Option value="ADMIN PUSAT" key="ADMPST">
+                <span style={{ fontSize: "13px" }}>ADMIN PUSAT</span>
               </Option>
             </Field>
           </Col>

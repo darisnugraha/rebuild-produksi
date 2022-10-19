@@ -185,7 +185,10 @@ const URL_ADD_KIRIM_BAHAN_ADMIN_BAHAN = `${baseurl}saldo-bahan/admin-bahan/kirim
 
 const URL_ADD_JOB_ORDER_CART = `${baseurl}tambah-jo/cart`;
 const URL_ADD_JOB_ORDER_CHECKOUT = `${baseurl}tambah-job-order`;
+const URL_GET_DATA_POHON = `${baseurl}saldo-bahan/by-pohon/`;
 
+const URL_GET_NO_INDUK_JO = `${baseurl}job-order/no-induk-job-order`;
+const URL_GET_JO_BY_NO_INDUK = `${baseurl}kirim-job-order/by-no-induk-job-order`;
 const URL_ADD_KIRIM_JOB_ORDER_CART = `${baseurl}kirim-job-order`;
 const URL_ADD_KIRIM_JOB_ORDER_CHECKOUT = `${baseurl}kirim-jo/check-out`;
 
@@ -453,7 +456,10 @@ const data = {
 
   URL_ADD_JOB_ORDER_CART,
   URL_ADD_JOB_ORDER_CHECKOUT,
+  URL_GET_DATA_POHON,
 
+  URL_GET_NO_INDUK_JO,
+  URL_GET_JO_BY_NO_INDUK,
   URL_ADD_KIRIM_JOB_ORDER_CART,
   URL_ADD_KIRIM_JOB_ORDER_CHECKOUT,
 

@@ -7,18 +7,38 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
 import Bahan from "../../../application/selectors/masterbahan";
-import { addLocalTambahan } from "../../../application/actions/kirimjo";
+import KirimJO from "../../../application/selectors/kirimjo";
+import {
+  addLocalTambahanBahan,
+  saveEditTambahan,
+} from "../../../application/actions/kirimjo";
+import getLocal from "../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  return {
-    initialValues: {
-      nama_bahan: "TIDAK ADA",
-      jumlah_bahan: 0,
-      berat_bahan: 0,
-    },
-  };
+  const dataJO = getLocal("kirim_jo_head");
+  if (state.kirimjo.dataEditTambahan !== undefined) {
+    return {
+      initialValues: {
+        no_job_order: state.kirimjo.dataEditTambahan.no_job_order,
+        nama_bahan: state.kirimjo.dataEditTambahan.nama_bahan_tambahan,
+        jumlah_bahan: state.kirimjo.dataEditTambahan.jumlah_tambahan,
+        berat_bahan: state.kirimjo.dataEditTambahan.berat_tambahan,
+      },
+    };
+  } else {
+    if (dataJO !== null) {
+      return {
+        initialValues: {
+          no_job_order: dataJO[0]?.no_job_order,
+          nama_bahan: "TIDAK ADA",
+          jumlah_bahan: 0,
+          berat_bahan: 0,
+        },
+      };
+    }
+  }
 };
 
 let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
@@ -27,6 +47,8 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBahan = useSelector(Bahan.getAllMasterBahan);
+  const isEdit = useSelector(KirimJO.getIsEditTambahan);
+  const dataJO = getLocal("kirim_jo_head") || [];
 
   return (
     <Modal
@@ -37,19 +59,45 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        dispatch(addLocalTambahan);
+        if (isEdit) {
+          dispatch(saveEditTambahan);
+        } else {
+          dispatch(addLocalTambahanBahan);
+        }
       }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_job_order"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              // style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Job Order"
+              onBlur={(e) => e.preventDefault()}
+              disabled={isEdit}
+            >
+              {dataJO.map((item) => {
+                return (
+                  <Option value={item.no_job_order} key={item.no_job_order}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Nama Bahan</span>}
-              style={{ width: 250 }}
+              // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Nama Bahan"
               onBlur={(e) => e.preventDefault()}
+              disabled={isEdit}
             >
               <Option value="TIDAK ADA" key="TIDAK ADA">
                 <span style={{ fontSize: "13px" }}>Tidak Ada</span>
@@ -63,7 +111,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="jumlah_bahan"
               type="number"
@@ -73,7 +121,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Masukkan Jumlah Tambahan"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_bahan"
               type="text"
