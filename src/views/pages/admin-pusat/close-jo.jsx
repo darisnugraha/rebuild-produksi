@@ -5,11 +5,17 @@ import {
   Panel,
   PanelHeader,
   PanelBody,
+  PanelFooter,
 } from "./../../components/panel/panel.jsx";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormCloseJO from "../../components/admin-pusat/close-jo/button-close-jo";
 import { useLocation } from "react-router";
+import {
+  addCloseJO,
+  getNoIndukJobOrder,
+} from "../../../application/actions/closejo.jsx";
+import TableCloseJO from "../../components/admin-pusat/close-jo/table-close-jo.jsx";
 
 const CloseJO = () => {
   const dispatch = useDispatch();
@@ -17,6 +23,7 @@ const CloseJO = () => {
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getNoIndukJobOrder);
     document.title = "Close JO";
   }, [dispatch]);
 
@@ -42,9 +49,37 @@ const CloseJO = () => {
               <div className="col-12">
                 <FormCloseJO />
               </div>
+              <div className="col-12" style={{ paddingTop: 10 }}>
+                <TableCloseJO />
+              </div>
             </div>
           </Card>
         </PanelBody>
+        <PanelFooter>
+          <div className="row">
+            <div className="col-1">
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(addCloseJO);
+                }}
+              >
+                Simpan
+              </Button>
+            </div>
+            <div className="col-1">
+              <Button
+                type="danger"
+                onClick={() => {
+                  localStorage.removeItem("close_jo_head");
+                  window.location.reload();
+                }}
+              >
+                Batal
+              </Button>
+            </div>
+          </div>
+        </PanelFooter>
       </Panel>
     </div>
   );

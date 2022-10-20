@@ -5,12 +5,18 @@ import {
   Panel,
   PanelHeader,
   PanelBody,
+  PanelFooter,
 } from "./../../components/panel/panel.jsx";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormTerimaJO from "../../components/job-order/button-terima-jo";
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
+import {
+  addTerimaJO,
+  getNoIndukJobOrder,
+} from "../../../application/actions/terimajo.jsx";
+import TableTerimaJO from "../../components/job-order/table-terima-jo.jsx";
 
 const TerimaJO = () => {
   const dispatch = useDispatch();
@@ -28,6 +34,7 @@ const TerimaJO = () => {
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getNoIndukJobOrder);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -55,9 +62,37 @@ const TerimaJO = () => {
               <div className="col-12">
                 <FormTerimaJO />
               </div>
+              <div className="col-12" style={{ paddingTop: 10 }}>
+                <TableTerimaJO />
+              </div>
             </div>
           </Card>
         </PanelBody>
+        <PanelFooter>
+          <div className="row">
+            <div className="col-1">
+              <Button
+                type="primary"
+                onClick={() => {
+                  dispatch(addTerimaJO);
+                }}
+              >
+                Simpan
+              </Button>
+            </div>
+            <div className="col-1">
+              <Button
+                type="danger"
+                onClick={() => {
+                  localStorage.removeItem("terima_jo_head");
+                  window.location.reload();
+                }}
+              >
+                Batal
+              </Button>
+            </div>
+          </div>
+        </PanelFooter>
       </Panel>
     </div>
   );

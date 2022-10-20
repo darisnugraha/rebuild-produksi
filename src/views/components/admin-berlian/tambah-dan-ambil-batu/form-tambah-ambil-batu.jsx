@@ -145,7 +145,7 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               type="text"
               label={
                 <span style={{ fontSize: "13px" }}>
-                  Berat {statusSintetis ? "(Carat)" : "(Gram)"}
+                  Berat {statusSintetis ? "(Gram)" : "(Carat)"}
                 </span>
               }
               component={styleAntd.AInput}

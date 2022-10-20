@@ -25,6 +25,7 @@ const maptostate = (state) => {
         ukuran: state.masterbatu.dataEdit?.ukuran,
         kode_jenis_batu: state.masterbatu.dataEdit?.kode_jenis_batu,
         kode_cutting_batu: state.masterbatu.dataEdit?.kode_cutting_batu,
+        status_sintetis: state.masterbatu.dataEdit?.status_sintetis,
         // berat_batu: state.masterbatu.dataEdit?.berat_batu,
       },
     };
@@ -38,6 +39,7 @@ const maptostate = (state) => {
         kode_jenis_batu: state.masterjenisbatu.feedback[0]?.kode_jenis_batu,
         kode_cutting_batu:
           state.mastercuttingbatu.feedback[0]?.kode_cutting_batu,
+        status_sintetis: false,
         // berat_batu: "",
       },
     };

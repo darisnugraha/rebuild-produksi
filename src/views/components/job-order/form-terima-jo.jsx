@@ -1,16 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Row, Col, Modal } from "antd";
+import { Form, Row, Col, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
 import {
-  addTerimaJO,
+  addTerimaJOLocal,
   getAllDetailJO,
+  getDataByNoInduk,
 } from "../../../application/actions/terimajo";
+import TerimaJO from "../../../application/selectors/terimajo";
 
+const { Option } = Select;
 const maptostate = (state) => {
   if (state.terimajo.feedback.length !== 0) {
     return {
@@ -23,19 +26,21 @@ const maptostate = (state) => {
         kode_jenis_bahan: state.terimajo.feedback[0]?.kode_jenis_bahan,
         jumlah_akhir: state.terimajo.feedback[0]?.stock_akhir,
         berat_akhir: state.terimajo.feedback[0]?.berat_akhir,
+        no_induk_job_order: state.terimajo.NoIndukJO,
       },
     };
   } else {
     return {
       initialValues: {
         divisi_terima: localStorage.getItem("divisi") || "",
-        no_job_order: "",
         tukang_terima: "",
         kode_barang: "",
         nama_barang: "",
         kode_jenis_bahan: "",
         jumlah_akhir: "",
         berat_akhir: "",
+        no_induk_job_order: state.terimajo.dataNoInduk[1]?.no_induk_job_order,
+        no_job_order: state.terimajo.detailJO[0]?.no_job_order,
       },
     };
   }
@@ -46,6 +51,8 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataInduk = useSelector(TerimaJO.getDataNoInduk);
+  const dataJO = useSelector(TerimaJO.getDataDetailJO);
 
   return (
     <Modal
@@ -56,12 +63,12 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        dispatch(addTerimaJO);
+        dispatch(addTerimaJOLocal);
       }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="divisi_terima"
               type="text"
@@ -72,7 +79,55 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_induk_job_order"
+              label={
+                <span style={{ fontSize: "13px" }}>No Induk Job Order</span>
+              }
+              // style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Induk Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getDataByNoInduk(e))}
+              // disabled={isEdit}
+            >
+              {dataInduk.map((item) => {
+                return (
+                  <Option value={item.no_induk_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_induk_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_job_order"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              // style={{ width: 250 }}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) =>
+                dispatch(getAllDetailJO({ noJO: e, type: "CHANGE" }))
+              }
+              // disabled={isEdit}
+            >
+              {dataJO.map((item) => {
+                return (
+                  <Option value={item.no_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          {/* <Col offset={1} span={8}>
             <Field
               name="no_job_order"
               type="text"
@@ -81,11 +136,13 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               className="form-item-group"
               placeholder="Masukkan No Job Order"
               onBlur={(e) => {
-                dispatch(getAllDetailJO({ noJobOrder: e.target.value }));
+                dispatch(
+                  getAllDetailJO({ noJobOrder: e.target.value, type: "CHANGE" })
+                );
               }}
             />
-          </Col>
-          <Col offset={1}>
+          </Col> */}
+          <Col offset={1} span={8}>
             <Field
               name="tukang_terima"
               type="text"
@@ -96,7 +153,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_barang"
               type="text"
@@ -107,7 +164,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="nama_barang"
               type="text"
@@ -118,7 +175,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -129,7 +186,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="jumlah_akhir"
               type="text"
@@ -140,7 +197,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_akhir"
               type="text"

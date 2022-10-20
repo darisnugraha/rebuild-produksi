@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "antd";
-import FormTerimaJO from "./form-close-jo";
+import FormCloseJO from "./form-close-jo";
 
 const ModalTerimaJO = () => {
   const [visible, setVisible] = useState(false);
@@ -20,7 +20,7 @@ const ModalTerimaJO = () => {
       >
         + Data JO
       </Button>
-      <FormTerimaJO
+      <FormCloseJO
         visible={visible}
         onCreate={onCreate}
         onCancel={() => {
