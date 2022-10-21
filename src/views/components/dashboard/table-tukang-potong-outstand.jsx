@@ -13,8 +13,8 @@ const columns = [
   },
   {
     title: "Pohon",
-    dataIndex: "pohon",
-    key: "pohon",
+    dataIndex: "no_pohon",
+    key: "no_pohon",
     align: "center",
   },
   {

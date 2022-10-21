@@ -6,21 +6,21 @@ import Dashboard from "../../../application/selectors/dashboard";
 
 const columns = [
   {
-    title: "No Mutasi",
-    dataIndex: "no_mutasi",
-    key: "no_mutasi",
+    title: "Tanggal",
+    dataIndex: "tanggal",
+    key: "tanggal",
     align: "center",
   },
   {
     title: "Pohon",
-    dataIndex: "no_pohon",
-    key: "no_pohon",
+    dataIndex: "pohon",
+    key: "pohon",
     align: "center",
   },
   {
     title: "Jenis Bahan",
-    dataIndex: "kode_jenis_bahan",
-    key: "kode_jenis_bahan",
+    dataIndex: "bahan_kembali",
+    key: "bahan_kembali",
     align: "center",
   },
   {
@@ -37,8 +37,8 @@ const columns = [
   },
   {
     title: "Kadar",
-    dataIndex: "kadar",
-    key: "kadar",
+    dataIndex: "kadar_kembali",
+    key: "kadar_kembali",
     align: "center",
   },
   {
@@ -56,9 +56,7 @@ const columns = [
 ];
 
 const TableAbuSetorTukangCor = () => {
-  const dataAbuCastingOutstand = useSelector(
-    Dashboard.getAllAbuCastingOutstand
-  );
+  const dataAbuCastingOutstand = useSelector(Dashboard.getAllCastingOutstand);
   return (
     <Table
       dataSource={dataAbuCastingOutstand}

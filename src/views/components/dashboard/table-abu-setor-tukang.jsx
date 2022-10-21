@@ -17,12 +17,12 @@ const columns = [
     key: "divisi",
     align: "center",
   },
-  {
-    title: "Tukang",
-    dataIndex: "kode_tukang",
-    key: "kode_tukang",
-    align: "center",
-  },
+  // {
+  //   title: "Tukang",
+  //   dataIndex: "kode_tukang",
+  //   key: "kode_tukang",
+  //   align: "center",
+  // },
   {
     title: "SPK",
     dataIndex: "no_job_order",

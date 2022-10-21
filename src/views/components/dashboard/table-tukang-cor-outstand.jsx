@@ -13,8 +13,8 @@ const columns = [
   },
   {
     title: "Pohon",
-    dataIndex: "pohon",
-    key: "pohon",
+    dataIndex: "no_pohon",
+    key: "no_pohon",
     align: "center",
   },
   {
@@ -64,7 +64,7 @@ const columns = [
 ];
 
 const TableTukangCorOutstand = () => {
-  const dataCastingOutstand = useSelector(Dashboard.getAllCastingOutstand);
+  const dataCastingOutstand = useSelector(Dashboard.getAllAbuCastingOutstand);
   return (
     <Table
       dataSource={dataCastingOutstand}
