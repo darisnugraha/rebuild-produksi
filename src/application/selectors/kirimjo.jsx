@@ -6,6 +6,7 @@ const getDataNoJO = (state) => state.kirimjo.detailJO;
 const getIsEditJO = (state) => state.kirimjo.isEditJO;
 const getIsEditBatu = (state) => state.kirimjo.isEditBatu;
 const getIsEditTambahan = (state) => state.kirimjo.isEditTambahan;
+const getDataTukang = (state) => state.kirimjo.dataTukang;
 const data = {
   getDataDetailJO,
   getErrorDataDetailJO,
@@ -15,5 +16,6 @@ const data = {
   getIsEditJO,
   getIsEditBatu,
   getIsEditTambahan,
+  getDataTukang,
 };
 export default data;

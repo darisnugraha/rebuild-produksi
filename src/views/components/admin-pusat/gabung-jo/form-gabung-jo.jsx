@@ -1,35 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Form, Row, Col, Modal, Divider } from "antd";
+import { Form, Row, Col, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
+import GabungJO from "../../../../application/selectors/gabungjo";
 import {
-  addGabungJO,
+  addGabungJOLocal,
   getAllJobOrder,
-  getAllJobOrderDua,
+  getDataByNoInduk,
 } from "../../../../application/actions/gabungjo";
 
+const { Option } = Select;
+
 const maptostate = (state) => {
-  if (
-    state.gabungjo.feedback.length !== 0 ||
-    state.gabungjo.feedbackDua.length !== 0
-  ) {
+  if (state.gabungjo.feedback.length !== 0) {
     return {
       initialValues: {
         no_job_order: state.gabungjo.jobOrder,
+        no_induk_job_order: state.gabungjo.noInduk,
         kode_barang: state.gabungjo.feedback[0].kode_barang,
         asal_divisi: state.gabungjo.feedback[0].asal_divisi,
         kode_jenis_bahan: state.gabungjo.feedback[0].kode_jenis_bahan,
         berat_akhir: state.gabungjo.feedback[0].berat_akhir,
-        no_job_order_dua: state.gabungjo.jobOrderDua,
-        kode_barang_dua: state.gabungjo.feedbackDua[0]?.kode_barang,
-        asal_divisi_dua: state.gabungjo.feedbackDua[0]?.asal_divisi,
-        kode_jenis_bahan_dua: state.gabungjo.feedbackDua[0]?.kode_jenis_bahan,
-        berat_akhir_dua: state.gabungjo.feedbackDua[0]?.berat_akhir,
-        berat_gabung: state.gabungjo.beratGabung,
       },
     };
   } else {
@@ -46,6 +41,8 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataInduk = useSelector(GabungJO.getDataNoInduk);
+  const dataJO = useSelector(GabungJO.getDataNoJO);
 
   return (
     <Modal
@@ -56,12 +53,56 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        dispatch(addGabungJO);
+        dispatch(addGabungJOLocal);
       }}
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_induk_job_order"
+              label={
+                <span style={{ fontSize: "13px" }}>No Induk Job Order</span>
+              }
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Induk Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getDataByNoInduk(e))}
+              // disabled={isEdit}
+            >
+              {dataInduk.map((item) => {
+                return (
+                  <Option value={item.no_induk_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_induk_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_job_order"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih No Job Order"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getAllJobOrder(e))}
+              // disabled={isEdit}
+            >
+              {dataJO.map((item) => {
+                return (
+                  <Option value={item.no_job_order} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.no_job_order}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
+          {/* <Col offset={1} span={8}>
             <Field
               name="no_job_order"
               type="text"
@@ -73,8 +114,8 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
                 dispatch(getAllJobOrder(e.target.value));
               }}
             />
-          </Col>
-          <Col offset={1}>
+          </Col> */}
+          <Col offset={1} span={8}>
             <Field
               name="kode_barang"
               type="text"
@@ -85,7 +126,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="asal_divisi"
               type="text"
@@ -96,7 +137,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -107,7 +148,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_akhir"
               type="text"
@@ -115,79 +156,6 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Akhir"
-              disabled
-            />
-          </Col>
-        </Row>
-        <Divider plain>Data Job Order Dua</Divider>
-        <Row>
-          <Col offset={1}>
-            <Field
-              name="no_job_order_dua"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan No Job Order"
-              onBlur={(e) => {
-                dispatch(getAllJobOrderDua(e.target.value));
-              }}
-            />
-          </Col>
-          <Col offset={1}>
-            <Field
-              name="kode_barang_dua"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Kode Barang</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Kode Barang"
-              disabled
-            />
-          </Col>
-          <Col offset={1}>
-            <Field
-              name="asal_divisi_dua"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Asal Divisi</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Asal Divisi"
-              disabled
-            />
-          </Col>
-          <Col offset={1}>
-            <Field
-              name="kode_jenis_bahan_dua"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Kode Jenis Bahan"
-              disabled
-            />
-          </Col>
-          <Col offset={1}>
-            <Field
-              name="berat_akhir_dua"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Berat Akhir</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Berat Akhir"
-              disabled
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col offset={1}>
-            <Field
-              name="berat_gabung"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Berat Gabung</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Berat Gabung"
               disabled
             />
           </Col>

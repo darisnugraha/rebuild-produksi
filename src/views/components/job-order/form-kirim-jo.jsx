@@ -6,13 +6,14 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
 import KirimBahanAdmin from "../../../application/selectors/kirimbahanadmin";
-import Tukang from "../../../application/selectors/mastertukang";
+// import Tukang from "../../../application/selectors/mastertukang";
 import KirimJO from "../../../application/selectors/kirimjo";
 import {
   addLocalKirimJO,
   countBeratKirimJO,
   getDataByNoInduk,
   getDataDetailJO,
+  getTukangByDivisi,
   saveEditJobOrder,
   simpanBeratBatuTakTerpakai,
   simpanJumlahKirim,
@@ -49,7 +50,7 @@ const maptostate = (state) => {
           return {
             initialValues: {
               divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-              tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+              tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
               no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -70,7 +71,7 @@ const maptostate = (state) => {
           return {
             initialValues: {
               divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-              tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+              tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
               no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -92,7 +93,7 @@ const maptostate = (state) => {
         return {
           initialValues: {
             divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-            tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+            tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
             no_job_order: "",
             tukang_asal: "",
             kode_barang: "",
@@ -113,7 +114,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-          tukang_tujuan: state.mastertukang.feedback[0]?.kode_tukang,
+          tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
           no_job_order: "",
           tukang_asal: "",
           kode_barang: "",
@@ -139,7 +140,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
-  const dataTukang = useSelector(Tukang.getAllMasterTukang);
+  const dataTukang = useSelector(KirimJO.getDataTukang);
   const dataInduk = useSelector(KirimJO.getDataNoInduk);
   const dataJO = useSelector(KirimJO.getDataNoJO);
   const isEdit = useSelector(KirimJO.getIsEditJO);
@@ -170,6 +171,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Tujuan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getTukangByDivisi(e))}
             >
               {dataDivisi.map((item) => {
                 return (

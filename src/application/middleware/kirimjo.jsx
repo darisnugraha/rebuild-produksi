@@ -29,6 +29,8 @@ import {
   EDIT_TAMBAHAN,
   setDataEditTambahan,
   SAVE_EDIT_TAMBAHAN,
+  GET_TUKANG_BY_DIVISI,
+  setTukangByDivisi,
 } from "../actions/kirimjo";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -127,6 +129,16 @@ const getDataDetailJOMidd =
           }
         } else {
           dispatch(setDataByNoInduk([]));
+        }
+      });
+    }
+    if (action.type === GET_TUKANG_BY_DIVISI) {
+      const divisi = action.payload.data;
+      api.KirimJO.getTukangByDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          dispatch(setTukangByDivisi(res.value));
+        } else {
+          dispatch(setTukangByDivisi([]));
         }
       });
     }

@@ -9,22 +9,18 @@ import {
 } from "./../../components/panel/panel.jsx";
 import { Button, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import FormGabungJO from "../../components/admin-pusat/gabung-jo/button-gabung-jo";
+import FormBatalJO from "../../components/admin-pusat/batal-proses-jo/button-batal-proses-jo";
 import { useLocation } from "react-router";
-import TableGabungJO from "../../components/admin-pusat/gabung-jo/table-gabung-jo.jsx";
-import {
-  addGabungJO,
-  getNoIndukJobOrder,
-} from "../../../application/actions/gabungjo.jsx";
+import TableBatalProsesJO from "../../components/admin-pusat/batal-proses-jo/table-batal-proses-jo.jsx";
+import { postDataBatalProsesJO } from "../../../application/actions/batalprosesjo.jsx";
 
-const GabungJO = () => {
+const BatalProsesJO = () => {
   const dispatch = useDispatch();
   let locationLink = useLocation();
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getNoIndukJobOrder);
-    document.title = "Gabung JO";
+    document.title = "Batal Proses JO";
   }, [dispatch]);
 
   return (
@@ -36,21 +32,21 @@ const GabungJO = () => {
         <li className="breadcrumb-item">
           <Link to={locationLink}>Admin Pusat</Link>
         </li>
-        <li className="breadcrumb-item active">Gabung JO</li>
+        <li className="breadcrumb-item active">Batal Proses JO</li>
       </ol>
       <h1 className="page-header">
-        Admin Pusat <small>Gabung JO</small>
+        Admin Pusat <small>Batal Proses JO</small>
       </h1>
       <Panel>
-        <PanelHeader>Gabung JO</PanelHeader>
+        <PanelHeader>Batal Proses JO</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormGabungJO />
+                <FormBatalJO />
               </div>
               <div className="col-12" style={{ paddingTop: 10 }}>
-                <TableGabungJO />
+                <TableBatalProsesJO />
               </div>
             </div>
           </Card>
@@ -61,7 +57,7 @@ const GabungJO = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  dispatch(addGabungJO);
+                  dispatch(postDataBatalProsesJO);
                 }}
               >
                 Simpan
@@ -71,7 +67,7 @@ const GabungJO = () => {
               <Button
                 type="danger"
                 onClick={() => {
-                  localStorage.removeItem("gabung_jo_head");
+                  localStorage.removeItem("batal_proses_jo");
                   window.location.reload();
                 }}
               >
@@ -85,4 +81,4 @@ const GabungJO = () => {
   );
 };
 
-export default GabungJO;
+export default BatalProsesJO;

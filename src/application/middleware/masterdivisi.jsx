@@ -52,7 +52,8 @@ const addDataMasterDivisi =
     if (action.type === ADD_MASTER_DIVISI) {
       const data = getState().form.FormTambahMasterDivisi.values;
       delete data.kode_divisi;
-      api.MasterDivisi.addMasterDivisi(data).then((res) => {
+      const dataKirim = { divisi: data.nama_divisi };
+      api.MasterDivisi.addMasterDivisi(dataKirim).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
         } else {

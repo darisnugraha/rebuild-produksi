@@ -18,6 +18,7 @@ import {
   EDIT_TAMBAHAN,
   SET_IS_EDIT_TAMBAHAN,
   SET_DATA_EDIT_TAMBAHAN,
+  SET_TUKANG_BY_DIVISI,
 } from "../actions/kirimjo";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   dataEditBatu: undefined,
   isEditTambahan: false,
   dataEditTambahan: undefined,
+  dataTukang: [],
 };
 
 const kirimjo = (state = initialState, action) => {
@@ -131,6 +133,11 @@ const kirimjo = (state = initialState, action) => {
       return {
         ...state,
         dataEditTambahan: action.payload.data,
+      };
+    case SET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        dataTukang: action.payload.data,
       };
     default:
       return state;

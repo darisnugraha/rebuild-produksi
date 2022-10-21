@@ -172,6 +172,11 @@ const Menu = [
         is_show: true,
       },
       {
+        path: "/admin-pusat/batal-proses-jo",
+        title: "Batal Proses Job Order",
+        is_show: true,
+      },
+      {
         path: "/admin-pusat/terima-batu",
         title: "Admin Terima Batu",
         is_show: true,

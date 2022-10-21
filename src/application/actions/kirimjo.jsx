@@ -43,6 +43,9 @@ export const SET_DATA_EDIT_TAMBAHAN = "[kirimjo] set data edit tambahan";
 export const SET_IS_EDIT_TAMBAHAN = "[kirimjo] set is edit tambahan";
 export const SAVE_EDIT_TAMBAHAN = "[kirimjo] save edit tambahan";
 
+export const GET_TUKANG_BY_DIVISI = "[kirimjo] get tukang by divisi";
+export const SET_TUKANG_BY_DIVISI = "[kirimjo] set tukang by divisi";
+
 export const getDataDetailJO = ({ noJO, type }) => ({
   type: GET_DETAIL_JO_POST_METHOD,
   payload: { data: noJO, dataType: type },
@@ -189,3 +192,13 @@ export const setIsEditTambahan = (isEdit) => ({
 export const saveEditTambahan = {
   type: SAVE_EDIT_TAMBAHAN,
 };
+
+export const getTukangByDivisi = (divisi) => ({
+  type: GET_TUKANG_BY_DIVISI,
+  payload: { data: divisi },
+});
+
+export const setTukangByDivisi = (feedback) => ({
+  type: SET_TUKANG_BY_DIVISI,
+  payload: { data: feedback },
+});

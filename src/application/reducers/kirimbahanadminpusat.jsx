@@ -12,6 +12,7 @@ import {
   SET_DATA_STOCK_BAHAN_BY_STAFF_FAILED,
   SET_BERAT_BAHAN,
   SET_STAFF_BY_DIVISI,
+  GET_STAFF_BY_DIVISI,
 } from "../actions/kirimbahanadminpusat";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   beratBahan: 0,
   dataDivisi: [],
   dataStaffDivisi: [],
+  divisi: undefined,
 };
 
 const kirimbahanadminpusat = (state = initialState, action) => {
@@ -78,6 +80,11 @@ const kirimbahanadminpusat = (state = initialState, action) => {
       return {
         ...state,
         dataStaffDivisi: action.payload.data,
+      };
+    case GET_STAFF_BY_DIVISI:
+      return {
+        ...state,
+        divisi: action.payload.data,
       };
     default:
       return state;

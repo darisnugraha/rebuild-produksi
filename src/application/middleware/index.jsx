@@ -70,6 +70,7 @@ import hakakses from "./hakakses";
 import masterkelompokjenisbahan from "./masterkelompokjenisbahan";
 import masterbillofmaterials from "./masterbillofmaterials";
 import masterstatus from "./masterstatus";
+import batalprosesjo from "./batalprosesjo";
 
 const midd = [
   ...ui,
@@ -144,6 +145,7 @@ const midd = [
   ...masterkelompokjenisbahan,
   ...masterbillofmaterials,
   ...masterstatus,
+  ...batalprosesjo,
 ];
 
 export default midd;

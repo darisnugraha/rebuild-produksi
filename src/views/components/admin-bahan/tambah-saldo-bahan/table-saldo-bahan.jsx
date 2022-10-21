@@ -61,10 +61,10 @@ const TableSaldoBahan = () => {
         },
         {
           title: "Berat Stock",
-          key: "saldo_akhir",
+          key: "berat",
           align: "center",
           render: (text) => {
-            return text.saldo_akhir.toFixed(3);
+            return text.berat.toFixed(3);
           },
         },
         {

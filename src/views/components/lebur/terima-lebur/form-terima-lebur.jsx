@@ -18,6 +18,8 @@ const maptostate = (state) => {
       initialValues: {
         no_kirim: state.terimalebur.feedback[0]?.no_kirim_lebur,
         berat_murni: state.terimalebur.feedback[0]?.total_berat_murni,
+        awal_24k: state.terimalebur.feedback[0]?.karat_24,
+        kadar: state.terimalebur.feedback[0]?.kadar,
         berat_terima: state.terimalebur.beratTerima,
         berat_susut: state.terimalebur.susut,
       },
@@ -27,6 +29,8 @@ const maptostate = (state) => {
       initialValues: {
         no_kirim: "",
         berat_murni: "",
+        awal_24k: "",
+        kadar: "",
         berat_terima: "",
         berat_susut: "",
       },
@@ -66,6 +70,30 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               onBlur={(e) => {
                 dispatch(getTerimaLebur({ noKirim: e.target.value }));
               }}
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="kadar"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kadar</span>}
+              component={styleAntd.AInput}
+              style={{ width: 250 }}
+              className="form-item-group"
+              placeholder="Masukkan Kadar"
+              disabled
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="awal_24k"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Awal 24k</span>}
+              component={styleAntd.AInput}
+              style={{ width: 250 }}
+              className="form-item-group"
+              placeholder="Masukkan Awal 24k"
+              disabled
             />
           </Col>
           <Col offset={1}>

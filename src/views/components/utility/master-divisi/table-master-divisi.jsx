@@ -62,12 +62,6 @@ const TableMasterDivisi = () => {
       align: "right",
       children: [
         {
-          title: "Kode Divisi",
-          dataIndex: "_id",
-          key: "_id",
-          align: "center",
-        },
-        {
           title: "Nama Divisi",
           dataIndex: "divisi",
           key: "divisi",

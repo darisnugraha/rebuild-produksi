@@ -17,7 +17,8 @@ const maptostate = (state) => {
       initialValues: {
         divisi: localStorage.getItem("divisi"),
         staff: state.kirimbahanadminpusat.dataStaff[0]?.tukang,
-        staff_tujuan: state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+        staff_tujuan:
+          state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
         nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
       },
     };
@@ -66,7 +67,6 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Divisi"
               disabled
@@ -76,7 +76,6 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
@@ -94,7 +93,6 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
@@ -112,7 +110,6 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
@@ -132,7 +129,6 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan"
             />

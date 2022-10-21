@@ -64,7 +64,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Tujuan"
               onBlur={(e) => e.preventDefault()}
@@ -82,7 +81,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="divisi_asal"
               type="text"
-              style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
               component={styleAntd.AInput}
               className="form-item-group"
@@ -94,7 +92,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="divisi_tujuan"
               type="text"
-              style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
               component={styleAntd.AInput}
               className="form-item-group"
@@ -107,7 +104,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="tukang_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
@@ -130,7 +126,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
@@ -149,7 +144,6 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="berat"
               type="text"
-              style={{ width: 250 }}
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}
               className="form-item-group"

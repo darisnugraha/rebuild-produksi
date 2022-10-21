@@ -85,6 +85,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
               onBlur={(e) => {
                 dispatch(count24K({ beratTerima: e.target.value }));
               }}
+              disabled
             />
           </Col>
           <Col offset={1}>

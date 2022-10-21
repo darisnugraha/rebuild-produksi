@@ -17,28 +17,48 @@ export const setDataJobOrderFailed = ({ error }) => ({
   payload: { data: error },
 });
 
-export const GET_ALL_JOB_ORDER_DUA = "[gabungjo] get all jo dua";
-export const SET_DATA_JOB_ORDER_SUCCESS_DUA =
-  "[gabungjo] get all jo success dua";
-export const SET_DATA_JOB_ORDER_FAILED_DUA = "[gabungjo] get all jo failed dua";
+export const GET_NO_INDUK_JOB_ORDER = "[gabungjo] get no induk job order";
+export const SET_NO_INDUK_JOB_ORDER = "[gabungjo] set no induk job order";
 
-export const getAllJobOrderDua = (noJO) => ({
-  type: GET_ALL_JOB_ORDER_DUA,
-  payload: { data: noJO },
-});
-export const setDataJobOrderSuccessDua = ({ feedback, noJO, beratGabung }) => ({
-  type: SET_DATA_JOB_ORDER_SUCCESS_DUA,
+export const getNoIndukJobOrder = {
+  type: GET_NO_INDUK_JOB_ORDER,
+};
+
+export const setNoIndukJobOrder = (feedback) => ({
+  type: SET_NO_INDUK_JOB_ORDER,
   payload: { data: feedback },
-  data: noJO,
-  berat: beratGabung,
 });
-export const setDataJobOrderFailedDua = ({ error }) => ({
-  type: SET_DATA_JOB_ORDER_FAILED_DUA,
-  payload: { data: error },
+
+export const GET_DATA_BY_NO_INDUK_JOB_ORDER =
+  "[gabungjo] get data by no induk job order";
+export const SET_DATA_BY_NO_INDUK_JOB_ORDER =
+  "[gabungjo] set data by no induk job order";
+
+export const getDataByNoInduk = (noInduk) => ({
+  type: GET_DATA_BY_NO_INDUK_JOB_ORDER,
+  payload: { data: noInduk },
 });
+
+export const setDataByNoInduk = (feedback) => ({
+  type: SET_DATA_BY_NO_INDUK_JOB_ORDER,
+  payload: { data: feedback },
+});
+
+export const ADD_GABUNG_JO_LOCAL = "[gabungjo] add gabung jo local";
+
+export const addGabungJOLocal = {
+  type: ADD_GABUNG_JO_LOCAL,
+};
 
 export const ADD_GABUNG_JO = "[gabungjo] add gabung jo";
 
 export const addGabungJO = {
   type: ADD_GABUNG_JO,
 };
+
+export const DELETE_JOB_ORDER = "[gabungjo] delete job order local";
+
+export const deleteJobOrder = (noJO) => ({
+  type: DELETE_JOB_ORDER,
+  payload: { data: noJO },
+});

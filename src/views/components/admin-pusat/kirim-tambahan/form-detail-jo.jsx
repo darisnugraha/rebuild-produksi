@@ -23,6 +23,7 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi: state.kirimbahanadmin.feedback[0]?.divisi,
+        no_job_order: "",
       },
     };
   }
@@ -49,11 +50,20 @@ let FormDetailJOKirimTambahan = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
+            <Field
+              name="no_job_order"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan No Job Order"
+            />
+          </Col>
+          <Col offset={1} span={8}>
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi"
               onBlur={(e) => e.preventDefault()}

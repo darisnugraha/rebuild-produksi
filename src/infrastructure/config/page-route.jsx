@@ -88,6 +88,7 @@ import HakAksesPage from "../../views/pages/utility/hak-akses";
 import MasterKelompokJenisBahan from "../../views/pages/master/master-kelompok-jenis-bahan";
 import MasterBillOfMaterials from "../../views/pages/master/master-bill-of-materials";
 import MasterStatus from "../../views/pages/master/master-status";
+import BatalProsesJO from "../../views/pages/admin-pusat/batal-proses-job-order";
 
 const routes = [
   // {
@@ -254,6 +255,11 @@ const routes = [
     path: "/admin-pusat/close-jo",
     title: "Close Job Order",
     component: () => <CloseJO />,
+  },
+  {
+    path: "/admin-pusat/batal-proses-jo",
+    title: "Batal Proses Job Order",
+    component: () => <BatalProsesJO />,
   },
   {
     path: "/admin-pusat/terima-batu",

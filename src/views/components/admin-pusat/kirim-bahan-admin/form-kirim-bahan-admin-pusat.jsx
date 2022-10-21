@@ -7,23 +7,25 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
-import MasterTukang from "../../../../application/selectors/mastertukang";
+// import MasterTukang from "../../../../application/selectors/mastertukang";
 import {
   addKirimBahanAdminPusat,
   getAllStockBahanByStaff,
+  getDataStaffByDivisi,
 } from "../../../../application/actions/kirimbahanadminpusat";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.kirimbahanadminpusat.feedback !== undefined) {
+  if (state.kirimbahanadminpusat.dataDivisi !== undefined) {
     return {
       initialValues: {
         divisi: getLocal("divisi"),
-        divisi_tujuan: state.kirimbahanadminpusat.feedback[0]?.divisi,
+        divisi_tujuan: state.kirimbahanadminpusat.divisi,
         staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
-        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
+        staff_tujuan:
+          state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
         nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
       },
     };
@@ -49,7 +51,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
   const dataStaff = useSelector(
     KirimBahanAdminPusat.getAllStaffStockBahanDivisi
   );
-  const dataStaffAll = useSelector(MasterTukang.getAllMasterTukang);
+  const dataStaffAll = useSelector(KirimBahanAdminPusat.getStaffByDivisi);
   const dataStockBahan = useSelector(
     KirimBahanAdminPusat.getAllStockBahanByStaff
   );
@@ -74,7 +76,6 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Divisi"
               disabled
@@ -84,10 +85,10 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getDataStaffByDivisi(e))}
             >
               {dataDivisi.map((item) => {
                 return (
@@ -102,7 +103,6 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
@@ -121,7 +121,6 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
@@ -143,7 +142,6 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
@@ -163,7 +161,6 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan"
             />

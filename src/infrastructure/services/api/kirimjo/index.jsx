@@ -9,8 +9,8 @@ const KirimJO = {
     });
     return response;
   },
-  getAllKirimJO: async () => {
-    const response = await get({ url: word.URL_ADD_KIRIM_JO });
+  getTukangByDivisi: async (data) => {
+    const response = await get({ url: word.URL_GET_TUKANG_DIVISI + data });
     return response;
   },
   getNoIndulJO: async () => {

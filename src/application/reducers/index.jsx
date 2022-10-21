@@ -71,6 +71,7 @@ import masterdivisi from "./masterdivisi";
 import masterkelompokjenisbahan from "./masterkelompokjenisbahan";
 import masterbillofmaterials from "./masterbillofmaterials";
 import masterstatus from "./masterstatus";
+import batalprosesjo from "./bataprosesjo";
 
 export default combineReducers({
   login,
@@ -144,5 +145,6 @@ export default combineReducers({
   masterkelompokjenisbahan,
   masterbillofmaterials,
   masterstatus,
+  batalprosesjo,
   form: formReducer,
 });

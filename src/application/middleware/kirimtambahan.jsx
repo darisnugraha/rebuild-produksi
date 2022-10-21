@@ -7,8 +7,6 @@ import {
   setDataStockBahanAdminByStaffFailed,
   ADD_KIRIM_TAMBAHAN_CART,
   ADD_KIRIM_TAMBAHAN_DIVISI,
-  // setDataKirimTambahanDivisiSuccess,
-  // setDataKirimTambahanDivisiFailed,
   DELETE_KIRIM_TAMBAHAN_CART,
   ADD_KIRIM_TAMBAHAN_CHECKOUT,
 } from "../actions/kirimtambahan";
@@ -85,6 +83,7 @@ const addDataKirimTambahanCart =
     if (action.type === ADD_KIRIM_TAMBAHAN_CART) {
       const dataTambahan = getState().form.FormDetailTambahan.values;
       const divisi = getLocal("divisi_detail_tambahan").divisi;
+      const noJO = getLocal("divisi_detail_tambahan").no_job_order;
       const onSendData = {
         asal_saldo_tukang: dataTambahan.saldo_asal,
         berat: parseFloat(dataTambahan.berat_bahan),
@@ -92,23 +91,10 @@ const addDataKirimTambahanCart =
         jumlah: 1,
         kode_barang: "-",
         nama_bahan: dataTambahan.nama_bahan,
-        no_job_order: "-",
+        no_job_order: noJO,
       };
       writeLocal("data_tambahan_cart", onSendData);
       sweetalert.default.Success("Berhasil Menyimpan Data !");
-      // const response = await api.KirimTambahan.addKirimTambahanCart(onSendData);
-      // if (response.value !== null) {
-      //   if (response.value?.status === "berhasil") {
-      //     dispatch(
-      //       setDataAsalStockBahanSuccess({ feedback: response.value.data })
-      //     );
-      //   } else {
-      //     sweetalert.default.Failed(response.value.pesan);
-      //     dispatch(setDataAsalStockBahanFailed({ error: response.value }));
-      //   }
-      // } else {
-      //   sweetalert.default.Failed(response.error.data.pesan);
-      // }
     }
   };
 
@@ -122,67 +108,6 @@ const setDataDivisiKirimTambahan =
       const data = getState().form.FormDetailJOKirimTambahan.values;
       writeLocal("divisi_detail_tambahan", data);
       sweetalert.default.Success("Berhasil Menyimpan Data !");
-      // if (data.divisi === undefined) {
-      //   const response = await api.KirimTambahan.getCartKirimTambahan(
-      //     dataLocal.divisi
-      //   );
-      //   if (response.value !== null) {
-      //     if (response.value.status === "berhasil") {
-      //       dispatch(
-      //         setDataKirimTambahanDivisiSuccess({
-      //           feedback: response.value.data,
-      //         })
-      //       );
-      //     } else {
-      //       dispatch(
-      //         setDataKirimTambahanDivisiFailed({ error: response.value })
-      //       );
-      //     }
-      //   } else {
-      //     dispatch(setDataKirimTambahanDivisiFailed({ error: response.error }));
-      //   }
-      // } else {
-      //   const dataDivisi = getState().kirimbahanadmin.feedback;
-      //   const dataDivisiFill = dataDivisi.filter((item) => {
-      //     return item.kode_divisi === data.divisi;
-      //   });
-      //   const onSendData = {
-      //     divisi: dataDivisiFill[0].nama_divisi,
-      //     kode_divisi: dataDivisiFill[0].kode_divisi,
-      //     kode_barang: "-",
-      //     kode_jenis_bahan: "-",
-      //     nama_barang: "-",
-      //     no_job_order: "-",
-      //   };
-      //   if (data.divisi !== undefined || data.divisi !== null) {
-      //     const response = await api.KirimTambahan.getCartKirimTambahan(
-      //       onSendData.divisi
-      //     );
-      //     if (response.value !== null) {
-      //       if (response.value.status === "berhasil") {
-      //         dispatch(
-      //           setDataKirimTambahanDivisiSuccess({
-      //             feedback: response.value.data,
-      //           })
-      //         );
-      //         writeLocal("divisi_detail_tambahan", onSendData);
-      //         sweetalert.default.SuccessNoReload(response.value.pesan);
-      //       } else {
-      //         sweetalert.default.Failed(response.value.pesan);
-      //         dispatch(
-      //           setDataKirimTambahanDivisiFailed({ error: response.value })
-      //         );
-      //       }
-      //     } else {
-      //       sweetalert.default.Failed(response.error.data.pesan);
-      //       dispatch(
-      //         setDataKirimTambahanDivisiFailed({ error: response.error })
-      //       );
-      //     }
-      //   } else {
-      //     sweetalert.default.Failed("Mohon Isi Divisi Terlebih Dahulu !");
-      //   }
-      // }
     }
   };
 
@@ -196,23 +121,6 @@ const deleteCartKirimTambahan =
       localStorage.removeItem("data_tambahan_cart");
       localStorage.removeItem("divisi_detail_tambahan");
       sweetalert.default.Success("Berhasil Menghapus Data !");
-      // const divisi = getLocal("divisi_detail_tambahan").divisi || null;
-      // if (divisi === null || divisi === undefined) {
-      //   sweetalert.default.Failed("Pilih Divisi Terlebih Dahulu !");
-      // } else {
-      //   const response = await api.KirimTambahan.deleteKirimTambahanCart(
-      //     divisi
-      //   );
-      //   if (response.value !== null) {
-      //     if (response.value?.status === "berhasil") {
-      //       localStorage.removeItem("divisi_detail_tambahan");
-      //     } else {
-      //       sweetalert.default.Failed(response.value.pesan);
-      //     }
-      //   } else {
-      //     sweetalert.default.Failed("Terjadi Kesalahan Saat Menghapus Data !");
-      //   }
-      // }
     }
   };
 

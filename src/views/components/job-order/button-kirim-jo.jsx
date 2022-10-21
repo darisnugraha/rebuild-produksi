@@ -4,8 +4,12 @@ import FormKirimJO from "./form-kirim-jo";
 import FormDetailTambahan from "./form-detail-tambahan";
 import FormDetailBatu from "./form-detail-batu";
 import getLocal from "../../../infrastructure/services/local/get-local";
+import KirimBahanAdmin from "../../../application/selectors/kirimbahanadmin";
+import { useDispatch, useSelector } from "react-redux";
+import { getTukangByDivisi } from "../../../application/actions/kirimjo";
 
 const ModalKirimJO = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [visibleTambahan, setVisibleTambahan] = useState(false);
   const [visibleBatu, setVisibleBatu] = useState(false);
@@ -16,6 +20,7 @@ const ModalKirimJO = () => {
   };
 
   const dataHead = getLocal("kirim_jo_head") || [];
+  const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
   const dataTambahan = getLocal("detail_tambahan") || [];
 
   return (
@@ -24,6 +29,7 @@ const ModalKirimJO = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
+          dispatch(getTukangByDivisi(dataDivisi[0]?.divisi));
         }}
       >
         + Data JO

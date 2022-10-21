@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "antd";
-import FormGabungJO from "./form-gabung-jo";
-import getLocal from "../../../../infrastructure/services/local/get-local";
+import FormBatalProsesJO from "./form-batal-proses-jo";
 
-const ModalGabungJO = () => {
+const ModalBatalProses = () => {
   const [visible, setVisible] = useState(false);
-
-  const dataGabung = getLocal("gabung_jo_head") || [];
 
   return (
     <div>
@@ -15,11 +12,10 @@ const ModalGabungJO = () => {
         onClick={() => {
           setVisible(true);
         }}
-        disabled={dataGabung.length >= 5 ? true : false}
       >
         + Data JO
       </Button>
-      <FormGabungJO
+      <FormBatalProsesJO
         visible={visible}
         onCancel={() => {
           setVisible(false);
@@ -29,4 +25,4 @@ const ModalGabungJO = () => {
   );
 };
 
-export default ModalGabungJO;
+export default ModalBatalProses;

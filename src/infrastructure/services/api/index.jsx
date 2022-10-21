@@ -70,6 +70,7 @@ import HakAkses from "./hakakses";
 import MasterKelompokJenisBahan from "./masterkelompokjenisbahan";
 import MasterBillOfMaterials from "./masterbillofmaterials";
 import MasterStatus from "./masterstatus";
+import BatalProsesJO from "./batalprosesjo";
 
 const api = {
   login,
@@ -144,6 +145,7 @@ const api = {
   MasterKelompokJenisBahan,
   MasterBillOfMaterials,
   MasterStatus,
+  BatalProsesJO,
 };
 
 export default api;

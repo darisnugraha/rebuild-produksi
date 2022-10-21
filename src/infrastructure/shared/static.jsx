@@ -28,13 +28,13 @@ const URL_ADD_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 const URL_DELETE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 const URL_UPDATE_MASTER_JENIS_BAHAN = `${baseurl}jenis-bahan`;
 
-const URL_GET_ALL_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
+const URL_GET_ALL_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan/open`;
 const URL_GET_MASTER_KELOMPOK_JENIS_BAHAN_BY_ID = `${baseurl}kelompok-jenis-bahan/by-id/`;
 const URL_ADD_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
 const URL_DELETE_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
 const URL_UPDATE_MASTER_KELOMPOK_JENIS_BAHAN = `${baseurl}kelompok-jenis-bahan`;
 
-const URL_GET_ALL_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
+const URL_GET_ALL_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials/open`;
 const URL_GET_MASTER_BILL_OF_MATERIALS_BY_ID = `${baseurl}bill-of-materials/by-id/`;
 const URL_ADD_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
 const URL_DELETE_MASTER_BILL_OF_MATERIALS = `${baseurl}bill-of-materials`;
@@ -96,7 +96,7 @@ const URL_ADD_MASTER_UKURAN = `${baseurl}ukuran`;
 const URL_DELETE_MASTER_UKURAN = `${baseurl}ukuran`;
 const URL_UPDATE_MASTER_UKURAN = `${baseurl}ukuran`;
 
-const URL_GET_ALL_MASTER_STATUS = `${baseurl}status-job-order`;
+const URL_GET_ALL_MASTER_STATUS = `${baseurl}status-job-order/open`;
 const URL_GET_MASTER_STATUS_BY_ID = `${baseurl}status-job-order/by-id/`;
 const URL_ADD_MASTER_STATUS = `${baseurl}status-job-order`;
 const URL_DELETE_MASTER_STATUS = `${baseurl}status-job-order`;
@@ -212,6 +212,7 @@ const URL_DELETE_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/delete-cart
 const URL_ADD_CHECKOUT_KIRIM_TAMBAHAN = `${baseurl}admin-kirim-tambahan`;
 
 const URL_GET_DATA_JO_GABUNG_JO = `${baseurl}job-order/by-no-job-order/`;
+const URL_GET_DATA_JO = `${baseurl}job-order/by-no-induk-job-order/`;
 const URL_ADD_GABUNG_JO = `${baseurl}job-order/gabung-jo`;
 const URL_ADD_KIRIM_LEBUR = `${baseurl}kirim-lebur`;
 const URL_ADD_TERIMA_LEBUR = `${baseurl}terima-lebur`;
@@ -273,6 +274,12 @@ const URL_GET_DETAIL_TAMBAH_JO = `${baseurl}kirim-job-order/detail-jo/`;
 
 const URL_GET_MENU_HAK_AKSES_USER = `${baseurl}hak-akses/by-user-id/`;
 const URL_ADD_MENU_HAK_AKSES_USER = `${baseurl}hak-akses`;
+
+const URL_GET_JO_BY_NO_KIRIM = `${baseurl}kirim-job-order/by-no-kirim/`;
+const URL_GET_JO_BY_NO_TERIMA = `${baseurl}terima-job-order/by-no-terima/`;
+
+const URL_ADD_BATAL_PROSES_JO = `${baseurl}kirim-job-order/cancel`;
+const URL_ADD_BATAL_PROSES_JO_TERIMA = `${baseurl}terima-job-order/cancel`;
 
 const data = {
   URL_LOGIN,
@@ -478,6 +485,7 @@ const data = {
   URL_ADD_KIRIM_BAHAN,
   URL_GET_CART_KIRIM_TAMBAHAN,
   URL_GET_DATA_JO_GABUNG_JO,
+  URL_GET_DATA_JO,
   URL_ADD_GABUNG_JO,
   URL_ADD_KIRIM_LEBUR,
   URL_ADD_TERIMA_LEBUR,
@@ -545,6 +553,12 @@ const data = {
 
   URL_GET_MENU_HAK_AKSES_USER,
   URL_ADD_MENU_HAK_AKSES_USER,
+
+  URL_GET_JO_BY_NO_KIRIM,
+  URL_GET_JO_BY_NO_TERIMA,
+
+  URL_ADD_BATAL_PROSES_JO,
+  URL_ADD_BATAL_PROSES_JO_TERIMA,
 };
 
 export default data;

@@ -61,8 +61,6 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isAdd = useSelector(TambahAmbilBatu.getIsAddTambahAmbilBatu);
-  const dataBatu = useSelector(TambahAmbilBatu.getDataBatu);
-  const statusSintetis = dataBatu[0]?.status_sintetis;
 
   const handleSubmit = () => {
     if (isAdd) {
@@ -143,11 +141,7 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
             <Field
               name="berat"
               type="text"
-              label={
-                <span style={{ fontSize: "13px" }}>
-                  Berat {statusSintetis ? "(Gram)" : "(Carat)"}
-                </span>
-              }
+              label={<span style={{ fontSize: "13px" }}>Berat</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat"
