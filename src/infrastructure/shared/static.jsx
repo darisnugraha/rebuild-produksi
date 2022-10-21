@@ -3,12 +3,12 @@ const baseurl = process.env.REACT_APP_BACKEND_URL;
 const URL_LOGIN = `${baseurl}auth/login`;
 const URL_LOGOUT = `${baseurl}auth/logout`;
 
-const URL_GET_JO_OUTSTAND_ALL = `${baseurl}produksi/outstand/`;
+const URL_GET_JO_OUTSTAND_ALL = `${baseurl}dashboard/outstand-job-order`;
 const URL_GET_OUTSTAND_ABU_CASTING_ALL = `${baseurl}abu-cor/setor-outstand-casting`;
-const URL_GET_OUTSTAND_ABU_POTONG_ALL = `${baseurl}produksi/dashboard/outstandabupotong/`;
-const URL_GET_OUTSTAND_ABU_TUKANG_ALL = `${baseurl}produksi/dashboard/outstandabutukang/`;
-const URL_GET_OUTSTAND_CASTING_ALL = `${baseurl}produksi/outstandcasting/`;
-const URL_GET_OUTSTAND_BAHAN_ALL = `${baseurl}produksi/outstandbahan/`;
+const URL_GET_OUTSTAND_ABU_POTONG_ALL = `${baseurl}dashboard/outstand-abu-potong`;
+const URL_GET_OUTSTAND_ABU_TUKANG_ALL = `${baseurl}dashboard/outstand-abu-tukang`;
+const URL_GET_OUTSTAND_CASTING_ALL = `${baseurl}dashboard/outstand-abu-casting`;
+const URL_GET_OUTSTAND_BAHAN_ALL = `${baseurl}dashboard/outstand-bahan`;
 
 const URL_GET_ALL_MASTER_JENIS = `${baseurl}jenis/open`;
 const URL_GET_MASTER_JENIS_BY_ID = `${baseurl}jenis/by-id/`;
@@ -211,6 +211,7 @@ const URL_GET_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/cart/`;
 const URL_DELETE_CART_KIRIM_TAMBAHAN = `${baseurl}adm-kirim-tambahan/delete-cart/`;
 const URL_ADD_CHECKOUT_KIRIM_TAMBAHAN = `${baseurl}admin-kirim-tambahan`;
 
+const URL_GET_NO_JO = `${baseurl}job-order/by-no-job-order/`;
 const URL_GET_DATA_JO_GABUNG_JO = `${baseurl}job-order/by-no-job-order/`;
 const URL_GET_DATA_JO = `${baseurl}job-order/by-no-induk-job-order/`;
 const URL_ADD_GABUNG_JO = `${baseurl}job-order/gabung-jo`;
@@ -256,6 +257,7 @@ const URL_GET_LAPORAN_KIRIM_PRODUKSI = `${baseurl}produksi-report/kirim-produksi
 const URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI = `${baseurl}produksi-report/terima-tambahan-by-divisi?`;
 const URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI = `${baseurl}produksi-report/terima-batu-by-divisi?`;
 const URL_GET_LAPORAN_OUTSTAND_PRODUKSI = `${baseurl}produksi-report/outstand-by-divisi?`;
+const URL_GET_LAPORAN_SUSUT_PRODUKSI = `${baseurl}produksi-report/susut-by-divisi?`;
 
 const URL_GET_ALL_MASTER_USER = `${baseurl}users`;
 const URL_AUTHORIZE_USER = `${baseurl}users/authorize?`;
@@ -484,6 +486,8 @@ const data = {
   URL_ADD_TERIMA_BAHAN,
   URL_ADD_KIRIM_BAHAN,
   URL_GET_CART_KIRIM_TAMBAHAN,
+
+  URL_GET_NO_JO,
   URL_GET_DATA_JO_GABUNG_JO,
   URL_GET_DATA_JO,
   URL_ADD_GABUNG_JO,
@@ -530,6 +534,7 @@ const data = {
   URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI,
   URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI,
   URL_GET_LAPORAN_OUTSTAND_PRODUKSI,
+  URL_GET_LAPORAN_SUSUT_PRODUKSI,
   URL_GET_DETAIL_BATU_KIRIM_PUSAT,
   URL_ADD_CART_BATU_KIRIM_PUSAT,
   URL_CHECKOUT_BATU_KIRIM_PUSAT,

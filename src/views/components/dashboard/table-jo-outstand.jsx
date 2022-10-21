@@ -23,13 +23,13 @@ const columns = [
     key: "tujuan_divisi",
     align: "center",
     render: (text) => {
-      return text.tujuan_divisi + ` (${text.kode_staff})`;
+      return text.tujuan_divisi + ` (${text.kode_tukang})`;
     },
   },
   {
     title: "Berat",
-    dataIndex: "berat",
-    key: "berat",
+    dataIndex: "berat_akhir",
+    key: "berat_akhir",
     align: "center",
   },
 ];

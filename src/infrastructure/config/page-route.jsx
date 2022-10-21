@@ -89,6 +89,8 @@ import MasterKelompokJenisBahan from "../../views/pages/master/master-kelompok-j
 import MasterBillOfMaterials from "../../views/pages/master/master-bill-of-materials";
 import MasterStatus from "../../views/pages/master/master-status";
 import BatalProsesJO from "../../views/pages/admin-pusat/batal-proses-job-order";
+import LaporanSusutProduksi from "../../views/pages/laporan/laporan-produksi/laporan-susut-produksi";
+import CetakBarcode from "../../views/pages/utility/cetak-barcode";
 
 const routes = [
   // {
@@ -956,6 +958,11 @@ const routes = [
     component: () => <LaporanTerimaGudangProduksi />,
   },
   {
+    path: "/laporan-produksi/susut",
+    title: "Laporan Susut Produksi",
+    component: () => <LaporanSusutProduksi />,
+  },
+  {
     path: "/utility/master-user",
     title: "Master User",
     component: () => <MasterUser />,
@@ -969,6 +976,11 @@ const routes = [
     path: "/utility/hak-akses",
     title: "Hak Akses",
     component: () => <HakAksesPage />,
+  },
+  {
+    path: "/utility/cetak-barcode",
+    title: "Cetak Barcode",
+    component: () => <CetakBarcode />,
   },
   {
     path: "/notfound",

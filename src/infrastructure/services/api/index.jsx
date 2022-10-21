@@ -71,6 +71,7 @@ import MasterKelompokJenisBahan from "./masterkelompokjenisbahan";
 import MasterBillOfMaterials from "./masterbillofmaterials";
 import MasterStatus from "./masterstatus";
 import BatalProsesJO from "./batalprosesjo";
+import CetakBarcode from "./cetakbarcode";
 
 const api = {
   login,
@@ -146,6 +147,7 @@ const api = {
   MasterBillOfMaterials,
   MasterStatus,
   BatalProsesJO,
+  CetakBarcode,
 };
 
 export default api;

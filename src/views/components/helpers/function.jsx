@@ -23,9 +23,9 @@ export function postImage(file, name) {
 }
 export function isBase64(str) {
   try {
-      return btoa(atob(str)) === str;
+    return btoa(atob(str)) === str;
   } catch (err) {
-      return false;
+    return false;
   }
 }
 export function deleteImage(name) {
@@ -35,8 +35,7 @@ export function deleteImage(name) {
     let desertRef = storageRef.child(`NSIPIC/KRESNO/${name}.jpg`);
     desertRef
       .delete()
-      .then(function () {
-      })
+      .then(function () {})
       .catch(function (error) {
         reject(error);
       });
@@ -46,7 +45,7 @@ export function deleteImage(name) {
 export function getImage(file) {
   return new Promise((resolve, reject) => {
     const storage = firebase.storage();
-    let stoageRef = storage.ref("NSIPIC/KRESNO/" + file+'.jpg');
+    let stoageRef = storage.ref("NSIPIC/KRESNO/" + file + ".jpg");
     stoageRef
       .getDownloadURL()
       .then(function (url) {

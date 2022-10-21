@@ -883,6 +883,11 @@ const Menu = [
         title: "Laporan Terima Gudang Produksi By Divisi",
         is_show: true,
       },
+      {
+        path: "/laporan-produksi/susut",
+        title: "Laporan Susut Produksi",
+        is_show: true,
+      },
     ],
   },
   {
@@ -904,6 +909,11 @@ const Menu = [
       {
         path: "/utility/hak-akses",
         title: "Hak Akses",
+        is_show: true,
+      },
+      {
+        path: "/utility/cetak-barcode",
+        title: "Cetak Barcode",
         is_show: true,
       },
     ],

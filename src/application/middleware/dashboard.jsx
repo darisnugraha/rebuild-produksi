@@ -25,7 +25,7 @@ import {
   setDataCastingFailed,
   GET_BAHAN_OUTSTAND,
   setDataBahanSuccess,
-  setDataBahanFailed
+  setDataBahanFailed,
 } from "../actions/dashboard";
 const dashboard =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -35,11 +35,10 @@ const dashboard =
     next(action);
     if (action.type === GET_ALL_DASHBOARD) {
       const response = await api.dashboard.getAllDashboard();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataDashboardSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataDashboardSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataDashboardFailed({error : response.error}));
+        dispatch(setDataDashboardFailed({ error: response.error }));
       }
     }
   };
@@ -52,11 +51,10 @@ const abucastingoutstand =
     next(action);
     if (action.type === GET_ABU_CASTING_OUTSTAND) {
       const response = await api.dashboard.getAllAbuCastingOutstand();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataAbuCastingSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataAbuCastingSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataAbuCastingFailed({error : response.error}));
+        dispatch(setDataAbuCastingFailed({ error: response.error }));
       }
     }
   };
@@ -69,11 +67,10 @@ const abupotong =
     next(action);
     if (action.type === GET_ABU_POTONG_OUTSTAND) {
       const response = await api.dashboard.getAllAbuPotong();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataAbuPotongSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataAbuPotongSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataAbuPotongFailed({error : response.error}));
+        dispatch(setDataAbuPotongFailed({ error: response.error }));
       }
     }
   };
@@ -86,11 +83,10 @@ const abutukang =
     next(action);
     if (action.type === GET_ABU_TUKANG_OUTSTAND) {
       const response = await api.dashboard.getAllAbuTukang();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataAbuTukangSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataAbuTukangSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataAbuTukangFailed({error : response.error}));
+        dispatch(setDataAbuTukangFailed({ error: response.error }));
       }
     }
   };
@@ -103,11 +99,10 @@ const castingoutstand =
     next(action);
     if (action.type === GET_CASTING_OUTSTAND) {
       const response = await api.dashboard.getAllOutstandCasting();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataCastingSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataCastingSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataCastingFailed({error : response.error}));
+        dispatch(setDataCastingFailed({ error: response.error }));
       }
     }
   };
@@ -120,15 +115,21 @@ const bahanoutstand =
     next(action);
     if (action.type === GET_BAHAN_OUTSTAND) {
       const response = await api.dashboard.getAllOutstandBahan();
-      console.log(response);
-      if (response.value?.status === "berhasil") {
-        dispatch(setDataBahanSuccess({feedback : response.value.data}));
+      if (response.value !== null) {
+        dispatch(setDataBahanSuccess({ feedback: response.value }));
       } else {
-        dispatch(setDataBahanFailed({error : response.error}));
+        dispatch(setDataBahanFailed({ error: response.error }));
       }
     }
   };
 
-const data = [dashboard, abucastingoutstand, abupotong, abutukang, castingoutstand, bahanoutstand];
+const data = [
+  dashboard,
+  abucastingoutstand,
+  abupotong,
+  abutukang,
+  castingoutstand,
+  bahanoutstand,
+];
 
 export default data;

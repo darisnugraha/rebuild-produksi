@@ -22,6 +22,7 @@ import TableSetorAbuTukangPotong from "../../components/dashboard/table-abu-seto
 import TableSetorAbuTukang from "../../components/dashboard/table-abu-setor-tukang";
 import TableTukangCorOutstand from "../../components/dashboard/table-tukang-cor-outstand";
 import TableTukangPotongOutstand from "../../components/dashboard/table-tukang-potong-outstand";
+import getLocal from "../../../infrastructure/services/local/get-local";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ const Dashboard = () => {
     document.title = "Dashboard";
   }, [dispatch]);
 
+  const dataUser = getLocal("userInfo");
+  const level = dataUser.level;
+
   return (
     <div>
       <ol className="breadcrumb float-xl-right">
@@ -45,7 +49,7 @@ const Dashboard = () => {
         <li className="breadcrumb-item active">Dashboard</li>
       </ol>
       <h1 className="page-header">Dashboard</h1>
-      <Panel>
+      <Panel className={level === "ADMIN BAHAN" ? "d-none" : ""}>
         <PanelHeader>JOB ORDER OUTSTAND</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
@@ -58,7 +62,7 @@ const Dashboard = () => {
         </PanelBody>
       </Panel>
 
-      <Panel>
+      <Panel className={level === "ADMIN PUSAT" ? "d-none" : ""}>
         <PanelHeader>ABU SETOR TUKANG COR</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
@@ -71,7 +75,7 @@ const Dashboard = () => {
         </PanelBody>
       </Panel>
 
-      <Panel>
+      <Panel className={level === "ADMIN PUSAT" ? "d-none" : ""}>
         <PanelHeader>ABU SETOR TUKANG POTONG</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
@@ -84,7 +88,7 @@ const Dashboard = () => {
         </PanelBody>
       </Panel>
 
-      <Panel>
+      <Panel className={level === "ADMIN PUSAT" ? "d-none" : ""}>
         <PanelHeader>ABU SETOR TUKANG</PanelHeader>
         <PanelBody>
           <Card bordered={false}>

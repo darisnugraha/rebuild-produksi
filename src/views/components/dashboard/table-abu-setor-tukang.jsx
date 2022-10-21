@@ -7,8 +7,8 @@ import Dashboard from "../../../application/selectors/dashboard";
 const columns = [
   {
     title: "Tanggal",
-    dataIndex: "tgl",
-    key: "tgl",
+    dataIndex: "tanggal",
+    key: "tanggal",
     align: "center",
   },
   {
@@ -19,20 +19,20 @@ const columns = [
   },
   {
     title: "Tukang",
-    dataIndex: "tukang",
-    key: "tukang",
+    dataIndex: "kode_tukang",
+    key: "kode_tukang",
     align: "center",
   },
   {
     title: "SPK",
-    dataIndex: "spk",
-    key: "spk",
+    dataIndex: "no_job_order",
+    key: "no_job_order",
     align: "center",
   },
   {
     title: "Jenis Bahan",
-    dataIndex: "jenis_bahan",
-    key: "jenis_bahan",
+    dataIndex: "bahan_kembali",
+    key: "bahan_kembali",
     align: "center",
   },
   {
@@ -43,14 +43,14 @@ const columns = [
   },
   {
     title: "Kadar",
-    dataIndex: "kadar",
-    key: "kadar",
+    dataIndex: "kadar_kembali",
+    key: "kadar_kembali",
     align: "center",
   },
   {
     title: "24K",
-    dataIndex: "24k",
-    key: "24k",
+    dataIndex: "kembali_24",
+    key: "kembali_24",
     align: "center",
   },
 ];
@@ -58,7 +58,11 @@ const columns = [
 const TableAbuSetorTukang = () => {
   const dataAbuTukang = useSelector(Dashboard.getAllAbuTukangOutstand);
   return (
-    <Table dataSource={dataAbuTukang} columns={columns} scroll={{ x: 500, y: 1500 }} />
+    <Table
+      dataSource={dataAbuTukang}
+      columns={columns}
+      scroll={{ x: 500, y: 1500 }}
+    />
   );
 };
 

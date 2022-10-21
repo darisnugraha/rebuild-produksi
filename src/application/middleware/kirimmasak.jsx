@@ -10,6 +10,7 @@ import {
   setDataTerimaBerat,
   SET_LOCAL_DATA_KIRIM_MASAK,
   ADD_KIRIM_MASAK,
+  count24K,
 } from "../actions/kirimmasak";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -43,6 +44,7 @@ const getDataTerimaLebur =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setDataTerimaLeburMasakSuccess({ feedback: res.value }));
+            dispatch(count24K({ beratTerima: res.value[0].kadar }));
           } else {
             dispatch(setDataTerimaLeburMasakSuccess({ feedback: [] }));
             sweetalert.default.Failed("Data Tidak Ada !");

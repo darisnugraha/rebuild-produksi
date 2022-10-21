@@ -42,6 +42,14 @@ const LaporanProduksi = {
     });
     return response;
   },
+  getSusutProduksi: async (dataKirim) => {
+    const response = await get({
+      url:
+        word.URL_GET_LAPORAN_SUSUT_PRODUKSI +
+        `startDate=${dataKirim.tgl_awal}&endDate=${dataKirim.tgl_akhir}&divisi=${dataKirim.divisi}&kode_tukang=${dataKirim.kode_staff}`,
+    });
+    return response;
+  },
 };
 
 export default LaporanProduksi;

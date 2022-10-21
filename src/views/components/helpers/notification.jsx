@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
-import {postData} from "../../config/axios";
+// import { postData } from "../../config/axios";
 // import Select from "react-select";
-
 
 export function NotifSucces(text) {
   return new Promise((resolve, reject) => {
@@ -47,7 +46,7 @@ export function NotifWarning(text) {
       .catch(reject("error"));
   });
 }
-export function NotifReactif(err,endpoint,data) {
+export function NotifReactif(err, endpoint, data) {
   return new Promise((resolve, reject) => {
     Swal.fire({
       title: "Warning !!!",
@@ -60,9 +59,9 @@ export function NotifReactif(err,endpoint,data) {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        postData(endpoint,data).then(()=>resolve('Berhasil')).then(()=>NotifSucces('Berhasil')).catch()
+        // postData(endpoint,data).then(()=>resolve('Berhasil')).then(()=>NotifSucces('Berhasil')).catch()
       }
-    } )
+    });
   });
 }
 
@@ -83,22 +82,22 @@ export function NotifInfo(text) {
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-end',
+  position: "top-end",
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
-export function ToastNotification(status,text) {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
+export function ToastNotification(status, text) {
   return new Promise((resolve, reject) => {
     Toast.fire({
       icon: status,
-      title: text
+      title: text,
     })
-    .then(resolve('berhasil'))
-    .catch(reject("error"));
-  })
+      .then(resolve("berhasil"))
+      .catch(reject("error"));
+  });
 }

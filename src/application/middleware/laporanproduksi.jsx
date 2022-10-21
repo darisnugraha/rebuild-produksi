@@ -28,6 +28,8 @@ import {
   setDataTerimaGudangProduksiFailed,
   GET_DIVISI_GUDANG,
   setDivisiGudang,
+  GET_DATA_SUSUT,
+  setDataSusut,
 } from "../actions/laporanproduksi";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
@@ -378,6 +380,62 @@ const getAllDataTerimaGudangProduksi =
     }
   };
 
+const getAllDataSusutProduksi =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_DATA_SUSUT) {
+      dispatch(setLoadingButton(true));
+      dispatch(setDataSusut({ feedback: [] }));
+      const data = getState().form.FormLaporanSusutProduksi.values;
+
+      if (
+        data.date === null ||
+        data.data.tukang === undefined ||
+        data.divisi === undefined
+      ) {
+        dispatch(setLoadingButton(false));
+        sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+      } else {
+        const tgl_dari = new Date(data.date[0]);
+        const tgl_dari_string = Moment(tgl_dari, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const tgl_sampai = new Date(data.date[1]);
+        const tgl_sampai_string = Moment(tgl_sampai, "Asia/Jakarta").format(
+          "YYYY-MM-DD"
+        );
+        const dataOnsend = {
+          divisi: data.divisi,
+          kode_staff: data.tukang,
+          tgl_awal: tgl_dari_string,
+          tgl_akhir: tgl_sampai_string,
+        };
+        writeLocal("laporan_susut_produksi", dataOnsend);
+
+        api.LaporanProduksi.getSusutProduksi(dataOnsend).then((res) => {
+          dispatch(setLoadingButton(false));
+          if (res.value !== null) {
+            if (res.value.length === 0) {
+              sweetalert.default.Failed("Data Laporan Kosong !");
+              dispatch(setDataSusut({ feedback: [] }));
+            } else {
+              sweetalert.default.SuccessNoReload("Berhasil Mengambil Data !");
+              dispatch(setDataSusut({ feedback: res.value }));
+            }
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Terjadi Kesalahan"
+            );
+            dispatch(setDataSusut({ feedback: [] }));
+          }
+        });
+      }
+    }
+  };
+
 const data = [
   getAllDataTerimaProduksi,
   getAllDataKirimProduksi,
@@ -385,6 +443,7 @@ const data = [
   getAllDataTerimaBatuProduksi,
   getAllDataOutstandProduksi,
   getAllDataTerimaGudangProduksi,
+  getAllDataSusutProduksi,
 ];
 
 export default data;

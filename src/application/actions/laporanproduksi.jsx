@@ -43,6 +43,9 @@ export const SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED =
 export const GET_DIVISI_GUDANG = "[laporanproduksi] get divisi gudang";
 export const SET_DIVISI_GUDANG = "[laporanproduksi] set divisi gudang";
 
+export const GET_DATA_SUSUT = "[laporanproduksi] get laporandata susut";
+export const SET_DATA_SUSUT = "[laporanproduksi] set laporandata susut";
+
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
 };
@@ -109,6 +112,15 @@ export const getDivisiGudang = {
 
 export const setDivisiGudang = ({ feedback }) => ({
   type: SET_DIVISI_GUDANG,
+  payload: { data: feedback },
+});
+
+export const getDataSusut = {
+  type: GET_DATA_SUSUT,
+};
+
+export const setDataSusut = ({ feedback }) => ({
+  type: SET_DATA_SUSUT,
   payload: { data: feedback },
 });
 

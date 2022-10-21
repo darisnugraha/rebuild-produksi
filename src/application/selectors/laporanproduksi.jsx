@@ -8,6 +8,7 @@ const getAllTerimaBatuProduksi = (state) => state.laporanproduksi.feedbackBatu;
 const getErrorTerimaBatuProduksi = (state) => state.laporanproduksi.errorBatu;
 const getAllOutstandProduksi = (state) =>
   state.laporanproduksi.feedbackOutstand;
+const getAllSusutProduksi = (state) => state.laporanproduksi.feedbackSusut;
 const getErrorOutstandProduksi = (state) => state.laporanproduksi.errorOutstand;
 const getAllGudangProduksi = (state) => state.laporanproduksi.feedbackGudang;
 const getErrorGudangProduksi = (state) => state.laporanproduksi.errorGudang;
@@ -30,5 +31,6 @@ const data = {
   getAllGudangProduksi,
   getErrorGudangProduksi,
   getDivisiGudang,
+  getAllSusutProduksi,
 };
 export default data;

@@ -13,6 +13,7 @@ import {
   SET_DATA_TERIMA_GUDANG_PRODUKSI_SUCCESS,
   SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED,
   SET_DIVISI_GUDANG,
+  SET_DATA_SUSUT,
 } from "../actions/laporanproduksi";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   feedbackBatu: [],
   feedbackOutstand: [],
   feedbackGudang: [],
+  feedbackSusut: [],
   error: null,
   errorTerima: null,
   errorTambahan: null,
@@ -88,6 +90,11 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         feedbackGudang: action.payload.data,
+      };
+    case SET_DATA_SUSUT:
+      return {
+        ...state,
+        feedbackSusut: action.payload.data,
       };
     case SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED:
       return {
