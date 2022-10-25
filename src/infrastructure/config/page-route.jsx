@@ -524,7 +524,7 @@ const routes = [
   },
 ];
 
-const Divisi = getLocal("divisiAll");
+const Divisi = getLocal("divisiAll") || [];
 Divisi.forEach((element) => {
   if (element.divisi === "ADMIN PUSAT" || element.divisi === "ADMIN BAHAN") {
     return false;
