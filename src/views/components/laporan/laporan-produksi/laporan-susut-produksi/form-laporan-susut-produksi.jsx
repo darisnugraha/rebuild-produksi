@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Select } from "antd";
 import { Field, reduxForm } from "redux-form";
 import moment from "moment";
@@ -25,8 +25,6 @@ const maptostate = (state) => {
 };
 
 let FormLaporanSusutProduksi = (prop) => {
-  // eslint-disable-next-line
-  const dispatch = useDispatch();
   const btnLoading = useSelector(ui.getBtnLoading);
   const dataDivisi = useSelector(divisimaster.getAllDivisi);
   const dataTukang = useSelector(mastertukang.getAllMasterTukang);
@@ -43,7 +41,7 @@ let FormLaporanSusutProduksi = (prop) => {
             onBlur={(e) => e.preventDefault()}
           />
         </Col>
-        <Col offset={1} span={5}>
+        <Col offset={1} span={4}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -61,7 +59,7 @@ let FormLaporanSusutProduksi = (prop) => {
             })}
           </Field>
         </Col>
-        <Col offset={1} span={5}>
+        <Col offset={1} span={4}>
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}

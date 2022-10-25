@@ -91,6 +91,7 @@ import MasterStatus from "../../views/pages/master/master-status";
 import BatalProsesJO from "../../views/pages/admin-pusat/batal-proses-job-order";
 import LaporanSusutProduksi from "../../views/pages/laporan/laporan-produksi/laporan-susut-produksi";
 import CetakBarcode from "../../views/pages/utility/cetak-barcode";
+import getLocal from "../services/local/get-local";
 
 const routes = [
   // {
@@ -306,473 +307,7 @@ const routes = [
     component: () => <GabungJO />,
   },
   //Produksi
-  {
-    path: "/produksi/boom/terima-barang",
-    title: "Boom Terima Barang",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/polis/terima-barang",
-    title: "Polis Terima Barang",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/laser/terima-barang",
-    title: "Laser Terima Barang",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/ukir/terima-barang",
-    title: "Ukir Terima Barang",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/micro/terima-barang",
-    title: "Micro Terima Barang",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/terima-barang",
-    title: "Gudang QC QJ Terima Barang",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/krum/terima-barang",
-    title: "Krum Terima Barang",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/gosok/terima-barang",
-    title: "Gosok Terima Barang",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/pasang-batu/terima-barang",
-    title: "Pasang Batu Terima Barang",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/enamel/terima-barang",
-    title: "Enamel Terima Barang",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <TerimaJO />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/terima-barang",
-    title: "Gudang QC VV Terima Barang",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <TerimaJO />,
-  },
 
-  {
-    path: "/produksi/boom/kirim-barang",
-    title: "Boom Kirim Barang",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/polis/kirim-barang",
-    title: "Polis Kirim Barang",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/laser/kirim-barang",
-    title: "Laser Kirim Barang",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/ukir/kirim-barang",
-    title: "Ukir Kirim Barang",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/micro/kirim-barang",
-    title: "Micro Kirim Barang",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/kirim-barang",
-    title: "Gudang QC QJ Kirim Barang",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/krum/kirim-barang",
-    title: "Krum Kirim Barang",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/gosok/kirim-barang",
-    title: "Gosok Kirim Barang",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/pasang-batu/kirim-barang",
-    title: "Pasang Batu Kirim Barang",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/enamel/kirim-barang",
-    title: "Enamel Kirim Barang",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <KirimJO />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/kirim-barang",
-    title: "Gudang QC VV Kirim Barang",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <KirimJO />,
-  },
-
-  {
-    path: "/produksi/boom/terima-tambahan",
-    title: "Boom Terima Tambahan",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/polis/terima-tambahan",
-    title: "Polis Terima Tambahan",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/laser/terima-tambahan",
-    title: "Laser Terima Tambahan",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/ukir/terima-tambahan",
-    title: "Ukir Terima Tambahan",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/micro/terima-tambahan",
-    title: "Micro Terima Tambahan",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/terima-tambahan",
-    title: "Gudang QC QJ Terima Tambahan",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/krum/terima-tambahan",
-    title: "Krum Terima Tambahan",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/gosok/terima-tambahan",
-    title: "Gosok Terima Tambahan",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/pasang-batu/terima-tambahan",
-    title: "Pasang Batu Terima Tambahan",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/enamel/terima-tambahan",
-    title: "Enamel Terima Tambahan",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <TerimaTambahan />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/terima-tambahan",
-    title: "Gudang QC VV Terima Tambahan",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <TerimaTambahan />,
-  },
-
-  {
-    path: "/produksi/boom/terima-batu",
-    title: "Boom Terima Batu",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/polis/terima-batu",
-    title: "Polis Terima Batu",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/laser/terima-batu",
-    title: "Laser Terima Batu",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/ukir/terima-batu",
-    title: "Ukir Terima Batu",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/micro/terima-batu",
-    title: "Micro Terima Batu",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/terima-batu",
-    title: "Gudang QC QJ Terima Batu",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/krum/terima-batu",
-    title: "Krum Terima Batu",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/gosok/terima-batu",
-    title: "Gosok Terima Batu",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/pasang-batu/terima-batu",
-    title: "Pasang Batu Terima Batu",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/enamel/terima-batu",
-    title: "Enamel Terima Batu",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <TerimaBatuProduksi />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/terima-batu",
-    title: "Gudang QC VV Terima Batu",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <TerimaBatuProduksi />,
-  },
-
-  {
-    path: "/produksi/boom/terima-bahan",
-    title: "Boom Terima Bahan",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/polis/terima-bahan",
-    title: "Polis Terima Bahan",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/laser/terima-bahan",
-    title: "Laser Terima Bahan",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/ukir/terima-bahan",
-    title: "Ukir Terima Bahan",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/micro/terima-bahan",
-    title: "Micro Terima Bahan",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/terima-bahan",
-    title: "Gudang QC QJ Terima Bahan",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/krum/terima-bahan",
-    title: "Krum Terima Bahan",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/gosok/terima-bahan",
-    title: "Gosok Terima Bahan",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/pasang-bahan/terima-bahan",
-    title: "Pasang Batu Terima Bahan",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/enamel/terima-bahan",
-    title: "Enamel Terima Bahan",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <TerimaBahan />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/terima-bahan",
-    title: "Gudang QC VV Terima Bahan",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <TerimaBahan />,
-  },
-
-  {
-    path: "/produksi/boom/kirim-bahan",
-    title: "Boom Kirim Bahan",
-    menu: "Boom",
-    divisi: "Boom",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/polis/kirim-bahan",
-    title: "Polis Kirim Bahan",
-    menu: "Polis",
-    divisi: "Polis",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/laser/kirim-bahan",
-    title: "Laser Kirim Bahan",
-    menu: "Laser",
-    divisi: "Laser",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/ukir/kirim-bahan",
-    title: "Ukir Kirim Bahan",
-    menu: "Ukir",
-    divisi: "Ukir",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/micro/kirim-bahan",
-    title: "Micro Kirim Bahan",
-    menu: "Micro",
-    divisi: "Micro",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/gudang-qc-qj/kirim-bahan",
-    title: "Gudang QC QJ Kirim Bahan",
-    menu: "Gudang QC QJ",
-    divisi: "Gudang QC QJ",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/krum/kirim-bahan",
-    title: "Krum Kirim Bahan",
-    menu: "Krum",
-    divisi: "Krum",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/gosok/kirim-bahan",
-    title: "Gosok Kirim Bahan",
-    menu: "Gosok",
-    divisi: "Gosok",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/pasang-bahan/kirim-bahan",
-    title: "Pasang Batu Kirim Bahan",
-    menu: "Pasang Batu",
-    divisi: "Pasang Batu",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/enamel/kirim-bahan",
-    title: "Enamel Kirim Bahan",
-    menu: "Enamel",
-    divisi: "Enamel",
-    component: () => <KirimBahanProduksi />,
-  },
-  {
-    path: "/produksi/gudang-qc-vv/kirim-bahan",
-    title: "Gudang QC VV Kirim Bahan",
-    menu: "Gudang QC VV",
-    divisi: "Gudang QC VV",
-    component: () => <KirimBahanProduksi />,
-  },
   //Setor Abu
   {
     path: "/setor-abu/abu-tukang-cor",
@@ -988,5 +523,61 @@ const routes = [
     component: () => <NotFound />,
   },
 ];
+
+const Divisi = getLocal("divisiAll");
+Divisi.forEach((element) => {
+  if (element.divisi === "ADMIN PUSAT" || element.divisi === "ADMIN BAHAN") {
+    return false;
+  } else {
+    const rowTerimaBarang = {
+      path: `/produksi/${element.divisi}/terima-barang`,
+      title: `${element.divisi} Terima Barang`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <TerimaJO />,
+    };
+    routes.push(rowTerimaBarang);
+    const rowKirimBarang = {
+      path: `/produksi/${element.divisi}/kirim-barang`,
+      title: `${element.divisi} Kirim Barang`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <KirimJO />,
+    };
+    routes.push(rowKirimBarang);
+    const rowTerimaTambahan = {
+      path: `/produksi/${element.divisi}/terima-tambahan`,
+      title: `${element.divisi} Terima Tambahan`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <TerimaTambahan />,
+    };
+    routes.push(rowTerimaTambahan);
+    const rowTerimaBatu = {
+      path: `/produksi/${element.divisi}/terima-batu`,
+      title: `${element.divisi} Terima Batu`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <TerimaBatuProduksi />,
+    };
+    routes.push(rowTerimaBatu);
+    const rowTerimaBahan = {
+      path: `/produksi/${element.divisi}/terima-bahan`,
+      title: `${element.divisi} Terima Bahan`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <TerimaBahan />,
+    };
+    routes.push(rowTerimaBahan);
+    const rowKirimBahan = {
+      path: `/produksi/${element.divisi}/kirim-bahan`,
+      title: `${element.divisi} Kirim Bahan`,
+      menu: `${element.divisi}`,
+      divisi: `${element.divisi}`,
+      component: () => <KirimBahanProduksi />,
+    };
+    routes.push(rowKirimBahan);
+  }
+});
 
 export default routes;

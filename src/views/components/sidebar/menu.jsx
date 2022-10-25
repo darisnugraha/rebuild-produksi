@@ -1,3 +1,5 @@
+import getLocal from "../../../infrastructure/services/local/get-local";
+
 const Menu = [
   { path: "/dashboard", icon: "fa fa-home", title: "Dashboard", is_show: true },
   {
@@ -214,413 +216,413 @@ const Menu = [
     title: "Produksi",
     is_show: true,
     children: [
-      {
-        path: "/produksi/boom",
-        title: "Boom",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/boom/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/boom/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/boom/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/boom/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/boom/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/boom/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/polis",
-        title: "Polis",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/polis/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/polis/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/polis/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/polis/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/polis/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/polis/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/laser",
-        title: "Laser",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/laser/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/laser/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/laser/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/laser/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/laser/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/laser/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/ukir",
-        title: "Ukir",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/ukir/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/ukir/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/ukir/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/ukir/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/ukir/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/ukir/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/micro",
-        title: "Micro",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/micro/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/micro/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/micro/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/micro/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/micro/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/micro/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/gudang-qc-qj",
-        title: "Gudang QC QJ",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/gudang-qc-qj/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-qj/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-qj/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-qj/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-qj/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-qj/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/krum",
-        title: "Krum",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/krum/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/krum/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/krum/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/krum/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/krum/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/krum/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/gosok",
-        title: "Gosok",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/gosok/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gosok/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gosok/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gosok/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gosok/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gosok/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/pasang-batu",
-        title: "Pasang Batu",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/pasang-batu/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/pasang-batu/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/pasang-batu/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/pasang-batu/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/pasang-batu/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/pasang-batu/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/enamel",
-        title: "Enamel",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/enamel/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/enamel/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/enamel/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/enamel/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/enamel/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/enamel/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
-      {
-        path: "/produksi/gudang-qc-vv",
-        title: "Gudang QC VV",
-        is_show: true,
-        children: [
-          {
-            path: "/produksi/gudang-qc-vv/terima-barang",
-            title: "Terima Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-vv/kirim-barang",
-            title: "Kirim Job Order",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-vv/terima-tambahan",
-            title: "Terima Tambahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-vv/terima-batu",
-            title: "Terima Batu",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-vv/terima-bahan",
-            title: "Terima Bahan",
-            is_show: true,
-          },
-          {
-            path: "/produksi/gudang-qc-vv/kirim-bahan",
-            title: "Kirim Bahan",
-            is_show: true,
-          },
-        ],
-      },
+      // {
+      //   path: "/produksi/boom",
+      //   title: "Boom",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/boom/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/boom/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/boom/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/boom/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/boom/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/boom/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/polis",
+      //   title: "Polis",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/polis/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/polis/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/polis/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/polis/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/polis/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/polis/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/laser",
+      //   title: "Laser",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/laser/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/laser/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/laser/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/laser/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/laser/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/laser/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/ukir",
+      //   title: "Ukir",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/ukir/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/ukir/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/ukir/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/ukir/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/ukir/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/ukir/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/micro",
+      //   title: "Micro",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/micro/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/micro/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/micro/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/micro/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/micro/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/micro/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/gudang-qc-qj",
+      //   title: "Gudang QC QJ",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/gudang-qc-qj/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-qj/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-qj/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-qj/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-qj/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-qj/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/krum",
+      //   title: "Krum",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/krum/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/krum/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/krum/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/krum/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/krum/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/krum/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/gosok",
+      //   title: "Gosok",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/gosok/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gosok/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gosok/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gosok/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gosok/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gosok/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/pasang-batu",
+      //   title: "Pasang Batu",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/pasang-batu/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/pasang-batu/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/pasang-batu/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/pasang-batu/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/pasang-batu/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/pasang-batu/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/enamel",
+      //   title: "Enamel",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/enamel/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/enamel/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/enamel/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/enamel/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/enamel/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/enamel/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
+      // {
+      //   path: "/produksi/gudang-qc-vv",
+      //   title: "Gudang QC VV",
+      //   is_show: true,
+      //   children: [
+      //     {
+      //       path: "/produksi/gudang-qc-vv/terima-barang",
+      //       title: "Terima Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-vv/kirim-barang",
+      //       title: "Kirim Job Order",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-vv/terima-tambahan",
+      //       title: "Terima Tambahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-vv/terima-batu",
+      //       title: "Terima Batu",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-vv/terima-bahan",
+      //       title: "Terima Bahan",
+      //       is_show: true,
+      //     },
+      //     {
+      //       path: "/produksi/gudang-qc-vv/kirim-bahan",
+      //       title: "Kirim Bahan",
+      //       is_show: true,
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -919,5 +921,73 @@ const Menu = [
     ],
   },
 ];
+
+const Divisi = getLocal("divisiAll");
+Divisi.forEach((element) => {
+  if (element.divisi === "ADMIN PUSAT" || element.divisi === "ADMIN BAHAN") {
+    return false;
+  } else if (
+    element.divisi === "GUDANG QC JC" ||
+    element.divisi === "GUDANG QC VV"
+  ) {
+    const row = {
+      path: `/produksi/${element.divisi}`,
+      title: element.divisi,
+      is_show: true,
+      children: [
+        {
+          path: `/produksi/${element.divisi}/terima-barang`,
+          title: "Terima Job Order",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/kirim-barang`,
+          title: "Kirim Job Order",
+          is_show: true,
+        },
+      ],
+    };
+    Menu[6].children.push(row);
+  } else {
+    const row = {
+      path: `/produksi/${element.divisi}`,
+      title: element.divisi,
+      is_show: true,
+      children: [
+        {
+          path: `/produksi/${element.divisi}/terima-barang`,
+          title: "Terima Job Order",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/kirim-barang`,
+          title: "Kirim Job Order",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-tambahan`,
+          title: "Terima Tambahan",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-batu`,
+          title: "Terima Batu",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-bahan`,
+          title: "Terima Bahan",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/kirim-bahan`,
+          title: "Kirim Bahan",
+          is_show: true,
+        },
+      ],
+    };
+    Menu[6].children.push(row);
+  }
+});
 
 export default Menu;

@@ -21,6 +21,7 @@ const masterDivisiGetAll =
       api.MasterDivisi.getAllMasterDivisi().then((res) => {
         if (res.value !== null) {
           dispatch(setDataMasterDivisiSuccess({ feedback: res.value }));
+          writeLocal("divisiAll", res.value);
         } else {
           dispatch(setDataMasterDivisiFailed({ error: res.error }));
         }

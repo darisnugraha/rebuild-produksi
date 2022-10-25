@@ -390,7 +390,6 @@ const getAllDataSusutProduksi =
       dispatch(setLoadingButton(true));
       dispatch(setDataSusut({ feedback: [] }));
       const data = getState().form.FormLaporanSusutProduksi.values;
-
       if (
         data.date === null ||
         data.data.tukang === undefined ||

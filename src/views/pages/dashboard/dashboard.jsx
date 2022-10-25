@@ -23,6 +23,7 @@ import TableSetorAbuTukang from "../../components/dashboard/table-abu-setor-tuka
 import TableTukangCorOutstand from "../../components/dashboard/table-tukang-cor-outstand";
 import TableTukangPotongOutstand from "../../components/dashboard/table-tukang-potong-outstand";
 import getLocal from "../../../infrastructure/services/local/get-local";
+import { getAllMasterDivisi } from "../../../application/actions/masterdivisi.jsx";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Dashboard = () => {
     dispatch(getAllAbuTukangOutstand);
     dispatch(getAllCastingOutstand);
     dispatch(getAllBahanOutstand);
+    dispatch(getAllMasterDivisi);
     document.title = "Dashboard";
   }, [dispatch]);
 
