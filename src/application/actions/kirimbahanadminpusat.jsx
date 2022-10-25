@@ -40,6 +40,9 @@ export const SET_BERAT_BAHAN = "[kirimbahanadminpusat] set berat bahan";
 export const GET_STAFF_BY_DIVISI = "[kirimbahanadminpusat] get staff by divisi";
 export const SET_STAFF_BY_DIVISI = "[kirimbahanadminpusat] set staff by divisi";
 
+export const SET_BAHAN_BY_TUKANG_ASAL =
+  "[kirimbahanadminpusat] set get bahan by tukang asal";
+
 export const getAllDivisi = {
   type: GET_DIVISI,
 };
@@ -122,5 +125,10 @@ export const getDataStaffByDivisi = (divisi) => ({
 
 export const setDataStaffByDivisi = ({ feedback }) => ({
   type: SET_STAFF_BY_DIVISI,
+  payload: { data: feedback },
+});
+
+export const setBahanByTukangAsal = ({ feedback }) => ({
+  type: SET_BAHAN_BY_TUKANG_ASAL,
   payload: { data: feedback },
 });

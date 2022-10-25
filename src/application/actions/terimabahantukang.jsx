@@ -27,6 +27,9 @@ export const SET_DATA_BERAT_BAHAN_SUCCESS =
 export const SET_DATA_BERAT_BAHAN_FAILED =
   "[terimabahantukang] get berat bahan failed";
 
+export const ADD_TERIMA_BAHAN_TUKANG =
+  "[terimabahantukang] terima bahan tukang add";
+
 export const getAllDivisiAsalSaldoBahan = {
   type: GET_ALL_DIVISI_ASAL_SALDO_BAHAN,
 };
@@ -74,15 +77,19 @@ export const getBeratBahan = ({ bahan }) => ({
   payload: { data: bahan },
 });
 
-export const getBeratBahanByStaff = ({ staff }) => ({
+export const getBeratBahanByStaff = ({ bahan }) => ({
   type: GET_BERAT_BAHAN_BY_STAFF,
-  payload: { data: staff },
+  payload: { data: bahan },
 });
-export const setDataBeratBahanSuccess = ({ feedback }) => ({
+export const setDataBeratBahanSuccess = ({ feedback, berat }) => ({
   type: SET_DATA_BERAT_BAHAN_SUCCESS,
-  payload: { data: feedback },
+  payload: { data: feedback, beratBahan: berat },
 });
 export const setDataBeratBahanFailed = ({ error }) => ({
   type: SET_DATA_BERAT_BAHAN_FAILED,
   payload: { data: error },
 });
+
+export const addTerimaBahanTukang = {
+  type: ADD_TERIMA_BAHAN_TUKANG,
+};

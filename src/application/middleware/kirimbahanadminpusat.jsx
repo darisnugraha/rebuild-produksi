@@ -17,6 +17,7 @@ import {
   ADD_KIRIM_BAHAN_PRODUKSI,
   GET_STAFF_BY_DIVISI,
   setDataStaffByDivisi,
+  setBahanByTukangAsal,
 } from "../actions/kirimbahanadminpusat";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import {
@@ -106,7 +107,6 @@ const getDataStaffStockBahanDivisiProd =
     next(action);
     if (action.type === GET_ALL_STAFF_STOCK_BAHAN_DIVISI_PROD) {
       const data = { divisi: action.payload.data };
-      console.log(data);
       api.KirimBahanAdminPusat.getStaffStockBahanDivisi({
         dataKirim: data,
       }).then((res) => {
@@ -137,8 +137,12 @@ const getDataStockBahanByStaff =
       }).then((res) => {
         if (res.value !== null) {
           dispatch(setDataStockBahanByStaffSuccess({ feedback: res.value }));
+          dispatch(
+            setBahanByTukangAsal({ feedback: res.value[0]?.nama_bahan })
+          );
           dispatch(setBeratBahan({ berat: res.value[0]?.berat }));
         } else {
+          dispatch(setDataStockBahanByStaffSuccess({ feedback: [] }));
           dispatch(setDataStockBahanByStaffFailed({ error: res.error }));
         }
       });

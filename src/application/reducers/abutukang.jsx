@@ -7,6 +7,9 @@ import {
   SET_BAHAN_KEMBALI,
   GET_KADAR,
   SET_24K,
+  SET_DIVISI_TUKANG_SUSUT,
+  GET_TUKANG_BY_DIVISI,
+  SET_TUKANG_BY_DIVISI,
 } from "../actions/abutukang";
 
 const initialState = {
@@ -21,6 +24,9 @@ const initialState = {
   kadar: 0,
   k24: 0,
   k_susut24: 0,
+  divisiSusut: [],
+  divisi: undefined,
+  tukangByDivisi: [],
 };
 
 const abutukang = (state = initialState, action) => {
@@ -62,6 +68,22 @@ const abutukang = (state = initialState, action) => {
         ...state,
         k24: action.payload.data.k_24,
         k_susut24: action.payload.data.susut_k,
+      };
+    case SET_DIVISI_TUKANG_SUSUT:
+      return {
+        ...state,
+        divisiSusut: action.payload.data,
+        divisi: action.payload.divisi,
+      };
+    case GET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        divisi: action.payload.data,
+      };
+    case SET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        tukangByDivisi: action.payload.data,
       };
     default:
       return state;

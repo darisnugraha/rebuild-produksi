@@ -9,6 +9,11 @@ import {
   setBeratSusutBruto,
   set24K,
   GET_KADAR,
+  GET_DIVISI_TUKANG_SUSUT,
+  setDataDivisiTukangSusut,
+  GET_TUKANG_BY_DIVISI,
+  setDataTukangByDivisi,
+  getTukangByDivisi,
 } from "../actions/abutukang";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { setLoadingButton } from "../actions/ui";
@@ -117,6 +122,33 @@ const getDataSetorAbuTukang =
           sweetalert.default.Failed(
             res.error?.data.message || "Gagal Menyimpan Data !"
           );
+        }
+      });
+    }
+    if (action.type === GET_DIVISI_TUKANG_SUSUT) {
+      api.AbuTukang.getDivisiTukangSusut().then((res) => {
+        if (res.value !== null) {
+          dispatch(
+            setDataDivisiTukangSusut({
+              feedback: res.value,
+              datadivisi: res.value[0]?.divisi,
+            })
+          );
+          dispatch(getTukangByDivisi(res.value[0]?.divisi));
+        } else {
+          dispatch(
+            setDataDivisiTukangSusut({ feedback: [], datadivisi: undefined })
+          );
+        }
+      });
+    }
+    if (action.type === GET_TUKANG_BY_DIVISI) {
+      const divisi = action.payload.data;
+      api.AbuTukang.getTukangByDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataTukangByDivisi({ feedback: res.value }));
+        } else {
+          dispatch(setDataTukangByDivisi({ feedback: [] }));
         }
       });
     }

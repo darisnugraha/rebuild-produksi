@@ -12,9 +12,39 @@ import {
   setDataBeratBahanSuccess,
   setDataBeratBahanFailed,
   getAllBahanAsalTukang,
-  getBeratBahan,
   GET_BERAT_BAHAN_BY_STAFF,
+  getBeratBahanByStaff,
+  ADD_TERIMA_BAHAN_TUKANG,
 } from "../actions/terimabahantukang";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
+
+const addTerimaBahanTukang =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === ADD_TERIMA_BAHAN_TUKANG) {
+      const data = getState().form.FormTerimaBahanTukang.values;
+      const dataKirim = {
+        divisi_asal: data.divisi_asal,
+        divisi_tujuan: "ADMIN BAHAN",
+        tukang_asal: data.tukang_asal,
+        tukang_tujuan: "ADMIN BAHAN",
+        nama_bahan: data.bahan,
+        berat: data.berat_bahan,
+      };
+      api.TerimaBahanTukang.addTerimaBahanTukang(dataKirim).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
+    }
+  };
 
 const divisiAsalGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -48,11 +78,10 @@ const tukangAsalDivisiGetAll =
             setDataTukangAsalDivisiSuccess({
               feedback: res.value,
               divisi_asal: action.payload.data,
-              staff_asal: res.value[0].tukang,
+              staff_asal: res.value[0].nama_tukang,
             })
           );
-          dispatch(getAllBahanAsalTukang({ staff: res.value[0].tukang }));
-          dispatch(getBeratBahan({ bahan: res.value[0].nama_bahan }));
+          dispatch(getAllBahanAsalTukang({ staff: res.value[0].nama_tukang }));
         } else {
           dispatch(setDataTukangAsalDivisiFailed({ error: res.error }));
         }
@@ -70,11 +99,12 @@ const bahanAsalTukangGetAll =
       const data = {
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
-        staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
+        staff: action.payload.data || null,
       };
       api.TerimaBahanTukang.getBahanByStaff(data).then((res) => {
         if (res.value !== null) {
           dispatch(setDataBahanAsalTukangSuccess({ feedback: res.value }));
+          dispatch(getBeratBahanByStaff({ bahan: res.value[0].nama_bahan }));
         } else {
           dispatch(setDataBahanAsalTukangFailed({ error: res.error }));
         }
@@ -116,17 +146,18 @@ const beratBahanAsalGetByStaffAll =
       const data = {
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
-        staff: action.payload.data,
-        nama_bahan: getState().form.FormTerimaBahanTukang.values.bahan || null,
+        staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
+        nama_bahan: action.payload.data,
+        divisi_tujuan: "ADMIN BAHAN",
       };
       const response = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
         data
       );
-      if (response.value?.status === "berhasil") {
+      if (response.value !== null) {
         dispatch(
           setDataBeratBahanSuccess({
-            feedback: response.value.data,
-            staff: action.payload.data,
+            feedback: response.value,
+            berat: response.value[0]?.berat,
           })
         );
       } else {
@@ -136,6 +167,7 @@ const beratBahanAsalGetByStaffAll =
   };
 
 const data = [
+  addTerimaBahanTukang,
   divisiAsalGetAll,
   tukangAsalDivisiGetAll,
   bahanAsalTukangGetAll,

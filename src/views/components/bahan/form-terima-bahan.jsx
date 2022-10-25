@@ -6,158 +6,110 @@ import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import ui from "../../../application/selectors/ui";
-// import Tukang from "../../../application/selectors/mastertukang";
 import TerimaBahan from "../../../application/selectors/terimabahan";
-// import KirimBahan from "../../../application/selectors/kirimbahanadmin";
 import {
-  // getSaldoBahanTukang,
   getSaldoKirimBahanOpenChange,
-  // setKodeStaff,
   addTerimaBahan,
   getBahanbyDivisiAndStaff,
+  getTukangAsalByDivisi,
 } from "../../../application/actions/terimabahan";
 import TerimaBahanValidate from "../../../infrastructure/validate/TerimaBahanValidate";
 import getLocal from "../../../infrastructure/services/local/get-local";
-// import getLocal from "../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
   const divisi = getLocal("divisi");
-  if (divisi.toUpperCase() === "ADMIN") {
-    if (state.terimabahan.feedback.length !== 0) {
-      if (state.terimabahan.kodeStaff !== null) {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: "ADMIN BAHAN",
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan:
-              state.terimabahan.namaBahan !== null
-                ? state.terimabahan.namaBahan
-                : state.terimabahan.feedbackTukangByTukang[0]?.nama_bahan,
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      } else {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            staff: "ADMIN BAHAN",
-            nama_bahan:
-              state.terimabahan.namaBahan !== null
-                ? state.terimabahan.namaBahan
-                : state.terimabahan.feedback[0]?.nama_bahan,
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      }
+  if (divisi !== null) {
+    if (divisi.toUpperCase() === "ADMIN") {
+      return {
+        initialValues: {
+          divisi: "ADMIN PUSAT",
+          staff_tujuan:
+            state.terimabahan.feedbackTukangByTukang[0]?.nama_tukang,
+          staff: state.terimabahan.tukangAsal[0]?.nama_tukang,
+          divisi_asal: state.terimabahan.divisiAsal
+            ? state.terimabahan.divisiAsal
+            : state.terimabahan.dataDivisi[0]?.divisi,
+          nama_bahan:
+            state.terimabahan.namaBahan !== null
+              ? state.terimabahan.namaBahan
+              : state.terimabahan.tukangAsal[0]?.nama_bahan,
+          berat_bahan: state.terimabahan.berat,
+        },
+      };
     } else {
-      if (state.terimabahan.kodeStaff !== null) {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: "ADMIN BAHAN",
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan: "",
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
+      if (state.terimabahan.feedback.length !== 0) {
+        if (state.terimabahan.kodeStaff !== null) {
+          return {
+            initialValues: {
+              divisi:
+                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
+              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
+              staff: state.terimabahan.kodeStaff,
+              divisi_asal:
+                getLocal("divisi").toUpperCase() === "ADMIN"
+                  ? "ADMIN BAHAN"
+                  : "ADMIN PUSAT",
+              nama_bahan:
+                state.terimabahan.namaBahan !== null
+                  ? state.terimabahan.namaBahan
+                  : state.terimabahan.feedbackTukangByTukang[0]?.nama_bahan,
+              berat_bahan: state.terimabahan.berat,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              divisi:
+                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
+              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
+              divisi_asal:
+                getLocal("divisi").toUpperCase() === "ADMIN"
+                  ? "ADMIN BAHAN"
+                  : "ADMIN PUSAT",
+              staff:
+                state.kirimbahanadmin.feedbackTukangByTukang[0]?.nama_tukang,
+              nama_bahan:
+                state.terimabahan.namaBahan !== null
+                  ? state.terimabahan.namaBahan
+                  : state.terimabahan.feedback[0]?.nama_bahan,
+              berat_bahan: state.terimabahan.berat,
+            },
+          };
+        }
       } else {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: "ADMIN BAHAN",
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan: "",
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      }
-    }
-  } else {
-    if (state.terimabahan.feedback.length !== 0) {
-      if (state.terimabahan.kodeStaff !== null) {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: state.terimabahan.kodeStaff,
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan:
-              state.terimabahan.namaBahan !== null
-                ? state.terimabahan.namaBahan
-                : state.terimabahan.feedbackTukangByTukang[0]?.nama_bahan,
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      } else {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            staff: state.kirimbahanadmin.feedbackTukangByTukang[0]?.nama_tukang,
-            nama_bahan:
-              state.terimabahan.namaBahan !== null
-                ? state.terimabahan.namaBahan
-                : state.terimabahan.feedback[0]?.nama_bahan,
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      }
-    } else {
-      if (state.terimabahan.kodeStaff !== null) {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: state.terimabahan.kodeStaff,
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan: "",
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
-      } else {
-        return {
-          initialValues: {
-            divisi: getLocal("divisi") || "",
-            staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-            staff: state.terimabahan.feedbackTukangByTukang[0]?.nama_tukang,
-            divisi_asal:
-              getLocal("divisi").toUpperCase() === "ADMIN"
-                ? "ADMIN BAHAN"
-                : "ADMIN PUSAT",
-            nama_bahan: "",
-            berat_bahan: state.terimabahan.berat,
-          },
-        };
+        if (state.terimabahan.kodeStaff !== null) {
+          return {
+            initialValues: {
+              divisi:
+                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
+              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
+              staff: state.terimabahan.kodeStaff,
+              divisi_asal:
+                getLocal("divisi").toUpperCase() === "ADMIN"
+                  ? "ADMIN BAHAN"
+                  : "ADMIN PUSAT",
+              nama_bahan: "",
+              berat_bahan: state.terimabahan.berat,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              divisi:
+                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
+              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
+              staff: state.terimabahan.feedbackTukangByTukang[0]?.nama_tukang,
+              divisi_asal:
+                getLocal("divisi").toUpperCase() === "ADMIN"
+                  ? "ADMIN BAHAN"
+                  : "ADMIN PUSAT",
+              nama_bahan: "",
+              berat_bahan: state.terimabahan.berat,
+            },
+          };
+        }
       }
     }
   }
@@ -168,10 +120,12 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  // const dataStaff = useSelector(Tukang.getAllMasterTukang);
   const dataStaffDivisi = useSelector(TerimaBahan.getTukangByDivisi);
+  const dataStaffAsal = useSelector(TerimaBahan.getTukangAsal);
   const dataStaff = useSelector(TerimaBahan.getTukangDivisi);
+  const dataStaffTujuan = useSelector(TerimaBahan.getTukangByDivisi);
   const dataBahan = useSelector(TerimaBahan.getBahan);
+  const dataDivisi = useSelector(TerimaBahan.getAllDivisi);
   const divisi = getLocal("divisi");
 
   return (
@@ -188,17 +142,42 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col span={8} offset={1}>
-            <Field
-              name="divisi_asal"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Divisi Asal"
-              disabled
-            />
-          </Col>
+          {divisi === "Admin" ? (
+            <Col span={8} offset={1}>
+              <Field
+                name="divisi_asal"
+                label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
+                component={styleAntd.ASelect}
+                placeholder="Pilih Divisi Asal"
+                onBlur={(e) => e.preventDefault()}
+                onChange={(e) => dispatch(getTukangAsalByDivisi(e))}
+              >
+                {dataDivisi.map((item) => {
+                  if (item.divisi === "ADMIN PUSAT") {
+                    return false;
+                  } else {
+                    return (
+                      <Option value={item.divisi} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>{item.divisi}</span>
+                      </Option>
+                    );
+                  }
+                })}
+              </Field>
+            </Col>
+          ) : (
+            <Col span={8} offset={1}>
+              <Field
+                name="divisi_asal"
+                type="text"
+                label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
+                component={styleAntd.AInput}
+                className="form-item-group"
+                placeholder="Masukkan Divisi Asal"
+                disabled
+              />
+            </Col>
+          )}
           <Col span={8} offset={1}>
             <Field
               name="divisi"
@@ -210,24 +189,36 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          {divisi.toUpperCase() === "ADMIN" ? (
+          {divisi === "Admin" ? (
             <Col span={8} offset={1}>
               <Field
                 name="staff"
-                type="text"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
-                component={styleAntd.AInput}
-                className="form-item-group"
-                placeholder="Masukkan Tukang Asal"
-                disabled
-              />
+                component={styleAntd.ASelect}
+                placeholder="Pilih Tukang Asal"
+                onBlur={(e) => e.preventDefault()}
+                onChange={(val) => {
+                  dispatch(getBahanbyDivisiAndStaff({ staff: val }));
+                }}
+              >
+                {dataStaffAsal.map((item) => {
+                  return (
+                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                      <span style={{ fontSize: "13px" }}>
+                        {item.kode_tukang === item.nama_tukang
+                          ? item.nama_tukang
+                          : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                      </span>
+                    </Option>
+                  );
+                })}
+              </Field>
             </Col>
           ) : (
             <Col span={8} offset={1}>
               <Field
                 name="staff"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
-                style={{ width: 250 }}
                 component={styleAntd.ASelect}
                 placeholder="Pilih Tukang Asal"
                 onBlur={(e) => e.preventDefault()}
@@ -249,58 +240,55 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               </Field>
             </Col>
           )}
-          {/* <Col span={8} offset={1}>
-            <Field
-              name="staff"
-              label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
-              style={{ width: 250 }}
-              component={styleAntd.ASelect}
-              placeholder="Pilih Tukang Asal"
-              onBlur={(e) => e.preventDefault()}
-              onChange={(val) => {
-                dispatch(getBahanbyDivisiAndStaff({ staff: val }));
-              }}
-            >
-              {dataStaffDivisi.map((item) => {
-                return (
-                  <Option value={item.nama_tukang} key={item.kode_tukang}>
-                    <span style={{ fontSize: "13px" }}>
-                      {item.kode_tukang === item.nama_tukang
-                        ? item.nama_tukang
-                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
-                    </span>
-                  </Option>
-                );
-              })}
-            </Field>
-          </Col> */}
-          <Col span={8} offset={1}>
-            <Field
-              name="staff_tujuan"
-              label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
-              style={{ width: 250 }}
-              component={styleAntd.ASelect}
-              placeholder="Pilih Tukang Tujuan"
-              onBlur={(e) => e.preventDefault()}
-            >
-              {dataStaff.map((item) => {
-                return (
-                  <Option value={item.nama_tukang} key={item.kode_tukang}>
-                    <span style={{ fontSize: "13px" }}>
-                      {item.kode_tukang === item.nama_tukang
-                        ? item.nama_tukang
-                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
-                    </span>
-                  </Option>
-                );
-              })}
-            </Field>
-          </Col>
+          {divisi === "Admin" ? (
+            <Col span={8} offset={1}>
+              <Field
+                name="staff_tujuan"
+                label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
+                component={styleAntd.ASelect}
+                placeholder="Pilih Tukang Tujuan"
+                onBlur={(e) => e.preventDefault()}
+              >
+                {dataStaffTujuan.map((item) => {
+                  return (
+                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                      <span style={{ fontSize: "13px" }}>
+                        {item.kode_tukang === item.nama_tukang
+                          ? item.nama_tukang
+                          : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                      </span>
+                    </Option>
+                  );
+                })}
+              </Field>
+            </Col>
+          ) : (
+            <Col span={8} offset={1}>
+              <Field
+                name="staff_tujuan"
+                label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
+                component={styleAntd.ASelect}
+                placeholder="Pilih Tukang Tujuan"
+                onBlur={(e) => e.preventDefault()}
+              >
+                {dataStaff.map((item) => {
+                  return (
+                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                      <span style={{ fontSize: "13px" }}>
+                        {item.kode_tukang === item.nama_tukang
+                          ? item.nama_tukang
+                          : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                      </span>
+                    </Option>
+                  );
+                })}
+              </Field>
+            </Col>
+          )}
           <Col span={8} offset={1}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}

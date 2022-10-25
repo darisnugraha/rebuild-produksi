@@ -16,6 +16,9 @@ import {
   SET_DETAIL_BAHAN_FAILED,
   SET_TUKANG_DIVISI_PUSAT_SUCCESS,
   SET_TUKANG_DIVISI_PUSAT_FAILED,
+  SET_DIVISI_ALL,
+  SET_TUKANG_ASAL_BY_DIVISI,
+  GET_TUKANG_ASAL_BY_DIVISI,
 } from "../actions/terimabahan";
 
 const initialState = {
@@ -31,6 +34,9 @@ const initialState = {
   divisi: "",
   feedbackTukang: [],
   feedbackTukangByTukang: [],
+  dataDivisi: [],
+  tukangAsal: [],
+  divisiAsal: undefined,
 };
 
 const terimabahan = (state = initialState, action) => {
@@ -93,7 +99,7 @@ const terimabahan = (state = initialState, action) => {
     case SET_TUKANG_DIVISI_FAILED:
       return {
         ...state,
-        feedbackTukang: action.payload.data,
+        feedbackTukang: [],
       };
     case SET_TUKANG_DIVISI_PUSAT_SUCCESS:
       return {
@@ -103,7 +109,7 @@ const terimabahan = (state = initialState, action) => {
     case SET_TUKANG_DIVISI_PUSAT_FAILED:
       return {
         ...state,
-        feedbackTukangByTukang: action.payload.data,
+        feedbackTukangByTukang: [],
       };
     case SET_DETAIL_BAHAN_SUCCESS:
       return {
@@ -114,6 +120,21 @@ const terimabahan = (state = initialState, action) => {
       return {
         ...state,
         detailBahan: undefined,
+      };
+    case SET_DIVISI_ALL:
+      return {
+        ...state,
+        dataDivisi: action.payload.data,
+      };
+    case SET_TUKANG_ASAL_BY_DIVISI:
+      return {
+        ...state,
+        tukangAsal: action.payload.data,
+      };
+    case GET_TUKANG_ASAL_BY_DIVISI:
+      return {
+        ...state,
+        divisiAsal: action.payload.data,
       };
     default:
       return state;

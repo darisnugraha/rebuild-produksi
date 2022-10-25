@@ -12,14 +12,16 @@ import { getAllMasterTukang } from "../../../application/actions/mastertukang";
 import ButtonAbuTukang from "../../components/setor-abu/abu-tukang/button-abu-tukang";
 import TableAbuTukang from "../../components/setor-abu/abu-tukang/table-abu-tukang";
 import FormAbuTukang from "../../components/setor-abu/abu-tukang/form-abu-tukang.jsx";
-import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
-import { addAbuTukang } from "../../../application/actions/abutukang.jsx";
+import {
+  addAbuTukang,
+  getDivisiTukangSusut,
+} from "../../../application/actions/abutukang.jsx";
 
 const AbuTukang = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllDivisi);
+    dispatch(getDivisiTukangSusut);
     dispatch(getAllMasterTukang);
     document.title = "Abu Tukang";
   }, [dispatch]);

@@ -13,6 +13,8 @@ import {
   SET_BERAT_BAHAN,
   SET_STAFF_BY_DIVISI,
   GET_STAFF_BY_DIVISI,
+  SET_BAHAN_BY_TUKANG_ASAL,
+  GET_ALL_STOCK_BAHAN_BY_STAFF,
 } from "../actions/kirimbahanadminpusat";
 
 const initialState = {
@@ -27,6 +29,8 @@ const initialState = {
   dataDivisi: [],
   dataStaffDivisi: [],
   divisi: undefined,
+  bahan: undefined,
+  tukang: undefined,
 };
 
 const kirimbahanadminpusat = (state = initialState, action) => {
@@ -85,6 +89,16 @@ const kirimbahanadminpusat = (state = initialState, action) => {
       return {
         ...state,
         divisi: action.payload.data,
+      };
+    case SET_BAHAN_BY_TUKANG_ASAL:
+      return {
+        ...state,
+        bahan: action.payload.data,
+      };
+    case GET_ALL_STOCK_BAHAN_BY_STAFF:
+      return {
+        ...state,
+        tukang: action.payload.data,
       };
     default:
       return state;

@@ -5,7 +5,11 @@ const getIsEditTerimaBahan = (state) => state.terimabahan.isEdit;
 const getBeratBahan = (state) => state.terimabahan.beratBahan;
 const getTukangDivisi = (state) => state.terimabahan.feedbackTukang;
 const getTukangByDivisi = (state) => state.terimabahan.feedbackTukangByTukang;
+const getAllDivisi = (state) => state.terimabahan.dataDivisi;
+const getTukangAsal = (state) => state.terimabahan.tukangAsal;
 const data = {
+  getAllDivisi,
+  getTukangAsal,
   getTukangByDivisi,
   getTukangDivisi,
   getBahan,

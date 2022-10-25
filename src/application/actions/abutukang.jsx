@@ -17,6 +17,29 @@ export const SET_24K = "[abutukang] set 24K";
 
 export const ADD_ABU_TUKANG = "[abutukang] add abu tukang";
 
+export const GET_DIVISI_TUKANG_SUSUT = "[abutukang] get divisi tukang susut";
+export const SET_DIVISI_TUKANG_SUSUT = "[abutukang] set divisi tukang susut";
+
+export const GET_TUKANG_BY_DIVISI = "[abutukang] get tukang by divisi";
+export const SET_TUKANG_BY_DIVISI = "[abutukang] set tukang by divisi";
+
+export const getDivisiTukangSusut = {
+  type: GET_DIVISI_TUKANG_SUSUT,
+};
+export const setDataDivisiTukangSusut = ({ feedback, datadivisi }) => ({
+  type: SET_DIVISI_TUKANG_SUSUT,
+  payload: { data: feedback, divisi: datadivisi },
+});
+
+export const getTukangByDivisi = (divisi) => ({
+  type: GET_TUKANG_BY_DIVISI,
+  payload: { data: divisi },
+});
+export const setDataTukangByDivisi = ({ feedback }) => ({
+  type: SET_TUKANG_BY_DIVISI,
+  payload: { data: feedback },
+});
+
 export const getAllAbuTukang = {
   type: GET_ALL_ABU_TUKANG,
 };

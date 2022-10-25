@@ -42,7 +42,7 @@ let FormAbuTukang = (prop) => {
   return (
     <Form layout="vertical">
       <Row>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="bahan_kembali"
             type="text"
@@ -56,7 +56,7 @@ let FormAbuTukang = (prop) => {
             placeholder="Masukkan Bahan Kembali"
           />
         </Col>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="berat_kotor_kembali"
             type="text"
@@ -70,7 +70,7 @@ let FormAbuTukang = (prop) => {
             placeholder="Masukkan Berat Kotor Kembali"
           />
         </Col>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="susut_bruto"
             type="text"
@@ -82,7 +82,7 @@ let FormAbuTukang = (prop) => {
             disabled
           />
         </Col>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="kadar"
             type="text"
@@ -94,7 +94,7 @@ let FormAbuTukang = (prop) => {
             placeholder="Masukkan Kadar"
           />
         </Col>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="k_24"
             type="text"
@@ -106,7 +106,7 @@ let FormAbuTukang = (prop) => {
             disabled
           />
         </Col>
-        <Col offset={1} span={8}>
+        <Col offset={1} span={6}>
           <Field
             name="susut_24k"
             type="text"

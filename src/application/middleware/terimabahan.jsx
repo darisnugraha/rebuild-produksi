@@ -10,7 +10,6 @@ import {
   GET_TUKANG_DIVISI,
   setTukangDivisiSuccess,
   setTukangDivisiFailed,
-  getBahanbyDivisiAndStaff,
   GET_DETAIL_BAHAN,
   getDetailBahan,
   setDetailBahanSuccess,
@@ -18,6 +17,12 @@ import {
   GET_TUKANG_DIVISI_PUSAT,
   setTukangDivisiPusatSuccess,
   setTukangDivisiPusatFailed,
+  GET_DIVISI_ALL,
+  setDivisiAll,
+  getTukangAsalByDivisi,
+  GET_TUKANG_ASAL_BY_DIVISI,
+  setTukangAsalByDivisi,
+  getBahanbyDivisiAndStaff,
 } from "../actions/terimabahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -27,15 +32,35 @@ const tukangDivisGetAll =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_DIVISI_ALL) {
+      api.TerimaBahan.getDivisiAll().then((res) => {
+        if (res.value !== null) {
+          dispatch(setDivisiAll({ feedback: res.value }));
+          dispatch(getTukangAsalByDivisi(res.value[0]?.divisi));
+        } else {
+          dispatch(setDivisiAll({ feedback: [] }));
+        }
+      });
+    }
+    if (action.type === GET_TUKANG_ASAL_BY_DIVISI) {
+      const divisi = action.payload.data;
+      api.TerimaBahan.getTukangAsalTerimaDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          dispatch(setTukangAsalByDivisi({ feedback: res.value }));
+          dispatch(
+            getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
+          );
+        } else {
+          dispatch(setTukangAsalByDivisi({ feedback: [] }));
+        }
+      });
+    }
     if (action.type === GET_TUKANG_DIVISI) {
       const divisi = action.payload.data;
       api.TerimaBahan.getTukangTerimaDivisi(divisi).then((res) => {
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setTukangDivisiSuccess({ feedback: res.value }));
-            // dispatch(
-            //   getBahanbyDivisiAndStaff({ staff: res.value[0].nama_tukang })
-            // );
           }
         } else {
           dispatch(setTukangDivisiFailed({ error: res.error }));
@@ -48,9 +73,6 @@ const tukangDivisGetAll =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setTukangDivisiPusatSuccess({ feedback: res.value }));
-            dispatch(
-              getBahanbyDivisiAndStaff({ staff: res.value[0].nama_tukang })
-            );
           }
         } else {
           dispatch(setTukangDivisiPusatFailed({ error: res.error }));
@@ -74,6 +96,7 @@ const getDetailBahanMidd =
             ? "ADMIN PUSAT"
             : data.divisi.toUpperCase(),
         tukang: data.staff,
+        divisi_asal: data.divisi_asal,
         nama_bahan: bahan,
       };
       api.TerimaBahan.getDetailBahan(dataKirim).then((res) => {
@@ -83,19 +106,6 @@ const getDetailBahanMidd =
           dispatch(setDetailBahanFailed({ error: undefined }));
         }
       });
-      // const divisi = action.payload.data;
-      // api.KirimBahanAdmin.getTukangDivisi(divisi).then((res) => {
-      //   if (res.value !== null) {
-      //     if (res.value.length !== 0) {
-      //       dispatch(setTukangDivisiSuccess({ feedback: res.value }));
-      //       dispatch(
-      //         getBahanbyDivisiAndStaff({ staff: res.value[0].nama_tukang })
-      //       );
-      //     }
-      //   } else {
-      //     dispatch(setTukangDivisiFailed({ error: res.error }));
-      //   }
-      // });
     }
   };
 
@@ -195,7 +205,7 @@ const addTerimaTambahan =
             data.divisi.toUpperCase() === "ADMIN"
               ? "ADMIN PUSAT"
               : data.divisi.toUpperCase(),
-          tukang_tujuan: data.staff,
+          tukang_tujuan: data.staff_tujuan,
           tukang_asal: "ADMIN BAHAN",
           nama_bahan: bahan,
           berat: parseFloat(data.berat_bahan),

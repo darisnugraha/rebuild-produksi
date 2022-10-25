@@ -12,6 +12,7 @@ import {
   addKirimBahanAdminPusat,
   getAllStockBahanByStaff,
   getDataStaffByDivisi,
+  setBahanByTukangAsal,
 } from "../../../../application/actions/kirimbahanadminpusat";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 
@@ -19,16 +20,57 @@ const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.kirimbahanadminpusat.dataDivisi !== undefined) {
-    return {
-      initialValues: {
-        divisi: getLocal("divisi"),
-        divisi_tujuan: state.kirimbahanadminpusat.divisi,
-        staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
-        staff_tujuan:
-          state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
-        nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
-      },
-    };
+    if (state.kirimbahanadminpusat.tukang !== undefined) {
+      if (state.kirimbahanadminpusat.bahan !== undefined) {
+        return {
+          initialValues: {
+            divisi: getLocal("divisi"),
+            divisi_tujuan: state.kirimbahanadminpusat.divisi,
+            staff: state.kirimbahanadminpusat.tukang,
+            staff_tujuan:
+              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+            nama_bahan: state.kirimbahanadminpusat.bahan,
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            divisi: getLocal("divisi"),
+            divisi_tujuan: state.kirimbahanadminpusat.divisi,
+            staff: state.kirimbahanadminpusat.tukang,
+            staff_tujuan:
+              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+            nama_bahan:
+              state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
+          },
+        };
+      }
+    } else {
+      if (state.kirimbahanadminpusat.bahan !== undefined) {
+        return {
+          initialValues: {
+            divisi: getLocal("divisi"),
+            divisi_tujuan: state.kirimbahanadminpusat.divisi,
+            staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
+            staff_tujuan:
+              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+            nama_bahan: state.kirimbahanadminpusat.bahan,
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            divisi: getLocal("divisi"),
+            divisi_tujuan: state.kirimbahanadminpusat.divisi,
+            staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
+            staff_tujuan:
+              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+            nama_bahan:
+              state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
+          },
+        };
+      }
+    }
   } else {
     return {
       initialValues: {
@@ -145,6 +187,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setBahanByTukangAsal({ feedback: e }))}
             >
               {dataStockBahan.map((item) => {
                 return (

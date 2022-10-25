@@ -44,6 +44,31 @@ export const SET_DETAIL_BAHAN_SUCCESS =
   "[terimabahan] get detail bahan success";
 export const SET_DETAIL_BAHAN_FAILED = "[terimabahan] get detail bahan failed";
 
+export const GET_DIVISI_ALL = "[terimabahan] get divisi all";
+export const SET_DIVISI_ALL = "[terimabahan] set divisi all";
+
+export const GET_TUKANG_ASAL_BY_DIVISI =
+  "[terimabahan] get tukang asal by divisi";
+export const SET_TUKANG_ASAL_BY_DIVISI =
+  "[terimabahan] set tukang asal by divisi";
+
+export const getTukangAsalByDivisi = (divisi) => ({
+  type: GET_TUKANG_ASAL_BY_DIVISI,
+  payload: { data: divisi },
+});
+export const setTukangAsalByDivisi = ({ feedback }) => ({
+  type: SET_TUKANG_ASAL_BY_DIVISI,
+  payload: { data: feedback },
+});
+
+export const getDivisiAll = {
+  type: GET_DIVISI_ALL,
+};
+export const setDivisiAll = ({ feedback }) => ({
+  type: SET_DIVISI_ALL,
+  payload: { data: feedback },
+});
+
 export const getBahanbyDivisiAndStaff = ({ staff }) => ({
   type: GET_BAHAN,
   payload: { data: staff },

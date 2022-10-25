@@ -24,6 +24,8 @@ const initialState = {
   isEdit: false,
   divisi_asal: "",
   tukang_asal: "",
+  bahan: "",
+  beratBahan: 0,
 };
 
 const terimabahantukang = (state = initialState, action) => {
@@ -47,9 +49,10 @@ const terimabahantukang = (state = initialState, action) => {
         tukang_asal: action.payload.datastaff,
       };
     case GET_BERAT_BAHAN_BY_STAFF:
+      console.log(action.payload.data);
       return {
         ...state,
-        tukang_asal: action.payload.data,
+        bahan: action.payload.data,
       };
     case GET_BAHAN_ASAL_TUKANG:
       return {
@@ -75,6 +78,7 @@ const terimabahantukang = (state = initialState, action) => {
       return {
         ...state,
         feedbackBerat: action.payload.data,
+        beratBahan: action.payload.beratBahan,
       };
     case SET_DATA_BERAT_BAHAN_FAILED:
       return {

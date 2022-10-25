@@ -131,8 +131,8 @@ const URL_GET_ALL_DIVISI = `${baseurl}divisi/open`;
 const URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN = `${baseurl}saldo-bahan/get/divisi-all`;
 const URL_GET_STAFF_BY_DIVISI = `${baseurl}saldo-murni-divisi/tukang-by-divisi/`;
 const URL_GET_STAFF_BY_DIVISI_NEW = `${baseurl}tukang/by-divisi/`;
-const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-murni-divisi/bahan/terima-bahan?`;
-const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-tukang-open`;
+const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-murni/bahan?`;
+const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open?`;
 
 const URL_GET_DETAIL_JO_BY_POST = `${baseurl}kirim-jo/get/detail-jo`;
 const URL_GET_NO_KIRIM_BATU_BY_TANGGAL = `${baseurl}admin-pusat-terima-batu/kirim-batu-open/`;
@@ -146,7 +146,8 @@ const URL_GET_BAHAN_TERIMA_BAHAN = `${baseurl}saldo-bahan/get/bahan`;
 const URL_GET_SALDO_KIRIM_BAHAN_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-open`;
 const URL_GET_BAHAN = `${baseurl}saldo-murni-divisi/bahan/terima-bahan?`;
 const URL_GET_BAHAN_TUKANG = `${baseurl}saldo-murni-divisi/bahan?`;
-const URL_GET_DETAIL_BAHAN_TUKANG = `${baseurl}saldo-murni-divisi/terima-bahan?`;
+const URL_GET_BAHAN_ADMIN_BAHAN = `${baseurl}saldo-murni-divisi/bahan?`;
+const URL_GET_DETAIL_BAHAN_TUKANG = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open?`;
 const URL_GET_BAHAN_PUSAT = `${baseurl}saldo-murni/bahan?`;
 
 const URL_GET_STOCK_BAHAN_DIVISI = `${baseurl}saldo-murni-divisi/stock-bahan-all-divisi`;
@@ -282,8 +283,14 @@ const URL_GET_JO_BY_NO_TERIMA = `${baseurl}terima-job-order/by-no-terima/`;
 
 const URL_ADD_BATAL_PROSES_JO = `${baseurl}kirim-job-order/cancel`;
 const URL_ADD_BATAL_PROSES_JO_TERIMA = `${baseurl}terima-job-order/cancel`;
+const URL_ADD_TERIMA_BAHAN_TUKANG = `${baseurl}saldo-bahan/admin-bahan/terima-bahan-tukang`;
+
+const URL_GET_DIVISI_SUSUT_TUKANG = `${baseurl}divisi/tukang-susut`;
 
 const data = {
+  URL_ADD_TERIMA_BAHAN_TUKANG,
+  URL_GET_BAHAN_ADMIN_BAHAN,
+
   URL_LOGIN,
   URL_LOGOUT,
 
@@ -564,6 +571,8 @@ const data = {
 
   URL_ADD_BATAL_PROSES_JO,
   URL_ADD_BATAL_PROSES_JO_TERIMA,
+
+  URL_GET_DIVISI_SUSUT_TUKANG,
 };
 
 export default data;

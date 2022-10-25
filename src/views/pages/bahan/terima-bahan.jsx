@@ -12,7 +12,10 @@ import FormTerimaBahan from "../../components/bahan/button-terima-bahan";
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
 import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
-import { getTukangByDivisiPusat } from "../../../application/actions/terimabahan.jsx";
+import {
+  getDivisiAll,
+  getTukangByDivisiPusat,
+} from "../../../application/actions/terimabahan.jsx";
 
 const TerimaBahan = () => {
   const dispatch = useDispatch();
@@ -32,6 +35,7 @@ const TerimaBahan = () => {
     dispatch(getAllMasterTukang);
     dispatch(getTukangByDivisiPusat("ADMIN PUSAT"));
     dispatch(pageLoadedLogin);
+    dispatch(getDivisiAll);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

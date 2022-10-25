@@ -5,7 +5,7 @@ import word from "../../../shared/static";
 const TerimaBahan = {
   getBahan: async (data) => {
     if (data.divisi.toUpperCase() === "ADMIN BAHAN") {
-      if (data.divisi_tujuan.toUpperCase() === "ADMIN") {
+      if (data.divisi_tujuan.toUpperCase() === "ADMIN PUSAT") {
         const response = await get({
           url:
             word.URL_GET_BAHAN_TUKANG +
@@ -30,13 +30,12 @@ const TerimaBahan = {
     }
   },
   getTukangTerimaDivisi: async (divisi) => {
-    if (divisi === "ADMIN PUSAT") {
-      const response = await get({ url: word.URL_GET_TUKANG_DIVISI + divisi });
-      return response;
-    } else {
-      const response = await get({ url: word.URL_GET_ALL_MASTER_TUKANG });
-      return response;
-    }
+    const response = await get({ url: word.URL_GET_TUKANG_DIVISI + divisi });
+    return response;
+  },
+  getTukangAsalTerimaDivisi: async (divisi) => {
+    const response = await get({ url: word.URL_GET_TUKANG_DIVISI + divisi });
+    return response;
   },
   getTerimaTambahanByTukang: async ({ dataKirim }) => {
     const response = await get({
@@ -62,7 +61,13 @@ const TerimaBahan = {
     const response = await get({
       url:
         word.URL_GET_DETAIL_BAHAN_TUKANG +
-        `divisi_tujuan=${data.divisi}&tukang=${data.tukang}&nama_bahan=${data.nama_bahan}`,
+        `divisi_asal=${data.divisi_asal}&divisi_tujuan=${data.divisi}&tukang_asal=${data.tukang}&nama_bahan=${data.nama_bahan}`,
+    });
+    return response;
+  },
+  getDivisiAll: async () => {
+    const response = await get({
+      url: word.URL_GET_ALL_DIVISI,
     });
     return response;
   },

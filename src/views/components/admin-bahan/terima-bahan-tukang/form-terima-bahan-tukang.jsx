@@ -7,6 +7,8 @@ import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import TerimaBahanTukang from "../../../../application/selectors/terimabahantukang";
 import {
+  addTerimaBahanTukang,
+  getAllBahanAsalTukang,
   // getAllTukangAsalDivisi,
   getBeratBahanByStaff,
 } from "../../../../application/actions/terimabahantukang";
@@ -19,8 +21,8 @@ const maptostate = (state) => {
       initialValues: {
         divisi_asal: "ADMIN PUSAT",
         tukang_asal: state.terimabahantukang.tukang_asal,
-        bahan: state.terimabahantukang.feedbackBahan[0]?.nama_bahan,
-        berat_bahan: state.terimabahantukang.feedbackBahan[0]?.berat,
+        bahan: state.terimabahantukang.bahan,
+        berat_bahan: state.terimabahantukang.beratBahan,
       },
     };
   } else {
@@ -39,10 +41,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
-  // const dataDivisiAsal = useSelector(
-  //   TerimaBahanTukang.getAllDivisiAsalSaldoBahan
-  // );
+  // const [form] = Form.useForm();
   const dataTukangAsal = useSelector(TerimaBahanTukang.getAllTukangAsal);
   const dataBahanAsal = useSelector(TerimaBahanTukang.getAllBahanAsal);
 
@@ -55,15 +54,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
+        dispatch(addTerimaBahanTukang);
       }}
     >
       <Form layout="vertical">
@@ -107,12 +98,12 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
-              onChange={(e) => dispatch(getBeratBahanByStaff({ staff: e }))}
+              onChange={(e) => dispatch(getAllBahanAsalTukang({ staff: e }))}
             >
               {dataTukangAsal.map((item) => {
                 return (
-                  <Option value={item.tukang} key={item.tukang}>
-                    <span style={{ fontSize: "13px" }}>{item.tukang}</span>
+                  <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_tukang}</span>
                   </Option>
                 );
               })}
@@ -126,11 +117,11 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
-              onChange={(e) => console.log(e)}
+              onChange={(e) => dispatch(getBeratBahanByStaff({ bahan: e }))}
             >
               {dataBahanAsal.map((item) => {
                 return (
-                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                  <Option value={item.nama_bahan} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );
