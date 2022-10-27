@@ -4,8 +4,8 @@ import word from "../../../shared/static";
 
 const TerimaBahan = {
   getBahan: async (data) => {
-    if (data.divisi.toUpperCase() === "ADMIN BAHAN") {
-      if (data.divisi_tujuan.toUpperCase() === "ADMIN PUSAT") {
+    if (data.divisi?.toUpperCase() === "ADMIN BAHAN") {
+      if (data.divisi_tujuan?.toUpperCase() === "ADMIN PUSAT") {
         const response = await get({
           url:
             word.URL_GET_BAHAN_TUKANG +

@@ -16,6 +16,7 @@ import {
   addAbuTukang,
   getDivisiTukangSusut,
 } from "../../../application/actions/abutukang.jsx";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
 const AbuTukang = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const AbuTukang = () => {
     dispatch(pageLoadedLogin);
     dispatch(getDivisiTukangSusut);
     dispatch(getAllMasterTukang);
+    dispatch(getAllMasterBahan);
     document.title = "Abu Tukang";
   }, [dispatch]);
 

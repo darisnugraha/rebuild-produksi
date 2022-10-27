@@ -53,11 +53,10 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Batu"
               onBlur={(e) => e.preventDefault()}
@@ -72,7 +71,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="jumlah_batu"
               type="text"
@@ -83,7 +82,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_batu"
               type="text"
@@ -94,7 +93,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="jumlah_kirim"
               type="text"
@@ -109,7 +108,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               // }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_kirim"
               type="text"

@@ -66,7 +66,6 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>No Kirim Masak</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan No Kirim Masak"
               onBlur={(e) => {
@@ -82,7 +81,6 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
                 <span style={{ fontSize: "13px" }}>Berat Total Kirim</span>
               }
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Total Kirim"
               disabled
@@ -92,7 +90,6 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Jadi</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Jadi"
               onBlur={(e) => e.preventDefault()}
@@ -112,7 +109,6 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Bahan Jadi</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan Jadi"
               onBlur={(e) => {
@@ -126,7 +122,6 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Susut</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Susut"
               disabled

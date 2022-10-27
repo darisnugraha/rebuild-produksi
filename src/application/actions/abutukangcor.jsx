@@ -18,6 +18,8 @@ export const SET_24K = "[abutukangcor] set 24K";
 
 export const ADD_ABU_COR = "[abutukangcor] add abu cor";
 
+export const SET_KETERANGAN = "[abutukangcor] set keterangan";
+
 export const getAllSetorOutstandCasting = {
   type: GET_ALL_SETOR_OUTSTAND_CASTING,
 };
@@ -51,6 +53,11 @@ export const setBeratSusutBruto = (berat) => ({
 
 export const setBahanKembali = (bahan) => ({
   type: SET_BAHAN_KEMBALI,
+  payload: { data: bahan },
+});
+
+export const setKeterangan = (bahan) => ({
+  type: SET_KETERANGAN,
   payload: { data: bahan },
 });
 

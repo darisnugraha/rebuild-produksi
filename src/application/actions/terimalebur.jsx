@@ -7,6 +7,7 @@ export const SET_DATA_TERIMA_LEBUR_FAILED =
 export const SET_SUSUT = "[terimalebur] set susust";
 export const SET_SUSUT_SUCCESS = "[terimalebur] set susut success";
 export const SET_BERAT_TERIMA = "[terimalebur] set berat terima";
+export const SET_CLOSE_SUSUT = "[terimalebur] set close susut";
 
 export const ADD_TERIMA_LEBUR = "[terimalebur] add terima lebur";
 
@@ -34,6 +35,11 @@ export const setDataSusutSuccess = ({ feedback }) => ({
 export const setDataBeratTerima = ({ beratTerima }) => ({
   type: SET_BERAT_TERIMA,
   payload: { data: beratTerima },
+});
+
+export const setCloseSusut = ({ closeSusut }) => ({
+  type: SET_CLOSE_SUSUT,
+  payload: { data: closeSusut },
 });
 
 export const addTerimaLebur = {

@@ -10,6 +10,8 @@ export const ADD_JOB_ORDER_CHECKOUT = "[tambahjoborder] add job order checkout";
 export const GET_DATA_BY_POHON = "[tambahjoborder] get data by pohon";
 export const SET_DATA_BY_POHON = "[tambahjoborder] set data by pohon";
 
+export const SET_TUKANG = "[tambahjoborder] set tukang";
+
 export const addDataStaff = {
   type: ADD_DATA_STAFF,
 };
@@ -46,4 +48,9 @@ export const getDataByPohon = ({ pohon }) => ({
 export const setDataByPohon = ({ feedback }) => ({
   type: SET_DATA_BY_POHON,
   payload: { data: feedback },
+});
+
+export const setTukang = (tukang) => ({
+  type: SET_TUKANG,
+  payload: { data: tukang },
 });

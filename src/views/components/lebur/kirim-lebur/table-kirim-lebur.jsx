@@ -48,6 +48,12 @@ const TableKirimLebur = () => {
       key: "keterangan",
       align: "center",
     },
+    {
+      title: "Keterangan Lebur",
+      dataIndex: "keterangan_lebur",
+      key: "keterangan_lebur",
+      align: "center",
+    },
   ];
   return (
     <Table

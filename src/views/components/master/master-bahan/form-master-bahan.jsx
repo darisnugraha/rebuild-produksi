@@ -71,7 +71,7 @@ let FormTambahMasterBahan = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan ID"
             />
           </Col>
-          <Col offset={1} style={{ display: "none" }}>
+          <Col offset={1}>
             <Field
               name="kode_bahan"
               type="text"
@@ -79,6 +79,7 @@ let FormTambahMasterBahan = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Kode Bahan"
+              disabled={isEdit}
             />
           </Col>
           <Col offset={1}>

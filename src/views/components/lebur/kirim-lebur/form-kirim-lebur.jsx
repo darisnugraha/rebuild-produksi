@@ -20,49 +20,52 @@ const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.form.FormTambahKirimLebur?.values !== undefined) {
-    if (state.kirimlebur.feedback[0] !== undefined) {
-      return {
-        initialValues: {
-          asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-          jenis_bahan: state.kirimlebur.feedback[0]?.jenis_bahan,
-          no_abu:
-            state.kirimlebur.feedback[0]?.no_abu_cor ||
-            state.kirimlebur.feedback[0]?.no_abu_potong ||
-            state.kirimlebur.feedback[0]?.no_abu,
-          berat: state.kirimlebur.feedback[0]?.berat,
-          kadar: state.kirimlebur.feedback[0]?.kadar,
-          karat: state.kirimlebur.karat24,
-          keterangan: "",
-        },
-      };
-    }
     if (state.kirimlebur.asalBahan === "INPUT MANUAL") {
       return {
         initialValues: {
           asal_bahan: "INPUT MANUAL",
-          jenis_bahan: "1",
+          jenis_bahan: "",
           no_abu: "",
           berat: "",
           kadar: "",
           karat: state.kirimlebur.karat24,
-          keterangan: "",
+          keterangan: "1",
+          keterangan_lebur: "",
         },
       };
+    } else {
+      if (state.kirimlebur.feedback.length !== 0) {
+        return {
+          initialValues: {
+            asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
+            jenis_bahan: state.kirimlebur.feedback[0]?.jenis_bahan,
+            no_abu:
+              state.kirimlebur.feedback[0]?.no_abu_cor ||
+              state.kirimlebur.feedback[0]?.no_abu_potong ||
+              state.kirimlebur.feedback[0]?.no_abu ||
+              state.kirimlebur.feedback[0]?.no_abu_tukang,
+            berat: state.kirimlebur.feedback[0]?.berat,
+            kadar: state.kirimlebur.feedback[0]?.kadar,
+            karat: state.kirimlebur.karat24,
+            keterangan: state.kirimlebur.feedback[0]?.keterangan,
+            keterangan_lebur: "",
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
+            jenis_bahan: state.kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan,
+            no_abu: "",
+            berat: 0,
+            kadar: 0,
+            karat: 0,
+            keterangan: state.kirimlebur.feedbackSaldoBahan[0]?.keterangan,
+            keterangan_lebur: "",
+          },
+        };
+      }
     }
-    return {
-      initialValues: {
-        asal_bahan: state.form.FormTambahKirimLebur?.values.asal_bahan,
-        jenis_bahan: state.kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan,
-        no_abu:
-          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu_cor ||
-          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu_potong ||
-          state.kirimlebur.feedbackSaldoBahan[0]?.no_abu,
-        berat: state.kirimlebur.feedbackSaldoBahan[0]?.berat,
-        kadar: state.kirimlebur.feedbackSaldoBahan[0]?.kadar,
-        karat: state.kirimlebur.karat24,
-        keterangan: "",
-      },
-    };
   } else {
     return {
       initialValues: {
@@ -73,6 +76,7 @@ const maptostate = (state) => {
         kadar: "",
         karat: state.kirimlebur.karat24,
         keterangan: "",
+        keterangan_lebur: "",
       },
     };
   }
@@ -98,11 +102,10 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1} span={8}>
+          <Col offset={1} span={10}>
             <Field
               name="asal_bahan"
               label={<span style={{ fontSize: "13px" }}>Asal Bahan</span>}
-              // style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Asal Bahan"
               onBlur={(e) => e.preventDefault()}
@@ -124,16 +127,17 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               </Option>
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col offset={1} span={10}>
             <Field
-              name="jenis_bahan"
-              label={<span style={{ fontSize: "13px" }}>Jenis Bahan</span>}
-              style={{ width: 250 }}
+              name="keterangan"
+              label={<span style={{ fontSize: "13px" }}>Keterangan</span>}
               component={styleAntd.ASelect}
-              placeholder="Pilih Jenis Bahan"
+              placeholder="Pilih Keterangan"
               onBlur={(e) => e.preventDefault()}
               onChange={(val) => {
-                dispatch(getAllSaldoBahan({ idBahan: val }));
+                if (asalbahan !== "INPUT MANUAL") {
+                  dispatch(getAllSaldoBahan({ idBahan: val }));
+                }
               }}
             >
               {asalbahan === "INPUT MANUAL" ? (
@@ -143,9 +147,9 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               ) : (
                 dataJenisBahan.map((item) => {
                   return (
-                    <Option value={item.jenis_bahan} key={item._id}>
+                    <Option value={item.keterangan} key={item._id}>
                       <span style={{ fontSize: "13px" }}>
-                        {item.jenis_bahan}
+                        {item.keterangan}
                       </span>
                     </Option>
                   );
@@ -155,7 +159,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col
             offset={1}
-            span={8}
+            span={10}
             style={{ display: asalbahan === "INPUT MANUAL" ? "none" : "" }}
           >
             <Field
@@ -168,7 +172,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col offset={1} span={10}>
             <Field
               name="berat"
               type="text"
@@ -179,7 +183,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col offset={1} span={10}>
             <Field
               name="kadar"
               type="text"
@@ -190,7 +194,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col offset={1} span={10}>
             <Field
               name="karat"
               type="text"
@@ -202,14 +206,29 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
 
-          <Col offset={1} span={8}>
+          <Col
+            offset={1}
+            span={10}
+            style={{ display: asalbahan === "INPUT MANUAL" ? "none" : "" }}
+          >
             <Field
-              name="keterangan"
+              name="jenis_bahan"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Keterangan</span>}
+              label={<span style={{ fontSize: "13px" }}>Jenis Bahan</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Keterangan"
+              placeholder="Masukkan Jenis Bahan"
+              disabled
+            />
+          </Col>
+          <Col offset={1} span={10}>
+            <Field
+              name="keterangan_lebur"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Keterangan Lebur</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Keterangan Lebur"
             />
           </Col>
         </Row>

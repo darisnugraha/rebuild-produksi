@@ -112,7 +112,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               placeholder="Pilih No Job Order"
               onBlur={(e) => e.preventDefault()}
               onChange={(e) =>
-                dispatch(getAllDetailJO({ noJO: e, type: "CHANGE" }))
+                dispatch(getAllDetailJO({ noJobOrder: e, type: "CHANGE" }))
               }
               // disabled={isEdit}
             >

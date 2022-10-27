@@ -1,6 +1,6 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Row, Col, Modal } from "antd";
+import { Form, Row, Col, Modal, Select } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
@@ -9,14 +9,17 @@ import {
   addDataTerimaCor,
   countSusut,
   getAllDetailPohon,
+  setBahan,
 } from "../../../../application/actions/terimacor";
+import JenisBahan from "../../../../application/selectors/masterbahan";
+import TerimaCOR from "../../../../application/selectors/terimacor";
 
 const maptostate = (state) => {
   if (state.terimacor.feedback.length !== 0) {
     return {
       initialValues: {
         pohon: state.terimacor.noPohon,
-        kode_jenis_bahan: state.terimacor.feedback[0]?.kode_jenis_bahan,
+        kode_jenis_bahan: state.terimacor.bahan,
         berat: state.terimacor.feedback[0]?.berat,
         berat_terima: state.terimacor.beratTerima,
         berat_susut: state.terimacor.susut,
@@ -26,7 +29,7 @@ const maptostate = (state) => {
     return {
       initialValues: {
         pohon: "",
-        kode_jenis_bahan: "",
+        kode_jenis_bahan: state.masterbahan.feedback[0]?.nama_bahan,
         berat: "",
         berat_terima: "",
         berat_susut: "",
@@ -35,11 +38,17 @@ const maptostate = (state) => {
   }
 };
 
+const { Option } = Select;
+
 let FormTerimaCOR = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
+  const data = useSelector(TerimaCOR.getDetailPohon);
+  const detailBahan = data[0]?.detail_bahan;
+
   return (
     <Modal
       visible={visible}
@@ -54,7 +63,7 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="pohon"
               type="text"
@@ -68,19 +77,38 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
             />
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
-              type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan Kode Jenis Bahan"
-              disabled
-            />
+              component={styleAntd.ASelect}
+              placeholder="Pilih Kode Jenis Bahan"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setBahan(e))}
+            >
+              {data.length === 0
+                ? dataJenisBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item.kode_bahan}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })
+                : detailBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item.kode_bahan}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })}
+            </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat"
               type="text"
@@ -91,7 +119,7 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_terima"
               type="text"
@@ -104,7 +132,7 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_susut"
               type="text"

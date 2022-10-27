@@ -5,6 +5,7 @@ import {
   SET_DATA_DETAIL_JO_SUCCESS,
   SET_DATA_BY_POHON,
   GET_DATA_BY_POHON,
+  SET_TUKANG,
 } from "../actions/tambahjoborder";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   isEdit: false,
   dataPohon: undefined,
   noPohon: undefined,
+  tukang: undefined,
 };
 
 const tambahjoborder = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const tambahjoborder = (state = initialState, action) => {
       return {
         ...state,
         noPohon: action.payload.data,
+      };
+    case SET_TUKANG:
+      return {
+        ...state,
+        tukang: action.payload.data,
       };
     default:
       return state;

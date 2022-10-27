@@ -19,6 +19,8 @@ export const SET_24K = "[abutukangpotong] set 24K";
 
 export const ADD_ABU_POTONG = "[abutukangpotong] add abu potong";
 
+export const SET_KETERANGAN = "[abutukangpotong] set keterangan";
+
 export const getAllSetorOutstandPotong = {
   type: GET_ALL_SETOR_OUTSTAND_POTONG,
 };
@@ -53,6 +55,11 @@ export const setBeratSusutBruto = (berat) => ({
 export const setBahanKembali = (bahan) => ({
   type: SET_BAHAN_KEMBALI,
   payload: { data: bahan },
+});
+
+export const setKeterangan = (keterangan) => ({
+  type: SET_KETERANGAN,
+  payload: { data: keterangan },
 });
 
 export const getKadar = (kadar) => ({

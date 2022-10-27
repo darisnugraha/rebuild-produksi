@@ -89,7 +89,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataDivisi = useSelector(KirimBahanAdminPusat.getAllDivisi);
+  const dataDivisi = useSelector(KirimBahanAdminPusat.getAllDivisi) || [];
   const dataStaff = useSelector(
     KirimBahanAdminPusat.getAllStaffStockBahanDivisi
   );

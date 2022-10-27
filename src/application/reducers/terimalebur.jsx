@@ -4,6 +4,7 @@ import {
   SET_DATA_TERIMA_LEBUR_FAILED,
   SET_SUSUT_SUCCESS,
   SET_BERAT_TERIMA,
+  SET_CLOSE_SUSUT,
 } from "../actions/terimalebur";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   isEdit: false,
   susut: 0,
   beratTerima: 0,
+  closeSusut: false,
 };
 
 const terimalebur = (state = initialState, action) => {
@@ -36,6 +38,11 @@ const terimalebur = (state = initialState, action) => {
       return {
         ...state,
         beratTerima: action.payload.data,
+      };
+    case SET_CLOSE_SUSUT:
+      return {
+        ...state,
+        closeSusut: action.payload.data,
       };
     default:
       return state;

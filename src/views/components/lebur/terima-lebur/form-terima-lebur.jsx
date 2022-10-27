@@ -10,6 +10,7 @@ import {
   getTerimaLebur,
   countSusut,
   addTerimaLebur,
+  setCloseSusut,
 } from "../../../../application/actions/terimalebur";
 
 const maptostate = (state) => {
@@ -22,6 +23,7 @@ const maptostate = (state) => {
         kadar: state.terimalebur.feedback[0]?.kadar,
         berat_terima: state.terimalebur.beratTerima,
         berat_susut: state.terimalebur.susut,
+        close_susut: state.terimalebur.closeSusut,
       },
     };
   } else {
@@ -33,6 +35,7 @@ const maptostate = (state) => {
         kadar: "",
         berat_terima: "",
         berat_susut: "",
+        close_susut: state.terimalebur.closeSusut,
       },
     };
   }
@@ -64,7 +67,6 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>No Kirim Lebur</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan No Kirim Lebur"
               onBlur={(e) => {
@@ -78,7 +80,6 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kadar</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Kadar"
               disabled
@@ -90,7 +91,6 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Awal 24k</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Awal 24k"
               disabled
@@ -102,7 +102,6 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>24k</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan 24k"
               disabled
@@ -114,7 +113,6 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Berat Terima</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Berat Terima"
               onBlur={(e) => {
@@ -128,10 +126,21 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={<span style={{ fontSize: "13px" }}>Susut</span>}
               component={styleAntd.AInput}
-              style={{ width: 250 }}
               className="form-item-group"
               placeholder="Masukkan Susut"
               disabled
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              label="Close Susut"
+              name="close_susut"
+              id="close_susut"
+              component={styleAntd.ACheckBox}
+              type="checkbox"
+              onChange={(e) => {
+                dispatch(setCloseSusut({ closeSusut: e.target.checked }));
+              }}
             />
           </Col>
         </Row>

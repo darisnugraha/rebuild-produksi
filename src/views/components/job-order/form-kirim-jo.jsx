@@ -49,8 +49,8 @@ const maptostate = (state) => {
         if (state.kirimjo.dataDetailJO.length !== 0) {
           return {
             initialValues: {
-              divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-              tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
+              divisi_tujuan: state.kirimjo.divisiTujuan,
+              tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
               no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -70,8 +70,8 @@ const maptostate = (state) => {
         } else {
           return {
             initialValues: {
-              divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-              tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
+              divisi_tujuan: state.kirimjo.divisiTujuan,
+              tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
               no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -92,8 +92,8 @@ const maptostate = (state) => {
       } else {
         return {
           initialValues: {
-            divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-            tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
+            divisi_tujuan: state.kirimjo.divisiTujuan,
+            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
             no_job_order: "",
             tukang_asal: "",
             kode_barang: "",
@@ -113,8 +113,8 @@ const maptostate = (state) => {
     } else {
       return {
         initialValues: {
-          divisi_tujuan: state.kirimbahanadmin.feedback[0]?.divisi,
-          tukang_tujuan: state.kirimjo.dataTukang[0]?.kode_tukang,
+          divisi_tujuan: state.kirimjo.divisiTujuan,
+          tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
           no_job_order: "",
           tukang_asal: "",
           kode_barang: "",
@@ -194,7 +194,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             >
               {dataTukang.map((item) => {
                 return (
-                  <Option value={item.kode_tukang} key={item.kode_tukang}>
+                  <Option value={item.nama_tukang} key={item.kode_tukang}>
                     <span style={{ fontSize: "13px" }}>
                       {item.kode_tukang === item.nama_tukang
                         ? item.nama_tukang

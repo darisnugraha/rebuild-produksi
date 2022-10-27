@@ -1,24 +1,19 @@
 import React from "react";
 import "antd/dist/antd.css";
-import {
-  Form,
-  Row,
-  Col,
-  // Select,
-  Modal,
-} from "antd";
+import { Form, Row, Col, Select, Modal } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-// import JenisBahan from "../../../../application/selectors/masterbahan";
+import JenisBahan from "../../../../application/selectors/masterbahan";
+import TerimaTukangPotong from "../../../../application/selectors/terimatukangpotong";
 import {
   addDataTerimaTukangPotong,
   countSusut,
   getTerimaTukangPotong,
 } from "../../../../application/actions/terimatukangpotong";
 
-// const { Option } = Select;
+const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.terimatukangpotong.feedback.length !== 0) {
@@ -27,7 +22,7 @@ const maptostate = (state) => {
         initialValues: {
           pohon: state.terimatukangpotong.noPohon,
           kode_jenis_bahan:
-            state.terimatukangpotong.feedback[0]?.kode_jenis_bahan,
+            state.terimatukangpotong.feedback[0]?.detail_bahan[0]?.nama_bahan,
           nama_jenis_bahan:
             state.terimatukangpotong.jenisBahan[0]?.nama_jenis_bahan,
           berat: state.terimatukangpotong.feedback[0]?.berat_casting,
@@ -42,8 +37,8 @@ const maptostate = (state) => {
     return {
       initialValues: {
         pohon: "",
-        // kode_jenis_bahan: state.masterbahan.feedback[0]?.kode_bahan,
-        kode_jenis_bahan: "",
+        kode_jenis_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+        // kode_jenis_bahan: "",
         nama_jenis_bahan: "",
         berat: 0,
         berat_terima: 0,
@@ -60,7 +55,9 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  // const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
+  const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
+  const data = useSelector(TerimaTukangPotong.getTerimaTukangPotong);
+  const detailBahan = data[0]?.detail_bahan;
 
   return (
     <Modal
@@ -76,7 +73,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="pohon"
               type="text"
@@ -91,25 +88,36 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          {/* <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
-              style={{ width: 200 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Jenis Bahan"
               onBlur={(e) => e.preventDefault()}
             >
-              {dataJenisBahan.map((item) => {
-                return (
-                  <Option value={item.kode_bahan} key={item.kode_bahan}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
-                  </Option>
-                );
-              })}
+              {data.length === 0
+                ? dataJenisBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item.kode_bahan}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })
+                : detailBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item.kode_bahan}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })}
             </Field>
-          </Col> */}
-          <Col offset={1}>
+          </Col>
+          {/* <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -119,8 +127,8 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Kode Jenis Bahan"
               disabled
             />
-          </Col>
-          <Col offset={1}>
+          </Col> */}
+          <Col offset={1} span={8}>
             <Field
               name="nama_jenis_bahan"
               type="text"
@@ -131,7 +139,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat"
               type="text"
@@ -142,7 +150,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_terima"
               type="text"
@@ -152,7 +160,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Berat Pentolan"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_barang"
               type="text"
@@ -165,7 +173,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat_susut"
               type="text"
@@ -176,7 +184,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} style={{ display: "none" }}>
+          <Col offset={1} span={8} style={{ display: "none" }}>
             <Field
               name="tanggal"
               type="text"

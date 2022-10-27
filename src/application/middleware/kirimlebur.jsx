@@ -12,6 +12,7 @@ import {
   setDataAsalBahan,
   SET_LOCAL_DATA_KIRIM_LEBUR,
   ADD_KIRIM_LEBUR,
+  getAllSaldoBahan,
 } from "../actions/kirimlebur";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -53,11 +54,12 @@ const getDataSaldoBahanOpen =
               const karat = parseFloat(res.value[0].berat) * kadarkali;
               dispatch(setData24K({ karat24: karat.toFixed(4) }));
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
+              dispatch(getAllSaldoBahan({ idBahan: res.value[0].keterangan }));
             } else {
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
             }
           } else {
-            dispatch(setData24K({ karat24: "" }));
+            dispatch(setData24K({ karat24: 0 }));
             dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
             dispatch(setDataSaldoBahanOpenFailed({ error: res.error }));
           }
@@ -74,11 +76,13 @@ const getDataSaldoBahanOpen =
               const karat = parseFloat(res.value[0].berat) * kadarkali;
               dispatch(setData24K({ karat24: karat.toFixed(4) }));
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
+              dispatch(getAllSaldoBahan({ idBahan: res.value[0].keterangan }));
             } else {
+              dispatch(setData24K({ karat24: 0 }));
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
             }
           } else {
-            dispatch(setData24K({ karat24: "" }));
+            dispatch(setData24K({ karat24: 0 }));
             dispatch(setDataSaldoBahanOpenSuccess({ feedback: [] }));
             dispatch(setDataSaldoBahanOpenFailed({ error: res.error }));
           }
@@ -98,25 +102,33 @@ const getDataSaldoBahan =
       const data = getState().form.FormTambahKirimLebur.values;
       const dataSaldoBahan = getState().kirimlebur.feedbackSaldoBahan;
       const dataSaldoBahanFill = dataSaldoBahan.filter((item) => {
-        return item.jenis_bahan === id;
+        return item.keterangan === id;
       });
       const onSendData = {
         asal_bahan: data.asal_bahan,
-        jenis_bahan: id,
+        keterangan: id,
         no_abu:
           dataSaldoBahanFill[0].no_abu_cor ||
           dataSaldoBahanFill[0].no_abu_potong ||
-          dataSaldoBahanFill[0].no_abu,
+          dataSaldoBahanFill[0].no_abu ||
+          dataSaldoBahanFill[0].no_abu_tukang,
       };
       api.KirimLebur.getAllSaldoBahan({
         dataKirim: onSendData,
       }).then((res) => {
         if (res.value !== null) {
-          const kadarkali = parseFloat(res.value[0].kadar) / 100;
-          const karat = parseFloat(res.value[0].berat) * kadarkali;
-          dispatch(setData24K({ karat24: karat.toFixed(4) }));
-          dispatch(setDataSaldoBahanSuccess({ feedback: res.value }));
+          if (res.value.length !== 0) {
+            const kadarkali = parseFloat(res.value[0].kadar) / 100;
+            const karat = parseFloat(res.value[0].berat) * kadarkali;
+            dispatch(setData24K({ karat24: karat.toFixed(4) }));
+            dispatch(setDataSaldoBahanSuccess({ feedback: res.value }));
+          } else {
+            dispatch(setData24K({ karat24: 0 }));
+            dispatch(setDataSaldoBahanSuccess({ feedback: [] }));
+          }
         } else {
+          dispatch(setData24K({ karat24: 0 }));
+          dispatch(setDataSaldoBahanSuccess({ feedback: [] }));
           dispatch(setDataSaldoBahanFailed({ error: res.error }));
         }
       });
@@ -140,20 +152,39 @@ const setDataLocalKirimLebur =
           getState().kirimlebur.feedback[0]?.jenis_bahan ||
           getState().kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan;
         data.jenis_bahan = jenisbahan;
-        log(data);
-        if (
-          data.asal_bahan === undefined ||
-          data.jenis_bahan === undefined ||
-          data.berat === undefined ||
-          data.kadar === undefined ||
-          data.karat === undefined ||
-          data.keterangan === undefined
-        ) {
-          sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+        if (data.asal_bahan === "INPUT MANUAL") {
+          if (
+            data.asal_bahan === undefined ||
+            data.keterangan_lebur === undefined ||
+            data.berat === undefined ||
+            data.kadar === undefined ||
+            data.karat === undefined ||
+            data.keterangan === undefined
+          ) {
+            sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+          } else {
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            data.no_abu = "-";
+            data.jenis_bahan = "-";
+            dataLocal.push(data);
+            writeLocal("data_kirim_lebur", dataLocal);
+          }
         } else {
-          sweetalert.default.Success("Berhasil Menyimpan Data !");
-          dataLocal.push(data);
-          writeLocal("data_kirim_lebur", dataLocal);
+          if (
+            data.asal_bahan === undefined ||
+            data.jenis_bahan === undefined ||
+            data.berat === undefined ||
+            data.kadar === undefined ||
+            data.karat === undefined ||
+            data.keterangan === undefined ||
+            data.keterangan_lebur === undefined
+          ) {
+            sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+          } else {
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            dataLocal.push(data);
+            writeLocal("data_kirim_lebur", dataLocal);
+          }
         }
       } else {
         let dataLocal = getLocal("data_kirim_lebur");
@@ -162,19 +193,39 @@ const setDataLocalKirimLebur =
           getState().kirimlebur.feedback[0]?.jenis_bahan ||
           getState().kirimlebur.feedbackSaldoBahan[0]?.jenis_bahan;
         data.jenis_bahan = jenisbahan;
-        if (
-          data.asal_bahan === undefined ||
-          data.jenis_bahan === undefined ||
-          data.berat === undefined ||
-          data.kadar === undefined ||
-          data.karat === undefined ||
-          data.keterangan === undefined
-        ) {
-          sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+        if (data.asal_bahan === "INPUT MANUAL") {
+          if (
+            data.asal_bahan === undefined ||
+            data.keterangan_lebur === undefined ||
+            data.berat === undefined ||
+            data.kadar === undefined ||
+            data.karat === undefined ||
+            data.keterangan === undefined
+          ) {
+            sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+          } else {
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            data.no_abu = "-";
+            data.jenis_bahan = "-";
+            dataLocal.push(data);
+            writeLocal("data_kirim_lebur", dataLocal);
+          }
         } else {
-          sweetalert.default.Success("Berhasil Menyimpan Data !");
-          dataLocal.push(data);
-          writeLocal("data_kirim_lebur", dataLocal);
+          if (
+            data.asal_bahan === undefined ||
+            data.jenis_bahan === undefined ||
+            data.berat === undefined ||
+            data.kadar === undefined ||
+            data.karat === undefined ||
+            data.keterangan === undefined ||
+            data.keterangan_lebur === undefined
+          ) {
+            sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+          } else {
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            dataLocal.push(data);
+            writeLocal("data_kirim_lebur", dataLocal);
+          }
         }
       }
     }
@@ -189,35 +240,38 @@ const addKirimLebur =
     if (action.type === ADD_KIRIM_LEBUR) {
       const data = getLocal("data_kirim_lebur");
       const newArr = [];
-      data.forEach((element) => {
-        const row = {
-          asal_bahan: element.asal_bahan,
-          no_abu: element.no_abu,
-          jenis_bahan: element.jenis_bahan,
-          keterangan: element.keterangan,
-          berat: element.berat,
-          kadar: element.kadar,
-          karat: parseFloat(element.karat),
+      if (data !== null) {
+        data.forEach((element) => {
+          const row = {
+            asal_bahan: element.asal_bahan,
+            no_abu: element.no_abu,
+            jenis_bahan: element.jenis_bahan,
+            keterangan: element.keterangan,
+            keterangan_lebur: element.keterangan_lebur,
+            berat: parseFloat(element.berat),
+            kadar: parseFloat(element.kadar),
+            karat: parseFloat(element.karat),
+          };
+          newArr.push(row);
+        });
+        const onSend = {
+          detail_kirim_lebur: newArr,
         };
-        newArr.push(row);
-      });
-      const onSend = {
-        detail_kirim_lebur: newArr,
-      };
-      api.KirimLebur.addDataKirimLebur({
-        dataKirim: onSend,
-      }).then((res) => {
-        if (res.value !== null) {
-          sweetalert.default.Success(
-            res.value.message || "Berhasil Mengirim Data !"
-          );
-          localStorage.removeItem("data_kirim_lebur");
-        } else {
-          sweetalert.default.Failed(
-            res.error?.data.message || "Gagal Mengirim Data !"
-          );
-        }
-      });
+        api.KirimLebur.addDataKirimLebur({
+          dataKirim: onSend,
+        }).then((res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success(
+              res.value.message || "Berhasil Mengirim Data !"
+            );
+            localStorage.removeItem("data_kirim_lebur");
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Mengirim Data !"
+            );
+          }
+        });
+      }
     }
   };
 

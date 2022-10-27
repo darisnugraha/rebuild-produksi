@@ -10,6 +10,7 @@ export const SET_SUSUT_SUCCESS = "[terimacor] set susut success";
 export const SET_BERAT_TERIMA = "[terimacor] set berat terima";
 
 export const ADD_TERIMA_COR = "[terimacor] add terima cor";
+export const SET_BAHAN = "[terimacor] set bahan";
 
 export const getAllDetailPohon = ({ noPohon }) => ({
   type: GET_ALL_DETAIL_POHON,
@@ -45,3 +46,8 @@ export const setDataBeratTerima = ({ beratTerima }) => ({
 export const addDataTerimaCor = {
   type: ADD_TERIMA_COR,
 };
+
+export const setBahan = (bahan) => ({
+  type: SET_BAHAN,
+  payload: { data: bahan },
+});

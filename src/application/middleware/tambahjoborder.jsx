@@ -77,11 +77,6 @@ const addDataStaff =
     }
     if (action.type === ADD_DATA_STAFF) {
       const data = getState().form.FormDataStaff.values;
-      const dataBahan = getState().masterbahan.feedback;
-      const dataBahanFill = dataBahan.filter((item) => {
-        return item.kode_bahan === data.nama_bahan;
-      });
-      data.nama_bahan = dataBahanFill[0].nama_bahan;
       data.pentolan = 0;
       let dataLocal = [];
       data.no_buat = data.no_buat.toUpperCase();

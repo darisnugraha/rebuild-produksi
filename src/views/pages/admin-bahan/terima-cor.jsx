@@ -9,11 +9,13 @@ import {
 import { Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormTerimaCOR from "../../components/admin-bahan/terima-cor/button-terima-cor";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
 const TerimaCOR = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
+    dispatch(getAllMasterBahan);
     document.title = "Terima COR";
   }, [dispatch]);
 

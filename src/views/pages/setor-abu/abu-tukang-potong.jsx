@@ -13,12 +13,14 @@ import ButtonAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/
 import TableAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/table-abu-tukang-potong";
 import FormAbuTukangPotong from "../../components/setor-abu/abu-tukang-potong/form-abu-tukang-potong.jsx";
 import { addAbuPotong } from "../../../application/actions/abutukangpotong.jsx";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
 const AbuTukangPotong = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterBatu);
+    dispatch(getAllMasterBahan);
     document.title = "Abu Tukang Potong";
   }, [dispatch]);
 

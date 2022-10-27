@@ -51,7 +51,6 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
               name="tanggal_kirim"
               type="date"
               label={<span style={{ fontSize: "13px" }}>Tanggal Kirim</span>}
-              style={{ width: 250 }}
               component={styleAntd.ADatePick}
               className="form-item-group"
               onBlur={(e) => {
@@ -66,7 +65,6 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="no_kirim_batu"
               label={<span style={{ fontSize: "13px" }}>No Kirim Batu</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih No Kirim Batu"
               onBlur={(e) => {
@@ -87,12 +85,11 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="no_job_order"
               type="text"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
-              style={{ width: 250 }}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Job Order"

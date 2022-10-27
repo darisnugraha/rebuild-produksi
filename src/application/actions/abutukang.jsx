@@ -23,6 +23,8 @@ export const SET_DIVISI_TUKANG_SUSUT = "[abutukang] set divisi tukang susut";
 export const GET_TUKANG_BY_DIVISI = "[abutukang] get tukang by divisi";
 export const SET_TUKANG_BY_DIVISI = "[abutukang] set tukang by divisi";
 
+export const SET_KETERANGAN = "[abutukang] set keterangan";
+
 export const getDivisiTukangSusut = {
   type: GET_DIVISI_TUKANG_SUSUT,
 };
@@ -74,6 +76,11 @@ export const setBeratSusutBruto = (berat) => ({
 export const setBahanKembali = (bahan) => ({
   type: SET_BAHAN_KEMBALI,
   payload: { data: bahan },
+});
+
+export const setKeterangan = (keterangan) => ({
+  type: SET_KETERANGAN,
+  payload: { data: keterangan },
 });
 
 export const getKadar = (kadar) => ({

@@ -5,6 +5,7 @@ import {
   SET_NO_POHON,
   SET_SUSUT_SUCCESS,
   SET_BERAT_TERIMA,
+  SET_BAHAN,
 } from "../actions/terimacor";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   noPohon: "",
   susut: 0,
   beratTerima: 0,
+  bahan: undefined,
 };
 
 const terimacor = (state = initialState, action) => {
@@ -42,6 +44,11 @@ const terimacor = (state = initialState, action) => {
       return {
         ...state,
         beratTerima: action.payload.data,
+      };
+    case SET_BAHAN:
+      return {
+        ...state,
+        bahan: action.payload.data,
       };
     default:
       return state;

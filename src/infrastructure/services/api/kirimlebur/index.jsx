@@ -17,7 +17,7 @@ const KirimLebur = {
     const response = await get({
       url:
         word.URL_GET_ALL_SALDO_BAHAN +
-        `${dataKirim.asal_bahan}/${dataKirim.no_abu}/${dataKirim.jenis_bahan}`,
+        `${dataKirim.asal_bahan}/${dataKirim.no_abu}/${dataKirim.keterangan}`,
     });
     return response;
   },

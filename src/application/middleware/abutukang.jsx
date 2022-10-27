@@ -98,6 +98,7 @@ const getDataSetorAbuTukang =
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
         susut_24: parseFloat(data.k_susut24),
+        keterangan: data.keterangan,
         detail_no_kirim: [],
         detail_job_order: [],
       };

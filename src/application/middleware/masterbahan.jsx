@@ -55,7 +55,6 @@ const addDataMasterBahan =
     next(action);
     if (action.type === ADD_MASTER_BAHAN) {
       const data = getState().form.FormTambahMasterBahan.values;
-      delete data.kode_bahan;
       data.kadar = parseFloat(data.kadar);
       api.MasterBahan.addMasterBahan(data).then((res) => {
         if (res.value !== null) {

@@ -7,21 +7,36 @@ import "antd/dist/antd.css";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import KirimBahanAdminPusat from "../../../../application/selectors/kirimbahanadminpusat";
-import { addKirimBahanProduksi } from "../../../../application/actions/kirimbahanadminpusat";
+import {
+  addKirimBahanProduksi,
+  getAllStockBahanByStaff,
+} from "../../../../application/actions/kirimbahanadminpusat";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.kirimbahanadminpusat.feedback !== undefined) {
-    return {
-      initialValues: {
-        divisi: localStorage.getItem("divisi"),
-        staff: state.kirimbahanadminpusat.dataStaff[0]?.tukang,
-        staff_tujuan:
-          state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
-        nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
-      },
-    };
+    if (state.kirimbahanadminpusat.tukang !== undefined) {
+      return {
+        initialValues: {
+          divisi: localStorage.getItem("divisi"),
+          staff: state.kirimbahanadminpusat.tukang,
+          staff_tujuan:
+            state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+          nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
+        },
+      };
+    } else {
+      return {
+        initialValues: {
+          divisi: localStorage.getItem("divisi"),
+          staff: state.kirimbahanadminpusat.dataStaff[0]?.tukang,
+          staff_tujuan:
+            state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+          nama_bahan: state.kirimbahanadminpusat.dataStockBahan[0]?.nama_bahan,
+        },
+      };
+    }
   } else {
     return {
       initialValues: {
@@ -79,6 +94,7 @@ let FormKirimBahan = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Asal"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getAllStockBahanByStaff({ staff: e }))}
             >
               {dataStaff.map((item) => {
                 return (

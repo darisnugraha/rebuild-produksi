@@ -7,6 +7,7 @@ import {
   setDataBeratTerima,
   SET_SUSUT,
   ADD_TERIMA_COR,
+  setBahan,
 } from "../actions/terimacor";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -21,6 +22,7 @@ const getDataDetailPohon =
         if (res.value !== null) {
           dispatch(setDataDetailPohonSuccess({ feedback: res.value }));
           dispatch(setNoPohon({ feedback: action.payload.data }));
+          dispatch(setBahan(res.value[0]?.detail_bahan[0]?.nama_bahan));
         } else {
           sweetalert.default.Failed(
             res.error?.data.message || "Gagal Mengambil Data !"

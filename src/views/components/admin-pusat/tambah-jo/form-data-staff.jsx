@@ -6,29 +6,54 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import DataStaff from "../../../../application/selectors/mastertukang";
-import DataBahan from "../../../../application/selectors/masterjenisbahan";
+import DataBahan from "../../../../application/selectors/masterbahan";
 import TambahJobOrder from "../../../../application/selectors/tambahjoborder";
-import { getDataByPohon } from "../../../../application/actions/tambahjoborder";
+import {
+  getDataByPohon,
+  setTukang,
+} from "../../../../application/actions/tambahjoborder";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
   if (state.tambahjoborder.dataPohon !== undefined) {
-    return {
-      initialValues: {
-        staff: state.mastertukang.feedback[0]?.kode_tukang,
-        nama_bahan: state.tambahjoborder.dataPohon.kode_jenis_bahan,
-        no_buat: state.tambahjoborder.noPohon,
-      },
-    };
+    if (state.tambahjoborder.tukang !== undefined) {
+      return {
+        initialValues: {
+          staff: state.tambahjoborder.tukang,
+          nama_bahan:
+            state.tambahjoborder.dataPohon.detail_bahan[0]?.nama_bahan,
+          no_buat: state.tambahjoborder.noPohon,
+        },
+      };
+    } else {
+      return {
+        initialValues: {
+          staff: state.mastertukang.feedback[0]?.nama_tukang,
+          nama_bahan:
+            state.tambahjoborder.dataPohon.detail_bahan[0]?.nama_bahan,
+          no_buat: state.tambahjoborder.noPohon,
+        },
+      };
+    }
   } else {
-    return {
-      initialValues: {
-        staff: state.mastertukang.feedback[0]?.kode_tukang,
-        nama_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
-        no_buat: state.tambahjoborder.noPohon,
-      },
-    };
+    if (state.tambahjoborder.tukang !== undefined) {
+      return {
+        initialValues: {
+          staff: state.tambahjoborder.tukang,
+          nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+          no_buat: state.tambahjoborder.noPohon,
+        },
+      };
+    } else {
+      return {
+        initialValues: {
+          staff: state.mastertukang.feedback[0]?.nama_tukang,
+          nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+          no_buat: state.tambahjoborder.noPohon,
+        },
+      };
+    }
   }
 };
 
@@ -38,8 +63,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataStaff = useSelector(DataStaff.getAllMasterTukang);
-  const dataBahan = useSelector(DataBahan.getAllMasterJenisBahan);
-  const dataPohon = useSelector(TambahJobOrder.getDataPohon);
+  const dataBahan = useSelector(DataBahan.getAllMasterBahan);
+  const data = useSelector(TambahJobOrder.getDataPohon);
+  const dataBahanPohon = data?.detail_bahan;
 
   return (
     <Modal
@@ -61,10 +87,11 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Staff"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setTukang(e))}
             >
               {dataStaff.map((item) => {
                 return (
-                  <Option value={item.kode_tukang} key={item._id}>
+                  <Option value={item.nama_tukang} key={item._id}>
                     <span style={{ fontSize: "13px" }}>
                       {item.nama_tukang + " (" + item.kode_tukang + ")"}
                     </span>
@@ -94,17 +121,27 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
               onBlur={(e) => e.preventDefault()}
-              disabled={dataPohon !== undefined ? true : false}
+              // disabled={dataPohon !== undefined ? true : false}
             >
-              {dataBahan.map((item) => {
-                return (
-                  <Option value={item.kode_jenis_bahan} key={item._id}>
-                    <span style={{ fontSize: "13px" }}>
-                      {item.nama_jenis_bahan + ` (${item.kode_jenis_bahan})`}
-                    </span>
-                  </Option>
-                );
-              })}
+              {data !== undefined
+                ? dataBahanPohon.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })
+                : dataBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })}
             </Field>
           </Col>
         </Row>

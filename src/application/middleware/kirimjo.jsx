@@ -52,6 +52,7 @@ const getDataDetailJOMidd =
           if (res.value !== null) {
             if (res.value.length === 0) {
               sweetalert.default.Failed("Data Yg Anda Cari Tidak Ada !");
+              dispatch(setDataDetailJOSuccess({ feedback: [] }));
               dispatch(setDataDetailJOFailed({ feedback: [] }));
             } else {
               sweetalert.default.SuccessNoReload("Berhasil !");
@@ -68,6 +69,7 @@ const getDataDetailJOMidd =
           if (res.value !== null) {
             if (res.value.length === 0) {
               dispatch(setDataDetailJOFailed({ feedback: [] }));
+              dispatch(setDataDetailJOSuccess({ feedback: [] }));
             } else {
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
               dispatch(setCountBeratKirimJO(res.value[0].berat_akhir));
@@ -102,17 +104,27 @@ const getDataDetailJOMidd =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             if (dataLocal !== null) {
-              const dataArr = res.value.filter((val) => {
-                return !dataLocal.some((item) => {
-                  return val.no_job_order === item.no_job_order;
+              if (dataLocal.length !== 0) {
+                const dataArr = res.value.filter((val) => {
+                  return !dataLocal.some((item) => {
+                    return val.no_job_order === item.no_job_order;
+                  });
                 });
-              });
 
-              dispatch(setDataByNoInduk(dataArr));
-              if (dataArr.length !== 0) {
+                dispatch(setDataByNoInduk(dataArr));
+                if (dataArr.length !== 0) {
+                  dispatch(
+                    getDataDetailJO({
+                      noJO: dataArr[0]?.no_job_order,
+                      type: "LOAD",
+                    })
+                  );
+                }
+              } else {
+                dispatch(setDataByNoInduk(res.value));
                 dispatch(
                   getDataDetailJO({
-                    noJO: dataArr[0]?.no_job_order,
+                    noJO: res.value[0]?.no_job_order,
                     type: "LOAD",
                   })
                 );
@@ -126,6 +138,9 @@ const getDataDetailJOMidd =
                 })
               );
             }
+          } else {
+            dispatch(setDataDetailJOSuccess({ feedback: [] }));
+            dispatch(setDataByNoInduk([]));
           }
         } else {
           dispatch(setDataByNoInduk([]));
@@ -334,7 +349,7 @@ const addDataLocalKirimJo =
             berat_kirim: parseFloat(data.berat_kirim || 0),
             susut: parseFloat(data.susut || 0),
             jumlah_berat_batu_tak_terpakai: parseFloat(
-              data.jumlah_berat_batu_tak_terpakai
+              data.jumlah_berat_batu_tak_terpakai || 0
             ),
             nama_bahan_tambahan: "",
             jumlah_tambahan: 0,
@@ -347,33 +362,63 @@ const addDataLocalKirimJo =
           sweetalert.default.Success("Berhasil Menyimpan Data !");
           writeLocal("kirim_jo_head", dataArr);
         } else {
-          const divisi_asal = getLocal("divisi");
-          const dataArr = dataLocal;
-          const dataSave = {
-            no_job_order: data.no_job_order,
-            divisi_asal: divisi_asal.toUpperCase(),
-            divisi_tujuan: data.divisi_tujuan,
-            tukang_asal: data.tukang_asal,
-            tukang_tujuan: data.tukang_tujuan,
-            kode_barang: data.kode_barang,
-            nama_barang: data.nama_barang,
-            kode_jenis_bahan: data.kode_jenis_bahan,
-            jumlah_kirim: parseInt(data.jumlah_kirim || 0),
-            berat_kirim: parseFloat(data.berat_kirim || 0),
-            susut: parseFloat(data.susut || 0),
-            jumlah_berat_batu_tak_terpakai: parseFloat(
-              data.jumlah_berat_batu_tak_terpakai
-            ),
-            nama_bahan_tambahan: "",
-            jumlah_tambahan: 0,
-            berat_tambahan: 0,
-            no_induk_job_order: data.no_induk_job_order,
-            jumlah_akhir: parseInt(data.jumlah_akhir),
-            berat_akhir: parseFloat(data.berat_akhir),
-          };
-          dataArr.push(dataSave);
-          sweetalert.default.Success("Berhasil Menyimpan Data !");
-          writeLocal("kirim_jo_head", dataArr);
+          if (dataLocal.length !== 0) {
+            const divisi_asal = getLocal("divisi");
+            const dataArr = dataLocal;
+            const dataSave = {
+              no_job_order: data.no_job_order,
+              divisi_asal: divisi_asal.toUpperCase(),
+              divisi_tujuan: data.divisi_tujuan,
+              tukang_asal: data.tukang_asal,
+              tukang_tujuan: data.tukang_tujuan,
+              kode_barang: data.kode_barang,
+              nama_barang: data.nama_barang,
+              kode_jenis_bahan: data.kode_jenis_bahan,
+              jumlah_kirim: parseInt(data.jumlah_kirim || 0),
+              berat_kirim: parseFloat(data.berat_kirim || 0),
+              susut: parseFloat(data.susut || 0),
+              jumlah_berat_batu_tak_terpakai: parseFloat(
+                data.jumlah_berat_batu_tak_terpakai || 0
+              ),
+              nama_bahan_tambahan: "",
+              jumlah_tambahan: 0,
+              berat_tambahan: 0,
+              no_induk_job_order: data.no_induk_job_order,
+              jumlah_akhir: parseInt(data.jumlah_akhir),
+              berat_akhir: parseFloat(data.berat_akhir),
+            };
+            dataArr.push(dataSave);
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            writeLocal("kirim_jo_head", dataArr);
+          } else {
+            const divisi_asal = getLocal("divisi") || [];
+            const dataArr = [];
+            const dataSave = {
+              no_job_order: data.no_job_order,
+              divisi_asal: divisi_asal.toUpperCase(),
+              divisi_tujuan: data.divisi_tujuan,
+              tukang_asal: data.tukang_asal,
+              tukang_tujuan: data.tukang_tujuan,
+              kode_barang: data.kode_barang,
+              nama_barang: data.nama_barang,
+              kode_jenis_bahan: data.kode_jenis_bahan,
+              jumlah_kirim: parseInt(data.jumlah_kirim || 0),
+              berat_kirim: parseFloat(data.berat_kirim || 0),
+              susut: parseFloat(data.susut || 0),
+              jumlah_berat_batu_tak_terpakai: parseFloat(
+                data.jumlah_berat_batu_tak_terpakai || 0
+              ),
+              nama_bahan_tambahan: "",
+              jumlah_tambahan: 0,
+              berat_tambahan: 0,
+              no_induk_job_order: data.no_induk_job_order,
+              jumlah_akhir: parseInt(data.jumlah_akhir),
+              berat_akhir: parseFloat(data.berat_akhir),
+            };
+            dataArr.push(dataSave);
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            writeLocal("kirim_jo_head", dataArr);
+          }
         }
       }
     }

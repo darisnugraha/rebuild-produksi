@@ -101,6 +101,7 @@ const getDataSetorAbuTukangPotong =
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
         susut_24: parseFloat(data.k_susut24),
+        keterangan: data.keterangan,
         detail_pohon: [],
       };
       const dataPohon = getLocal("data_select_potong");

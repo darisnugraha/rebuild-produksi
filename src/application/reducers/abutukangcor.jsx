@@ -7,6 +7,7 @@ import {
   SET_BAHAN_KEMBALI,
   GET_KADAR,
   SET_24K,
+  SET_KETERANGAN,
 } from "../actions/abutukangcor";
 
 const initialState = {
@@ -17,10 +18,11 @@ const initialState = {
   total_24k: 0,
   berat_bruto: 0,
   berat_kotor: 0,
-  bahan_kembali: 0,
+  bahan_kembali: "",
   kadar: 0,
   k24: 0,
   k_susut24: 0,
+  keterangan: "",
 };
 
 const abutukangcor = (state = initialState, action) => {
@@ -51,6 +53,11 @@ const abutukangcor = (state = initialState, action) => {
       return {
         ...state,
         bahan_kembali: action.payload.data,
+      };
+    case SET_KETERANGAN:
+      return {
+        ...state,
+        keterangan: action.payload.data,
       };
     case GET_KADAR:
       return {

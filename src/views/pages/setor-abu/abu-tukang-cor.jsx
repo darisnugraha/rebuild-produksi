@@ -13,12 +13,14 @@ import ButtonAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/button
 import TableAbuTukangCOR from "../../components/setor-abu/abu-tukang-cor/table-abu-tukang-cor";
 import FormAbuTukangCor from "../../components/setor-abu/abu-tukang-cor/form-abu-tukang-cor.jsx";
 import { addAbuCOR } from "../../../application/actions/abutukangcor.jsx";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 
 const AbuTukangCOR = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllMasterBatu);
+    dispatch(getAllMasterBahan);
     document.title = "Abu Tukang COR";
   }, [dispatch]);
 
