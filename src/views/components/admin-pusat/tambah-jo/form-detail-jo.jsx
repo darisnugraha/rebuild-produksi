@@ -10,19 +10,52 @@ import DataCustomer from "../../../../application/selectors/mastercustomer";
 import DataBarang from "../../../../application/selectors/masteroriginal";
 import DataJenisBahan from "../../../../application/selectors/masterjenisbahan";
 import DataStatus from "../../../../application/selectors/masterstatus";
+import {
+  countBeratBalik,
+  setJumlahBarang,
+  setKodeBarang,
+  setKodeCustomer,
+  setKodeMarketing,
+  setKodeStatusJO,
+  setNamaBarang,
+  setSPK,
+} from "../../../../application/actions/tambahjoborder";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.mastermarketing.feedback !== undefined) {
+  if (state.tambahjoborder.dataPohon !== undefined) {
     return {
       initialValues: {
-        marketing: state.mastermarketing.feedback[0]?.kode_marketing,
-        customer: state.mastercustomer.feedback[0]?.kode_customer,
-        kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
-        kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+        marketing:
+          state.tambahjoborder.kodeMarketing !== undefined
+            ? state.tambahjoborder.kodeMarketing
+            : state.mastermarketing.feedback[0]?.kode_marketing,
+        customer:
+          state.tambahjoborder.kodeCustomer !== undefined
+            ? state.tambahjoborder.kodeCustomer
+            : state.mastercustomer.feedback[0]?.kode_customer,
+        kode_barang:
+          state.tambahjoborder.kodeBarang !== undefined
+            ? state.tambahjoborder.kodeBarang
+            : state.masteroriginal.feedback[0]?.kode_barang,
+        kode_jenis_bahan: state.tambahjoborder.dataPohon.kode_jenis_bahan,
         kode_status_job_order:
-          state.masterstatus.feedback[0]?.kode_status_job_order,
+          state.tambahjoborder.kodeStatusJO !== undefined
+            ? state.tambahjoborder.kodeStatusJO
+            : state.masterstatus.feedback[0]?.kode_status_job_order,
+        berat_potong: state.tambahjoborder.dataPohon.berat_barang,
+        berat: state.tambahjoborder.beratBahan,
+        berat_balik: state.tambahjoborder.beratBalik,
+        no_job_order:
+          state.tambahjoborder.spk !== undefined
+            ? state.tambahjoborder.spk
+            : "",
+        nama_barang:
+          state.tambahjoborder.namaBarang !== undefined
+            ? state.tambahjoborder.namaBarang
+            : "",
+        jumlah: state.tambahjoborder.jumlahBarang,
       },
     };
   } else {
@@ -34,6 +67,9 @@ const maptostate = (state) => {
         kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
         kode_status_job_order:
           state.masterstatus.feedback[0]?.kode_status_job_order,
+        berat_potong: 0,
+        berat: state.tambahjoborder.beratBahan,
+        berat_balik: state.tambahjoborder.beratBalik,
       },
     };
   }
@@ -69,6 +105,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Marketing"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setKodeMarketing(e))}
             >
               {dataMarketing.map((item) => {
                 return (
@@ -88,6 +125,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Customer"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setKodeCustomer(e))}
             >
               {dataCustomer.map((item) => {
                 return (
@@ -108,6 +146,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No SPK"
+              onChange={(e) => dispatch(setSPK(e.target.value))}
             />
           </Col>
           <Col span={12}>
@@ -117,6 +156,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Barang"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setKodeBarang(e))}
             >
               {dataBarang.map((item) => {
                 return (
@@ -135,6 +175,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Nama Barang"
+              onChange={(e) => dispatch(setNamaBarang(e.target.value))}
             />
           </Col>
           <Col span={12}>
@@ -171,6 +212,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Status Job Order"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setKodeStatusJO(e))}
             >
               {dataStatus.map((item) => {
                 return (
@@ -197,6 +239,20 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Jumlah Bahan"
+              onChange={(e) => dispatch(setJumlahBarang(e.target.value))}
+            />
+          </Col>
+          <Col span={12}>
+            <Field
+              name="berat_potong"
+              type="text"
+              label={
+                <span style={{ fontSize: "13px" }}>Berat Terima Potong</span>
+              }
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Terima Potong"
+              disabled
             />
           </Col>
           <Col span={12}>
@@ -207,6 +263,18 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan"
+              onChange={(e) => dispatch(countBeratBalik(e.target.value))}
+            />
+          </Col>
+          <Col span={12}>
+            <Field
+              name="berat_balik"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Berat Balik</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Balik"
+              disabled
             />
           </Col>
           <Col span={12}>

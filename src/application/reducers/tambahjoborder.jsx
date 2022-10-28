@@ -6,6 +6,15 @@ import {
   SET_DATA_BY_POHON,
   GET_DATA_BY_POHON,
   SET_TUKANG,
+  COUNT_BERAT_BALIK,
+  SET_BERAT_BALIK,
+  SET_KODE_MARKETING,
+  SET_KODE_CUSTOMER,
+  SET_KODE_STATUS_JO,
+  SET_KODE_BARANG,
+  SET_SPK,
+  SET_NAMA_BARANG,
+  SET_JUMLAH_BARANG,
 } from "../actions/tambahjoborder";
 
 const initialState = {
@@ -17,6 +26,15 @@ const initialState = {
   dataPohon: undefined,
   noPohon: undefined,
   tukang: undefined,
+  beratBahan: 0,
+  beratBalik: 0,
+  kodeMarketing: undefined,
+  kodeCustomer: undefined,
+  kodeStatusJO: undefined,
+  kodeBarang: undefined,
+  spk: undefined,
+  namaBarang: undefined,
+  jumlahBarang: 0,
 };
 
 const tambahjoborder = (state = initialState, action) => {
@@ -50,6 +68,51 @@ const tambahjoborder = (state = initialState, action) => {
       return {
         ...state,
         tukang: action.payload.data,
+      };
+    case COUNT_BERAT_BALIK:
+      return {
+        ...state,
+        beratBahan: action.payload.data,
+      };
+    case SET_BERAT_BALIK:
+      return {
+        ...state,
+        beratBalik: action.payload.data,
+      };
+    case SET_KODE_MARKETING:
+      return {
+        ...state,
+        kodeMarketing: action.payload.data,
+      };
+    case SET_KODE_CUSTOMER:
+      return {
+        ...state,
+        kodeCustomer: action.payload.data,
+      };
+    case SET_KODE_STATUS_JO:
+      return {
+        ...state,
+        kodeStatusJO: action.payload.data,
+      };
+    case SET_KODE_BARANG:
+      return {
+        ...state,
+        kodeBarang: action.payload.data,
+      };
+    case SET_SPK:
+      return {
+        ...state,
+        spk: action.payload.data,
+      };
+    case SET_NAMA_BARANG:
+      return {
+        ...state,
+        namaBarang: action.payload.data,
+      };
+    case SET_JUMLAH_BARANG:
+      return {
+        ...state,
+        jumlahBarang: action.payload.data,
       };
     default:
       return state;

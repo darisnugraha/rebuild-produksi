@@ -18,7 +18,11 @@ import { getAllMasterJenisBahan } from "../../../application/actions/masterjenis
 import { getAllMasterStatus } from "../../../application/actions/masterstatus";
 import FormTambahJO from "../../components/admin-pusat/tambah-jo/button-add-tambah-jo";
 import TableTambahJO from "../../components/admin-pusat/tambah-jo/table-tambah-jo";
-import { addCheckOutJO } from "../../../application/actions/tambahjoborder.jsx";
+import {
+  addCheckOutJO,
+  getDataByPohon,
+} from "../../../application/actions/tambahjoborder.jsx";
+import getLocal from "../../../infrastructure/services/local/get-local";
 
 const TambahJO = () => {
   const dispatch = useDispatch();
@@ -31,6 +35,11 @@ const TambahJO = () => {
     dispatch(getAllMasterOriginal);
     dispatch(getAllMasterJenisBahan);
     dispatch(getAllMasterStatus);
+
+    const dataLocal = getLocal("data_staff");
+    if (dataLocal !== null) {
+      dispatch(getDataByPohon({ pohon: dataLocal[0].no_buat }));
+    }
 
     document.title = "Tambah Job Order";
   }, [dispatch]);

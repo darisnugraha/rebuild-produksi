@@ -62,10 +62,11 @@ const addDataTerimaCor =
       data.berat_terima = parseFloat(data.berat_terima);
       const dataKirim = {
         no_pohon: data.pohon,
-        kode_jenis_bahan: data.kode_jenis_bahan,
+        kode_jenis_bahan: data.real_kode_jenis_bahan,
         berat_awal: data.berat,
         berat_terima: data.berat_terima,
         berat_susut: data.berat_susut,
+        nama_bahan: data.kode_jenis_bahan,
       };
       api.TerimaCOR.addTerimaCOR(dataKirim).then((res) => {
         if (res.value !== null) {

@@ -21,8 +21,8 @@ const maptostate = (state) => {
       return {
         initialValues: {
           staff: state.tambahjoborder.tukang,
-          nama_bahan:
-            state.tambahjoborder.dataPohon.detail_bahan[0]?.nama_bahan,
+          nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+          berat_awal: state.tambahjoborder.dataPohon?.berat,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -30,8 +30,8 @@ const maptostate = (state) => {
       return {
         initialValues: {
           staff: state.mastertukang.feedback[0]?.nama_tukang,
-          nama_bahan:
-            state.tambahjoborder.dataPohon.detail_bahan[0]?.nama_bahan,
+          nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+          berat_awal: state.tambahjoborder.dataPohon?.berat,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -42,6 +42,7 @@ const maptostate = (state) => {
         initialValues: {
           staff: state.tambahjoborder.tukang,
           nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+          berat_awal: 0,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -50,6 +51,7 @@ const maptostate = (state) => {
         initialValues: {
           staff: state.mastertukang.feedback[0]?.nama_tukang,
           nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+          berat_awal: 0,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -121,7 +123,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
               onBlur={(e) => e.preventDefault()}
-              // disabled={dataPohon !== undefined ? true : false}
+              disabled={data !== undefined ? true : false}
             >
               {data !== undefined
                 ? dataBahanPohon.map((item) => {
@@ -143,6 +145,17 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                     );
                   })}
             </Field>
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="berat_awal"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Berat Awal</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Awal"
+              disabled
+            />
           </Col>
         </Row>
       </Form>

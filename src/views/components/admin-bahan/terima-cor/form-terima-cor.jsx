@@ -20,6 +20,7 @@ const maptostate = (state) => {
       initialValues: {
         pohon: state.terimacor.noPohon,
         kode_jenis_bahan: state.terimacor.bahan,
+        real_kode_jenis_bahan: state.terimacor.feedback[0]?.kode_jenis_bahan,
         berat: state.terimacor.feedback[0]?.berat,
         berat_terima: state.terimacor.beratTerima,
         berat_susut: state.terimacor.susut,
@@ -30,6 +31,7 @@ const maptostate = (state) => {
       initialValues: {
         pohon: "",
         kode_jenis_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+        real_kode_jenis_bahan: "",
         berat: "",
         berat_terima: "",
         berat_susut: "",
@@ -80,9 +82,9 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
           <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
-              label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
+              label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}
-              placeholder="Pilih Kode Jenis Bahan"
+              placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
               onChange={(e) => dispatch(setBahan(e))}
             >
@@ -108,6 +110,17 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
             </Field>
           </Col>
 
+          <Col offset={1} span={8} style={{ display: "none" }}>
+            <Field
+              name="real_kode_jenis_bahan"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kode Jenis Bahan"
+              disabled
+            />
+          </Col>
           <Col offset={1} span={8}>
             <Field
               name="berat"

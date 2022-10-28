@@ -21,8 +21,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           pohon: state.terimatukangpotong.noPohon,
-          kode_jenis_bahan:
-            state.terimatukangpotong.feedback[0]?.detail_bahan[0]?.nama_bahan,
+          kode_jenis_bahan: state.terimatukangpotong.feedback[0]?.nama_bahan,
           nama_jenis_bahan:
             state.terimatukangpotong.jenisBahan[0]?.nama_jenis_bahan,
           berat: state.terimatukangpotong.feedback[0]?.berat_casting,
@@ -30,6 +29,8 @@ const maptostate = (state) => {
           berat_barang: state.terimatukangpotong.beratTerima,
           berat_susut: state.terimatukangpotong.susut,
           tanggal: state.terimatukangpotong.feedback[0]?.tgl_terima_casting,
+          real_kode_jenis_bahan:
+            state.terimatukangpotong.jenisBahan[0]?.kode_jenis_bahan,
         },
       };
     }
@@ -38,13 +39,13 @@ const maptostate = (state) => {
       initialValues: {
         pohon: "",
         kode_jenis_bahan: state.masterbahan.feedback[0]?.nama_bahan,
-        // kode_jenis_bahan: "",
         nama_jenis_bahan: "",
         berat: 0,
         berat_terima: 0,
         berat_barang: 0,
         berat_susut: 0,
         tanggal: "",
+        real_kode_jenis_bahan: "",
       },
     };
   }
@@ -91,10 +92,11 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
           <Col offset={1} span={8}>
             <Field
               name="kode_jenis_bahan"
-              label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
+              label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}
-              placeholder="Pilih Kode Jenis Bahan"
+              placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
+              disabled={data.length !== 0}
             >
               {data.length === 0
                 ? dataJenisBahan.map((item) => {
@@ -117,9 +119,9 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
                   })}
             </Field>
           </Col>
-          {/* <Col offset={1} span={8}>
+          <Col offset={1} span={8} style={{ display: "none" }}>
             <Field
-              name="kode_jenis_bahan"
+              name="real_kode_jenis_bahan"
               type="text"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
               component={styleAntd.AInput}
@@ -127,7 +129,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Kode Jenis Bahan"
               disabled
             />
-          </Col> */}
+          </Col>
           <Col offset={1} span={8}>
             <Field
               name="nama_jenis_bahan"

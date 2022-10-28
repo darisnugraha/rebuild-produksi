@@ -89,13 +89,14 @@ const addDataTerimaTukangPotong =
         data.berat_terima = parseFloat(data.berat_terima);
         data.berat_barang = parseFloat(data.berat_barang);
         const dataKirim = {
-          no_pohon: data.pohon.toUpperCase(),
-          kode_jenis_bahan: data.kode_jenis_bahan.toUpperCase(),
-          nama_jenis_bahan: data.nama_jenis_bahan.toUpperCase(),
+          no_pohon: data.pohon,
+          kode_jenis_bahan: data.real_kode_jenis_bahan,
+          nama_jenis_bahan: data.nama_jenis_bahan,
           berat_awal: data.berat,
           berat_pentolan: data.berat_terima,
           berat_barang: data.berat_barang,
           berat_susut: data.berat_susut,
+          nama_bahan: data.kode_jenis_bahan,
         };
         api.TerimaTukangPotong.addTerimaPotong(dataKirim).then((res) => {
           if (res.value !== null) {

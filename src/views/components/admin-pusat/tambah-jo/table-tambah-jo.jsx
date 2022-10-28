@@ -37,9 +37,21 @@ const TableTambahJO = () => {
       align: "center",
     },
     {
+      title: "Berat Terima Potong",
+      dataIndex: "berat_potong",
+      key: "berat_potong",
+      align: "center",
+    },
+    {
       title: "Berat",
       dataIndex: "berat",
       key: "berat",
+      align: "center",
+    },
+    {
+      title: "Berat Balik",
+      dataIndex: "berat_balik",
+      key: "berat_balik",
       align: "center",
     },
     {

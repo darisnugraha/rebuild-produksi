@@ -6,6 +6,9 @@ import {
   ADD_JOB_ORDER_CHECKOUT,
   GET_DATA_BY_POHON,
   setDataByPohon,
+  COUNT_BERAT_BALIK,
+  countBeratBalik,
+  setBeratBalik,
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -36,8 +39,10 @@ const addCheckoutJobOrder =
             kode_barang: element.kode_barang,
             nama_barang: element.nama_barang,
             kode_jenis_bahan: element.kode_jenis_bahan,
-            berat: element.berat,
-            jumlah: element.jumlah,
+            nama_bahan: data[0].nama_bahan,
+            berat: parseFloat(element.berat),
+            jumlah: parseInt(element.jumlah),
+            berat_balik: parseFloat(element.berat_balik),
             tukang: data[0].staff,
             kode_marketing: element.marketing,
             kode_customer: element.customer,
@@ -160,6 +165,33 @@ const addDataDetailJO =
     }
   };
 
-const data = [addDataStaff, addDataDetailJO, addCheckoutJobOrder];
+const countDataBeratBalik =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === COUNT_BERAT_BALIK) {
+      const beratBahan = parseFloat(action.payload.data || 0);
+      const data = getState().form.FormDetailJobOrder.values;
+      const beratBarang = parseFloat(data.berat_potong || 0);
+      if (beratBahan > beratBarang) {
+        sweetalert.default.Failed(
+          "Berat Bahan Tidak Boleh Melebihi Berat Potong !"
+        );
+        dispatch(countBeratBalik(0));
+      } else {
+        const beratBalik = beratBarang - beratBahan;
+        dispatch(setBeratBalik(beratBalik));
+      }
+    }
+  };
+
+const data = [
+  addDataStaff,
+  addDataDetailJO,
+  addCheckoutJobOrder,
+  countDataBeratBalik,
+];
 
 export default data;
