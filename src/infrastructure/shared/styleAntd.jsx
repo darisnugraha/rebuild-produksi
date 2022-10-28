@@ -11,19 +11,12 @@ const makeField =
     const hasError = meta.touched && meta.invalid;
     return (
       <FormItem
-        // {...formItemLayout}
         label={label}
         validateStatus={hasError ? "error" : "success"}
         hasFeedback={hasFeedback && hasError}
         help={hasError && meta.error}
-        // style={{ textTransform: "uppercase" }}
       >
-        <Component
-          {...input}
-          {...rest}
-          children={children}
-          // style={{ textTransform: "uppercase" }}
-        />
+        <Component {...input} {...rest} children={children} />
       </FormItem>
     );
   };
