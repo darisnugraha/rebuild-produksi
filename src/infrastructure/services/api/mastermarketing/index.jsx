@@ -23,7 +23,9 @@ const MasterMarketing = {
     return response;
   },
   deleteMasterMarketing: async (data) => {
-    const response = await deleteAxios(word.URL_DELETE_MASTER_MARKETING + data);
+    const response = await deleteAxios(
+      word.URL_DELETE_MASTER_MARKETING + "/" + data
+    );
     return response;
   },
   editMasterMarketing: async (id, data) => {

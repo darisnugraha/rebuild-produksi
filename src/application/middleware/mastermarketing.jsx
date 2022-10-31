@@ -55,6 +55,8 @@ const addDataMasterMarketing =
     next(action);
     if (action.type === ADD_MASTER_MARKETING) {
       const data = getState().form.FormTambahMasterMarketing.values;
+      data.kode_marketing = data.kode_marketing.toUpperCase();
+      data.nama_marketing = data.nama_marketing.toUpperCase();
       api.MasterMarketing.addMasterMarketing(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -97,6 +99,8 @@ const editDataMasterMarketing =
       const data = getState().form.FormTambahMasterMarketing.values;
       const id = data.id;
       delete data.id;
+      data.kode_marketing = data.kode_marketing.toUpperCase();
+      data.nama_marketing = data.nama_marketing.toUpperCase();
       api.MasterMarketing.editMasterMarketing(id, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");

@@ -55,6 +55,8 @@ const addDataMasterCuttinBatu =
     next(action);
     if (action.type === ADD_MASTER_CUTTING_BATU) {
       const data = getState().form.FormTambahMasterCuttingBatu.values;
+      data.kode_cutting_batu = data.kode_cutting_batu.toUpperCase();
+      data.nama_cutting_batu = data.nama_cutting_batu.toUpperCase();
       api.MasterCuttingBatu.addMasterCuttingBatu(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -97,8 +99,8 @@ const editDataMasterCuttinBatu =
       const data = getState().form.FormTambahMasterCuttingBatu.values;
       const id = data.id;
       const datakirim = {
-        kode_cutting_batu: data.kode_cutting_batu,
-        nama_cutting_batu: data.nama_cutting_batu,
+        kode_cutting_batu: data.kode_cutting_batu.toUpperCase(),
+        nama_cutting_batu: data.nama_cutting_batu.toUpperCase(),
       };
       api.MasterCuttingBatu.editMasterCuttingBatu("/" + id, datakirim).then(
         (res) => {

@@ -84,6 +84,8 @@ const deleteDataMasterJenisBahan =
     next(action);
     if (action.type === DELETE_MASTER_JENIS_BAHAN) {
       const id = action.payload.data;
+      data.kode_jenis_bahan = data.kode_jenis_bahan?.toUpperCase();
+      data.nama_jenis_bahan = data.nama_jenis_bahan?.toUpperCase();
       api.MasterJenisBahan.deleteMasterJenisBahan("/" + id).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menghapus Data !");
@@ -106,8 +108,8 @@ const editDataMasterJenisBahan =
       const data = getState().form.FormTambahMasterJenisBahan.values;
       const id = data.id;
       const dataKirim = {
-        kode_jenis_bahan: data.kode_jenis_bahan,
-        nama_jenis_bahan: data.nama_jenis_bahan,
+        kode_jenis_bahan: data.kode_jenis_bahan.toUpperCase(),
+        nama_jenis_bahan: data.nama_jenis_bahan.toUpperCase(),
         kode_warna: data.kode_warna,
         kadar: parseFloat(data.kadar),
       };

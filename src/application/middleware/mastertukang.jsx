@@ -55,6 +55,8 @@ const addDataMasterTukang =
     next(action);
     if (action.type === ADD_MASTER_TUKANG) {
       const data = getState().form.FormTambahMasterTukang.values;
+      data.kode_tukang = data.kode_tukang.toUpperCase();
+      data.nama_tukang = data.nama_tukang.toUpperCase();
       api.MasterTukang.addMasterTukang(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -97,6 +99,8 @@ const editDataMasterTukang =
       const data = getState().form.FormTambahMasterTukang.values;
       const id = data.id;
       delete data.id;
+      data.kode_tukang = data.kode_tukang.toUpperCase();
+      data.nama_tukang = data.nama_tukang.toUpperCase();
       api.MasterTukang.editMasterTukang("/" + id, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");

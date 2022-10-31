@@ -51,6 +51,8 @@ const addDataMasterJenis =
     next(action);
     if (action.type === ADD_MASTER_JENIS) {
       const data = getState().form.FormTambahMasterJenis.values;
+      data.kode_jenis = data.kode_jenis?.toUpperCase();
+      data.nama_jenis = data.nama_jenis?.toUpperCase();
       api.masterjenis.addMasterJenis(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -93,8 +95,8 @@ const editDataMasterJenis =
       const data = getState().form.FormTambahMasterJenis.values;
       const id = data._id;
       const dataKirim = {
-        kode_jenis: data.kode_jenis,
-        nama_jenis: data.nama_jenis,
+        kode_jenis: data.kode_jenis.toUpperCase(),
+        nama_jenis: data.nama_jenis.toUpperCase(),
       };
       api.masterjenis.editMasterJenis("/" + id, dataKirim).then((res) => {
         if (res.value !== null) {

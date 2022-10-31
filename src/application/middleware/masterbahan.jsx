@@ -55,6 +55,8 @@ const addDataMasterBahan =
     next(action);
     if (action.type === ADD_MASTER_BAHAN) {
       const data = getState().form.FormTambahMasterBahan.values;
+      data.kode_bahan = data.kode_bahan.toUpperCase();
+      data.nama_bahan = data.nama_bahan.toUpperCase();
       data.kadar = parseFloat(data.kadar);
       api.MasterBahan.addMasterBahan(data).then((res) => {
         if (res.value !== null) {
@@ -98,6 +100,8 @@ const editDataMasterBahan =
       const data = getState().form.FormTambahMasterBahan.values;
       const id = data.id;
       delete data.id;
+      data.kode_bahan = data.kode_bahan.toUpperCase();
+      data.nama_bahan = data.nama_bahan.toUpperCase();
       data.kadar = parseFloat(data.kadar);
       api.MasterBahan.editMasterBahan("/" + id, data).then((res) => {
         if (res.value !== null) {

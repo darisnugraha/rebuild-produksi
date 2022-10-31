@@ -55,6 +55,8 @@ const addDataMasterStatus =
     next(action);
     if (action.type === ADD_MASTER_STATUS) {
       const data = getState().form.FormTambahMasterStatus.values;
+      data.kode_status_job_order = data.kode_status_job_order.toUpperCase();
+      data.nama_status_job_order = data.nama_status_job_order.toUpperCase();
       api.MasterStatus.addMasterStatus(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -97,6 +99,8 @@ const editDataMasterStatus =
       const data = getState().form.FormTambahMasterStatus.values;
       const id = data.id;
       delete data.id;
+      data.kode_status_job_order = data.kode_status_job_order.toUpperCase();
+      data.nama_status_job_order = data.nama_status_job_order.toUpperCase();
       api.MasterStatus.editMasterStatus("/" + id, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");

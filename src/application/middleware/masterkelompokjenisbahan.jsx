@@ -72,6 +72,8 @@ const addDataMasterKelompokJenisBahan =
     if (action.type === ADD_MASTER_KELOMPOK_JENIS_BAHAN) {
       const data = getState().form.FormTambahMasterKelompokJenisBahan.values;
       data.kadar = parseFloat(data.kadar);
+      data.kode_kelompok = data.kode_kelompok.toUpperCase();
+      data.nama_kelompok = data.nama_kelompok.toUpperCase();
       api.MasterKelompokJenisBahan.addMasterKelompokJenisBahan(data).then(
         (res) => {
           if (res.value !== null) {
@@ -118,8 +120,8 @@ const editDataMasterKelompokJenisBahan =
       const data = getState().form.FormTambahMasterKelompokJenisBahan.values;
       const id = data.id;
       const dataKirim = {
-        kode_kelompok: data.kode_kelompok,
-        nama_kelompok: data.nama_kelompok,
+        kode_kelompok: data.kode_kelompok.toUpperCase(),
+        nama_kelompok: data.nama_kelompok.toUpperCase(),
       };
       api.MasterKelompokJenisBahan.editMasterKelompokJenisBahan(
         "/" + id,

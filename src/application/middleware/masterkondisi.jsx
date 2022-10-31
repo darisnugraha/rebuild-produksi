@@ -55,6 +55,8 @@ const addDataMasterKondisi =
     next(action);
     if (action.type === ADD_MASTER_KONDISI) {
       const data = getState().form.FormTambahMasterKondisi.values;
+      data.kode_kondisi = data.kode_kondisi.toUpperCase();
+      data.nama_kondisi = data.nama_kondisi.toUpperCase();
       api.MasterKondisi.addMasterKondisi(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -95,6 +97,8 @@ const editDataMasterKondisi =
     next(action);
     if (action.type === EDIT_MASTER_KONDISI) {
       const data = getState().form.FormTambahMasterKondisi.values;
+      data.kode_kondisi = data.kode_kondisi.toUpperCase();
+      data.nama_kondisi = data.nama_kondisi.toUpperCase();
       const id = data.id;
       delete data.id;
       api.MasterKondisi.editMasterKondisi("/" + id, data).then((res) => {

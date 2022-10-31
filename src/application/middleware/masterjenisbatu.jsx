@@ -54,6 +54,8 @@ const addDataMasterJenisBatu =
     next(action);
     if (action.type === ADD_MASTER_JENIS_BATU) {
       const data = getState().form.FormTambahMasterJenisBatu.values;
+      data.kode_jenis_batu = data.kode_jenis_batu.toUpperCase();
+      data.nama_jenis_batu = data.nama_jenis_batu.toUpperCase();
       api.MasterJenisBatu.addMasterJenisBatu(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -96,8 +98,8 @@ const editDataMasterJenisBatu =
       const data = getState().form.FormTambahMasterJenisBatu.values;
       const id = data.id;
       const data_kirim = {
-        kode_jenis_batu: data.kode_jenis_batu,
-        nama_jenis_batu: data.nama_jenis_batu,
+        kode_jenis_batu: data.kode_jenis_batu.toUpperCase(),
+        nama_jenis_batu: data.nama_jenis_batu.toUpperCase(),
       };
       api.MasterJenisBatu.editMasterJenisBatu("/" + id, data_kirim).then(
         (res) => {

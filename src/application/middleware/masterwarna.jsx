@@ -55,6 +55,8 @@ const addDataMasterWarna =
     next(action);
     if (action.type === ADD_MASTER_WARNA) {
       const data = getState().form.FormTambahMasterWarna.values;
+      data.kode_warna = data.kode_warna?.toUpperCase();
+      data.nama_warna = data.nama_warna?.toUpperCase();
       api.MasterWarna.addMasterWarna(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -95,8 +97,8 @@ const editDataMasterWarna =
       const data = getState().form.FormTambahMasterWarna.values;
       const id = data.id;
       const dataKirim = {
-        kode_warna: data.kode_warna,
-        nama_warna: data.nama_warna,
+        kode_warna: data.kode_warna.toUpperCase(),
+        nama_warna: data.nama_warna.toUpperCase(),
       };
       api.MasterWarna.editMasterWarna("/" + id, dataKirim).then((res) => {
         if (res.value !== null) {

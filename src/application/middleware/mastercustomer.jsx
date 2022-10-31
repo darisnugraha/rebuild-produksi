@@ -97,6 +97,8 @@ const editDataMasterCustomer =
       const data = getState().form.FormTambahMasterCustomer.values;
       const id = data.id;
       delete data.id;
+      data.kode_customer = data.kode_customer.toUpperCase();
+      data.nama_customer = data.nama_customer.toUpperCase();
       api.MasterCustomer.editMasterCustomer("/" + id, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");

@@ -57,6 +57,8 @@ const addDataMasterBatu =
       const data = getState().form.FormTambahMasterBatu.values;
       // data.berat_batu = parseFloat(data.berat_batu);
       delete data.berat_batu;
+      data.kode_batu = data.kode_batu.toUpperCase();
+      data.nama_batu = data.nama_batu.toUpperCase();
       api.MasterBatu.addMasterBatu(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -100,6 +102,8 @@ const editDataMasterBatu =
       data.berat_batu = parseFloat(data.berat_batu);
       const id = data.id;
       delete data.id;
+      data.kode_batu = data.kode_batu.toUpperCase();
+      data.nama_batu = data.nama_batu.toUpperCase();
       api.MasterBatu.editMasterBatu("/" + id, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");
