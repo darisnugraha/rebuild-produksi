@@ -18,6 +18,8 @@ export const SET_EDIT_FORM_OFF = "[masteroriginal] edit form off";
 export const ADD_MASTER_ORIGINAL = "[masteroriginal] add form master original";
 export const EDIT_MASTER_ORIGINAL =
   "[masteroriginal] edit form master original";
+export const DELETE_MASTER_ORIGINAL =
+  "[masteroriginal] delete form master original";
 
 export const getAllMasterOriginal = {
   type: GET_ALL_MASTER_ORIGINAL,
@@ -56,3 +58,8 @@ export const addMasterOriginal = {
 export const editMasterOriginal = {
   type: EDIT_MASTER_ORIGINAL,
 };
+
+export const deleteMasterOriginal = (id) => ({
+  type: DELETE_MASTER_ORIGINAL,
+  payload: { data: id },
+});

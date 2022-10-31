@@ -49,7 +49,7 @@ const TableMasterBillOfMaterialss = () => {
         const currValue = e.target.value;
         setValue(currValue);
         const filteredData = data.filter((entry) =>
-          entry.kode_kelompok.includes(currValue.toUpperCase())
+          entry.kode_kelompok.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

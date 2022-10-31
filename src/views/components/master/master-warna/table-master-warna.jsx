@@ -49,8 +49,8 @@ const TableMasterWarna = () => {
         setValue(currValue);
         const filteredData = dataMasterWarna.filter(
           (entry) =>
-            entry.nama_warna.includes(currValue.toUpperCase()) ||
-            entry.kode_warna.includes(currValue.toUpperCase())
+            entry.nama_warna.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kode_warna.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

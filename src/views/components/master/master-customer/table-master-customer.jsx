@@ -47,14 +47,18 @@ const TableMasterCustomer = () => {
         setValue(currValue);
         const filteredData = dataMasterCustomer.filter(
           (entry) =>
-            entry.kode_customer.includes(currValue.toUpperCase()) ||
-            entry.nama_toko.includes(currValue.toUpperCase()) ||
-            entry.nama_customer.includes(currValue.toUpperCase()) ||
-            entry.alamat.includes(currValue.toUpperCase()) ||
+            entry.kode_customer
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.nama_toko.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.nama_customer
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.alamat.toUpperCase().includes(currValue.toUpperCase()) ||
             entry.no_hp.includes(currValue.toUpperCase()) ||
-            entry.email.includes(currValue.toUpperCase()) ||
-            entry.negara.includes(currValue.toUpperCase()) ||
-            entry.lokasi.includes(currValue.toUpperCase())
+            entry.email.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.negara.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.lokasi.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

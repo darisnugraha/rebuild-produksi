@@ -46,8 +46,12 @@ const TableMasterKondisi = () => {
       onChange={(e) => {
         const currValue = e.target.value;
         setValue(currValue);
-        const filteredData = dataMasterKondisi.filter((entry) =>
-          entry.kondisi.includes(currValue.toUpperCase())
+        const filteredData = dataMasterKondisi.filter(
+          (entry) =>
+            entry.kode_kondisi
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.nama_kondisi.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

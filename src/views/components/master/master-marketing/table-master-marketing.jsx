@@ -49,10 +49,14 @@ const TableMasterMarketing = () => {
         setValue(currValue);
         const filteredData = dataMasterMarketing.filter(
           (entry) =>
-            entry.kode_marketing.includes(currValue.toUpperCase()) ||
-            entry.nama_marketing.includes(currValue.toUpperCase()) ||
+            entry.kode_marketing
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.nama_marketing
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
             entry.no_hp.includes(currValue.toUpperCase()) ||
-            entry.email.includes(currValue.toUpperCase())
+            entry.email.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

@@ -48,8 +48,8 @@ const TableMasterJenis = () => {
         setValue(currValue);
         const filteredData = dataMasterJenis.filter(
           (entry) =>
-            entry.nama_jenis.includes(currValue.toUpperCase()) ||
-            entry.kode_jenis.includes(currValue.toUpperCase())
+            entry.nama_jenis.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kode_jenis.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

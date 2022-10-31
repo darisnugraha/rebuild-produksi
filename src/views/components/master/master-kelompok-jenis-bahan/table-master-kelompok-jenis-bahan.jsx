@@ -51,8 +51,10 @@ const TableMasterKelompokJenisBahan = () => {
         setValue(currValue);
         const filteredData = data.filter(
           (entry) =>
-            entry.nama_kelompok.includes(currValue.toUpperCase()) ||
-            entry.kode_kelompok.includes(currValue.toUpperCase())
+            entry.nama_kelompok
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.kode_kelompok.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

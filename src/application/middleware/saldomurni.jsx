@@ -76,7 +76,11 @@ const addTambahSaldoBahan =
         kategori: data.type_trx,
         keterangan: data.keterangan,
       };
-      dispatch(setTambahSaldoBahan({ dataSaldoMurni: dataKirim }));
+      if (dataKirim.berat < 0) {
+        sweetalert.default.Failed("Berat Tidak Boleh Kurang Dari 0 !");
+      } else {
+        dispatch(setTambahSaldoBahan({ dataSaldoMurni: dataKirim }));
+      }
     }
   };
 
@@ -96,7 +100,11 @@ const addAmbilSaldoBahan =
         kategori: data.type_trx,
         keterangan: data.keterangan,
       };
-      dispatch(setAmbilhSaldoBahan({ dataSaldoMurni: dataKirim }));
+      if (dataKirim.berat < 0) {
+        sweetalert.default.Failed("Berat Tidak Boleh Kurang Dari 0 !");
+      } else {
+        dispatch(setAmbilhSaldoBahan({ dataSaldoMurni: dataKirim }));
+      }
     }
   };
 
@@ -109,6 +117,7 @@ const saveSaldoBahanAuth =
     if (action.type === SAVE_SALDO_BAHAN) {
       const data = getState().form.FormAuthorize.values;
       const dataKirim = getState().saldomurni.dataTambahBahan;
+
       api.MasterUser.authorizeUser(data).then((res) => {
         if (res.value !== null) {
           if (dataKirim.kategori === "TAMBAH") {

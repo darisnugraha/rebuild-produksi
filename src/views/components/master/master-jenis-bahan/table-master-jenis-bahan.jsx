@@ -49,10 +49,14 @@ const TableMasterJenisBahan = () => {
         setValue(currValue);
         const filteredData = dataMasterJenisBahan.filter(
           (entry) =>
-            entry.nama_jenis_bahan.includes(currValue.toUpperCase()) ||
-            entry.kode_jenis_bahan.includes(currValue.toUpperCase()) ||
-            entry.kode_warna.includes(currValue.toUpperCase()) ||
-            entry.kadar.includes(currValue.toUpperCase())
+            entry.nama_jenis_bahan
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.kode_jenis_bahan
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.kode_warna.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kadar.toString().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);
@@ -71,12 +75,12 @@ const TableMasterJenisBahan = () => {
           key: "kode_jenis_bahan",
           align: "center",
         },
-        {
-          title: "Kode Kelompok",
-          dataIndex: "kode_kelompok",
-          key: "kode_kelompok",
-          align: "center",
-        },
+        // {
+        //   title: "Kode Kelompok",
+        //   dataIndex: "kode_kelompok",
+        //   key: "kode_kelompok",
+        //   align: "center",
+        // },
         {
           title: "Nama Jenis bahan",
           dataIndex: "nama_jenis_bahan",

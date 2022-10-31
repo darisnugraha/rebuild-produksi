@@ -29,7 +29,10 @@ const MasterMarketing = {
     return response;
   },
   editMasterMarketing: async (id, data) => {
-    const response = await put(word.URL_UPDATE_MASTER_MARKETING + id, data);
+    const response = await put(
+      word.URL_UPDATE_MASTER_MARKETING + "/" + id,
+      data
+    );
     return response;
   },
 };

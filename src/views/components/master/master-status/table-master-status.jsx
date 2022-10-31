@@ -47,8 +47,8 @@ const TableMasterStatus = () => {
         setValue(currValue);
         const filteredData = dataMasterStatus.filter(
           (entry) =>
-            entry.kode_status_job_order.includes(currValue.toUpperCase()) ||
-            entry.nama_status_job_order.includes(currValue.toUpperCase())
+            entry.kode_status_job_order.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.nama_status_job_order.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

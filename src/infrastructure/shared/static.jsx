@@ -105,8 +105,8 @@ const URL_UPDATE_MASTER_STATUS = `${baseurl}status-job-order`;
 const URL_GET_ALL_MASTER_ORIGINAL = `${baseurl}barang-master/open`;
 const URL_GET_MASTER_ORIGINAL_BY_ID = `${baseurl}barang-master/by-id/`;
 const URL_ADD_MASTER_ORIGINAL = `${baseurl}barang-master`;
-const URL_DELETE_MASTER_ORIGINAL = `${baseurl}barang-master`;
-const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}barang-master`;
+const URL_DELETE_MASTER_ORIGINAL = `${baseurl}barang-master/`;
+const URL_UPDATE_MASTER_ORIGINAL = `${baseurl}barang-master/`;
 
 const URL_GET_JO_BY_ID_KIRIM_BATU = `${baseurl}admin-batu/jo-kirim-batu-proses/`;
 const URL_GET_DETAIL_BATU_KIRIM_PUSAT = `${baseurl}admin-pusat-kirim-batu/list-batu/by-no-terima/`;

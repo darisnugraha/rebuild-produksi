@@ -50,8 +50,12 @@ const TableMasterJenisBatu = () => {
         setValue(currValue);
         const filteredData = dataMasterJenisBatu.filter(
           (entry) =>
-            entry.kode_jenis_batu.includes(currValue.toUpperCase()) ||
-            entry.nama_jenis_batu.includes(currValue.toUpperCase())
+            entry.kode_jenis_batu
+              .toUpperCase()
+              .includes(currValue.toUpperCase()) ||
+            entry.nama_jenis_batu
+              .toUpperCase()
+              .includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

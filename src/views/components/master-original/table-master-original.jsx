@@ -7,6 +7,7 @@ import MasterOriginal from "../../../application/selectors/masteroriginal";
 import Swal from "sweetalert2";
 import FormMasterOriginal from "./form-master-original";
 import {
+  deleteMasterOriginal,
   getMasterOriginalById,
   setEditFormMasterOriginal,
 } from "../../../application/actions/masteroriginal";
@@ -33,7 +34,7 @@ const TableMasterOriginal = () => {
       confirmButtonText: "Ya",
     }).then((result) => {
       if (result.isConfirmed) {
-        // dispatch(deleteMasterUkuran({ id: kode }));
+        dispatch(deleteMasterOriginal(kode));
       }
     });
   };

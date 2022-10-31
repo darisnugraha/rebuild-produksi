@@ -74,14 +74,18 @@ const tukangAsalDivisiGetAll =
       const divisi = action.payload.data;
       api.TerimaBahanTukang.getStaffByDivisi(divisi).then((res) => {
         if (res.value !== null) {
-          dispatch(
-            setDataTukangAsalDivisiSuccess({
-              feedback: res.value,
-              divisi_asal: action.payload.data,
-              staff_asal: res.value[0].nama_tukang,
-            })
-          );
-          dispatch(getAllBahanAsalTukang({ staff: res.value[0].nama_tukang }));
+          if (res.value.length !== 0) {
+            dispatch(
+              setDataTukangAsalDivisiSuccess({
+                feedback: res.value,
+                divisi_asal: action.payload.data,
+                staff_asal: res.value[0].nama_tukang,
+              })
+            );
+            dispatch(
+              getAllBahanAsalTukang({ staff: res.value[0].nama_tukang })
+            );
+          }
         } else {
           dispatch(setDataTukangAsalDivisiFailed({ error: res.error }));
         }

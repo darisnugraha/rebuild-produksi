@@ -48,11 +48,11 @@ const TableMasterBatu = () => {
         setValue(currValue);
         const filteredData = dataMasterBatu.filter(
           (entry) =>
-            entry.kode_batu.includes(currValue.toUpperCase()) ||
-            entry.nama_batu.includes(currValue.toUpperCase()) ||
-            entry.kode_jenis_batu.includes(currValue.toUpperCase()) ||
-            entry.kode_cutting_batu.includes(currValue.toUpperCase()) ||
-            entry.ukuran.includes(currValue.toUpperCase())
+            entry.kode_batu.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.nama_batu.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kode_jenis_batu.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kode_cutting_batu.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.ukuran.toUpperCase().includes(currValue.toUpperCase())
           // entry.berat_batu.includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);

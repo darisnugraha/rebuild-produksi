@@ -39,6 +39,7 @@ const AxiosGet = async ({ url }) => {
           icon: "error",
         }).then(() => {
           localStorage.clear();
+          window.location.reload();
         });
       } else {
         return {

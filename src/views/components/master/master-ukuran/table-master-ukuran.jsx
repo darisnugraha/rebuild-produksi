@@ -45,8 +45,10 @@ const TableMasterUkuran = () => {
       onChange={(e) => {
         const currValue = e.target.value;
         setValue(currValue);
-        const filteredData = dataMasterUkuran.filter((entry) =>
-          entry.nama_ukuran.includes(currValue.toUpperCase())
+        const filteredData = dataMasterUkuran.filter(
+          (entry) =>
+            entry.kode_ukuran.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.nama_ukuran.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

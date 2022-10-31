@@ -47,8 +47,8 @@ const TableMasterBahan = () => {
         setValue(currValue);
         const filteredData = dataMasterBahan.filter(
           (entry) =>
-            entry.kode_bahan.includes(currValue.toUpperCase()) ||
-            entry.nama_bahan.includes(currValue.toUpperCase())
+            entry.nama_bahan.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.kadar.toString().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);

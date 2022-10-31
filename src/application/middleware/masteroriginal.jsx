@@ -7,6 +7,8 @@ import {
   setDataMasterOriginalByIdFailed,
   setEditFormMasterOriginal,
   ADD_MASTER_ORIGINAL,
+  EDIT_MASTER_ORIGINAL,
+  DELETE_MASTER_ORIGINAL,
 } from "../actions/masteroriginal";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -52,6 +54,32 @@ const addDataMasterOriginal =
         } else {
           sweetalert.default.Failed(
             res.error?.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
+    }
+    if (action.type === EDIT_MASTER_ORIGINAL) {
+      const data = getState().form.FormTambahMasterOriginal.values;
+      const dataid = data.id;
+      delete data.id;
+      api.MasterOriginal.editMasterOriginal(dataid, data).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Merubah Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error?.data.message || "Gagal Merubah Data !"
+          );
+        }
+      });
+    }
+    if (action.type === DELETE_MASTER_ORIGINAL) {
+      const id = action.payload.data;
+      api.MasterOriginal.deleteMasterOriginal(id).then((res) => {
+        if (res.value !== null) {
+          sweetalert.default.Success("Berhasil Menghapus Data !");
+        } else {
+          sweetalert.default.Failed(
+            res.error?.data.message || "Gagal Menghapus Data !"
           );
         }
       });

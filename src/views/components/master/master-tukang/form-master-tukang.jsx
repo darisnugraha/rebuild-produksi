@@ -106,7 +106,6 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Divisi"
               onBlur={(e) => e.preventDefault()}

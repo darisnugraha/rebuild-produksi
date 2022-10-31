@@ -44,42 +44,77 @@ const addDetailJenisBahan =
       if (
         data.berat_dibutuhkan === undefined ||
         data.berat_susut === undefined ||
-        data.no_pohon === undefined
+        data.no_pohon === undefined ||
+        data.kode_jenis_bahan === undefined
       ) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
-        const dataDetail = getLocal("data_detail_jenis_bahan");
-        api.PembuatanJenisBahan.getBillOfMaterials(data).then((res) => {
-          if (res.value !== null) {
-            dispatch(setDetailBillOfMaterials({ feedback: res.value }));
-            writeLocal("data_detail_bahan", res.value);
-            if (dataDetail === null || dataDetail.length === 0) {
-              dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
-              datalocal.push(data);
-              writeLocal("data_detail_jenis_bahan", datalocal);
-              sweetalert.default.Success("Berhasil Menambahkan Data !");
+        if (
+          parseFloat(data.berat_dibutuhkan) < 0 ||
+          parseFloat(data.berat_susut) < 0
+        ) {
+          sweetalert.default.Failed("Berat Tidak Boleh Kurang Dari 0 !");
+        } else {
+          const dataDetail = getLocal("data_detail_jenis_bahan");
+          api.PembuatanJenisBahan.getBillOfMaterials(data).then((res) => {
+            if (res.value !== null) {
+              dispatch(setDetailBillOfMaterials({ feedback: res.value }));
+              writeLocal("data_detail_bahan", res.value);
+              if (dataDetail === null || dataDetail.length === 0) {
+                dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
+                datalocal.push(data);
+                writeLocal("data_detail_jenis_bahan", datalocal);
+                sweetalert.default.Success("Berhasil Menambahkan Data !");
+              } else {
+                Swal.fire({
+                  title: "Add Data",
+                  text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
+                  icon: "info",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ya",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    sweetalert.default.Success("Berhasil Menambahkan Data !");
+                    dispatch(
+                      addDataDetailJenisBahanSuccess({ feedback: data })
+                    );
+                    datalocal.push(data);
+                    writeLocal("data_detail_jenis_bahan", datalocal);
+                  }
+                });
+              }
             } else {
-              Swal.fire({
-                title: "Add Data",
-                text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
-                icon: "info",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  sweetalert.default.Success("Berhasil Menambahkan Data !");
-                  dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
-                  datalocal.push(data);
-                  writeLocal("data_detail_jenis_bahan", datalocal);
-                }
-              });
+              dispatch(setDetailBillOfMaterials({ feedback: [] }));
+              if (dataDetail === null || dataDetail.length === 0) {
+                dispatch(addDataDetailJenisBahanSuccess({ feedback: data }));
+                datalocal.push(data);
+                writeLocal("data_detail_jenis_bahan", datalocal);
+                sweetalert.default.Success("Berhasil Menambahkan Data !");
+              } else {
+                Swal.fire({
+                  title: "Add Data",
+                  text: "Apakah Anda Yakin Akan Mengganti Data Sebelumnya ?",
+                  icon: "info",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  confirmButtonText: "Ya",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    sweetalert.default.Success("Berhasil Menambahkan Data !");
+                    dispatch(
+                      addDataDetailJenisBahanSuccess({ feedback: data })
+                    );
+                    datalocal.push(data);
+                    writeLocal("data_detail_jenis_bahan", datalocal);
+                  }
+                });
+              }
             }
-          } else {
-            dispatch(setDetailBillOfMaterials({ feedback: [] }));
-          }
-        });
+          });
+        }
       }
     }
   };
@@ -97,17 +132,21 @@ const addDetailBahan =
       ) {
         const data = getState().form.FormTambahBahan?.values;
         let datalocal = [];
-        if (data.berat_bahan === undefined) {
+        if (data.berat === undefined) {
           sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
         } else if (!getLocal("data_detail_jenis_bahan")) {
           sweetalert.default.Failed(
             "Tambahkan Detail Jenis Bahan Terlebih Dahulu !"
           );
         } else {
-          sweetalert.default.Success("Berhasil Menambahkan Data !");
-          dispatch(addDataDetailBahanSuccess({ feedback: data }));
-          datalocal.push(data);
-          writeLocal("data_detail_bahan", datalocal);
+          if (parseFloat(data.berat) < 0) {
+            sweetalert.default.Failed("Berat Tidak Boleh Kurang Dari 0 !");
+          } else {
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+            dispatch(addDataDetailBahanSuccess({ feedback: data }));
+            datalocal.push(data);
+            writeLocal("data_detail_bahan", datalocal);
+          }
         }
       } else {
         const data = getState().form.FormTambahBahan?.values;
@@ -126,10 +165,17 @@ const addDetailBahan =
             `Bahan ${data.kode_bahan} Sudah Ada Pada Tabel !`
           );
         } else {
-          sweetalert.default.Success("Berhasil Menambahkan Data !");
-          dispatch(addDataDetailBahanSuccess({ feedback: data }));
-          datalocal.push(data);
-          writeLocal("data_detail_bahan", datalocal);
+          sweetalert.default.Failed(
+            `Bahan ${data.kode_bahan} Sudah Ada Pada Tabel !`
+          );
+          if (parseFloat(data.berat) < 0) {
+            sweetalert.default.Failed("Berat Tidak Boleh Kurang Dari 0 !");
+          } else {
+            sweetalert.default.Success("Berhasil Menambahkan Data !");
+            dispatch(addDataDetailBahanSuccess({ feedback: data }));
+            datalocal.push(data);
+            writeLocal("data_detail_bahan", datalocal);
+          }
         }
       }
     }

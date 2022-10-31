@@ -49,8 +49,8 @@ const TableMasterCuttingBatu = () => {
         setValue(currValue);
         const filteredData = dataMasterCuttingBatu.filter(
           (entry) =>
-            entry.kode_cutting_batu.includes(currValue.toUpperCase()) ||
-            entry.nama_cutting_batu.includes(currValue.toUpperCase())
+            entry.kode_cutting_batu.toUpperCase().includes(currValue.toUpperCase()) ||
+            entry.nama_cutting_batu.toUpperCase().includes(currValue.toUpperCase())
         );
         setDataSource(filteredData);
         setSearch(true);
