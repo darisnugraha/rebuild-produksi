@@ -12,6 +12,7 @@ import {
   addTambahBatu,
   // countBeratTambahAmbilBatu,
 } from "../../../../application/actions/tambahambilbatu";
+import ValidasiTambahAmbilBatu from "../../../../infrastructure/validate/TambahAmbilBatuValidate";
 
 const maptostate = (state) => {
   if (state.tambahambilbatu.dataBatu.length !== 0) {
@@ -177,5 +178,6 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
 FormTambahAmbilBatu = reduxForm({
   form: "FormTambahAmbilBatu",
   enableReinitialize: true,
+  validate: ValidasiTambahAmbilBatu,
 })(FormTambahAmbilBatu);
 export default connect(maptostate, null)(FormTambahAmbilBatu);
