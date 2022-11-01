@@ -112,6 +112,7 @@ const editDataMasterJenisBahan =
         nama_jenis_bahan: data.nama_jenis_bahan.toUpperCase(),
         kode_warna: data.kode_warna,
         kadar: parseFloat(data.kadar),
+        kode_kelompok: data.kode_kelompok,
       };
       api.MasterJenisBahan.editMasterJenisBahan("/" + id, dataKirim).then(
         (res) => {

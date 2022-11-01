@@ -140,7 +140,7 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
           <Col offset={1}>
             <Field
               name="berat"
-              type="text"
+              type="number"
               label={<span style={{ fontSize: "13px" }}>Berat</span>}
               component={styleAntd.AInput}
               className="form-item-group"

@@ -179,7 +179,7 @@ const URL_GET_HISTORY_KIRIM_BATU = `${baseurl}admin-batu/history-kirim-batu/`;
 const URL_ADD_KIRIM_BATU_PRODUKSI = `${baseurl}admin-batu/kirim-batu`;
 
 const URL_ADD_TAMBAH_SALDO_BAHAN = `${baseurl}saldo-murni`;
-const URL_GET_DETAIL_POHON = `${baseurl}saldo-bahan/by-pohon/`;
+const URL_GET_DETAIL_POHON = `${baseurl}saldo-bahan/casting-pohon/`;
 const URL_ADD_TERIMA_COR = `${baseurl}saldo-bahan/admin-bahan/terima-casting`;
 const URL_ADD_TERIMA_POTONG = `${baseurl}saldo-bahan/admin-bahan/terima-cutter`;
 const URL_ADD_KIRIM_BAHAN_ADMIN_BAHAN = `${baseurl}saldo-bahan/admin-bahan/kirim-bahan`;
