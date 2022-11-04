@@ -11,6 +11,9 @@ import FloatSubMenu from "./views/components/float-sub-menu/float-sub-menu.jsx";
 import getLocal from "./infrastructure/services/local/get-local.jsx";
 import { Redirect } from "react-router-dom";
 import Swal from "sweetalert2";
+import { connect } from "react-redux";
+import { getMasterDivisi } from "./application/actions/masterdivisi";
+import { checkLogin } from "./application/actions/login";
 
 class App extends React.Component {
   constructor(props) {
@@ -357,6 +360,11 @@ class App extends React.Component {
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("online", this.updateStatus);
     window.addEventListener("offline", this.updateStatus);
+    this.props.getMasterDivisi();
+    const dataUserLocal = getLocal("userInfo");
+    if (dataUserLocal !== null) {
+      this.props.checkLogin(dataUserLocal);
+    }
   }
 
   updateStatus(event) {
@@ -458,4 +466,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(null, { getMasterDivisi, checkLogin })(App);

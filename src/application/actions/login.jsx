@@ -24,9 +24,10 @@ export const loginFailed = (error) => ({
   payload: error,
 });
 
-export const checkLogin = {
+export const checkLogin = (dataUser) => ({
   type: CHECK_LOGIN,
-};
+  payload: { data: dataUser },
+});
 
 export const setLoginState = (feedback) => ({
   type: SET_LOGIN_STATE,

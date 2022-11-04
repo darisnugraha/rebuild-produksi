@@ -6,6 +6,13 @@ const login = {
     const response = await post.AxiosPostLogin(word.URL_LOGIN, data);
     return response;
   },
+  authToken: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_CHECK_TOKEN,
+      data: dataKirim,
+    });
+    return response;
+  },
   LogoutDo: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_LOGOUT,

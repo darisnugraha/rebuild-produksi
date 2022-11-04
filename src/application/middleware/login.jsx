@@ -2,13 +2,14 @@ import { message } from "antd";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import {
   CHECK_LOGIN,
+  doLogout,
   loginFailed,
   loginSuccess,
   LOGOUT,
   SEND_LOGIN,
-  setLoginState,
 } from "../actions/login";
-import { setLoading, setLoadingButton } from "../actions/ui";
+import { getAllMasterDivisi } from "../actions/masterdivisi.jsx";
+import { setLoadingButton } from "../actions/ui";
 
 /**
 ({api}) ADALAH PARAMETER YANG DIDAPAT DARI FOLDER INFRASTRUCTURE -> SERVICES -> API 
@@ -41,6 +42,7 @@ const handleLoginFlow =
           writeLocal("userInfo", response?.value);
           writeLocal("isLogin", true);
           message.success({ content: "Login Berhasil!", key, duration: 2 });
+          dispatch(getAllMasterDivisi);
           window.history.pushState(null, "", "/dashboard");
           window.history.go(0);
         });
@@ -58,10 +60,18 @@ const handleCheckLoginFlow =
   async (action) => {
     next(action);
     if (action.type === CHECK_LOGIN) {
-      dispatch(setLoading(true));
-      const data = getLocal("isLogin");
-      dispatch(setLoginState(data ?? false));
-      dispatch(setLoading(false));
+      const dataUser = action.payload.data;
+      api.login.authToken(dataUser).then((res) => {
+        if (res.value !== null) {
+          const dataUserInfo = getLocal("userInfo");
+          dataUserInfo.access_token = res.value.access_token;
+        } else {
+          sweetalert.default.Failed(
+            res.error.data.message || "Token Tidak Valid !"
+          );
+          dispatch(doLogout(dataUser));
+        }
+      });
     }
   };
 
@@ -79,11 +89,13 @@ const handleLogout =
       };
       api.login.LogoutDo(dataKirim).then((res) => {
         if (res.value !== null) {
-          window.location.href = "/";
+          window.history.pushState(null, "", "/");
+          window.history.go(0);
           localStorage.clear();
         } else {
           sweetalert.default.Failed("User Telah Logout !");
-          window.location.href = "/";
+          window.history.pushState(null, "", "/");
+          window.history.go(0);
           localStorage.clear();
         }
       });

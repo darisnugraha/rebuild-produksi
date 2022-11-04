@@ -18,6 +18,10 @@ export const EDIT_MASTER_DIVISI = "[masterdivisi] edit master divisi";
 export const getAllMasterDivisi = {
   type: GET_ALL_MASTER_DIVISI,
 };
+
+export const getMasterDivisi = () => ({
+  type: GET_ALL_MASTER_DIVISI,
+});
 export const setDataMasterDivisiSuccess = ({ feedback }) => ({
   type: SET_DATA_MASTER_DIVISI_SUCCESS,
   payload: { data: feedback },

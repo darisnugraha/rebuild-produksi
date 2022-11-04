@@ -1,6 +1,7 @@
 const baseurl = process.env.REACT_APP_BACKEND_URL;
 
 const URL_LOGIN = `${baseurl}auth/login`;
+const URL_CHECK_TOKEN = `${baseurl}auth/token`;
 const URL_LOGOUT = `${baseurl}auth/logout`;
 
 const URL_GET_JO_OUTSTAND_ALL = `${baseurl}dashboard/outstand-job-order`;
@@ -292,6 +293,7 @@ const data = {
   URL_GET_BAHAN_ADMIN_BAHAN,
 
   URL_LOGIN,
+  URL_CHECK_TOKEN,
   URL_LOGOUT,
 
   URL_GET_JO_OUTSTAND_ALL,
