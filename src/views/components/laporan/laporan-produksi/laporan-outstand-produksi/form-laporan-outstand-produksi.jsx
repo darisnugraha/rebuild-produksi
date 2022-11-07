@@ -29,11 +29,10 @@ let FormLaporanOutstandProduksi = (prop) => {
   return (
     <Form layout="vertical">
       <Row>
-        <Col span={6}>
+        <Col offset={1} span={6}>
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Divisi"
             onBlur={(e) => e.preventDefault()}
@@ -58,7 +57,6 @@ let FormLaporanOutstandProduksi = (prop) => {
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Tukang"
             onBlur={(e) => e.preventDefault()}

@@ -4,11 +4,11 @@ import {
   setDataTambahAmbilBatuID,
   setTambahBatuForm,
   COUNT_BERAT_TAMBAH_AMBIL_BATU,
-  setCountBeratTambahAmbilBatu,
   ADD_TAMBAH_BATU,
   ADD_AMBIL_BATU,
   GET_SALDO_BATU,
   setDataSaldoBatu,
+  setKonversiBerat,
 } from "../actions/tambahambilbatu";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -62,13 +62,9 @@ const countberatbatu =
     next(action);
     if (action.type === COUNT_BERAT_TAMBAH_AMBIL_BATU) {
       let total = 0;
-      const jumlah = action.payload;
-      const berat_asli = parseFloat(
-        getState().tambahambilbatu.dataBatu[0].berat_batu
-      );
-      total = jumlah * berat_asli;
-      dispatch(setCountBeratTambahAmbilBatu(total));
-      log(total);
+      const berat = action.payload;
+      total = berat / 0.2;
+      dispatch(setKonversiBerat(total));
     }
   };
 
@@ -80,24 +76,29 @@ const addTambahBatu =
     next(action);
     if (action.type === ADD_TAMBAH_BATU) {
       const data = getState().form.FormTambahAmbilBatu.values;
-      const onSendData = {
-        kode_batu: data.kode_batu,
-        kategori: "TAMBAH",
-        jumlah: parseInt(data.jumlah),
-        berat: parseFloat(data.berat),
-        keterangan: data.keterangan,
-      };
-      api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
-        if (res.value !== null) {
-          sweetalert.default.Success(
-            res.value.message || "Berhasil Menambahkan Batu !"
-          );
-        } else {
-          sweetalert.default.Failed(
-            res.error?.data.message || "Gagal Menambahkan Batu !"
-          );
-        }
-      });
+      if (data.keterangan === "") {
+        sweetalert.default.Failed("Keterangan Tidak Boleh Kosong !");
+      } else {
+        const onSendData = {
+          kode_batu: data.kode_batu,
+          kategori: "TAMBAH",
+          jumlah: parseInt(data.jumlah),
+          berat: parseFloat(data.berat),
+          keterangan: data.keterangan,
+        };
+
+        api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success(
+              res.value.message || "Berhasil Menambahkan Batu !"
+            );
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Menambahkan Batu !"
+            );
+          }
+        });
+      }
     }
   };
 
@@ -109,24 +110,28 @@ const addAmbilBatu =
     next(action);
     if (action.type === ADD_AMBIL_BATU) {
       const data = getState().form.FormTambahAmbilBatu.values;
-      const onSendData = {
-        kode_batu: data.kode_batu,
-        kategori: "AMBIL",
-        jumlah: parseInt(data.jumlah),
-        berat: parseFloat(data.berat),
-        keterangan: data.keterangan,
-      };
-      api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
-        if (res.value !== null) {
-          sweetalert.default.Success(
-            res.value.message || "Berhasil Mengambil Batu !"
-          );
-        } else {
-          sweetalert.default.Failed(
-            res.error?.data.message || "Gagal Mengambil Batu !"
-          );
-        }
-      });
+      if (data.keterangan === "") {
+        sweetalert.default.Failed("Keterangan Tidak Boleh Kosong !");
+      } else {
+        const onSendData = {
+          kode_batu: data.kode_batu,
+          kategori: "AMBIL",
+          jumlah: parseInt(data.jumlah),
+          berat: parseFloat(data.berat),
+          keterangan: data.keterangan,
+        };
+        api.TambahAmbilBatu.addTambahAmbilBatu(onSendData).then((res) => {
+          if (res.value !== null) {
+            sweetalert.default.Success(
+              res.value.message || "Berhasil Mengambil Batu !"
+            );
+          } else {
+            sweetalert.default.Failed(
+              res.error?.data.message || "Gagal Mengambil Batu !"
+            );
+          }
+        });
+      }
     }
   };
 

@@ -12,8 +12,9 @@ export const SET_DATA_TAMBAH_AMBIL_BATU =
 export const COUNT_BERAT_TAMBAH_AMBIL_BATU =
   "[tambahambilbatu] count berat tambah ambil batu";
 
-export const SET_COUNT_BERAT_TAMBAH_AMBIL_BATU =
-  "[tambahambilbatu] set count berat tambah ambil batu";
+export const SET_JUMLAH_BATU = "[tambahambilbatu] set jumlah tambah ambil batu";
+export const SET_KONVERSI_BERAT =
+  "[tambahambilbatu] set konversi berat tambah ambil batu";
 
 export const ADD_TAMBAH_BATU = "[tambahambilbatu] add tambah batu";
 export const ADD_AMBIL_BATU = "[tambahambilbatu] add ambil batu";
@@ -40,12 +41,17 @@ export const setDataTambahAmbilBatuID = ({ dataBatu }) => ({
   payload: { data: dataBatu },
 });
 
-export const countBeratTambahAmbilBatu = ({ jumlah }) => ({
+export const countBeratTambahAmbilBatu = ({ berat }) => ({
   type: COUNT_BERAT_TAMBAH_AMBIL_BATU,
-  payload: jumlah,
+  payload: berat,
 });
-export const setCountBeratTambahAmbilBatu = (berat) => ({
-  type: SET_COUNT_BERAT_TAMBAH_AMBIL_BATU,
+export const setJumlahBatu = (jumlah) => ({
+  type: SET_JUMLAH_BATU,
+  payload: { data: jumlah },
+});
+
+export const setKonversiBerat = (berat) => ({
+  type: SET_KONVERSI_BERAT,
   payload: { data: berat },
 });
 

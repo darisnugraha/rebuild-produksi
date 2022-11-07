@@ -47,7 +47,6 @@ let FormLaporanKirimProduksi = (prop) => {
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Divisi"
             onBlur={(e) => e.preventDefault()}
@@ -72,7 +71,6 @@ let FormLaporanKirimProduksi = (prop) => {
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Tukang"
             onBlur={(e) => e.preventDefault()}

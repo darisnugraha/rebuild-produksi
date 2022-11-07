@@ -52,7 +52,8 @@ let FormLaporanTerimaGudangProduksi = (prop) => {
             {dataDivisi.map((item) => {
               if (
                 item.divisi === "GUDANG QC JC" ||
-                item.divisi === "GUDANG QC VV"
+                item.divisi === "GUDANG QC VV" ||
+                item.divisi.includes("GUDANG")
               ) {
                 return (
                   <Option value={item.divisi} key={item.divisi}>

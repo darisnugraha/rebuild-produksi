@@ -48,6 +48,8 @@ const addDataMasterOriginal =
     next(action);
     if (action.type === ADD_MASTER_ORIGINAL) {
       const data = getState().form.FormTambahMasterOriginal.values;
+      data.nama_barang = data.nama_barang.toUpperCase();
+      data.kode_barang = data.kode_barang.toUpperCase();
       api.MasterOriginal.addMasterOriginal(data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -62,6 +64,8 @@ const addDataMasterOriginal =
       const data = getState().form.FormTambahMasterOriginal.values;
       const dataid = data.id;
       delete data.id;
+      data.nama_barang = data.nama_barang.toUpperCase();
+      data.kode_barang = data.kode_barang.toUpperCase();
       api.MasterOriginal.editMasterOriginal(dataid, data).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");

@@ -8,7 +8,10 @@ import ui from "../../../../application/selectors/ui";
 import MasterBahan from "../../../../application/selectors/masterbahan";
 import MasterBillOfMaterials from "../../../../application/selectors/masterbillofmaterials";
 import { useDispatch } from "react-redux";
-import { addDetailBahan } from "../../../../application/actions/masterbillofmaterials";
+import {
+  addDetailBahan,
+  saveEditDetailBahan,
+} from "../../../../application/actions/masterbillofmaterials";
 
 const maptostate = (state) => {
   if (state.masterbillofmaterials.isEditDetailBahan) {
@@ -38,7 +41,11 @@ let FormTambahDetailBahan = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   const [form] = Form.useForm();
   const handleSubmit = () => {
-    dispatch(addDetailBahan);
+    if (isEdit) {
+      dispatch(saveEditDetailBahan);
+    } else {
+      dispatch(addDetailBahan);
+    }
   };
 
   return (

@@ -5,9 +5,10 @@ import {
   SET_AMBIL_BATU_ON,
   SET_AMBIL_BATU_OFF,
   SET_DATA_TAMBAH_AMBIL_BATU,
-  SET_COUNT_BERAT_TAMBAH_AMBIL_BATU,
+  SET_JUMLAH_BATU,
   COUNT_BERAT_TAMBAH_AMBIL_BATU,
   SET_SALDO_BATU,
+  SET_KONVERSI_BERAT,
 } from "../actions/tambahambilbatu";
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
   dataBatu: [],
   beratTambahAmbilBatu: 0,
   jumlah: 0,
+  berat: 0,
+  konversiBerat: 0,
 };
 
 const tambahambilbatu = (state = initialState, action) => {
@@ -49,20 +52,25 @@ const tambahambilbatu = (state = initialState, action) => {
         ...state,
         dataBatu: action.payload.data,
       };
-    case SET_COUNT_BERAT_TAMBAH_AMBIL_BATU:
+    case SET_JUMLAH_BATU:
       return {
         ...state,
-        beratTambahAmbilBatu: action.payload.data,
+        jumlah: action.payload.data,
       };
     case COUNT_BERAT_TAMBAH_AMBIL_BATU:
       return {
         ...state,
-        jumlah: action.payload,
+        berat: action.payload,
       };
     case SET_SALDO_BATU:
       return {
         ...state,
         feedback: action.payload.data,
+      };
+    case SET_KONVERSI_BERAT:
+      return {
+        ...state,
+        konversiBerat: action.payload.data,
       };
     default:
       return state;

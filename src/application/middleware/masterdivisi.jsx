@@ -53,7 +53,7 @@ const addDataMasterDivisi =
     if (action.type === ADD_MASTER_DIVISI) {
       const data = getState().form.FormTambahMasterDivisi.values;
       delete data.kode_divisi;
-      const dataKirim = { divisi: data.nama_divisi };
+      const dataKirim = { divisi: data.nama_divisi.toUpperCase() };
       api.MasterDivisi.addMasterDivisi(dataKirim).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
@@ -94,8 +94,9 @@ const editDataMasterDivisi =
     next(action);
     if (action.type === EDIT_MASTER_DIVISI) {
       const data = getState().form.FormTambahMasterDivisi.values;
-      const id = data.id;
-      api.MasterDivisi.editMasterDivisi("/" + id, data).then((res) => {
+      const id = data.kode_divisi;
+      const dataKirim = { divisi: data.nama_divisi.toUpperCase() };
+      api.MasterDivisi.editMasterDivisi("/" + id, dataKirim).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Merubah Data !");
         } else {

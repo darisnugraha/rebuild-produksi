@@ -10,7 +10,8 @@ import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
 import {
   addAmbilBatu,
   addTambahBatu,
-  // countBeratTambahAmbilBatu,
+  countBeratTambahAmbilBatu,
+  setJumlahBatu,
 } from "../../../../application/actions/tambahambilbatu";
 import ValidasiTambahAmbilBatu from "../../../../infrastructure/validate/TambahAmbilBatuValidate";
 
@@ -21,9 +22,9 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
           nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
-          // berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          konversi_berat: state.tambahambilbatu.konversiBerat,
           jumlah: state.tambahambilbatu.jumlah,
-          berat: state.tambahambilbatu.beratTambahAmbilBatu,
+          berat: state.tambahambilbatu.berat,
           keterangan: "",
           kategori: "Tambah",
         },
@@ -33,9 +34,9 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.tambahambilbatu.dataBatu[0]?.kode_batu,
           nama_batu: state.tambahambilbatu.dataBatu[0]?.nama_batu,
-          // berat_batu: state.tambahambilbatu.dataBatu[0]?.berat_batu,
+          konversi_berat: state.tambahambilbatu.konversiBerat,
           jumlah: state.tambahambilbatu.jumlah,
-          berat: state.tambahambilbatu.beratTambahAmbilBatu,
+          berat: state.tambahambilbatu.berat,
           keterangan: "",
           kategori: "Ambil",
         },
@@ -46,9 +47,9 @@ const maptostate = (state) => {
       initialValues: {
         kode_batu: "",
         nama_batu: "",
-        // berat_batu: "",
+        konversi_berat: "",
         jumlah: state.tambahambilbatu.jumlah,
-        berat: state.tambahambilbatu.beratTambahAmbilBatu,
+        berat: state.tambahambilbatu.berat,
         keterangan: "",
         kategori: "",
       },
@@ -62,6 +63,8 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isAdd = useSelector(TambahAmbilBatu.getIsAddTambahAmbilBatu);
+  const dataBatu = useSelector(TambahAmbilBatu.getDataBatu);
+  const isSintetis = dataBatu[0]?.status_sintetis;
 
   const handleSubmit = () => {
     if (isAdd) {
@@ -129,13 +132,11 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               }
               component={styleAntd.AInput}
               className="form-item-group"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setJumlahBatu(e.target.value))}
               placeholder={
                 isAdd ? "Masukkan Jumlah Tambah" : "Masukkan Jumlah Ambil"
               }
-              // onBlur={(e) => {
-              //   e.preventDefault();
-              //   dispatch(countBeratTambahAmbilBatu({ jumlah: e.target.value }));
-              // }}
             />
           </Col>
           <Col offset={1}>
@@ -146,7 +147,22 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) =>
+                dispatch(countBeratTambahAmbilBatu({ berat: e.target.value }))
+              }
               disabled={false}
+            />
+          </Col>
+          <Col offset={1} className={isSintetis ? "d-none" : ""}>
+            <Field
+              name="konversi_berat"
+              type="number"
+              label={<span style={{ fontSize: "13px" }}>Carat</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Carat"
+              disabled={true}
             />
           </Col>
           <Col offset={1}>

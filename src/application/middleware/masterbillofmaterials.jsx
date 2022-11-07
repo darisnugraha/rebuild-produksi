@@ -13,6 +13,7 @@ import {
   DELETE_DETAIL_BAHAN,
   EDIT_DETAIL_BAHAN,
   seteditDetailBahan,
+  SAVE_EDIT_DETAIL_BAHAN,
 } from "../actions/masterbillofmaterials";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { v4 as uuidv4 } from "uuid";
@@ -202,6 +203,15 @@ const detailBahanFlow =
         dispatch(setDetailBahan(dataSave));
       }
       sweetalert.default.SuccessNoReload("Berhasil Menambahkan Data !");
+    }
+    if (action.type === SAVE_EDIT_DETAIL_BAHAN) {
+      const data = getState().form.FormTambahDetailBahan.values;
+      const dataArr = getLocal("BahanDetail") || [];
+      const dataArrFill = dataArr.filter((item) => item.id !== data.id);
+      dataArrFill.push(data);
+      writeLocal("BahanDetail", dataArrFill);
+      dispatch(setDetailBahan(dataArrFill));
+      sweetalert.default.SuccessNoReload("Berhasil Merubah Data !");
     }
     if (action.type === DELETE_DETAIL_BAHAN) {
       const kode_bahan = action.payload.data;

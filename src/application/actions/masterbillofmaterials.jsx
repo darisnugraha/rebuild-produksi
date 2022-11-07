@@ -42,6 +42,9 @@ export const SET_EDIT_DETAIL_BAHAN =
 export const SET_IS_EDIT_DETAIL_BAHAN =
   "[masterbillofmaterials] set is edit detail bahan";
 
+export const SAVE_EDIT_DETAIL_BAHAN =
+  "[masterbillofmaterials] save edit detail bahan";
+
 export const getAllMasterBillOfMaterials = {
   type: GET_ALL_MASTER_BILL_OF_MATERIALS,
 };
@@ -117,3 +120,7 @@ export const setIsEditDetailBahan = (isEdit) => ({
   type: SET_IS_EDIT_DETAIL_BAHAN,
   payload: { data: isEdit },
 });
+
+export const saveEditDetailBahan = {
+  type: SAVE_EDIT_DETAIL_BAHAN,
+};
