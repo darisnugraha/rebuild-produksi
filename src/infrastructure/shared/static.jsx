@@ -175,6 +175,7 @@ const URL_GET_DATA_TERIMA_LEBUR = `${baseurl}kirim-masak-bahan/lebur-by-no-terim
 const URL_GET_KIRIM_MASAK = `${baseurl}terima-masak-bahan/kirim-masak/by-no-kirim/`;
 
 const URL_GET_SALDO_BATU = `${baseurl}mutasi-batu/saldo`;
+const URL_GET_BATU_BY_KODE = `${baseurl}batu/by-kode/`;
 const URL_ADD_MUTASI_BATU = `${baseurl}mutasi-batu`;
 const URL_GET_HISTORY_KIRIM_BATU = `${baseurl}admin-batu/history-kirim-batu/`;
 const URL_ADD_KIRIM_BATU_PRODUKSI = `${baseurl}admin-batu/kirim-batu`;
@@ -463,6 +464,7 @@ const data = {
   URL_GET_POTONG_POHON_JENIS_BAHAN,
 
   URL_GET_SALDO_BATU,
+  URL_GET_BATU_BY_KODE,
   URL_ADD_MUTASI_BATU,
 
   URL_GET_HISTORY_KIRIM_BATU,

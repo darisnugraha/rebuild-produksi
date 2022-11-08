@@ -49,7 +49,9 @@ const handleLoginFlow =
       } else {
         dispatch(setLoadingButton(false));
         dispatch(loginFailed(response?.error));
-        sweetalert.default.Failed("Coba Check Email Dan Passwordnya..");
+        sweetalert.default.Failed(
+          response.error.data.message || "Coba Check Email Dan Passwordnya.."
+        );
       }
     }
   };

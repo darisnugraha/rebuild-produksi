@@ -6,6 +6,7 @@ import "antd-button-color/dist/css/style.css";
 // import MasterBatu from "../../../../application/selectors/masterbatu";
 import TambahAmbilBatu from "../../../../application/selectors/tambahambilbatu";
 import {
+  countBeratTambahAmbilBatu,
   getTambahAmbilBatuByID,
   setAmbilBatuForm,
   setTambahBatuForm,
@@ -130,7 +131,7 @@ const TableMasterTambahAmbilBatu = () => {
                     onClick={() => {
                       dispatch(
                         getTambahAmbilBatuByID({
-                          dataID: text.kode_batu,
+                          dataID: text._id,
                           btnType: "ADD",
                         })
                       );
@@ -145,7 +146,7 @@ const TableMasterTambahAmbilBatu = () => {
                     onClick={() => {
                       dispatch(
                         getTambahAmbilBatuByID({
-                          dataID: text.kode_batu,
+                          dataID: text._id,
                           btnType: "TAKE",
                         })
                       );
@@ -178,6 +179,7 @@ const TableMasterTambahAmbilBatu = () => {
           dispatch(destroy("FormTambahAmbilBatu"));
           dispatch(setTambahBatuForm(false));
           dispatch(setAmbilBatuForm(false));
+          dispatch(countBeratTambahAmbilBatu({ berat: 0 }));
         }}
       />
     </>

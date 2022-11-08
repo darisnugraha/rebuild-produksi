@@ -38,18 +38,56 @@ const tambahambilbatu =
     if (action.type === GET_TAMBAH_AMBIL_BATU_ID) {
       if (action.payload.type === "ADD") {
         dispatch(setTambahBatuForm(true));
-        const dataBatuALL = getState().masterbatu.feedback;
+        const dataBatuALL = getState().tambahambilbatu.feedback;
         const dataBatuFilter = dataBatuALL.filter((item) => {
-          return item.kode_batu === action.payload.data;
+          return item._id === action.payload.data;
         });
-        dispatch(setDataTambahAmbilBatuID({ dataBatu: dataBatuFilter }));
+        if (dataBatuFilter.length !== 0) {
+          const kode = dataBatuFilter[0].kode_batu;
+          api.TambahAmbilBatu.getDataBatuByKode(kode).then((res) => {
+            if (res.value !== null) {
+              const newArrData = [];
+              const row = {
+                kode_batu: res.value[0].kode_batu,
+                nama_batu: res.value[0].nama_batu,
+                status_sintetis: res.value[0].status_sintetis,
+              };
+              newArrData.push(row);
+
+              dispatch(setDataTambahAmbilBatuID({ dataBatu: newArrData }));
+            } else {
+              dispatch(setDataTambahAmbilBatuID({ dataBatu: [] }));
+            }
+          });
+        } else {
+          dispatch(setDataTambahAmbilBatuID({ dataBatu: [] }));
+        }
       } else {
         dispatch(setAmbilBatuForm(true));
-        const dataBatuALL = getState().masterbatu.feedback;
+        const dataBatuALL = getState().tambahambilbatu.feedback;
         const dataBatuFilter = dataBatuALL.filter((item) => {
-          return item.kode_batu === action.payload.data;
+          return item._id === action.payload.data;
         });
-        dispatch(setDataTambahAmbilBatuID({ dataBatu: dataBatuFilter }));
+        if (dataBatuFilter.length !== 0) {
+          const kode = dataBatuFilter[0].kode_batu;
+          api.TambahAmbilBatu.getDataBatuByKode(kode).then((res) => {
+            if (res.value !== null) {
+              const newArrData = [];
+              const row = {
+                kode_batu: res.value[0].kode_batu,
+                nama_batu: res.value[0].nama_batu,
+                status_sintetis: res.value[0].status_sintetis,
+              };
+              newArrData.push(row);
+
+              dispatch(setDataTambahAmbilBatuID({ dataBatu: newArrData }));
+            } else {
+              dispatch(setDataTambahAmbilBatuID({ dataBatu: [] }));
+            }
+          });
+        } else {
+          dispatch(setDataTambahAmbilBatuID({ dataBatu: [] }));
+        }
       }
     }
   };
