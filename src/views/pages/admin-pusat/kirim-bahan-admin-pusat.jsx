@@ -24,7 +24,7 @@ const KirimBahanAdminPusat = () => {
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllStockBahanDivisi);
-    dispatch(getAllStaffStockBahanDivisi);
+    dispatch(getAllStaffStockBahanDivisi("ADMIN PUSAT"));
     dispatch(getAllDivisi);
     dispatch(getAllMasterTukang);
     localStorage.setItem("divisi", "Admin Pusat");

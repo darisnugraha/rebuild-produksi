@@ -21,8 +21,12 @@ const getDataDetailJo =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_DETAIL_JO) {
+      const divisi = localStorage.getItem("divisi").toUpperCase();
       const data = {
-        nama_divisi: localStorage.getItem("divisi").toUpperCase(),
+        nama_divisi:
+          divisi === "Admin" || divisi === "ADMIN"
+            ? "ADMIN PUSAT"
+            : divisi.toUpperCase(),
         no_job_order: action.payload.data,
       };
       const type = action.payload.dataType;
@@ -72,7 +76,10 @@ const getDataDetailJo =
       const divisi = getLocal("divisi");
       const dataKirim = {
         no_induk: id,
-        divisi: divisi.toUpperCase(),
+        divisi:
+          divisi === "Admin" || divisi === "ADMIN"
+            ? "ADMIN PUSAT"
+            : divisi.toUpperCase(),
       };
       const dataLocal = getLocal("terima_jo_head");
       api.TerimaJO.getJobOrderDetail(dataKirim).then((res) => {
@@ -146,7 +153,11 @@ const addTerimaJO =
         const newArr = [];
         const onSendCheckOut = {
           no_job_order: dataTerimaJO.no_job_order,
-          divisi_tujuan: dataTerimaJO.divisi_terima.toUpperCase(),
+          divisi_tujuan:
+            dataTerimaJO.divisi_terima === "Admin" ||
+            dataTerimaJO.divisi_terima === "ADMIN"
+              ? "ADMIN PUSAT"
+              : dataTerimaJO.divisi_terima.toUpperCase(),
           tukang_tujuan: dataTerimaJO.tukang_terima,
           kode_barang: dataTerimaJO.kode_barang,
           kode_jenis_bahan: dataTerimaJO.kode_jenis_bahan,
@@ -161,7 +172,11 @@ const addTerimaJO =
         const newArr = dataLocal;
         const onSendCheckOut = {
           no_job_order: dataTerimaJO.no_job_order,
-          divisi_tujuan: dataTerimaJO.divisi_terima.toUpperCase(),
+          divisi_tujuan:
+            dataTerimaJO.divisi_terima === "Admin" ||
+            dataTerimaJO.divisi_terima === "ADMIN"
+              ? "ADMIN PUSAT"
+              : dataTerimaJO.divisi_terima.toUpperCase(),
           tukang_tujuan: dataTerimaJO.tukang_terima,
           kode_barang: dataTerimaJO.kode_barang,
           kode_jenis_bahan: dataTerimaJO.kode_jenis_bahan,

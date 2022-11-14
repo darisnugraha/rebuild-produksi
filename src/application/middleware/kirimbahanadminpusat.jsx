@@ -76,12 +76,7 @@ const getDataStaffStockBahanDivisi =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_STAFF_STOCK_BAHAN_DIVISI) {
-      const data = {
-        divisi:
-          getLocal("divisi").toUpperCase() === "ADMIN"
-            ? "ADMIN PUSAT"
-            : getLocal("divisi").toUpperCase(),
-      };
+      const data = { divisi: action.payload.data };
       api.KirimBahanAdminPusat.getStaffStockBahanDivisi({
         dataKirim: data,
       }).then((res) => {

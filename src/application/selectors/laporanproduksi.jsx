@@ -16,6 +16,11 @@ const getAllKirimProduksi = (state) => state.laporanproduksi.feedback;
 const getErrorKirimProduksi = (state) => state.laporanproduksi.error;
 const getIsEditLaporanProduksi = (state) => state.laporanproduksi.isEdit;
 const getDivisiGudang = (state) => state.laporanproduksi.divisiGudang;
+const getDivisiAll = (state) => state.laporanproduksi.dataDivisi;
+const getDivisi = (state) => state.laporanproduksi.divisi;
+const getDataTukangByDivisi = (state) =>
+  state.laporanproduksi.dataTukangByDivisi;
+const getDataPeriode = (state) => state.laporanproduksi.dataPeriode;
 const data = {
   getAllTerimaProduksi,
   getErrorTerimaProduksi,
@@ -32,5 +37,9 @@ const data = {
   getErrorGudangProduksi,
   getDivisiGudang,
   getAllSusutProduksi,
+  getDivisiAll,
+  getDivisi,
+  getDataTukangByDivisi,
+  getDataPeriode,
 };
 export default data;

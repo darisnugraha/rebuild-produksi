@@ -46,6 +46,18 @@ export const SET_DIVISI_GUDANG = "[laporanproduksi] set divisi gudang";
 export const GET_DATA_SUSUT = "[laporanproduksi] get laporandata susut";
 export const SET_DATA_SUSUT = "[laporanproduksi] set laporandata susut";
 
+export const GET_DIVISI = "[laporanproduksi] get divisi";
+export const SET_DIVISI = "[laporanproduksi] set divisi";
+
+export const GET_TUKANG_BY_DIVISI = "[laporanproduksi] get tukang by divisi";
+export const SET_TUKANG_BY_DIVISI = "[laporanproduksi] set tukang by divisi";
+
+export const GET_PERIODE_BY_TUKANG = "[laporanproduksi] get periode by tukang";
+export const SET_PERIODE_BY_TUKANG = "[laporanproduksi] set periode by tukang";
+
+export const GET_TANGGAL = "[laporanproduksi] get tanggal";
+export const SET_TANGGAL = "[laporanproduksi] set tanggal";
+
 export const getAllTerimaProduksi = {
   type: GET_ALL_TERIMA_PRODUKSI,
 };
@@ -134,4 +146,43 @@ export const setDataTerimaGudangProduksiSuccess = ({ feedback }) => ({
 export const setDataTerimaGudangProduksiFailed = ({ error }) => ({
   type: SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED,
   payload: { data: error },
+});
+
+export const getTukangByDivisi = (divisi) => ({
+  type: GET_TUKANG_BY_DIVISI,
+  payload: { data: divisi },
+});
+
+export const setTukangByDivisi = (feedback) => ({
+  type: SET_TUKANG_BY_DIVISI,
+  payload: { data: feedback },
+});
+
+export const getDivisi = {
+  type: GET_DIVISI,
+};
+
+export const setDivisi = ({ feedback }) => ({
+  type: SET_DIVISI,
+  payload: { data: feedback },
+});
+
+export const getPeriodeByTukang = (tukang) => ({
+  type: GET_PERIODE_BY_TUKANG,
+  payload: { data: tukang },
+});
+
+export const setPeriodeByTukang = (feedback) => ({
+  type: SET_PERIODE_BY_TUKANG,
+  payload: { data: feedback },
+});
+
+export const getTanggal = (periode) => ({
+  type: GET_TANGGAL,
+  payload: { data: periode },
+});
+
+export const setTanggal = (tanggal) => ({
+  type: SET_TANGGAL,
+  payload: { data: tanggal },
 });

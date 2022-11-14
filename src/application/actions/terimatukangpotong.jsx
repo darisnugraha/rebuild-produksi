@@ -6,11 +6,13 @@ export const SET_DATA_TERIMA_TUKANG_POTONG_FAILED =
   "[terimatukangpotong] get terima tukang potong failed";
 export const SET_NO_POHON = "[terimatukangpotong] set no pohon";
 
-export const SET_SUSUT = "[terimatukangpotong] set susust";
+export const SET_SUSUT = "[terimatukangpotong] set susut";
 export const SET_SUSUT_SUCCESS = "[terimatukangpotong] set susut success";
 export const SET_BERAT_TERIMA = "[terimatukangpotong] set berat terima";
 export const SET_BERAT_PENTOLAN = "[terimatukangpotong] set berat pentolan";
 export const SET_JENIS_BAHAN = "[terimatukangpotong] set jenis bahan";
+
+export const COUNT_PENTOLAN = "[terimatukangpotong] count pentolan";
 
 export const ADD_TERIMA_TUKANG_POTONG =
   "[terimatukangpotong] add terima tukang potong";
@@ -39,6 +41,11 @@ export const setNoPohon = ({ feedback }) => ({
 export const countSusut = ({ beratTerima }) => ({
   type: SET_SUSUT,
   payload: { data: beratTerima },
+});
+
+export const countSusutPentolan = ({ beratPentolan }) => ({
+  type: COUNT_PENTOLAN,
+  payload: { data: beratPentolan },
 });
 export const setDataSusutSuccess = ({ feedback }) => ({
   type: SET_SUSUT_SUCCESS,

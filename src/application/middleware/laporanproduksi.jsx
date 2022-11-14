@@ -30,10 +30,22 @@ import {
   setDivisiGudang,
   GET_DATA_SUSUT,
   setDataSusut,
+  GET_TUKANG_BY_DIVISI,
+  setTukangByDivisi,
+  GET_DIVISI,
+  setDivisi,
+  getTukangByDivisi,
+  GET_PERIODE_BY_TUKANG,
+  setPeriodeByTukang,
+  getPeriodeByTukang,
+  setTanggal,
+  GET_TANGGAL,
+  getTanggal,
 } from "../actions/laporanproduksi";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import moment from "moment";
 
 const getAllDataTerimaProduksi =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -386,13 +398,80 @@ const getAllDataSusutProduksi =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_DIVISI) {
+      api.KirimBahanAdmin.getAllDivisi().then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(getTukangByDivisi(res.value[0].divisi));
+            dispatch(setDivisi({ feedback: res.value }));
+          } else {
+            dispatch(setDivisi({ feedback: res.value }));
+          }
+        } else {
+          dispatch(setDivisi({ feedback: [] }));
+        }
+      });
+    }
+    if (action.type === GET_TUKANG_BY_DIVISI) {
+      const divisi = action.payload.data;
+      api.LaporanProduksi.getTukangByDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setTukangByDivisi(res.value));
+            dispatch(getPeriodeByTukang(res.value[0].kode_tukang));
+          } else {
+            dispatch(setDataSusut({ feedback: [] }));
+            dispatch(getTanggal("-"));
+            dispatch(setTukangByDivisi([]));
+          }
+        } else {
+          dispatch(setDataSusut({ feedback: [] }));
+          dispatch(getTanggal("-"));
+          dispatch(setTukangByDivisi([]));
+        }
+      });
+    }
+    if (action.type === GET_PERIODE_BY_TUKANG) {
+      const tukang = action.payload.data;
+      api.LaporanProduksi.getPeriodeByTukang(tukang).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            // const dateFormat = "DD/MM/YYYY";
+            dispatch(setPeriodeByTukang(res.value));
+            dispatch(getTanggal(res.value[0]._id));
+          } else {
+            dispatch(setDataSusut({ feedback: [] }));
+            dispatch(getTanggal("-"));
+            dispatch(setPeriodeByTukang([]));
+          }
+        } else {
+          dispatch(setDataSusut({ feedback: [] }));
+          dispatch(getTanggal("-"));
+          dispatch(setPeriodeByTukang([]));
+        }
+      });
+    }
+    if (action.type === GET_TANGGAL) {
+      const id = action.payload.data;
+      const data = getState().laporanproduksi.dataPeriode;
+      const dataFill = data.find((element) => element._id === id);
+      if (dataFill !== undefined) {
+        const dataTanggal = [
+          moment(dataFill.tanggal_awal_periode),
+          moment(dataFill.tanggal_akhir_periode),
+        ];
+        dispatch(setTanggal(dataTanggal));
+      } else {
+        dispatch(setTanggal([]));
+      }
+    }
     if (action.type === GET_DATA_SUSUT) {
       dispatch(setLoadingButton(true));
       dispatch(setDataSusut({ feedback: [] }));
       const data = getState().form.FormLaporanSusutProduksi.values;
       if (
         data.date === null ||
-        data.data.tukang === undefined ||
+        data.tukang === undefined ||
         data.divisi === undefined
       ) {
         dispatch(setLoadingButton(false));
@@ -407,10 +486,10 @@ const getAllDataSusutProduksi =
           "YYYY-MM-DD"
         );
         const dataOnsend = {
+          startDate: tgl_dari_string,
+          endDate: tgl_sampai_string,
+          kode_tukang: data.tukang,
           divisi: data.divisi,
-          kode_staff: data.tukang,
-          tgl_awal: tgl_dari_string,
-          tgl_akhir: tgl_sampai_string,
         };
         writeLocal("laporan_susut_produksi", dataOnsend);
 

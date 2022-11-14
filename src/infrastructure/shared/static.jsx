@@ -132,6 +132,7 @@ const URL_GET_ALL_DIVISI = `${baseurl}divisi/open`;
 const URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN = `${baseurl}saldo-bahan/get/divisi-all`;
 const URL_GET_STAFF_BY_DIVISI = `${baseurl}saldo-murni-divisi/tukang-by-divisi/`;
 const URL_GET_STAFF_BY_DIVISI_NEW = `${baseurl}tukang/by-divisi/`;
+const URL_GET_PERIODE_BY_TUKANG = `${baseurl}susut-tukang-report/by-tukang/`;
 const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-murni/bahan?`;
 const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open?`;
 
@@ -260,7 +261,7 @@ const URL_GET_LAPORAN_KIRIM_PRODUKSI = `${baseurl}produksi-report/kirim-produksi
 const URL_GET_LAPORAN_TERIMA_TAMBAHAN_PRODUKSI = `${baseurl}produksi-report/terima-tambahan-by-divisi?`;
 const URL_GET_LAPORAN_TERIMA_BATU_PRODUKSI = `${baseurl}produksi-report/terima-batu-by-divisi?`;
 const URL_GET_LAPORAN_OUTSTAND_PRODUKSI = `${baseurl}produksi-report/outstand-by-divisi?`;
-const URL_GET_LAPORAN_SUSUT_PRODUKSI = `${baseurl}produksi-report/susut-by-divisi?`;
+const URL_GET_LAPORAN_SUSUT_PRODUKSI = `${baseurl}susut-tukang-report`;
 
 const URL_GET_ALL_MASTER_USER = `${baseurl}users`;
 const URL_AUTHORIZE_USER = `${baseurl}users/authorize?`;
@@ -420,6 +421,7 @@ const data = {
   URL_GET_ALL_DIVISI_ASAL_SALDO_BAHAN,
   URL_GET_STAFF_BY_DIVISI,
   URL_GET_STAFF_BY_DIVISI_NEW,
+  URL_GET_PERIODE_BY_TUKANG,
   URL_GET_BAHAN_BY_STAFF,
   URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
 

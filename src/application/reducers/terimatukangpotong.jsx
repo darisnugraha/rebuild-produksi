@@ -7,6 +7,7 @@ import {
   SET_BERAT_TERIMA,
   SET_BERAT_PENTOLAN,
   SET_JENIS_BAHAN,
+  COUNT_PENTOLAN,
 } from "../actions/terimatukangpotong";
 
 const initialState = {
@@ -48,6 +49,11 @@ const terimatukangpotong = (state = initialState, action) => {
         beratTerima: action.payload.data,
       };
     case SET_BERAT_PENTOLAN:
+      return {
+        ...state,
+        beratPentolan: action.payload.data,
+      };
+    case COUNT_PENTOLAN:
       return {
         ...state,
         beratPentolan: action.payload.data,

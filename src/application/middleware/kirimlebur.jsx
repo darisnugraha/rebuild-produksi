@@ -200,7 +200,8 @@ const setDataLocalKirimLebur =
             data.berat === undefined ||
             data.kadar === undefined ||
             data.karat === undefined ||
-            data.keterangan === undefined
+            data.keterangan === undefined ||
+            data.keterangan_lebur === undefined
           ) {
             sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
           } else {
@@ -221,10 +222,19 @@ const setDataLocalKirimLebur =
             data.keterangan_lebur === undefined
           ) {
             sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
+          } else if (data.kadar !== dataLocal[0].kadar) {
+            sweetalert.default.Failed("Kadar Harus Sama !");
           } else {
-            sweetalert.default.Success("Berhasil Menyimpan Data !");
-            dataLocal.push(data);
-            writeLocal("data_kirim_lebur", dataLocal);
+            const dataCheck = dataLocal.filter(
+              (item) => item.no_abu === data.no_abu
+            );
+            if (dataCheck.length !== 0) {
+              sweetalert.default.Failed("Data Sudah Ada di Tabel !");
+            } else {
+              sweetalert.default.Success("Berhasil Menyimpan Data !");
+              dataLocal.push(data);
+              writeLocal("data_kirim_lebur", dataLocal);
+            }
           }
         }
       }

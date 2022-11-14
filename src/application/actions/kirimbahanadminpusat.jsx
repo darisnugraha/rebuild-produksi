@@ -67,9 +67,10 @@ export const setDataStockBahanDivisiFailed = ({ error }) => ({
   payload: { data: error },
 });
 
-export const getAllStaffStockBahanDivisi = {
+export const getAllStaffStockBahanDivisi = (divisi) => ({
   type: GET_ALL_STAFF_STOCK_BAHAN_DIVISI,
-};
+  payload: { data: divisi },
+});
 export const setDataStaffStockBahanDivisiSuccess = ({ feedback }) => ({
   type: SET_DATA_STAFF_STOCK_BAHAN_DIVISI_SUCCESS,
   payload: { data: feedback },

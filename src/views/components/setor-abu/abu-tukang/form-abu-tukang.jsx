@@ -20,7 +20,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           keterangan: state.abutukang.keterangan,
-          susut_bruto: state.abutukang.berat_bruto,
+          susut_bruto: state.abutukang.berat_bruto.toFixed(3),
           berat_kotor_kembali: state.abutukang.berat_kotor,
           kadar: state.abutukang.kadar,
           k_24: state.abutukang.k24,
@@ -32,7 +32,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           keterangan: state.abutukang.keterangan,
-          susut_bruto: state.abutukang.berat_bruto,
+          susut_bruto: state.abutukang.berat_bruto.toFixed(3),
           berat_kotor_kembali: state.abutukang.berat_kotor,
           kadar: state.abutukang.kadar,
           k_24: state.abutukang.k24,

@@ -9,6 +9,7 @@ import {
   SET_SUSUT,
   ADD_TERIMA_TUKANG_POTONG,
   setDataJenisBahan,
+  COUNT_PENTOLAN,
 } from "../actions/terimatukangpotong";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -72,6 +73,20 @@ const setBeratSusut =
       dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
       dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
       dispatch(setDataBeratPentolan({ beratPentolan: berat_pentolan }));
+    }
+    if (action.type === COUNT_PENTOLAN) {
+      let berat_murni =
+        getState().terimatukangpotong.feedback[0]?.berat_casting || 0;
+      let berat_terima =
+        getState().form.FormTerimaTukangPotong.values.berat_barang || 0;
+      let berat_pentolan = action.payload.data || 0;
+      let susut = 0;
+      susut =
+        parseFloat(berat_murni) -
+        parseFloat(berat_terima) -
+        parseFloat(berat_pentolan);
+      dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
+      dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
     }
   };
 

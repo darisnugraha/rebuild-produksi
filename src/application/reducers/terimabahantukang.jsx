@@ -49,7 +49,6 @@ const terimabahantukang = (state = initialState, action) => {
         tukang_asal: action.payload.datastaff,
       };
     case GET_BERAT_BAHAN_BY_STAFF:
-      console.log(action.payload.data);
       return {
         ...state,
         bahan: action.payload.data,

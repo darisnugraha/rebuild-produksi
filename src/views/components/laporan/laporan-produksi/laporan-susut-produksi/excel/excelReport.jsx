@@ -21,40 +21,24 @@ class ExcelReport extends Component {
         <table id="table-to-xls" style={{ display: "none" }}>
           <thead>
             <tr>
-              <td
-                style={{
-                  color: "#000",
-                  textAlign: "center",
-                }}
-                colSpan="5"
-              >
+              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
                 LAPORAN SUSUT PRODUKSI ({this.props.dataHead?.divisi})
               </td>
             </tr>
             <tr>
-              <td
-                style={{
-                  color: "#000",
-                  textAlign: "center",
-                }}
-                colSpan="5"
-              >
-                TANGGAL{" "}
-                {this.props.dataHead?.tgl_awal +
+              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+                PERIODE :{" "}
+                {this.props.dataHead?.startDate +
                   " s/d " +
-                  this.props.dataHead?.tgl_akhir}
+                  this.props.dataHead?.endDate}
               </td>
             </tr>
             <tr>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                NO KIRIM
+              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+                TAMBAH BAHAN
               </td>
+            </tr>
+            <tr>
               <td
                 style={{
                   backgroundColor: "#99CCFF",
@@ -71,7 +55,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                NO JOB ORDER
+                JENIS EMAS
               </td>
               <td
                 style={{
@@ -80,7 +64,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                KODE BARANG
+                KETERANGAN
               </td>
               <td
                 style={{
@@ -89,7 +73,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                DIVISI TUJUAN
+                BERAT KOTOR
               </td>
               <td
                 style={{
@@ -98,7 +82,7 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                JENIS BAHAN
+                %
               </td>
               <td
                 style={{
@@ -107,79 +91,25 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
-                JUMLAH KIRIM
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                BERAT KIRIM
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                SUSUT
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                KADAR
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                24K
-              </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                NAMA TUKANG
+                BERAT MURNI
               </td>
             </tr>
           </thead>
           <tbody>
-            {this.props.dataExel.map((element) => {
+            {this.props.dataExel[0]?.tambah_bahan.map((element) => {
               return (
                 <>
                   <tr>
-                    <td>{element.no_kirim}</td>
                     <td>{element.tanggal}</td>
-                    <td>{element.no_job_order}</td>
-                    <td>{element.kode_barang}</td>
-                    <td>{element.tujuan_divisi}</td>
-                    <td>{element.kode_jenis_bahan}</td>
-                    <td style={{ textAlign: "right" }}>{element.stock_out}</td>
-                    <td style={{ textAlign: "right" }}>{element.berat_out}</td>
+                    <td>{element.jenis_bahan}</td>
+                    <td>{element.keterangan}</td>
                     <td style={{ textAlign: "right" }}>
-                      {element.berat_susut}
+                      {element.berat_kotor}
                     </td>
                     <td style={{ textAlign: "right" }}>{element.kadar}</td>
                     <td style={{ textAlign: "right" }}>
-                      {(
-                        parseFloat(element.berat_susut) *
-                        (parseFloat(element.kadar) / 100)
-                      ).toFixed(3)}
+                      {element.berat_murni}
                     </td>
-                    <td>{element.kode_tukang}</td>
                   </tr>
                 </>
               );
@@ -187,42 +117,449 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={6} style={{ textAlign: "right" }}>
+              <td colSpan={3} style={{ textAlign: "right" }}>
                 Grand Total :
               </td>
               <td style={{ textAlign: "right" }}>
-                {this.props.dataExel.reduce(
-                  (a, b) => a + parseFloat(b.stock_out),
+                {this.props.dataExel[0]?.tambah_bahan
+                  .reduce((a, b) => a + parseFloat(b.berat_kotor), 0)
+                  .toFixed(3)}
+              </td>
+              <td style={{ textAlign: "right" }}>
+                {this.props.dataExel[0]?.tambah_bahan.reduce(
+                  (a, b) => a + parseFloat(b.kadar),
                   0
                 )}
               </td>
               <td style={{ textAlign: "right" }}>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.berat_out), 0)
-                  .toFixed(3)}
-              </td>
-              <td style={{ textAlign: "right" }}>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.berat_susut), 0)
-                  .toFixed(3)}
-              </td>
-              <td style={{ textAlign: "right" }}>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                  .toFixed(3)}
-              </td>
-              <td style={{ textAlign: "right" }}>
-                {this.props.dataExel
-                  .reduce(
-                    (a, b) =>
-                      a +
-                      parseFloat(b.berat_susut) * (parseFloat(b.kadar) / 100),
-                    0
-                  )
+                {this.props.dataExel[0]?.tambah_bahan
+                  .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
                   .toFixed(3)}
               </td>
             </tr>
           </tfoot>
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          {/* Balik Bahan */}
+          <tr>
+            <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+              BALIK BAHAN
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              TANGGAL
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              JENIS EMAS
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              KETERANGAN
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT KOTOR
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              %
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT MURNI
+            </td>
+          </tr>
+          {this.props.dataExel[1]?.balik_bahan.map((element) => {
+            return (
+              <>
+                <tr>
+                  <td>{element.tanggal}</td>
+                  <td>{element.nama_bahan}</td>
+                  <td>{element.keterangan}</td>
+                  <td style={{ textAlign: "right" }}>{element.berat_kotor}</td>
+                  <td style={{ textAlign: "right" }}>{element.kadar}</td>
+                  <td style={{ textAlign: "right" }}>{element.berat_murni}</td>
+                </tr>
+              </>
+            );
+          })}
+          <tr>
+            <td colSpan={3} style={{ textAlign: "right" }}>
+              Grand Total :
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[1]?.balik_bahan
+                .reduce((a, b) => a + parseFloat(b.berat_kotor), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[1]?.balik_bahan.reduce(
+                (a, b) => a + parseFloat(b.kadar),
+                0
+              )}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[1]?.balik_bahan
+                .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
+                .toFixed(3)}
+            </td>
+          </tr>
+          {/* End Balik Bahan */}
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          {/* Susut JO */}
+          <tr>
+            <td style={{ color: "#000", textAlign: "center" }} colSpan="5">
+              {this.props.dataHead?.kode_tukang}
+            </td>
+            <td style={{ color: "#000", textAlign: "center" }} colSpan="5">
+              {this.props.dataHead?.divisi}
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              TANGGAL TERIMA
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              SPK
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              JENIS EMAS
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              %
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT AWAL
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT AWAL MURNI
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              TANGGAL KIRIM
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT AKHIR
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              SUSUT KOTOR
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              SUSUT MURNI
+            </td>
+          </tr>
+          {this.props.dataExel[3]?.susut_JO.map((element) => {
+            return (
+              <>
+                <tr>
+                  <td>{element.tanggal_terima}</td>
+                  <td>{element.no_job_order}</td>
+                  <td>{element.kode_jenis_bahan}</td>
+                  <td style={{ textAlign: "right" }}>{element.kadar}</td>
+                  <td style={{ textAlign: "right" }}>{element.berat_awal}</td>
+                  <td style={{ textAlign: "right" }}>
+                    {element.berat_awal_murni}
+                  </td>
+                  <td>{element.tanggal_kirim}</td>
+                  <td style={{ textAlign: "right" }}>{element.berat_akhir}</td>
+                  <td style={{ textAlign: "right" }}>{element.susut_kotor}</td>
+                  <td style={{ textAlign: "right" }}>{element.susut_murni}</td>
+                </tr>
+              </>
+            );
+          })}
+          <tr>
+            <td colSpan={3} style={{ textAlign: "right" }}>
+              Grand Total :
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO.reduce(
+                (a, b) => a + parseFloat(b.kadar),
+                0
+              )}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO
+                .reduce((a, b) => a + parseFloat(b.berat_awal), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO
+                .reduce((a, b) => a + parseFloat(b.berat_awal_murni), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>{}</td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO
+                .reduce((a, b) => a + parseFloat(b.berat_akhir), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO
+                .reduce((a, b) => a + parseFloat(b.susut_kotor), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[3]?.susut_JO
+                .reduce((a, b) => a + parseFloat(b.susut_murni), 0)
+                .toFixed(3)}
+            </td>
+          </tr>
+          {/* End Susut JO */}
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          {/* Abu Lebur */}
+          <tr>
+            <td style={{ color: "#000", textAlign: "center" }} colSpan="8">
+              ABU LEBUR
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              NAMA TUKANG
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              KETERANGAN
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT ABU AWAL
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              BERAT KOTOR KEMBALI
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              SUSUT BRUTO
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              KADAR
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              24K
+            </td>
+            <td
+              style={{
+                backgroundColor: "#99CCFF",
+                color: "#000",
+                textAlign: "center",
+              }}
+            >
+              SUSUT 24K
+            </td>
+          </tr>
+          {this.props.dataExel[2]?.abu_lebur.map((element) => {
+            return (
+              <>
+                <tr>
+                  <td>{element.tukang}</td>
+                  <td>{element.keterangan}</td>
+                  <td style={{ textAlign: "right" }}>
+                    {element.berat_abu_awal}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    {element.berat_kotor_kembali}
+                  </td>
+                  <td style={{ textAlign: "right" }}>{element.susut_bruto}</td>
+                  <td style={{ textAlign: "right" }}>{element.kadar}</td>
+                  <td style={{ textAlign: "right" }}>{element.berat_24k}</td>
+                  <td style={{ textAlign: "right" }}>{element.susut_24k}</td>
+                </tr>
+              </>
+            );
+          })}
+          <tr>
+            <td colSpan={2} style={{ textAlign: "right" }}>
+              Grand Total :
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.berat_abu_awal), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.berat_kotor_kembali), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.susut_bruto), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur.reduce(
+                (a, b) => a + parseFloat(b.kadar),
+                0
+              )}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.berat_24k), 0)
+                .toFixed(3)}
+            </td>
+            <td style={{ textAlign: "right" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.susut_24k), 0)
+                .toFixed(3)}
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2} style={{ textAlign: "right" }}>
+              Berat Terima :
+            </td>
+            <td colSpan={6} style={{ textAlign: "center" }}>
+              {this.props.dataExel[2]?.abu_lebur
+                .reduce((a, b) => a + parseFloat(b.berat_terima), 0)
+                .toFixed(3)}
+            </td>
+          </tr>
+          {/* End Abu Lebur */}
         </table>
       </>
     );

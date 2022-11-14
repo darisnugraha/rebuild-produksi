@@ -121,7 +121,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataBahanAsal.map((item) => {
                 return (
-                  <Option value={item.nama_bahan} key={item._id}>
+                  <Option value={item._id} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );

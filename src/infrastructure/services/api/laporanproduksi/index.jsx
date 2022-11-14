@@ -1,7 +1,20 @@
 import get from "../../../axios/get";
+import post from "../../../axios/post";
 import word from "../../../shared/static";
 
 const LaporanProduksi = {
+  getTukangByDivisi: async (divisi) => {
+    const response = await get({
+      url: word.URL_GET_STAFF_BY_DIVISI_NEW + divisi.toUpperCase(),
+    });
+    return response;
+  },
+  getPeriodeByTukang: async (tukang) => {
+    const response = await get({
+      url: word.URL_GET_PERIODE_BY_TUKANG + tukang,
+    });
+    return response;
+  },
   getTerimaProduksi: async (dataKirim) => {
     const response = await get({
       url:
@@ -43,10 +56,9 @@ const LaporanProduksi = {
     return response;
   },
   getSusutProduksi: async (dataKirim) => {
-    const response = await get({
-      url:
-        word.URL_GET_LAPORAN_SUSUT_PRODUKSI +
-        `startDate=${dataKirim.tgl_awal}&endDate=${dataKirim.tgl_akhir}&divisi=${dataKirim.divisi}&kode_tukang=${dataKirim.kode_staff}`,
+    const response = await post.AxiosPost({
+      url: word.URL_GET_LAPORAN_SUSUT_PRODUKSI,
+      data: dataKirim,
     });
     return response;
   },

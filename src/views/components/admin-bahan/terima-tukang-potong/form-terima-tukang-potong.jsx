@@ -10,6 +10,7 @@ import TerimaTukangPotong from "../../../../application/selectors/terimatukangpo
 import {
   addDataTerimaTukangPotong,
   countSusut,
+  countSusutPentolan,
   getTerimaTukangPotong,
 } from "../../../../application/actions/terimatukangpotong";
 
@@ -160,6 +161,9 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Pentolan"
+              onChange={(e) =>
+                dispatch(countSusutPentolan({ beratPentolan: e.target.value }))
+              }
             />
           </Col>
           <Col offset={1} span={8}>

@@ -88,7 +88,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="divisi_tujuan"
               type="text"
@@ -100,7 +100,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="tukang_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
@@ -122,7 +122,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -140,7 +140,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col offset={1} span={8}>
             <Field
               name="berat"
               type="text"

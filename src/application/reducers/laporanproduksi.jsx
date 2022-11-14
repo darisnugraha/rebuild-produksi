@@ -14,6 +14,13 @@ import {
   SET_DATA_TERIMA_GUDANG_PRODUKSI_FAILED,
   SET_DIVISI_GUDANG,
   SET_DATA_SUSUT,
+  GET_TUKANG_BY_DIVISI,
+  SET_TUKANG_BY_DIVISI,
+  SET_DIVISI,
+  GET_PERIODE_BY_TUKANG,
+  SET_PERIODE_BY_TUKANG,
+  SET_TANGGAL,
+  GET_TANGGAL,
 } from "../actions/laporanproduksi";
 
 const initialState = {
@@ -32,6 +39,13 @@ const initialState = {
   errorGudang: null,
   isEdit: false,
   divisiGudang: [],
+  dataDivisi: [],
+  divisi: null,
+  dataTukangByDivisi: [],
+  tukang: null,
+  dataPeriode: [],
+  tanggal: [],
+  periode: null,
 };
 
 const laporanproduksi = (state = initialState, action) => {
@@ -105,6 +119,41 @@ const laporanproduksi = (state = initialState, action) => {
       return {
         ...state,
         divisiGudang: action.payload.data,
+      };
+    case GET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        divisi: action.payload.data,
+      };
+    case SET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        dataTukangByDivisi: action.payload.data,
+      };
+    case SET_DIVISI:
+      return {
+        ...state,
+        dataDivisi: action.payload.data,
+      };
+    case GET_PERIODE_BY_TUKANG:
+      return {
+        ...state,
+        tukang: action.payload.data,
+      };
+    case SET_PERIODE_BY_TUKANG:
+      return {
+        ...state,
+        dataPeriode: action.payload.data,
+      };
+    case SET_TANGGAL:
+      return {
+        ...state,
+        tanggal: action.payload.data,
+      };
+    case GET_TANGGAL:
+      return {
+        ...state,
+        periode: action.payload.data,
       };
     default:
       return state;

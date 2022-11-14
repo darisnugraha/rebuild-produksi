@@ -26,12 +26,16 @@ const addTerimaBahanTukang =
     next(action);
     if (action.type === ADD_TERIMA_BAHAN_TUKANG) {
       const data = getState().form.FormTerimaBahanTukang.values;
+      const id = data.bahan;
+      const dataBahan = getState().terimabahantukang.feedbackBahan;
+      const dataBahanFill = dataBahan.find((item) => item._id === id);
+      const nama_bahan = dataBahanFill.nama_bahan;
       const dataKirim = {
         divisi_asal: data.divisi_asal,
         divisi_tujuan: "ADMIN BAHAN",
         tukang_asal: data.tukang_asal,
         tukang_tujuan: "ADMIN BAHAN",
-        nama_bahan: data.bahan,
+        nama_bahan: nama_bahan,
         berat: data.berat_bahan,
       };
       api.TerimaBahanTukang.addTerimaBahanTukang(dataKirim).then((res) => {
@@ -107,8 +111,12 @@ const bahanAsalTukangGetAll =
       };
       api.TerimaBahanTukang.getBahanByStaff(data).then((res) => {
         if (res.value !== null) {
-          dispatch(setDataBahanAsalTukangSuccess({ feedback: res.value }));
-          dispatch(getBeratBahanByStaff({ bahan: res.value[0].nama_bahan }));
+          if (res.value.length !== 0) {
+            dispatch(setDataBahanAsalTukangSuccess({ feedback: res.value }));
+            dispatch(getBeratBahanByStaff({ bahan: res.value[0]._id }));
+          } else {
+            dispatch(setDataBahanAsalTukangSuccess({ feedback: [] }));
+          }
         } else {
           dispatch(setDataBahanAsalTukangFailed({ error: res.error }));
         }
@@ -147,11 +155,15 @@ const beratBahanAsalGetByStaffAll =
   async (action) => {
     next(action);
     if (action.type === GET_BERAT_BAHAN_BY_STAFF) {
+      const id = action.payload.data;
+      const dataBahan = getState().terimabahantukang.feedbackBahan;
+      const dataBahanFill = dataBahan.find((item) => item._id === id);
+      const nama_bahan = dataBahanFill.nama_bahan;
       const data = {
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
         staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
-        nama_bahan: action.payload.data,
+        nama_bahan: nama_bahan,
         divisi_tujuan: "ADMIN BAHAN",
       };
       const response = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
