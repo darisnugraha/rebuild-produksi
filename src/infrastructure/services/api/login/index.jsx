@@ -13,6 +13,13 @@ const login = {
     });
     return response;
   },
+  createDivisi: async (dataKirim) => {
+    const response = await post.AxiosPost({
+      url: word.URL_CREATE_DIVISI,
+      data: dataKirim,
+    });
+    return response;
+  },
   LogoutDo: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_LOGOUT,

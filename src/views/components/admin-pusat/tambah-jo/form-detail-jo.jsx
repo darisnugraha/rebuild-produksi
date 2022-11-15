@@ -46,7 +46,7 @@ const maptostate = (state) => {
             : state.masterstatus.feedback[0]?.kode_status_job_order,
         berat_potong: state.tambahjoborder.dataPohon.berat_barang,
         berat: state.tambahjoborder.beratBahan,
-        berat_balik: state.tambahjoborder.beratBalik,
+        berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
         no_job_order:
           state.tambahjoborder.spk !== undefined
             ? state.tambahjoborder.spk
@@ -69,7 +69,7 @@ const maptostate = (state) => {
           state.masterstatus.feedback[0]?.kode_status_job_order,
         berat_potong: 0,
         berat: state.tambahjoborder.beratBahan,
-        berat_balik: state.tambahjoborder.beratBalik,
+        berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
       },
     };
   }

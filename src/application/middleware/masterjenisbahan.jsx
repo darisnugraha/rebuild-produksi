@@ -63,8 +63,14 @@ const addDataMasterJenisBahan =
     next(action);
     if (action.type === ADD_MASTER_JENIS_BAHAN) {
       const data = getState().form.FormTambahMasterJenisBahan.values;
-      data.kadar = parseFloat(data.kadar);
-      api.MasterJenisBahan.addMasterJenisBahan(data).then((res) => {
+      const dataKirim = {
+        kode_jenis_bahan: data.kode_jenis_bahan.toUpperCase(),
+        nama_jenis_bahan: data.nama_jenis_bahan.toUpperCase(),
+        kode_warna: data.kode_warna,
+        kadar: parseFloat(data.kadar),
+        kode_kelompok: data.kode_kelompok,
+      };
+      api.MasterJenisBahan.addMasterJenisBahan(dataKirim).then((res) => {
         if (res.value !== null) {
           sweetalert.default.Success("Berhasil Menambahkan Data !");
         } else {

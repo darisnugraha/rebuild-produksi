@@ -72,6 +72,7 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan User ID"
+              disabled={isEdit}
             />
           </Col>
           <Col offset={1}>
@@ -82,7 +83,6 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan User Name"
-              disabled={isEdit}
             />
           </Col>
           <Col offset={1} style={{ display: isEdit ? "none" : "" }}>

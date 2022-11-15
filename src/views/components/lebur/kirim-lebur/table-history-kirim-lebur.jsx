@@ -39,12 +39,12 @@ const TableHistoryKirimLebur = () => {
       key: "keterangan",
       align: "center",
     },
-    {
-      title: "Keterangan Lebur",
-      dataIndex: "keterangan_lebur",
-      key: "keterangan_lebur",
-      align: "center",
-    },
+    // {
+    //   title: "Keterangan Lebur",
+    //   dataIndex: "keterangan_lebur",
+    //   key: "keterangan_lebur",
+    //   align: "center",
+    // },
     {
       title: "Berat Kirim",
       dataIndex: "berat",

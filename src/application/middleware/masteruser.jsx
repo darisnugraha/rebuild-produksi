@@ -117,7 +117,7 @@ const editDataMasterUser =
       const data = getState().form.FormTambahMasterUser.values;
       const id = getState().masteruser.userID;
       const dataKirim = {
-        user_id: data.user_id,
+        user_name: data.nama_lkp,
         level: data.type,
       };
       api.MasterUser.editMasterUser(dataKirim, id).then((res) => {
