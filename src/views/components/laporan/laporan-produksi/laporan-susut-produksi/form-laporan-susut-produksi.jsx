@@ -25,7 +25,7 @@ const maptostate = (state) => {
         state.laporanproduksi.divisi !== null
           ? state.laporanproduksi.divisi
           : state.laporanproduksi.dataDivisi[0]?.divisi,
-      tukang: state.laporanproduksi.dataTukangByDivisi[0]?.kode_tukang,
+      tukang: state.laporanproduksi.dataTukangByDivisi[0]?.nama_tukang,
       periode:
         state.laporanproduksi.periode !== null
           ? state.laporanproduksi.periode
