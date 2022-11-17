@@ -28,7 +28,7 @@ function Failed(message) {
 
 function Info(message) {
   Swal.fire({
-    title: "Gagal !",
+    title: "Info !",
     text: message,
     icon: "info",
   });
