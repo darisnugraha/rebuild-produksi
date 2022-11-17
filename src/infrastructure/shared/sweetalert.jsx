@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 
 function Success(message) {
   Swal.fire({
-    title: "Yeaay..",
+    title: "Berhasil !",
     text: message,
     icon: "success",
   }).then(() => {
@@ -12,7 +12,7 @@ function Success(message) {
 
 function SuccessNoReload(message) {
   Swal.fire({
-    title: "Yeaay..",
+    title: "Berhasil !",
     text: message,
     icon: "success",
   });
@@ -20,7 +20,7 @@ function SuccessNoReload(message) {
 
 function Failed(message) {
   Swal.fire({
-    title: "Ops..",
+    title: "Gagal !",
     text: message,
     icon: "error",
   });
@@ -28,7 +28,7 @@ function Failed(message) {
 
 function Info(message) {
   Swal.fire({
-    title: "Ops..",
+    title: "Gagal !",
     text: message,
     icon: "info",
   });
