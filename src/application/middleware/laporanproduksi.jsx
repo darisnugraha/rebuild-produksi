@@ -418,7 +418,7 @@ const getAllDataSusutProduksi =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setTukangByDivisi(res.value));
-            dispatch(getPeriodeByTukang(res.value[0].kode_tukang));
+            dispatch(getPeriodeByTukang(res.value[0].nama_tukang));
           } else {
             dispatch(setDataSusut({ feedback: [] }));
             dispatch(getTanggal("-"));
