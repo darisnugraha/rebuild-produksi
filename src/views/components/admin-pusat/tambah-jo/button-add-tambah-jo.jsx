@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import {
   addDataDetailJO,
   addDataStaff,
+  getDataByPohon,
+  setDataByPohon,
 } from "../../../../application/actions/tambahjoborder";
 
 const ModalTambahJO = () => {
@@ -29,6 +31,8 @@ const ModalTambahJO = () => {
           dispatch(addDataStaff);
         }}
         onCancel={() => {
+          dispatch(setDataByPohon({ feedback: undefined }));
+          dispatch(getDataByPohon({ pohon: undefined }));
           setVisibleDataStaff(false);
         }}
       />
