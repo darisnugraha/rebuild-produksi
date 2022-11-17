@@ -50,7 +50,6 @@ let FormLaporanSaldoBahanPusat = (prop) => {
           <Field
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Tukang"
             onBlur={(e) => e.preventDefault()}
@@ -72,7 +71,6 @@ let FormLaporanSaldoBahanPusat = (prop) => {
           <Field
             name="bahan"
             label={<span style={{ fontSize: "13px" }}>Kelompok Bahan</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Kelompok Bahan"
             onBlur={(e) => e.preventDefault()}
@@ -90,7 +88,6 @@ let FormLaporanSaldoBahanPusat = (prop) => {
           <Field
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
-            style={{ width: 250 }}
             component={styleAntd.ASelect}
             placeholder="Pilih Divisi"
             onBlur={(e) => e.preventDefault()}
