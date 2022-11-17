@@ -84,7 +84,6 @@ const addDataStaff =
       const data = getState().form.FormDataStaff.values;
       data.pentolan = 0;
       let dataLocal = [];
-      data.no_buat = data.no_buat.toUpperCase();
       if (data.no_buat === undefined) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
       } else {
