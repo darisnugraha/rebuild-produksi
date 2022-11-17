@@ -6,6 +6,7 @@ export const SET_DATA_TERIMA_LEBUR_FAILED =
 
 export const SET_SUSUT = "[terimalebur] set susust";
 export const SET_SUSUT_SUCCESS = "[terimalebur] set susut success";
+export const SET_SUSUT_24K = "[terimalebur] set susut 24K";
 export const SET_BERAT_TERIMA = "[terimalebur] set berat terima";
 export const SET_CLOSE_SUSUT = "[terimalebur] set close susut";
 
@@ -30,6 +31,10 @@ export const countSusut = ({ beratTerima }) => ({
 });
 export const setDataSusutSuccess = ({ feedback }) => ({
   type: SET_SUSUT_SUCCESS,
+  payload: { data: feedback },
+});
+export const setDataSusut24K = ({ feedback }) => ({
+  type: SET_SUSUT_24K,
   payload: { data: feedback },
 });
 export const setDataBeratTerima = ({ beratTerima }) => ({

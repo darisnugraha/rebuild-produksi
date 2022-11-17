@@ -6,6 +6,7 @@ import {
   setDataSusutSuccess,
   setDataBeratTerima,
   ADD_TERIMA_LEBUR,
+  setDataSusut24K,
 } from "../actions/terimalebur";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -47,12 +48,16 @@ const setBeratSusut =
     if (action.type === SET_SUSUT) {
       let berat_murni =
         getState().terimalebur.feedback[0]?.total_berat_murni || 0;
-      console.log(berat_murni);
       let berat_terima = action.payload.data || 0;
       let susut = 0;
+      let susut_24k = 0;
+      const kadar = getState().terimalebur.feedback[0]?.kadar || 0;
+      console.log(kadar);
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
+      susut_24k = susut * (kadar / 100);
       dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
       dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
+      dispatch(setDataSusut24K({ feedback: susut_24k }));
     }
   };
 

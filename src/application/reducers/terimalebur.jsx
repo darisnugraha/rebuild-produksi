@@ -5,6 +5,7 @@ import {
   SET_SUSUT_SUCCESS,
   SET_BERAT_TERIMA,
   SET_CLOSE_SUSUT,
+  SET_SUSUT_24K,
 } from "../actions/terimalebur";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   susut: 0,
   beratTerima: 0,
   closeSusut: false,
+  susut_24k: 0,
 };
 
 const terimalebur = (state = initialState, action) => {
@@ -43,6 +45,11 @@ const terimalebur = (state = initialState, action) => {
       return {
         ...state,
         closeSusut: action.payload.data,
+      };
+    case SET_SUSUT_24K:
+      return {
+        ...state,
+        susut_24k: action.payload.data,
       };
     default:
       return state;

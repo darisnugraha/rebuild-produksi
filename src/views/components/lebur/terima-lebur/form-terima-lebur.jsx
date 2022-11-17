@@ -24,6 +24,7 @@ const maptostate = (state) => {
         berat_terima: state.terimalebur.beratTerima,
         berat_susut: state.terimalebur.susut,
         close_susut: state.terimalebur.closeSusut,
+        susut_24k: state.terimalebur.susut_24k,
       },
     };
   } else {
@@ -36,6 +37,7 @@ const maptostate = (state) => {
         berat_terima: "",
         berat_susut: "",
         close_susut: state.terimalebur.closeSusut,
+        susut_24k: state.terimalebur.susut_24k,
       },
     };
   }
