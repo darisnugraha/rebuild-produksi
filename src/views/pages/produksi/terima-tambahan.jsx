@@ -12,7 +12,6 @@ import FormTerimaTambahan from "../../components/produksi/terima-tambahan/button
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
 import { getAllTukangTerimaTambahan } from "../../../application/actions/terimatambahan.jsx";
-import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
 
 const TerimaTambahan = () => {
   const dispatch = useDispatch();
@@ -31,7 +30,6 @@ const TerimaTambahan = () => {
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllTukangTerimaTambahan);
-    dispatch(getAllMasterTukang);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

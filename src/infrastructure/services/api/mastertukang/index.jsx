@@ -13,6 +13,12 @@ const MasterTukang = {
     const response = await get({ url: word.URL_GET_MASTER_TUKANG_BY_ID + id });
     return response;
   },
+  getAllMasterTukangByDivisi: async (divisi) => {
+    const response = await get({
+      url: word.URL_GET_TUKANG_DIVISI + divisi,
+    });
+    return response;
+  },
   addMasterTukang: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_MASTER_TUKANG,

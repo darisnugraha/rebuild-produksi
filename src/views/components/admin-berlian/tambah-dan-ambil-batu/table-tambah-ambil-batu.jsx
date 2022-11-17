@@ -79,11 +79,12 @@ const TableMasterTambahAmbilBatu = () => {
           key: "berat",
           align: "center",
           render: (text, row) => {
-            if (row.status_sintetis) {
-              return `${text} Gram`;
-            } else {
-              return `${text} Carat`;
-            }
+            return `${text} Gram`;
+            // if (row.status_sintetis) {
+            // return `${text} Gram`;
+            // } else {
+            //   return `${text} Carat`;
+            // }
           },
         },
         // {

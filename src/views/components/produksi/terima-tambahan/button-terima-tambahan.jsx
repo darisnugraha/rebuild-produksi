@@ -3,6 +3,7 @@ import { Button } from "antd";
 import FormTerimaTambahan from "./form-terima-tambahan";
 import { useDispatch } from "react-redux";
 import { getSaldoTamabahan } from "../../../../application/actions/terimatambahan";
+import { getAllMasterTukangByDivisi } from "../../../../application/actions/mastertukang";
 
 const ModalTerimaTambahan = () => {
   const [visible, setVisible] = useState(false);
@@ -21,6 +22,7 @@ const ModalTerimaTambahan = () => {
         onClick={() => {
           setVisible(true);
           dispatch(getSaldoTamabahan(divisi.toUpperCase()));
+          dispatch(getAllMasterTukangByDivisi(divisi.toUpperCase()));
         }}
       >
         + Data Terima

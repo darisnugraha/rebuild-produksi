@@ -20,7 +20,7 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi: localStorage.getItem("divisi") || "",
-        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
+        staff_tujuan: state.mastertukang.dataTukangbyDivisi[0]?.nama_tukang,
         staff: state.terimatambahan.kodeStaff,
         nama_bahan: state.terimatambahan.namaBahan,
         berat_bahan: state.terimatambahan.berat,
@@ -30,7 +30,7 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi: localStorage.getItem("divisi") || "",
-        staff_tujuan: state.mastertukang.feedback[0]?.nama_tukang,
+        staff_tujuan: state.mastertukang.dataTukangbyDivisi[0]?.nama_tukang,
         staff: "",
         nama_bahan: "",
         berat_bahan: "",
@@ -44,7 +44,7 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataStaffTujuan = useSelector(Tukang.getAllMasterTukang);
+  const dataStaffTujuan = useSelector(Tukang.getAllMasterTukangByDivisi);
   const dataBahan = useSelector(TerimaTambahan.getDataTambahan);
 
   return (
@@ -72,11 +72,10 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col span={10} offset={1}>
+          <Col span={8} offset={1}>
             <Field
               name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
@@ -107,7 +106,6 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}

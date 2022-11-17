@@ -8,6 +8,8 @@ import {
   ADD_MASTER_TUKANG,
   DELETE_MASTER_TUKANG,
   EDIT_MASTER_TUKANG,
+  GET_ALL_MASTER_TUKANG_BY_DIVISI,
+  setDataMasterTukangByDivisi,
 } from "../actions/mastertukang";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -23,6 +25,25 @@ const masterTukangGetAll =
           dispatch(setDataMasterTukangSuccess({ feedback: res.value }));
         } else {
           dispatch(setDataMasterTukangFailed({ error: res.error }));
+        }
+      });
+    }
+  };
+
+const masterTukangGetAllByDivisi =
+  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_ALL_MASTER_TUKANG_BY_DIVISI) {
+      const divisi = action.payload.data;
+      console.log(divisi);
+      api.MasterTukang.getAllMasterTukangByDivisi(divisi).then((res) => {
+        if (res.value !== null) {
+          dispatch(setDataMasterTukangByDivisi({ feedback: res.value }));
+        } else {
+          dispatch(setDataMasterTukangByDivisi({ feedback: [] }));
         }
       });
     }
@@ -115,6 +136,7 @@ const editDataMasterTukang =
 
 const data = [
   masterTukangGetAll,
+  masterTukangGetAllByDivisi,
   masterTukangGetDataID,
   addDataMasterTukang,
   deleteDataMasterTukang,

@@ -5,6 +5,7 @@ import {
   SET_EDIT_FORM_ON,
   SET_EDIT_FORM_OFF,
   SET_DATA_MASTER_TUKANG_EDIT,
+  SET_DATA_MASTER_TUKANG_BY_DIVISI,
 } from "../actions/mastertukang";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   isEdit: false,
   isVisible: false,
   dataEdit: [],
+  dataTukangbyDivisi: [],
 };
 
 const mastertukang = (state = initialState, action) => {
@@ -39,6 +41,11 @@ const mastertukang = (state = initialState, action) => {
       return {
         ...state,
         dataEdit: action.payload.data,
+      };
+    case SET_DATA_MASTER_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        dataTukangbyDivisi: action.payload.data,
       };
     default:
       return state;

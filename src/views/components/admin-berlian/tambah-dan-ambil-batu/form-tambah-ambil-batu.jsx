@@ -143,7 +143,11 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
             <Field
               name="berat"
               type="number"
-              label={<span style={{ fontSize: "13px" }}>Berat</span>}
+              label={
+                <span style={{ fontSize: "13px" }}>
+                  {isSintetis ? "Berat" : "Carat"}
+                </span>
+              }
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat"
@@ -158,10 +162,10 @@ let FormTambahAmbilBatu = ({ visible, onCancel }, prop) => {
             <Field
               name="konversi_berat"
               type="number"
-              label={<span style={{ fontSize: "13px" }}>Carat</span>}
+              label={<span style={{ fontSize: "13px" }}>Berat (Gram)</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Carat"
+              placeholder="Masukkan Gram"
               disabled={true}
             />
           </Col>

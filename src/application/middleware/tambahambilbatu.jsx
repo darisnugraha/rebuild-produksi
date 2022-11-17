@@ -101,7 +101,7 @@ const countberatbatu =
     if (action.type === COUNT_BERAT_TAMBAH_AMBIL_BATU) {
       let total = 0;
       const berat = action.payload;
-      total = berat / 0.2;
+      total = berat * 0.2;
       dispatch(setKonversiBerat(total));
     }
   };

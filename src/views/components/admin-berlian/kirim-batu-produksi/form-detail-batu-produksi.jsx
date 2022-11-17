@@ -115,7 +115,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               type="text"
               label={
                 <span style={{ fontSize: "13px" }}>
-                  Berat Kirim {is_sintetic ? "(CARAT)" : "(GRAM)"}
+                  Berat Kirim {is_sintetic ? "(GRAM)" : "(CARAT)"}
                 </span>
               }
               component={styleAntd.AInput}

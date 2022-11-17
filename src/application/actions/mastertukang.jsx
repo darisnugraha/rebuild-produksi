@@ -15,6 +15,11 @@ export const ADD_MASTER_TUKANG = "[mastertukang] add master tukang";
 export const DELETE_MASTER_TUKANG = "[mastertukang] delete master tukang";
 export const EDIT_MASTER_TUKANG = "[mastertukang] edit master tukang";
 
+export const GET_ALL_MASTER_TUKANG_BY_DIVISI =
+  "[mastertukang] get all master tukang by divisi";
+export const SET_DATA_MASTER_TUKANG_BY_DIVISI =
+  "[mastertukang] set all master tukang by divisi";
+
 export const getAllMasterTukang = {
   type: GET_ALL_MASTER_TUKANG,
 };
@@ -51,3 +56,12 @@ export const deleteMasterTukang = ({ id }) => ({
 export const editMasterTukang = {
   type: EDIT_MASTER_TUKANG,
 };
+
+export const getAllMasterTukangByDivisi = (divisi) => ({
+  type: GET_ALL_MASTER_TUKANG_BY_DIVISI,
+  payload: { data: divisi },
+});
+export const setDataMasterTukangByDivisi = ({ feedback }) => ({
+  type: SET_DATA_MASTER_TUKANG_BY_DIVISI,
+  payload: { data: feedback },
+});
