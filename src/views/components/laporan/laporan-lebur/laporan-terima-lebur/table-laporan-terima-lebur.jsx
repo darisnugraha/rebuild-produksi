@@ -24,12 +24,12 @@ const TableLaporanTerimaLebur = () => {
       key: "no_kirim_lebur",
       align: "center",
     },
-    {
-      title: "Nama Bahan",
-      dataIndex: "nama_bahan",
-      key: "nama_bahan",
-      align: "center",
-    },
+    // {
+    //   title: "Nama Bahan",
+    //   dataIndex: "nama_bahan",
+    //   key: "nama_bahan",
+    //   align: "center",
+    // },
     {
       title: "Berat Kirim",
       dataIndex: "berat_murni",

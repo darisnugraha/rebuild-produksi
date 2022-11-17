@@ -29,9 +29,9 @@ const pdfReport = (data = "") => {
       {
         content: `NO KIRIM`,
       },
-      {
-        content: `NAMA BAHAN`,
-      },
+      // {
+      //   content: `NAMA BAHAN`,
+      // },
       {
         content: `BERAT KIRIM`,
       },
@@ -55,9 +55,9 @@ const pdfReport = (data = "") => {
       {
         content: element.no_kirim_lebur,
       },
-      {
-        content: element.nama_bahan,
-      },
+      // {
+      //   content: element.nama_bahan,
+      // },
       {
         content: element.berat_murni,
         styles: {
@@ -86,7 +86,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: "4",
+      colSpan: "3",
     },
     {
       content: data
@@ -118,7 +118,7 @@ const pdfReport = (data = "") => {
   const printed = [
     {
       content: `Printed By Admin`,
-      colSpan: 12,
+      colSpan: 11,
       styles: {
         fontStyle: "italic",
         textColor: "#000",

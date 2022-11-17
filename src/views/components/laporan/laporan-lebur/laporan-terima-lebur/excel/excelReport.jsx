@@ -73,7 +73,7 @@ class ExcelReport extends Component {
               >
                 NO KIRIM
               </td>
-              <td
+              {/* <td
                 style={{
                   backgroundColor: "#99CCFF",
                   color: "#000",
@@ -81,7 +81,7 @@ class ExcelReport extends Component {
                 }}
               >
                 NAMA BAHAN
-              </td>
+              </td> */}
               <td
                 style={{
                   backgroundColor: "#99CCFF",
@@ -119,7 +119,7 @@ class ExcelReport extends Component {
                     <td>{element.no_terima_lebur}</td>
                     <td>{element.tanggal_terima}</td>
                     <td>{element.no_kirim_lebur}</td>
-                    <td>{element.nama_bahan}</td>
+                    {/* <td>{element.nama_bahan}</td> */}
                     <td style={{ textAlign: "right" }}>
                       {element.berat_murni}
                     </td>
@@ -136,7 +136,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={4} style={{ textAlign: "right" }}>
+              <td colSpan={3} style={{ textAlign: "right" }}>
                 Grand Total :
               </td>
               <td style={{ textAlign: "right" }}>
