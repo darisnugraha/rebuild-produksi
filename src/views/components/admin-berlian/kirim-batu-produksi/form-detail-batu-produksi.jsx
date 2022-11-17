@@ -6,7 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterBatu from "../../../../application/selectors/masterbatu";
-import KirimBatuProduksi from "../../../../application/selectors/kirimbatuproduksi";
+// import KirimBatuProduksi from "../../../../application/selectors/kirimbatuproduksi";
 import { getBeratBatuByID } from "../../../../application/actions/kirimbatuproduksi";
 
 const { Option } = Select;
@@ -47,8 +47,8 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
-  const dataBatuFilter = useSelector(KirimBatuProduksi.getFilterBatu);
-  const is_sintetic = dataBatuFilter[0]?.status_sintetis;
+  // const dataBatuFilter = useSelector(KirimBatuProduksi.getFilterBatu);
+  // const is_sintetic = dataBatuFilter[0]?.status_sintetis;
 
   return (
     <Modal
@@ -113,11 +113,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="berat_kirim"
               type="text"
-              label={
-                <span style={{ fontSize: "13px" }}>
-                  Berat Kirim {is_sintetic ? "(GRAM)" : "(CARAT)"}
-                </span>
-              }
+              label={<span style={{ fontSize: "13px" }}>Berat Kirim</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Kirim"
