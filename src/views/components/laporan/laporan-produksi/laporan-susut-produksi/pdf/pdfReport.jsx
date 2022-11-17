@@ -67,9 +67,7 @@ const pdfReport = (data = "") => {
       styles: { halign: "right" },
     },
     {
-      content: data[0]?.tambah_bahan
-        .reduce((a, b) => a + parseFloat(b.kadar), 0)
-        .toFixed(3),
+      content: "",
       styles: { halign: "right" },
     },
     {
@@ -156,10 +154,7 @@ const pdfReport = (data = "") => {
       styles: { halign: "right" },
     },
     {
-      content: data[1]?.balik_bahan.reduce(
-        (a, b) => a + parseFloat(b.kadar),
-        0
-      ),
+      content: "",
       styles: { halign: "right" },
     },
     {
@@ -260,7 +255,7 @@ const pdfReport = (data = "") => {
       colSpan: "3",
     },
     {
-      content: data[3]?.susut_JO.reduce((a, b) => a + parseFloat(b.kadar), 0),
+      content: "",
       styles: { halign: "right" },
     },
     {
@@ -400,7 +395,7 @@ const pdfReport = (data = "") => {
       styles: { halign: "right" },
     },
     {
-      content: data[2]?.abu_lebur.reduce((a, b) => a + parseFloat(b.kadar), 0),
+      content: "",
       styles: { halign: "right" },
     },
     {

@@ -125,12 +125,7 @@ class ExcelReport extends Component {
                   .reduce((a, b) => a + parseFloat(b.berat_kotor), 0)
                   .toFixed(3)}
               </td>
-              <td style={{ textAlign: "right" }}>
-                {this.props.dataExel[0]?.tambah_bahan.reduce(
-                  (a, b) => a + parseFloat(b.kadar),
-                  0
-                )}
-              </td>
+              <td style={{ textAlign: "right" }}></td>
               <td style={{ textAlign: "right" }}>
                 {this.props.dataExel[0]?.tambah_bahan
                   .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
@@ -229,12 +224,7 @@ class ExcelReport extends Component {
                 .reduce((a, b) => a + parseFloat(b.berat_kotor), 0)
                 .toFixed(3)}
             </td>
-            <td style={{ textAlign: "right" }}>
-              {this.props.dataExel[1]?.balik_bahan.reduce(
-                (a, b) => a + parseFloat(b.kadar),
-                0
-              )}
-            </td>
+            <td style={{ textAlign: "right" }}></td>
             <td style={{ textAlign: "right" }}>
               {this.props.dataExel[1]?.balik_bahan
                 .reduce((a, b) => a + parseFloat(b.berat_murni), 0)
@@ -373,12 +363,7 @@ class ExcelReport extends Component {
             <td colSpan={3} style={{ textAlign: "right" }}>
               Grand Total :
             </td>
-            <td style={{ textAlign: "right" }}>
-              {this.props.dataExel[3]?.susut_JO.reduce(
-                (a, b) => a + parseFloat(b.kadar),
-                0
-              )}
-            </td>
+            <td style={{ textAlign: "right" }}></td>
             <td style={{ textAlign: "right" }}>
               {this.props.dataExel[3]?.susut_JO
                 .reduce((a, b) => a + parseFloat(b.berat_awal), 0)
@@ -532,12 +517,7 @@ class ExcelReport extends Component {
                 .reduce((a, b) => a + parseFloat(b.susut_bruto), 0)
                 .toFixed(3)}
             </td>
-            <td style={{ textAlign: "right" }}>
-              {this.props.dataExel[2]?.abu_lebur.reduce(
-                (a, b) => a + parseFloat(b.kadar),
-                0
-              )}
-            </td>
+            <td style={{ textAlign: "right" }}></td>
             <td style={{ textAlign: "right" }}>
               {this.props.dataExel[2]?.abu_lebur
                 .reduce((a, b) => a + parseFloat(b.berat_24k), 0)

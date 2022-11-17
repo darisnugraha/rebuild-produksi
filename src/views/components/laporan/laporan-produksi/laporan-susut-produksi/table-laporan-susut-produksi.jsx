@@ -234,9 +234,7 @@ const TableLaporanSusutProduksi = () => {
               <Table.Summary.Cell index={1} align="right">
                 {data[0]?.tambah_bahan.reduce((a, b) => a + b.berat_kotor, 0)}
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={2} align="right">
-                {data[0]?.tambah_bahan.reduce((a, b) => a + b.kadar, 0)}
-              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} align="right"></Table.Summary.Cell>
               <Table.Summary.Cell index={3} align="right">
                 {data[0]?.tambah_bahan.reduce((a, b) => a + b.berat_murni, 0)}
               </Table.Summary.Cell>
@@ -257,9 +255,7 @@ const TableLaporanSusutProduksi = () => {
               <Table.Summary.Cell index={1} align="right">
                 {data[1]?.balik_bahan.reduce((a, b) => a + b.berat_kotor, 0)}
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={2} align="right">
-                {data[1]?.balik_bahan.reduce((a, b) => a + b.kadar, 0)}
-              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} align="right"></Table.Summary.Cell>
               <Table.Summary.Cell index={3} align="right">
                 {data[1]?.balik_bahan.reduce((a, b) => a + b.berat_murni, 0)}
               </Table.Summary.Cell>
@@ -277,9 +273,7 @@ const TableLaporanSusutProduksi = () => {
               <Table.Summary.Cell index={0} colSpan={3} align="right">
                 Grand Total
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={1} align="right">
-                {data[3]?.susut_JO.reduce((a, b) => a + b.kadar, 0)}
-              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right"></Table.Summary.Cell>
               <Table.Summary.Cell index={2} align="right">
                 {data[3]?.susut_JO.reduce((a, b) => a + b.berat_awal, 0)}
               </Table.Summary.Cell>
@@ -322,9 +316,7 @@ const TableLaporanSusutProduksi = () => {
               <Table.Summary.Cell index={3} align="right">
                 {data[2]?.abu_lebur.reduce((a, b) => a + b.susut_bruto, 0)}
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={5} align="right">
-                {data[2]?.abu_lebur.reduce((a, b) => a + b.kadar, 0)}
-              </Table.Summary.Cell>
+              <Table.Summary.Cell index={5} align="right"></Table.Summary.Cell>
               <Table.Summary.Cell index={6} align="right">
                 {data[2]?.abu_lebur.reduce((a, b) => a + b.berat_24k, 0)}
               </Table.Summary.Cell>
