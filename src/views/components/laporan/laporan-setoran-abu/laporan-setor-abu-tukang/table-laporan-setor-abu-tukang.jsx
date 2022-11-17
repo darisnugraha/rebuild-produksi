@@ -72,12 +72,6 @@ const TableLaporanSetorAbuTukang = () => {
         return parseFloat(text) ? text : 0;
       },
     },
-    {
-      title: "Pohon",
-      dataIndex: "pohon",
-      key: "pohon",
-      align: "left",
-    },
   ];
 
   const dataLaporanSetorAbuTukang = useSelector(

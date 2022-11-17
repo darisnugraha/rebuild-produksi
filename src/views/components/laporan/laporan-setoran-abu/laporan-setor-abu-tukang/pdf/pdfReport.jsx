@@ -50,9 +50,6 @@ const pdfReport = (data = "") => {
       {
         content: `SUSUT 24K`,
       },
-      {
-        content: `POHON`,
-      },
     ],
   ];
 

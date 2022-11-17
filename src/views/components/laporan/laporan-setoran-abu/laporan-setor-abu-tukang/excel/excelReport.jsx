@@ -136,15 +136,6 @@ class ExcelReport extends Component {
               >
                 SUSUT 24K
               </td>
-              <td
-                style={{
-                  backgroundColor: "#99CCFF",
-                  color: "#000",
-                  textAlign: "center",
-                }}
-              >
-                POHON
-              </td>
             </tr>
           </thead>
           <tbody>
