@@ -19,7 +19,7 @@ const maptostate = (state) => {
     initialValues: {
       date: [moment(today, dateFormat), moment(today, dateFormat)],
       divisi: state.kirimbahanadmin.feedback[0]?.divisi,
-      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+      tukang: state.mastertukang.feedback[0]?.nama_tukang,
     },
   };
 };
@@ -77,7 +77,7 @@ let FormLaporanKirimProduksi = (prop) => {
           >
             {dataTukang.map((item) => {
               return (
-                <Option value={item.kode_tukang} key={item.kode_tukang}>
+                <Option value={item.nama_tukang} key={item.kode_tukang}>
                   <span style={{ fontSize: "13px" }}>
                     {item.kode_tukang === item.nama_tukang
                       ? item.nama_tukang
