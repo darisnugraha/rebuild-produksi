@@ -6,8 +6,12 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import MasterBatu from "../../../../application/selectors/masterbatu";
-// import KirimBatuProduksi from "../../../../application/selectors/kirimbatuproduksi";
-import { getBeratBatuByID } from "../../../../application/actions/kirimbatuproduksi";
+import KirimBatuProduksi from "../../../../application/selectors/kirimbatuproduksi";
+import {
+  countBeratKirimBatuProduksi,
+  getBeratBatuByID,
+  setJumlahKirim,
+} from "../../../../application/actions/kirimbatuproduksi";
 
 const { Option } = Select;
 
@@ -18,6 +22,7 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.kirimbatuproduksi.dataBatu[0]?.kode_batu,
           jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+          berat: state.kirimbatuproduksi.berat,
           berat_kirim: state.kirimbatuproduksi.beratKirim,
         },
       };
@@ -26,6 +31,7 @@ const maptostate = (state) => {
         initialValues: {
           kode_batu: state.masterbatu.feedback[0]?.kode_batu,
           jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+          berat: state.kirimbatuproduksi.berat,
           berat_kirim: state.kirimbatuproduksi.beratKirim,
         },
       };
@@ -35,6 +41,7 @@ const maptostate = (state) => {
       initialValues: {
         kode_batu: state.masterbatu.feedback[0]?.kode_batu,
         jumlah_kirim: state.kirimbatuproduksi.jumlahKirim,
+        berat: state.kirimbatuproduksi.berat,
         berat_kirim: state.kirimbatuproduksi.beratKirim,
       },
     };
@@ -47,8 +54,8 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
-  // const dataBatuFilter = useSelector(KirimBatuProduksi.getFilterBatu);
-  // const is_sintetic = dataBatuFilter[0]?.status_sintetis;
+  const dataBatuFilter = useSelector(KirimBatuProduksi.getFilterBatu);
+  const is_sintetic = dataBatuFilter[0]?.status_sintetis;
 
   return (
     <Modal
@@ -102,14 +109,31 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Jumlah Kirim"
-              // onBlur={(e) => {
-              //   dispatch(
-              //     countBeratKirimBatuProduksi({ jumlah: e.target.value })
-              //   );
-              // }}
+              onBlur={(e) => {
+                dispatch(setJumlahKirim({ jumlah: e.target.value }));
+              }}
             />
           </Col>
           <Col offset={1}>
+            <Field
+              name="berat"
+              type="text"
+              label={
+                <span style={{ fontSize: "13px" }}>
+                  {is_sintetic ? "Berat" : "Carat"}
+                </span>
+              }
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Kirim"
+              onChange={(e) =>
+                dispatch(
+                  countBeratKirimBatuProduksi({ beratBatu: e.target.value })
+                )
+              }
+            />
+          </Col>
+          <Col offset={1} style={{ display: is_sintetic ? "none" : "" }}>
             <Field
               name="berat_kirim"
               type="text"
@@ -117,7 +141,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Kirim"
-              // disabled
+              disabled
             />
           </Col>
         </Row>

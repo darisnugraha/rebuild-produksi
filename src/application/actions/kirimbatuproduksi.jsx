@@ -11,6 +11,8 @@ export const SET_BERAT_BATU_SUCCESS =
 export const SET_BERAT_BATU_FAILED =
   "[kirimbatuproduksi] set berat batu failed";
 
+export const SET_JUMLAH_KIRIM = "[kirimbatuproduksi] set jumlah batu";
+
 export const COUNT_BERAT_KIRIM_BATU_PRODUKSI =
   "[kirimbatuproduksi] count berat kirim batu produksi";
 
@@ -65,9 +67,14 @@ export const setBeratBatuFailed = ({ error }) => ({
   payload: { data: error },
 });
 
-export const countBeratKirimBatuProduksi = ({ jumlah }) => ({
+export const setJumlahKirim = ({ jumlah }) => ({
+  type: SET_JUMLAH_KIRIM,
+  payload: { data: jumlah },
+});
+
+export const countBeratKirimBatuProduksi = ({ beratBatu }) => ({
   type: COUNT_BERAT_KIRIM_BATU_PRODUKSI,
-  payload: jumlah,
+  payload: beratBatu,
 });
 export const setCountBeratKirimBatuProduksi = (berat) => ({
   type: SET_COUNT_BERAT_KIRIM_BATU_PRODUKSI,

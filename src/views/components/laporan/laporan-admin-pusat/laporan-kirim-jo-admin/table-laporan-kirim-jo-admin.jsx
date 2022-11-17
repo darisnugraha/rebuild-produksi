@@ -19,6 +19,12 @@ const TableLaporanKirimJoAdmin = () => {
       align: "center",
     },
     {
+      title: "No Kirim",
+      dataIndex: "no_kirim",
+      key: "no_kirim",
+      align: "center",
+    },
+    {
       title: "Kode Barang",
       dataIndex: "kode_barang",
       key: "kode_barang",

@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import { Button, Space } from "antd";
 import FormTambahKirimBatuProduksi from "./form-kirim-batu-produksi";
 import FormDetailBatuProduksi from "./form-detail-batu-produksi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addDataDetailBatu,
   addDataKirimBatu,
+  getBeratBatuByID,
 } from "../../../../application/actions/kirimbatuproduksi";
+import MasterBatu from "../../../../application/selectors/masterbatu";
 
 const ModalKirimBatuProduksi = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [visibleDetail, setVisibleDetail] = useState(false);
+  const dataBatu = useSelector(MasterBatu.getAllMasterBatu);
 
   return (
     <div>
@@ -28,6 +31,7 @@ const ModalKirimBatuProduksi = () => {
           type="primary"
           onClick={() => {
             setVisibleDetail(true);
+            dispatch(getBeratBatuByID({ kodeBatu: dataBatu[0]?.kode_batu }));
           }}
         >
           + Tambah Batu Produksi

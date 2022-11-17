@@ -26,7 +26,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="11"
+                colSpan="13"
               >
                 LAPORAN KIRIM JOB ORDER ADMIN
               </td>
@@ -37,7 +37,7 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="11"
+                colSpan="13"
               >
                 TANGGAL{" "}
                 {this.props.dataHead?.tgl_awal +
@@ -63,6 +63,15 @@ class ExcelReport extends Component {
                 }}
               >
                 NO SPK
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                NO KIRIM
               </td>
               <td
                 style={{
@@ -155,6 +164,7 @@ class ExcelReport extends Component {
                 <tr>
                   <td>{item.tanggal}</td>
                   <td>{item.no_job_order}</td>
+                  <td>{item.no_kirim}</td>
                   <td>{item.kode_barang}</td>
                   <td>{item.tujuan_divisi}</td>
                   <td>{item.kode_jenis_bahan}</td>
@@ -170,7 +180,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={5}>Total :</td>
+              <td colSpan={6}>Total :</td>
               <td>
                 {this.props.dataExel.reduce(
                   (a, b) => a + parseFloat(b.stock_out),

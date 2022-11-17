@@ -66,12 +66,14 @@ const countberatbatu =
     next(action);
     if (action.type === COUNT_BERAT_KIRIM_BATU_PRODUKSI) {
       let total = 0;
-      const jumlah = action.payload;
-      const berat_asli = parseFloat(
-        getState().kirimbatuproduksi.dataBatu[0].berat_batu
-      );
-      total = jumlah * berat_asli;
-      dispatch(setCountBeratKirimBatuProduksi(total));
+      const data = getState().kirimbatuproduksi.dataBatu[0].status_sintetis;
+      const berat = action.payload;
+      if (data) {
+        dispatch(setCountBeratKirimBatuProduksi(berat));
+      } else {
+        total = berat * 0.2;
+        dispatch(setCountBeratKirimBatuProduksi(total));
+      }
     }
   };
 

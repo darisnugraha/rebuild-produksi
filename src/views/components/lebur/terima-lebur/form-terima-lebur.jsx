@@ -100,7 +100,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
             <Field
               name="berat_murni"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>24k</span>}
+              label={<span style={{ fontSize: "13px" }}>Bruto Awal</span>}
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan 24k"
@@ -128,6 +128,17 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Susut"
+              disabled
+            />
+          </Col>
+          <Col offset={1}>
+            <Field
+              name="susut_24k"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Susut 24K</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Susut 24K"
               disabled
             />
           </Col>

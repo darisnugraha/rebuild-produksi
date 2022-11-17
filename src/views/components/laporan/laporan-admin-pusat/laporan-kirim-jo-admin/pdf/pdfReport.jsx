@@ -27,6 +27,9 @@ const pdfReport = (data = "") => {
         content: `NO SPK`,
       },
       {
+        content: `NO KIRIM`,
+      },
+      {
         content: `KODE BARANG`,
       },
       {
@@ -68,6 +71,9 @@ const pdfReport = (data = "") => {
       },
       {
         content: element.no_job_order,
+      },
+      {
+        content: element.no_kirim,
       },
       {
         content: element.kode_barang,
@@ -122,7 +128,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: 5,
+      colSpan: 6,
     },
     {
       content: data.reduce((a, b) => a + parseFloat(b.stock_out), 0),
@@ -168,7 +174,7 @@ const pdfReport = (data = "") => {
   const printed = [
     {
       content: `Printed By Admin`,
-      colSpan: 12,
+      colSpan: 13,
       styles: {
         fontStyle: "italic",
         textColor: "#000",
