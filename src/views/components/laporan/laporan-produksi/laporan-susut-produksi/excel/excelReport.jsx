@@ -21,12 +21,26 @@ class ExcelReport extends Component {
         <table id="table-to-xls" style={{ display: "none" }}>
           <thead>
             <tr>
-              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+              <td
+                style={{
+                  color: "#000",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+                colSpan="6"
+              >
                 LAPORAN SUSUT PRODUKSI ({this.props.dataHead?.divisi})
               </td>
             </tr>
             <tr>
-              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+              <td
+                style={{
+                  color: "#000",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+                colSpan="6"
+              >
                 PERIODE :{" "}
                 {this.props.dataHead?.startDate +
                   " s/d " +
@@ -34,7 +48,15 @@ class ExcelReport extends Component {
               </td>
             </tr>
             <tr>
-              <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+              <td
+                style={{
+                  color: "#000",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  backgroundColor: "#99CCFF",
+                }}
+                colSpan="6"
+              >
                 TAMBAH BAHAN
               </td>
             </tr>
@@ -44,6 +66,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 TANGGAL
@@ -53,6 +76,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 JENIS EMAS
@@ -62,6 +86,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 KETERANGAN
@@ -71,6 +96,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 BERAT KOTOR
@@ -80,6 +106,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 %
@@ -89,6 +116,7 @@ class ExcelReport extends Component {
                   backgroundColor: "#99CCFF",
                   color: "#000",
                   textAlign: "center",
+                  fontWeight: "bold",
                 }}
               >
                 BERAT MURNI
@@ -102,7 +130,7 @@ class ExcelReport extends Component {
                   <tr>
                     <td>{element.tanggal}</td>
                     <td>{element.jenis_bahan}</td>
-                    <td>{element.keterangan}</td>
+                    <td>{element.keterangan.toUpperCase()}</td>
                     <td style={{ textAlign: "right" }}>
                       {element.berat_kotor}
                     </td>
@@ -141,7 +169,15 @@ class ExcelReport extends Component {
           </tr>
           {/* Balik Bahan */}
           <tr>
-            <td style={{ color: "#000", textAlign: "center" }} colSpan="6">
+            <td
+              style={{
+                color: "#000",
+                textAlign: "center",
+                backgroundColor: "#99CCFF",
+                fontWeight: "bold",
+              }}
+              colSpan="6"
+            >
               BALIK BAHAN
             </td>
           </tr>
@@ -151,6 +187,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               TANGGAL
@@ -160,6 +197,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               JENIS EMAS
@@ -169,6 +207,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               KETERANGAN
@@ -178,6 +217,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT KOTOR
@@ -187,6 +227,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               %
@@ -196,6 +237,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT MURNI
@@ -207,7 +249,7 @@ class ExcelReport extends Component {
                 <tr>
                   <td>{element.tanggal}</td>
                   <td>{element.nama_bahan}</td>
-                  <td>{element.keterangan}</td>
+                  <td>{element.keterangan.toUpperCase()}</td>
                   <td style={{ textAlign: "right" }}>{element.berat_kotor}</td>
                   <td style={{ textAlign: "right" }}>{element.kadar}</td>
                   <td style={{ textAlign: "right" }}>{element.berat_murni}</td>
@@ -240,10 +282,26 @@ class ExcelReport extends Component {
           </tr>
           {/* Susut JO */}
           <tr>
-            <td style={{ color: "#000", textAlign: "center" }} colSpan="5">
+            <td
+              style={{
+                color: "#000",
+                textAlign: "center",
+                backgroundColor: "#99CCFF",
+                fontWeight: "bold",
+              }}
+              colSpan="5"
+            >
               {this.props.dataHead?.kode_tukang}
             </td>
-            <td style={{ color: "#000", textAlign: "center" }} colSpan="5">
+            <td
+              style={{
+                color: "#000",
+                textAlign: "center",
+                backgroundColor: "#99CCFF",
+                fontWeight: "bold",
+              }}
+              colSpan="5"
+            >
               {this.props.dataHead?.divisi}
             </td>
           </tr>
@@ -253,6 +311,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               TANGGAL TERIMA
@@ -262,6 +321,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               SPK
@@ -271,6 +331,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               JENIS EMAS
@@ -280,6 +341,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               %
@@ -289,6 +351,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT AWAL
@@ -298,6 +361,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT AWAL MURNI
@@ -307,6 +371,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               TANGGAL KIRIM
@@ -316,6 +381,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT AKHIR
@@ -325,6 +391,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               SUSUT KOTOR
@@ -334,6 +401,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               SUSUT MURNI
@@ -400,7 +468,15 @@ class ExcelReport extends Component {
           </tr>
           {/* Abu Lebur */}
           <tr>
-            <td style={{ color: "#000", textAlign: "center" }} colSpan="8">
+            <td
+              style={{
+                color: "#000",
+                textAlign: "center",
+                backgroundColor: "#99CCFF",
+                fontWeight: "bold",
+              }}
+              colSpan="8"
+            >
               ABU LEBUR
             </td>
           </tr>
@@ -410,6 +486,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               NAMA TUKANG
@@ -419,6 +496,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               KETERANGAN
@@ -428,6 +506,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT ABU AWAL
@@ -437,6 +516,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               BERAT KOTOR KEMBALI
@@ -446,6 +526,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               SUSUT BRUTO
@@ -455,6 +536,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               KADAR
@@ -464,6 +546,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               24K
@@ -473,6 +556,7 @@ class ExcelReport extends Component {
                 backgroundColor: "#99CCFF",
                 color: "#000",
                 textAlign: "center",
+                fontWeight: "bold",
               }}
             >
               SUSUT 24K
@@ -483,7 +567,7 @@ class ExcelReport extends Component {
               <>
                 <tr>
                   <td>{element.tukang}</td>
-                  <td>{element.keterangan}</td>
+                  <td>{element.keterangan.toUpperCase()}</td>
                   <td style={{ textAlign: "right" }}>
                     {element.berat_abu_awal}
                   </td>

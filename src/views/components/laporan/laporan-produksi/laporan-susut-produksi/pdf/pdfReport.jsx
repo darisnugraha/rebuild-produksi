@@ -36,7 +36,7 @@ const pdfReport = (data = "") => {
     const row = [
       { content: element.tanggal },
       { content: element.jenis_bahan },
-      { content: element.keterangan },
+      { content: element.keterangan.toUpperCase() },
       {
         content: element.berat_kotor,
         styles: { halign: "right" },
@@ -124,7 +124,7 @@ const pdfReport = (data = "") => {
     const row = [
       { content: element.tanggal },
       { content: element.nama_bahan },
-      { content: element.keterangan },
+      { content: element.keterangan.toUpperCase() },
       {
         content: element.berat_kotor,
         styles: { halign: "right" },
@@ -341,7 +341,7 @@ const pdfReport = (data = "") => {
   data[2]?.abu_lebur.forEach((element) => {
     const row = [
       { content: element.tukang },
-      { content: element.keterangan },
+      { content: element.keterangan.toUpperCase() },
       {
         content: element.berat_abu_awal,
         styles: { halign: "right" },

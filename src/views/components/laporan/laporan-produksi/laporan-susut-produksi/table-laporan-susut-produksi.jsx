@@ -176,6 +176,9 @@ const TableLaporanSusutProduksi = () => {
           dataIndex: "keterangan",
           key: "keterangan",
           align: "center",
+          render: (text, row) => {
+            return `${text.toUpperCase()}`;
+          },
         },
         {
           title: "Berat Abu Awal",
