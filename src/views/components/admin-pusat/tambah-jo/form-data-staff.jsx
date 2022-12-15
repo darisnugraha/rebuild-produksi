@@ -22,7 +22,7 @@ const maptostate = (state) => {
         initialValues: {
           staff: state.tambahjoborder.tukang,
           nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal: state.tambahjoborder.dataPohon?.berat,
+          berat_awal: state.tambahjoborder.dataPohon?.berat_barang,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -31,7 +31,7 @@ const maptostate = (state) => {
         initialValues: {
           staff: state.mastertukang.feedback[0]?.nama_tukang,
           nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal: state.tambahjoborder.dataPohon?.berat,
+          berat_awal: state.tambahjoborder.dataPohon?.berat_barang,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
