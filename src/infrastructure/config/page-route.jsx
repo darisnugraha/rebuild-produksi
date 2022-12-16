@@ -1,5 +1,5 @@
 import React from "react";
-// import { Redirect } from "react-router";
+import { Redirect } from "react-router";
 
 import Login from "../../views/pages/auth/login/login";
 import Dashboard from "../../views/pages/dashboard/dashboard";
@@ -94,11 +94,6 @@ import CetakBarcode from "../../views/pages/utility/cetak-barcode";
 import getLocal from "../services/local/get-local";
 
 const routes = [
-  // {
-  //   path: "*",
-  //   exact: true,
-  //   component: () => <Redirect to="/notfound" />,
-  // },
   {
     path: "/",
     title: "Login",
@@ -524,6 +519,15 @@ const routes = [
   },
 ];
 
+const isLogin = getLocal("isLogin");
+if (isLogin) {
+  const row = {
+    path: "/",
+    exact: true,
+    component: () => <Redirect to="/dashboard" />,
+  };
+  routes.push(row);
+}
 const Divisi = getLocal("divisiAll") || [];
 Divisi.forEach((element) => {
   if (element.divisi === "ADMIN PUSAT" || element.divisi === "ADMIN BAHAN") {
