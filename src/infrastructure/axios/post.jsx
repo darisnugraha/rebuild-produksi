@@ -1,5 +1,4 @@
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const AxiosPost = async ({ url, data }) => {
   const token =
@@ -31,20 +30,10 @@ const AxiosPostLogin = async (url, data) => {
         error: null,
       };
     } else {
-      if (error.response.data.statusCode === 401) {
-        Swal.fire({
-          title: "Ops..",
-          text: "Session Anda Habis Silahkan Login Kembali !",
-          icon: "error",
-        }).then(() => {
-          localStorage.clear();
-        });
-      } else {
-        return {
-          value: null,
-          error: error.response,
-        };
-      }
+      return {
+        value: null,
+        error: error.response,
+      };
     }
   }
 };

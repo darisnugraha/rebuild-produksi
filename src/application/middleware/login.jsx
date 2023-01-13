@@ -30,6 +30,7 @@ const handleLoginFlow =
       dispatch(setLoadingButton(true));
       const data = getState().form.LoginForm.values;
       const response = await api.login.doLogin(data);
+
       if (response?.value !== null) {
         api.HakAkses.getHakAkses(response.value.user_id).then((res) => {
           if (res.value !== null) {
@@ -46,7 +47,11 @@ const handleLoginFlow =
               dispatch(loginSuccess(response?.value));
               writeLocal("userInfo", response?.value);
               writeLocal("isLogin", true);
-              message.success({ content: "Login Berhasil!", key, duration: 2 });
+              message.success({
+                content: "Login Berhasil!",
+                key,
+                duration: 2,
+              });
               dispatch(getAllMasterDivisi);
               window.history.pushState(null, "", "/dashboard");
               window.history.go(0);
@@ -55,7 +60,11 @@ const handleLoginFlow =
               dispatch(loginSuccess(response?.value));
               writeLocal("userInfo", response?.value);
               writeLocal("isLogin", true);
-              message.success({ content: "Login Berhasil!", key, duration: 2 });
+              message.success({
+                content: "Login Berhasil!",
+                key,
+                duration: 2,
+              });
               dispatch(getAllMasterDivisi);
               window.history.pushState(null, "", "/dashboard");
               window.history.go(0);
