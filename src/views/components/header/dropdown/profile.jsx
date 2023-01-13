@@ -63,16 +63,14 @@ class DropdownProfile extends React.Component {
           <DropdownItem>Calendar</DropdownItem>
           <DropdownItem>Setting</DropdownItem>
           <div className="dropdown-divider"></div> */}
-          <DropdownItem>
-            <Link
-              // to="/"
-              onClick={() => {
-                this.LogOutAction();
-              }}
-            >
-              Log Out
-            </Link>
-          </DropdownItem>
+          <Link
+            // to="/"
+            onClick={() => {
+              this.LogOutAction();
+            }}
+          >
+            <DropdownItem>Log Out</DropdownItem>
+          </Link>
         </DropdownMenu>
       </Dropdown>
     );
