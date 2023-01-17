@@ -111,25 +111,48 @@ const maptostate = (state) => {
         };
       }
     } else {
-      return {
-        initialValues: {
-          divisi_tujuan: state.kirimjo.divisiTujuan,
-          tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
-          no_job_order: "",
-          tukang_asal: "",
-          kode_barang: "",
-          nama_barang: "",
-          kode_jenis_bahan: "",
-          jumlah_akhir: "",
-          berat_akhir: "",
-          berat_batu: "",
-          jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
-          susut: state.kirimjo.beratSusut,
-          jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
-          berat_kirim: state.kirimjo.beratKirim,
-          no_induk_job_order: state.kirimjo.dataNoInduk[1]?.no_induk_job_order,
-        },
-      };
+      if (state.kirimjo.dataDetailJO.length !== 0) {
+        return {
+          initialValues: {
+            divisi_tujuan: state.kirimjo.divisiTujuan,
+            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+            no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
+            tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
+            kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
+            nama_barang: state.kirimjo.dataDetailJO[0]?.nama_barang,
+            kode_jenis_bahan: state.kirimjo.dataDetailJO[0]?.kode_jenis_bahan,
+            jumlah_akhir: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+            berat_akhir: state.kirimjo.dataDetailJO[0]?.berat_akhir,
+            berat_batu: state.kirimjo.dataDetailJO[0]?.berat_batu || 0,
+            jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
+            susut: state.kirimjo.beratSusut,
+            jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+            berat_kirim: state.kirimjo.beratKirim,
+            no_induk_job_order:
+              state.kirimjo.dataDetailJO[0]?.no_induk_job_order,
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            divisi_tujuan: state.kirimjo.divisiTujuan,
+            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+            no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
+            tukang_asal: "",
+            kode_barang: "",
+            nama_barang: "",
+            kode_jenis_bahan: "",
+            jumlah_akhir: "",
+            berat_akhir: "",
+            berat_batu: "",
+            jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
+            susut: state.kirimjo.beratSusut,
+            jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
+            berat_kirim: state.kirimjo.beratKirim,
+            no_induk_job_order: "",
+          },
+        };
+      }
     }
   }
 };

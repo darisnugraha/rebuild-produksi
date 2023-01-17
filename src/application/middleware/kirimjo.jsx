@@ -14,7 +14,7 @@ import {
   setNoIndukJobOrder,
   GET_DATA_BY_NO_INDUK_JOB_ORDER,
   setDataByNoInduk,
-  getDataByNoInduk,
+  // getDataByNoInduk,
   getDataDetailJO,
   ADD_LOCAL_TAMBAHAN_BAHAN,
   DELETE_JOB_ORDER,
@@ -31,6 +31,8 @@ import {
   SAVE_EDIT_TAMBAHAN,
   GET_TUKANG_BY_DIVISI,
   setTukangByDivisi,
+  GET_ALL_NO_JOB_ORDER,
+  setAllNoJobOrder,
 } from "../actions/kirimjo";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -40,6 +42,21 @@ const getDataDetailJOMidd =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_ALL_NO_JOB_ORDER) {
+      api.KirimJO.getAllJO().then((res) => {
+        if (res.value !== undefined) {
+          dispatch(setAllNoJobOrder(res.value));
+          dispatch(
+            getDataDetailJO({
+              noJO: res.value[0]?.no_job_order,
+              type: "LOAD",
+            })
+          );
+        } else {
+          dispatch(setAllNoJobOrder([]));
+        }
+      });
+    }
     if (action.type === GET_DETAIL_JO_POST_METHOD) {
       const noJO = action.payload.data;
       const type = action.payload.dataType;
@@ -85,7 +102,7 @@ const getDataDetailJOMidd =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setNoIndukJobOrder(res.value));
-            dispatch(getDataByNoInduk(res.value[1]?.no_induk_job_order));
+            // dispatch(getDataByNoInduk(res.value[1]?.no_induk_job_order));
           }
         } else {
           dispatch(setNoIndukJobOrder([]));

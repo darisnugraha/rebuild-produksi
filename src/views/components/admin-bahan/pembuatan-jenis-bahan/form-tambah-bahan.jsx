@@ -43,8 +43,8 @@ let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
@@ -62,7 +62,7 @@ let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat"
               type="number"

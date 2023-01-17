@@ -3,6 +3,12 @@ import post from "../../../axios/post";
 import word from "../../../shared/static";
 
 const KirimJO = {
+  getAllJO: async () => {
+    const response = await get({
+      url: word.URL_GET_JO_ALL,
+    });
+    return response;
+  },
   getDetailJO: async (noJO, divisi) => {
     const response = await get({
       url: word.URL_GET_DETAIL_TAMBAH_JO + noJO + "/" + divisi,

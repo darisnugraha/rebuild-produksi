@@ -19,6 +19,7 @@ import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
 import TableKirimJO from "../../components/job-order/table-kirim-jo.jsx";
 import {
   addLocalTambahan,
+  getAllNoJobOrder,
   getNoIndukJobOrder,
 } from "../../../application/actions/kirimjo.jsx";
 
@@ -47,6 +48,7 @@ const KirimJO = () => {
     dispatch(getAllMasterBahan);
     dispatch(getAllMasterBatu);
     dispatch(getNoIndukJobOrder);
+    dispatch(getAllNoJobOrder);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */

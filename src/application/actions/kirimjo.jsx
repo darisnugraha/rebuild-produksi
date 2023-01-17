@@ -46,6 +46,9 @@ export const SAVE_EDIT_TAMBAHAN = "[kirimjo] save edit tambahan";
 export const GET_TUKANG_BY_DIVISI = "[kirimjo] get tukang by divisi";
 export const SET_TUKANG_BY_DIVISI = "[kirimjo] set tukang by divisi";
 
+export const GET_ALL_NO_JOB_ORDER = "[kirimjo] get all no job order";
+export const SET_ALL_NO_JOB_ORDER = "[kirimjo] set all no job order";
+
 export const getDataDetailJO = ({ noJO, type }) => ({
   type: GET_DETAIL_JO_POST_METHOD,
   payload: { data: noJO, dataType: type },
@@ -103,8 +106,16 @@ export const getNoIndukJobOrder = {
   type: GET_NO_INDUK_JOB_ORDER,
 };
 
+export const getAllNoJobOrder = {
+  type: GET_ALL_NO_JOB_ORDER,
+};
+
 export const setNoIndukJobOrder = (feedback) => ({
   type: SET_NO_INDUK_JOB_ORDER,
+  payload: { data: feedback },
+});
+export const setAllNoJobOrder = (feedback) => ({
+  type: SET_ALL_NO_JOB_ORDER,
   payload: { data: feedback },
 });
 

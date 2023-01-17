@@ -5,6 +5,8 @@ const URL_CHECK_TOKEN = `${baseurl}auth/token`;
 const URL_CREATE_DIVISI = `${baseurl}divisi/generate`;
 const URL_LOGOUT = `${baseurl}auth/logout`;
 
+const URL_GET_JO_ALL = `${baseurl}job-order`;
+
 const URL_GET_JO_OUTSTAND_ALL = `${baseurl}dashboard/outstand-job-order`;
 const URL_GET_OUTSTAND_ABU_CASTING_ALL = `${baseurl}abu-cor/setor-outstand-casting`;
 const URL_GET_OUTSTAND_ABU_POTONG_ALL = `${baseurl}dashboard/outstand-abu-potong`;
@@ -292,6 +294,8 @@ const URL_ADD_TERIMA_BAHAN_TUKANG = `${baseurl}saldo-bahan/admin-bahan/terima-ba
 const URL_GET_DIVISI_SUSUT_TUKANG = `${baseurl}divisi/tukang-susut`;
 
 const data = {
+  URL_GET_JO_ALL,
+
   URL_ADD_TERIMA_BAHAN_TUKANG,
   URL_GET_BAHAN_ADMIN_BAHAN,
 

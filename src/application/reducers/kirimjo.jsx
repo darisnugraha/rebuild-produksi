@@ -20,6 +20,7 @@ import {
   SET_DATA_EDIT_TAMBAHAN,
   SET_TUKANG_BY_DIVISI,
   GET_TUKANG_BY_DIVISI,
+  SET_ALL_NO_JOB_ORDER,
 } from "../actions/kirimjo";
 
 const initialState = {
@@ -82,6 +83,11 @@ const kirimjo = (state = initialState, action) => {
         dataNoInduk: action.payload.data,
       };
     case SET_DATA_BY_NO_INDUK_JOB_ORDER:
+      return {
+        ...state,
+        detailJO: action.payload.data,
+      };
+    case SET_ALL_NO_JOB_ORDER:
       return {
         ...state,
         detailJO: action.payload.data,

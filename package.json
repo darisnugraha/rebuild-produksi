@@ -82,8 +82,8 @@
     "start-dede-rebuild": "export REACT_APP_BACKEND_URL=http://192.168.1.9:7777/api/v1/&& react-scripts start",
     "start-dede-new": "export REACT_APP_BACKEND_URL=http://192.168.3.22:3757/api/&& react-scripts start",
     "start-dede-prog": "export REACT_APP_BACKEND_URL=http://10.20.30.77:3757/api/&& react-scripts start",
-    "start-devlocal": "export REACT_APP_BACKEND_URL=http://103.119.55.28:7777/api/v1/&& react-scripts start",
-    "build-qc": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7777/api/v1/&& react-scripts build",
+    "start-devlocal": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7779/api/v1/&& react-scripts start",
+    "build-qc": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7779/api/v1/&& react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
