@@ -102,6 +102,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
 
           <Col offset={1} span={12}>
             <Field
+              showSearch
               name="tukang_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
               component={styleAntd.ASelect}
@@ -124,6 +125,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
 
           <Col offset={1} span={12}>
             <Field
+              showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}

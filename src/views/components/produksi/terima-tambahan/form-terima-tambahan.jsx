@@ -74,6 +74,7 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
               component={styleAntd.ASelect}
@@ -104,6 +105,7 @@ let FormTerimaTambahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}

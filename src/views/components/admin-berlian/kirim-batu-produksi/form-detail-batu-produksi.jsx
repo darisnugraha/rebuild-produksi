@@ -71,6 +71,7 @@ let FormDetailBatuProduksi = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1}>
             <Field
+              showSearch
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
               style={{ width: 250 }}

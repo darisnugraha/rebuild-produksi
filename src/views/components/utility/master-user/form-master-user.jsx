@@ -97,6 +97,7 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
           </Col>
           <Col offset={1} span={8}>
             <Field
+              showSearch
               name="type"
               label={<span style={{ fontSize: "13px" }}>Type</span>}
               style={{ width: 190 }}

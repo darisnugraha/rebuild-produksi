@@ -46,6 +46,7 @@ let FormCetakBarcode = (prop) => {
       <Row>
         <Col offset={1} span={5}>
           <Field
+            showSearch
             name="no_induk_job_order"
             label={<span style={{ fontSize: "13px" }}>No Induk Job Order</span>}
             component={styleAntd.ASelect}
@@ -66,6 +67,7 @@ let FormCetakBarcode = (prop) => {
         </Col>
         <Col offset={1} span={5}>
           <Field
+            showSearch
             name="no_job_order"
             label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
             component={styleAntd.ASelect}

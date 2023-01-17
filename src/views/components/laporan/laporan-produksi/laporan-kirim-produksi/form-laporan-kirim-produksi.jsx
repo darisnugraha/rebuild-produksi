@@ -45,6 +45,7 @@ let FormLaporanKirimProduksi = (prop) => {
         </Col>
         <Col offset={1} span={5}>
           <Field
+            showSearch
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
             component={styleAntd.ASelect}
@@ -69,6 +70,7 @@ let FormLaporanKirimProduksi = (prop) => {
         </Col>
         <Col offset={1} span={5}>
           <Field
+            showSearch
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
             component={styleAntd.ASelect}

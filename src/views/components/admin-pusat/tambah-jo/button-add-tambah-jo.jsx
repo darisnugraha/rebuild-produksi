@@ -9,11 +9,13 @@ import {
   getDataByPohon,
   setDataByPohon,
 } from "../../../../application/actions/tambahjoborder";
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const ModalTambahJO = () => {
   const dispatch = useDispatch();
   const [visibledetailjo, setVisibleDetailJO] = useState(false);
   const [visibledatastaff, setVisibleDataStaff] = useState(false);
+  const beratAwal = getLocal("berat_awal");
 
   return (
     <div>
@@ -42,6 +44,7 @@ const ModalTambahJO = () => {
         onClick={() => {
           setVisibleDetailJO(true);
         }}
+        disabled={beratAwal === 0}
       >
         + Detail JO
       </Button>

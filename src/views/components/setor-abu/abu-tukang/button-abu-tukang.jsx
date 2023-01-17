@@ -35,6 +35,7 @@ let ButtonAbuTukang = () => {
       <Row>
         <Col span={4}>
           <Field
+            showSearch
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
             component={styleAntd.ASelect}
@@ -53,6 +54,7 @@ let ButtonAbuTukang = () => {
         </Col>
         <Col span={4} offset={1}>
           <Field
+            showSearch
             name="staff"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
             component={styleAntd.ASelect}

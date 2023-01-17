@@ -60,6 +60,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="no_induk_job_order"
               label={
                 <span style={{ fontSize: "13px" }}>No Induk Job Order</span>
@@ -83,6 +84,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
               component={styleAntd.ASelect}

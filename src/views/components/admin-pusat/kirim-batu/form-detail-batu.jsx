@@ -55,6 +55,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Batu</span>}
               component={styleAntd.ASelect}

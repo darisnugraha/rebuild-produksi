@@ -86,10 +86,13 @@ const addDataStaff =
       let dataLocal = [];
       if (data.no_buat === undefined) {
         sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
+      } else if (data.berat_awal === 0) {
+        sweetalert.default.Failed("Berat Tidak Boleh 0 !");
       } else {
         sweetalert.default.Success("Berhasil Menambahkan Data !");
         dispatch(setDataStaffSuccess({ feedback: data }));
         dataLocal.push(data);
+        writeLocal("berat_awal", data.berat_awal);
         writeLocal("data_staff", dataLocal);
       }
     }
@@ -125,6 +128,7 @@ const addDataDetailJO =
           ) {
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
           } else {
+            const beratAwal = parseFloat(getLocal("berat_awal"));
             data.staff = kodestaff;
             data.berat = parseFloat(data.berat);
             data.jumlah = parseFloat(data.jumlah);
@@ -134,6 +138,8 @@ const addDataDetailJO =
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);
+            const beratAwalAkhir = beratAwal - data.berat;
+            writeLocal("berat_awal", beratAwalAkhir);
             writeLocal("data_detail_jo", dataLocal);
           }
         } else {
@@ -148,6 +154,7 @@ const addDataDetailJO =
           ) {
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
           } else {
+            const beratAwal = parseFloat(getLocal("berat_awal"));
             data.staff = kodestaff;
             data.berat = parseFloat(data.berat);
             data.jumlah = parseFloat(data.jumlah);
@@ -157,6 +164,8 @@ const addDataDetailJO =
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);
+            const beratAwalAkhir = beratAwal - data.berat;
+            writeLocal("berat_awal", beratAwalAkhir);
             writeLocal("data_detail_jo", dataLocal);
           }
         }

@@ -102,6 +102,7 @@ const TambahJO = () => {
                 onClick={() => {
                   localStorage.removeItem("data_detail_jo");
                   localStorage.removeItem("data_staff");
+                  localStorage.removeItem("berat_awal");
                   window.location.reload();
                 }}
               >

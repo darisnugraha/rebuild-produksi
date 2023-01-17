@@ -42,6 +42,7 @@ let FormLaporanSaldoBahan = (prop) => {
         </Col>
         <Col offset={1}>
           <Field
+            showSearch
             name="kelompok_bahan"
             label={<span style={{ fontSize: "13px" }}>Kelompok Bahan</span>}
             style={{ width: 250 }}

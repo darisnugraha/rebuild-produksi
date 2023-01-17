@@ -189,6 +189,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
               style={{ width: 250 }}
@@ -209,6 +210,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
 
           <Col span={12}>
             <Field
+              showSearch
               name="tukang_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
               style={{ width: 250 }}

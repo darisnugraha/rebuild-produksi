@@ -92,6 +92,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
+              showSearch
               name="tukang_asal"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
               style={{ width: 250 }}
@@ -111,6 +112,7 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1}>
             <Field
+              showSearch
               name="bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               style={{ width: 250 }}

@@ -124,6 +124,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_jenis_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis batu</span>}
               // style={{ width: 250 }}
@@ -147,6 +148,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_cutting_batu"
               label={
                 <span style={{ fontSize: "13px" }}>Kode Cutting Batu</span>

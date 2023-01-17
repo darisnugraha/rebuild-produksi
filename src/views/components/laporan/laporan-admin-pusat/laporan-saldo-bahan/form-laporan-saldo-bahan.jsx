@@ -48,6 +48,7 @@ let FormLaporanSaldoBahanPusat = (prop) => {
         </Col>
         <Col offset={1} span={6}>
           <Field
+            showSearch
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
             component={styleAntd.ASelect}
@@ -69,6 +70,7 @@ let FormLaporanSaldoBahanPusat = (prop) => {
         </Col>
         <Col offset={1} span={6}>
           <Field
+            showSearch
             name="bahan"
             label={<span style={{ fontSize: "13px" }}>Kelompok Bahan</span>}
             component={styleAntd.ASelect}
@@ -86,6 +88,7 @@ let FormLaporanSaldoBahanPusat = (prop) => {
         </Col>
         <Col span={6}>
           <Field
+            showSearch
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
             component={styleAntd.ASelect}

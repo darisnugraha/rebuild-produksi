@@ -92,6 +92,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}

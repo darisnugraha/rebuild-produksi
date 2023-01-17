@@ -63,6 +63,7 @@ let FormBatalProsesJO = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
               component={styleAntd.ASelect}

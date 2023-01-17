@@ -108,6 +108,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_kelompok"
               label={<span style={{ fontSize: "13px" }}>Kode Kelompok</span>}
               // style={{ width: 250 }}
@@ -129,6 +130,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_warna"
               label={<span style={{ fontSize: "13px" }}>Warna</span>}
               // style={{ width: 250 }}

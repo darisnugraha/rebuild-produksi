@@ -104,6 +104,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
               component={styleAntd.ASelect}

@@ -43,9 +43,10 @@ let FormPembuatanJenisBahanDetail = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
+              showSearch
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
               style={{ width: "100%" }}
@@ -70,7 +71,7 @@ let FormPembuatanJenisBahanDetail = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_dibutuhkan"
               type="text"
@@ -80,7 +81,7 @@ let FormPembuatanJenisBahanDetail = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Masukkan Berat Dibutuhkan"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_susut"
               type="text"
@@ -90,7 +91,7 @@ let FormPembuatanJenisBahanDetail = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Masukkan Berat Susut"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="no_pohon"
               type="text"

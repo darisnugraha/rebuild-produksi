@@ -20,10 +20,12 @@ import {
   setNamaBarang,
   setSPK,
 } from "../../../../application/actions/tambahjoborder";
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
+  const beratAwal = getLocal("berat_awal");
   if (state.tambahjoborder.dataPohon !== undefined) {
     return {
       initialValues: {
@@ -44,7 +46,7 @@ const maptostate = (state) => {
           state.tambahjoborder.kodeStatusJO !== undefined
             ? state.tambahjoborder.kodeStatusJO
             : state.masterstatus.feedback[0]?.kode_status_job_order,
-        berat_potong: state.tambahjoborder.dataPohon.berat_barang,
+        berat_potong: beratAwal,
         berat: state.tambahjoborder.beratBahan,
         berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
         no_job_order:
@@ -101,6 +103,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="marketing"
               label={<span style={{ fontSize: "13px" }}>Kode Marketing</span>}
               component={styleAntd.ASelect}
@@ -121,6 +124,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="customer"
               label={<span style={{ fontSize: "13px" }}>Kode Customer</span>}
               component={styleAntd.ASelect}
@@ -152,6 +156,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_barang"
               label={<span style={{ fontSize: "13px" }}>Kode Barang</span>}
               component={styleAntd.ASelect}
@@ -181,6 +186,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis Bahan</span>}
               component={styleAntd.ASelect}
@@ -206,6 +212,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_status_job_order"
               label={
                 <span style={{ fontSize: "13px" }}>Kode Status Job Order</span>

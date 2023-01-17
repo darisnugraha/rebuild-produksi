@@ -46,9 +46,9 @@ let FormTambahBahan = ({ visible, onCreate, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Bahan"
               onBlur={(e) => e.preventDefault()}

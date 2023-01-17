@@ -88,6 +88,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Jadi</span>}
               component={styleAntd.ASelect}

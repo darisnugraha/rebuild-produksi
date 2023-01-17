@@ -146,6 +146,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="lokasi"
               label={<span style={{ fontSize: "13px" }}>Lokasi</span>}
               style={{ width: "100px" }}

@@ -74,6 +74,7 @@ let FormTambahDetailBahan = ({ visible, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
               // style={{ width: 250 }}

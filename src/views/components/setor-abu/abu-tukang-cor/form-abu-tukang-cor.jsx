@@ -77,6 +77,7 @@ let FormAbuTukangCOR = (prop) => {
         </Col>
         <Col offset={1} span={8}>
           <Field
+            showSearch
             name="bahan_kembali"
             label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
             component={styleAntd.ASelect}

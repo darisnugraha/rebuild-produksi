@@ -92,6 +92,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
                 <span style={{ fontSize: "13px" }}>No Induk Job Order</span>
               }
               // style={{ width: 250 }}
+              showSearch
               component={styleAntd.ASelect}
               placeholder="Pilih No Induk Job Order"
               onBlur={(e) => e.preventDefault()}
@@ -114,6 +115,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
               // style={{ width: 250 }}
+              showSearch
               component={styleAntd.ASelect}
               placeholder="Pilih No Job Order"
               onBlur={(e) => e.preventDefault()}

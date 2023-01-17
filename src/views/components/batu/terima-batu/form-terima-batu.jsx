@@ -63,6 +63,7 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="no_kirim_batu"
               label={<span style={{ fontSize: "13px" }}>No Kirim Batu</span>}
               component={styleAntd.ASelect}

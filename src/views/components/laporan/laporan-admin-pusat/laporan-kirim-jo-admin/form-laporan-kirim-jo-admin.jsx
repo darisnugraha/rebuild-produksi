@@ -42,6 +42,7 @@ let FormLaporanKirimJoAdmin = (prop) => {
         </Col>
         <Col offset={1} span={6}>
           <Field
+            showSearch
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
             style={{ width: 250 }}

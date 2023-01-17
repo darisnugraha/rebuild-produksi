@@ -145,6 +145,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           {divisi === "Admin" ? (
             <Col span={12}>
               <Field
+                showSearch
                 name="divisi_asal"
                 label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
                 component={styleAntd.ASelect}
@@ -192,6 +193,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           {divisi === "Admin" ? (
             <Col span={12}>
               <Field
+                showSearch
                 name="staff"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
                 component={styleAntd.ASelect}
@@ -217,6 +219,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           ) : (
             <Col span={12}>
               <Field
+                showSearch
                 name="staff"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
                 component={styleAntd.ASelect}
@@ -243,6 +246,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           {divisi === "Admin" ? (
             <Col span={12}>
               <Field
+                showSearch
                 name="staff_tujuan"
                 label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
                 component={styleAntd.ASelect}
@@ -265,6 +269,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           ) : (
             <Col span={12}>
               <Field
+                showSearch
                 name="staff_tujuan"
                 label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
                 component={styleAntd.ASelect}
@@ -287,6 +292,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
           )}
           <Col span={12}>
             <Field
+              showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
               component={styleAntd.ASelect}

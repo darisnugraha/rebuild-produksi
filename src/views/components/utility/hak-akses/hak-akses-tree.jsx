@@ -109,6 +109,7 @@ class HakAksesTree extends Component {
                 <div className="row">
                   <div className="col-2">
                     <Field
+                      showSearch
                       name="user_id"
                       label={
                         <span style={{ fontSize: "13px" }}>Pilih User Id</span>

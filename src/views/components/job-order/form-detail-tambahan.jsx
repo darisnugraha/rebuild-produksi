@@ -70,6 +70,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
         <Row>
           <Col offset={1} span={8}>
             <Field
+              showSearch
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
               // style={{ width: 250 }}
@@ -91,6 +92,7 @@ let FormDetailTambahan = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col offset={1} span={8}>
             <Field
+              showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Nama Bahan</span>}
               // style={{ width: 250 }}

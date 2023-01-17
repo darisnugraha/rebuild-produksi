@@ -101,6 +101,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
           </Col>
           <Col offset={12}>
             <Field
+              showSearch
               name="kode_jenis"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis</span>}
               style={{ width: 250 }}

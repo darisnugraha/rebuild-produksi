@@ -104,6 +104,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
         <Row gutter={[8, 8]}>
           <Col span={12}>
             <Field
+              showSearch
               name="asal_bahan"
               label={<span style={{ fontSize: "13px" }}>Asal Bahan</span>}
               component={styleAntd.ASelect}
@@ -129,6 +130,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
           <Col span={12}>
             <Field
+              showSearch
               name="keterangan"
               label={<span style={{ fontSize: "13px" }}>Keterangan</span>}
               component={styleAntd.ASelect}

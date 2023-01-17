@@ -28,6 +28,7 @@ let FormLaporanOutstandAdmin = (prop) => {
       <Row>
         <Col span={6}>
           <Field
+            showSearch
             name="tukang"
             label={<span style={{ fontSize: "13px" }}>Tukang</span>}
             style={{ width: 250 }}

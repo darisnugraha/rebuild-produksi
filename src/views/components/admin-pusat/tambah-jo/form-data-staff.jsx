@@ -12,17 +12,22 @@ import {
   getDataByPohon,
   setTukang,
 } from "../../../../application/actions/tambahjoborder";
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
+  const beratAwal = getLocal("berat_awal");
   if (state.tambahjoborder.dataPohon !== undefined) {
     if (state.tambahjoborder.tukang !== undefined) {
       return {
         initialValues: {
           staff: state.tambahjoborder.tukang,
           nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal: state.tambahjoborder.dataPohon?.berat_barang,
+          berat_awal:
+            beratAwal !== null
+              ? beratAwal
+              : state.tambahjoborder.dataPohon?.berat_sisa,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -31,7 +36,10 @@ const maptostate = (state) => {
         initialValues: {
           staff: state.mastertukang.feedback[0]?.nama_tukang,
           nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal: state.tambahjoborder.dataPohon?.berat_barang,
+          berat_awal:
+            beratAwal !== null
+              ? beratAwal
+              : state.tambahjoborder.dataPohon?.berat_sisa,
           no_buat: state.tambahjoborder.noPohon,
         },
       };
@@ -80,12 +88,12 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
+              showSearch
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Kode Staff</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Staff"
               onBlur={(e) => e.preventDefault()}
@@ -102,7 +110,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="no_buat"
               type="text"
@@ -115,8 +123,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
+              showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
               style={{ width: 250 }}
@@ -146,7 +155,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                   })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_awal"
               type="text"

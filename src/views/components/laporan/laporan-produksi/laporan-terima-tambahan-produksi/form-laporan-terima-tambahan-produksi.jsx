@@ -42,6 +42,7 @@ let FormLaporanTerimaTambahanProduksi = (prop) => {
         </Col>
         <Col offset={1} span={6}>
           <Field
+            showSearch
             name="divisi"
             label={<span style={{ fontSize: "13px" }}>Divisi</span>}
             style={{ width: 250 }}
