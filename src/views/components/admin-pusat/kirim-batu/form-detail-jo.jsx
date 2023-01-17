@@ -53,8 +53,8 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -71,7 +71,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -84,7 +84,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -95,7 +95,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_barang"
               type="text"
@@ -106,7 +106,7 @@ let FormDetailJOKirimBatu = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"

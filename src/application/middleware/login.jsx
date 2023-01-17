@@ -75,7 +75,7 @@ const handleLoginFlow =
         dispatch(setLoadingButton(false));
         dispatch(loginFailed(response?.error));
         sweetalert.default.Failed(
-          response.error.data.message || "Coba Check Email Dan Passwordnya.."
+          response?.error?.data?.message || "Coba Check Email Dan Passwordnya.."
         );
       }
     }
@@ -94,7 +94,7 @@ const handleCheckLoginFlow =
           dataUserInfo.access_token = res.value.access_token;
         } else {
           sweetalert.default.Failed(
-            res.error.data.message || "Token Tidak Valid !"
+            res?.error?.data?.message || "Token Tidak Valid !"
           );
           dispatch(doLogout(dataUser));
         }

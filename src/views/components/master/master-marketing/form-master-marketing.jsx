@@ -62,8 +62,8 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -74,7 +74,7 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_marketing"
               type="text"
@@ -85,7 +85,7 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_marketing"
               type="text"
@@ -95,7 +95,7 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Marketing"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="no_hp"
               type="text"
@@ -105,7 +105,7 @@ let FormTambahMasterMarketing = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan No Hp"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="email"
               type="text"

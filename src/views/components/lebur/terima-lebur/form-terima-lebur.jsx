@@ -62,8 +62,8 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_kirim"
               type="text"
@@ -76,7 +76,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kadar"
               type="text"
@@ -87,7 +87,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="awal_24k"
               type="text"
@@ -98,7 +98,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_murni"
               type="text"
@@ -109,7 +109,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_terima"
               type="text"
@@ -122,7 +122,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_susut"
               type="text"
@@ -133,7 +133,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="susut_24k"
               type="text"
@@ -144,7 +144,7 @@ let FormTerimaLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               label="Close Susut"
               name="close_susut"

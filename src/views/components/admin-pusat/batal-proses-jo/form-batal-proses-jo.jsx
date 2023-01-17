@@ -49,8 +49,8 @@ let FormBatalProsesJO = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_proses"
               type="text"
@@ -61,7 +61,7 @@ let FormBatalProsesJO = ({ visible, onCreate, onCancel }, prop) => {
               onChange={(e) => dispatch(getDataJOByNoProses(e.target.value))}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}

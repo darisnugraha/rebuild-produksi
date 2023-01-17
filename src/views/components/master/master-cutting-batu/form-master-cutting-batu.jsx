@@ -58,8 +58,8 @@ let FormTambahMasterCuttingBatu = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -70,7 +70,7 @@ let FormTambahMasterCuttingBatu = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_cutting_batu"
               type="text"
@@ -83,7 +83,7 @@ let FormTambahMasterCuttingBatu = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_cutting_batu"
               type="text"

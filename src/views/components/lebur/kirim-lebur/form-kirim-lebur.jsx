@@ -101,8 +101,8 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={10}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="asal_bahan"
               label={<span style={{ fontSize: "13px" }}>Asal Bahan</span>}
@@ -127,7 +127,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               </Option>
             </Field>
           </Col>
-          <Col offset={1} span={10}>
+          <Col span={12}>
             <Field
               name="keterangan"
               label={<span style={{ fontSize: "13px" }}>Keterangan</span>}
@@ -158,8 +158,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
           <Col
-            offset={1}
-            span={10}
+            span={12}
             style={{ display: asalbahan === "INPUT MANUAL" ? "none" : "" }}
           >
             <Field
@@ -172,7 +171,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={10}>
+          <Col span={12}>
             <Field
               name="berat"
               type="text"
@@ -183,7 +182,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={10}>
+          <Col span={12}>
             <Field
               name="kadar"
               type="text"
@@ -194,7 +193,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled={asalbahan === "INPUT MANUAL" ? false : true}
             />
           </Col>
-          <Col offset={1} span={10}>
+          <Col span={12}>
             <Field
               name="karat"
               type="text"
@@ -207,8 +206,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
           </Col>
 
           <Col
-            offset={1}
-            span={10}
+            span={12}
             style={{ display: asalbahan === "INPUT MANUAL" ? "none" : "" }}
           >
             <Field
@@ -221,7 +219,7 @@ let FormTambahKirimLebur = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={10}>
+          <Col span={12}>
             <Field
               name="keterangan_lebur"
               type="text"

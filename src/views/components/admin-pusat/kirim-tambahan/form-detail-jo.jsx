@@ -49,8 +49,8 @@ let FormDetailJOKirimTambahan = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -60,7 +60,7 @@ let FormDetailJOKirimTambahan = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan No Job Order"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}

@@ -74,8 +74,8 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="pohon"
               type="text"
@@ -90,7 +90,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -120,7 +120,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
                   })}
             </Field>
           </Col>
-          <Col offset={1} span={8} style={{ display: "none" }}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="real_kode_jenis_bahan"
               type="text"
@@ -131,7 +131,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_jenis_bahan"
               type="text"
@@ -142,7 +142,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat"
               type="text"
@@ -153,7 +153,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_terima"
               type="text"
@@ -166,7 +166,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_barang"
               type="text"
@@ -179,7 +179,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_susut"
               type="text"
@@ -190,7 +190,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8} style={{ display: "none" }}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="tanggal"
               type="text"

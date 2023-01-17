@@ -61,8 +61,8 @@ let FormTambahDetailBahan = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -72,7 +72,7 @@ let FormTambahDetailBahan = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan ID"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Kode Bahan</span>}
@@ -91,7 +91,7 @@ let FormTambahDetailBahan = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="persentase"
               type="text"

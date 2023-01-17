@@ -49,8 +49,8 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_terima_lebur"
               type="text"
@@ -63,7 +63,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat"
               type="text"
@@ -74,7 +74,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kadar"
               type="text"
@@ -88,7 +88,7 @@ let FormKirimMasak = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="karat"
               type="text"

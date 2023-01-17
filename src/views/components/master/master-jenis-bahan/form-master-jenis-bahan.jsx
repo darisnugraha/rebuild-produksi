@@ -73,8 +73,8 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -85,7 +85,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -96,7 +96,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_jenis_bahan"
               type="text"
@@ -106,7 +106,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Jenis Bahan"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_kelompok"
               label={<span style={{ fontSize: "13px" }}>Kode Kelompok</span>}
@@ -127,7 +127,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_warna"
               label={<span style={{ fontSize: "13px" }}>Warna</span>}
@@ -146,7 +146,7 @@ let FormTambahMasterJenisBahan = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kadar"
               type="text"

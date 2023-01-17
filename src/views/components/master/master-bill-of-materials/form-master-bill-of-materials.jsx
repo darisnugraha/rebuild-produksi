@@ -70,8 +70,8 @@ let FormTambahBillOfMaterials = ({ visible, onCancel }, prop) => {
       width={"60%"}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -82,7 +82,7 @@ let FormTambahBillOfMaterials = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_kelompok"
               label={<span style={{ fontSize: "13px" }}>Kode Kelompok</span>}

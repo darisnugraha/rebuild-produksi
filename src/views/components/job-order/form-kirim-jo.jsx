@@ -160,10 +160,11 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
           dispatch(addLocalKirimJO);
         }
       }}
+      width={650}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
@@ -183,7 +184,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="tukang_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
@@ -206,7 +207,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               showSearch
               name="no_induk_job_order"
@@ -231,7 +232,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               showSearch
               name="no_job_order"
@@ -256,7 +257,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          {/* <Col offset={1}>
+          {/* <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -270,7 +271,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="tukang_asal"
               type="text"
@@ -282,7 +283,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -294,7 +295,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_barang"
               type="text"
@@ -306,7 +307,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -318,7 +319,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="jumlah_akhir"
               type="text"
@@ -330,7 +331,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_batu"
               type="text"
@@ -342,7 +343,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="jumlah_berat_batu_tak_terpakai"
               type="text"
@@ -364,7 +365,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Berat Batu"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_akhir"
               type="text"
@@ -376,7 +377,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="jumlah_kirim"
               type="number"
@@ -391,7 +392,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="berat_kirim"
               type="number"
@@ -405,7 +406,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="susut"
               type="text"

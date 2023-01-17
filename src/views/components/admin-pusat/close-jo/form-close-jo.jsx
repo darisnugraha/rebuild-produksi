@@ -84,8 +84,8 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_induk_job_order"
               label={
@@ -109,7 +109,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
@@ -133,7 +133,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          {/* <Col offset={1} span={8}>
+          {/* <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -146,7 +146,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="lokasi_job_order"
               type="text"
@@ -157,7 +157,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -168,7 +168,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_barang"
               type="text"
@@ -179,7 +179,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -190,7 +190,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_asal"
               type="text"
@@ -201,7 +201,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_close"
               type="text"
@@ -214,7 +214,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_akhir"
               type="text"
@@ -225,7 +225,7 @@ let FormCloseJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="keterangan"
               type="text"

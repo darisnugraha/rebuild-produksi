@@ -141,9 +141,9 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
+        <Row gutter={[8, 8]}>
           {divisi === "Admin" ? (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="divisi_asal"
                 label={<span style={{ fontSize: "13px" }}>Divisi Asal</span>}
@@ -166,7 +166,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               </Field>
             </Col>
           ) : (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="divisi_asal"
                 type="text"
@@ -178,7 +178,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               />
             </Col>
           )}
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="divisi"
               type="text"
@@ -190,7 +190,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
           {divisi === "Admin" ? (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="staff"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
@@ -215,7 +215,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               </Field>
             </Col>
           ) : (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="staff"
                 label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
@@ -241,7 +241,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
             </Col>
           )}
           {divisi === "Admin" ? (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="staff_tujuan"
                 label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
@@ -263,7 +263,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               </Field>
             </Col>
           ) : (
-            <Col span={8} offset={1}>
+            <Col span={12}>
               <Field
                 name="staff_tujuan"
                 label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
@@ -285,7 +285,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               </Field>
             </Col>
           )}
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -306,7 +306,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="berat_bahan"
               type="text"

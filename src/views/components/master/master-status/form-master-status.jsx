@@ -60,8 +60,8 @@ let FormTambahMasterStatus = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -71,7 +71,7 @@ let FormTambahMasterStatus = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Masukkan ID"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_status_job_order"
               type="text"
@@ -82,7 +82,7 @@ let FormTambahMasterStatus = ({ visible, onCreate, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_status_job_order"
               type="text"

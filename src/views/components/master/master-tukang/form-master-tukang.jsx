@@ -69,8 +69,8 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -81,7 +81,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_tukang"
               type="text"
@@ -92,7 +92,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_tukang"
               type="text"
@@ -102,7 +102,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Tukang"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="divisi"
               label={<span style={{ fontSize: "13px" }}>Divisi</span>}
@@ -119,7 +119,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_hp"
               type="text"
@@ -129,7 +129,7 @@ let FormTambahMasterTukang = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan No Hp"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="email"
               type="text"

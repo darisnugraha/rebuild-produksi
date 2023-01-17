@@ -67,8 +67,8 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col offset={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -78,7 +78,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan ID"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -89,7 +89,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={12}>
             <Field
               name="nama_barang"
               type="text"
@@ -99,7 +99,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Barang"
             />
           </Col>
-          <Col offset={1}>
+          <Col offset={12}>
             <Field
               name="kode_jenis"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis</span>}
@@ -125,7 +125,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} style={{ display: "none" }}>
+          <Col offset={12} style={{ display: "none" }}>
             <Field
               name="kode_design"
               type="text"

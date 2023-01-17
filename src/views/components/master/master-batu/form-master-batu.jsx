@@ -79,8 +79,8 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} style={{ display: "none" }}>
+        <Row gutter={[8, 8]}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="id"
               type="text"
@@ -91,7 +91,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_batu"
               type="text"
@@ -102,7 +102,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_batu"
               type="text"
@@ -112,7 +112,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Batu"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="ukuran"
               type="text"
@@ -122,7 +122,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Ukuran Batu"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_jenis_batu"
               label={<span style={{ fontSize: "13px" }}>Kode Jenis batu</span>}
@@ -145,7 +145,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="kode_cutting_batu"
               label={
@@ -171,7 +171,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               label="Sintetis"
               name="status_sintetis"
@@ -180,7 +180,7 @@ let FormTambahMasterBatu = ({ visible, onCancel }, prop) => {
               type="checkbox"
             />
           </Col>
-          <Col offset={1} style={{ display: "none" }}>
+          <Col span={12} style={{ display: "none" }}>
             <Field
               name="berat_batu"
               type="text"

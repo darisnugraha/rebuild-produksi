@@ -72,8 +72,8 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="kode_customer"
               type="text"
@@ -84,7 +84,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_customer"
               type="text"
@@ -94,7 +94,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Customer"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="nama_toko"
               type="text"
@@ -104,7 +104,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Toko"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="alamat"
               type="text"
@@ -114,7 +114,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Alamat"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="no_hp"
               type="text"
@@ -124,7 +124,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan No Hp"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="email"
               type="text"
@@ -134,7 +134,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Email"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="negara"
               type="text"
@@ -144,7 +144,7 @@ let FormTambahMasterCustomer = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Negara"
             />
           </Col>
-          <Col offset={1}>
+          <Col span={12}>
             <Field
               name="lokasi"
               label={<span style={{ fontSize: "13px" }}>Lokasi</span>}

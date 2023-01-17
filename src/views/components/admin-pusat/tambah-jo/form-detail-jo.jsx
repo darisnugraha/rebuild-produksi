@@ -95,6 +95,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
       confirmLoading={btnLoading}
       onCancel={onCancel}
       onOk={onCreate}
+      width={1000}
     >
       <Form layout="vertical" form={form}>
         <Row gutter={[8, 8]}>

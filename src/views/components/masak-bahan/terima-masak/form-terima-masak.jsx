@@ -59,8 +59,8 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_kirim"
               type="text"
@@ -73,7 +73,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_tot_kirim"
               type="text"
@@ -86,7 +86,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Jadi</span>}
@@ -103,7 +103,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_jadi"
               type="text"
@@ -116,7 +116,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_susut"
               type="text"

@@ -111,8 +111,8 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col span={8} offset={1}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="divisi"
               type="text"
@@ -123,7 +123,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="divisi_tujuan"
               label={<span style={{ fontSize: "13px" }}>Divisi Tujuan</span>}
@@ -141,7 +141,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="staff"
               label={<span style={{ fontSize: "13px" }}>Tukang Asal</span>}
@@ -159,7 +159,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="staff_tujuan"
               label={<span style={{ fontSize: "13px" }}>Tukang Tujuan</span>}
@@ -180,7 +180,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan</span>}
@@ -198,7 +198,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col span={8} offset={1}>
+          <Col span={12}>
             <Field
               name="berat_bahan"
               type="text"

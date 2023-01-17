@@ -45,8 +45,8 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
       onOk={onCreate}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="tanggal_kirim"
               type="date"
@@ -61,7 +61,7 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_kirim_batu"
               label={<span style={{ fontSize: "13px" }}>No Kirim Batu</span>}
@@ -85,7 +85,7 @@ let FormTerimaBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               type="text"

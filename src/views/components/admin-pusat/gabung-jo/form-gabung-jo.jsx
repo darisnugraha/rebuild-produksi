@@ -57,8 +57,8 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="no_induk_job_order"
               label={
@@ -81,7 +81,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
@@ -102,7 +102,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          {/* <Col offset={1} span={8}>
+          {/* <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -115,7 +115,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -126,7 +126,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="asal_divisi"
               type="text"
@@ -137,7 +137,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -148,7 +148,7 @@ let FormGabungJO = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_akhir"
               type="text"

@@ -67,8 +67,8 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               name="divisi_terima"
               type="text"
@@ -79,7 +79,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_induk_job_order"
               label={
@@ -103,7 +103,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="no_job_order"
               label={<span style={{ fontSize: "13px" }}>No Job Order</span>}
@@ -127,7 +127,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          {/* <Col offset={1} span={8}>
+          {/* <Col span={12}>
             <Field
               name="no_job_order"
               type="text"
@@ -142,7 +142,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="tukang_terima"
               type="text"
@@ -153,7 +153,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_barang"
               type="text"
@@ -164,7 +164,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="nama_barang"
               type="text"
@@ -175,7 +175,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="kode_jenis_bahan"
               type="text"
@@ -186,7 +186,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="jumlah_akhir"
               type="text"
@@ -197,7 +197,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_akhir"
               type="text"
