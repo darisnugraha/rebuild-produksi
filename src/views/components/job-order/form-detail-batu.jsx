@@ -69,8 +69,8 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
       }}
     >
       <Form layout="vertical" form={form}>
-        <Row>
-          <Col offset={1} span={8}>
+        <Row gutter={[8, 8]}>
+          <Col span={12}>
             <Field
               showSearch
               name="no_job_order"
@@ -92,7 +92,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               showSearch
               name="kode_batu"
@@ -115,7 +115,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="jumlah_tak_terpakai"
               type="number"
@@ -125,7 +125,7 @@ let FormDetailBatu = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Masukkan Jumlah Batu"
             />
           </Col>
-          <Col offset={1} span={8}>
+          <Col span={12}>
             <Field
               name="berat_tak_terpakai"
               type="text"

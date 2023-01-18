@@ -77,7 +77,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col> */}
-          <Col offset={1} style={{ display: "none" }}>
+          <Col style={{ display: "none" }}>
             <Field
               name="divisi_asal"
               type="text"
@@ -88,7 +88,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
               disabled
             />
           </Col>
-          <Col offset={1} span={12}>
+          <Col span={12}>
             <Field
               name="divisi_tujuan"
               type="text"
@@ -100,7 +100,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             />
           </Col>
 
-          <Col offset={1} span={12}>
+          <Col span={12}>
             <Field
               showSearch
               name="tukang_tujuan"
@@ -123,7 +123,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1} span={12}>
+          <Col span={12}>
             <Field
               showSearch
               name="nama_bahan"
@@ -142,7 +142,7 @@ let FormKirimBahanAdmin = ({ visible, onCreate, onCancel }, prop) => {
             </Field>
           </Col>
 
-          <Col offset={1} span={12}>
+          <Col span={12}>
             <Field
               name="berat"
               type="text"
