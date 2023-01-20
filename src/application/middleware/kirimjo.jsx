@@ -60,7 +60,10 @@ const getDataDetailJOMidd =
     if (action.type === GET_DETAIL_JO_POST_METHOD) {
       const noJO = action.payload.data;
       const type = action.payload.dataType;
-      const asalDivisi = localStorage.getItem("divisi");
+      const asalDivisi =
+        localStorage.getItem("divisi") === "ADMIN"
+          ? "ADMIN PUSAT"
+          : localStorage.getItem("divisi");
       api.KirimJO.getDetailJO(
         noJO.toUpperCase(),
         asalDivisi.toUpperCase()
