@@ -56,6 +56,7 @@ const addCheckoutJobOrder =
             sweetalert.default.Success(res.value.message);
             localStorage.removeItem("data_staff");
             localStorage.removeItem("data_detail_jo");
+            localStorage.removeItem("berat_awal");
           } else {
             sweetalert.default.Failed(res.error?.data.message);
           }

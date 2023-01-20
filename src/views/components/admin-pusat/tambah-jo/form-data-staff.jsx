@@ -128,7 +128,6 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               showSearch
               name="nama_bahan"
               label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
-              style={{ width: 250 }}
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
               onBlur={(e) => e.preventDefault()}
