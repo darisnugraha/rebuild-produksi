@@ -237,7 +237,8 @@ const editFlow =
     }
     if (action.type === SAVE_EDIT_JOB_ORDER) {
       const data = getState().form.FormKirimJO.values;
-      const divisi_asal = getLocal("divisi");
+      const divisi_asal =
+        getLocal("divisi") === "ADMIN" ? "ADMIN PUSAT" : getLocal("divisi");
       const dataHead = getLocal("kirim_jo_head");
       const dataHeadFill = dataHead.filter(
         (val) => val.no_job_order !== data.no_job_order
@@ -355,7 +356,8 @@ const addDataLocalKirimJo =
       } else {
         const dataLocal = getLocal("kirim_jo_head");
         if (dataLocal === null) {
-          const divisi_asal = getLocal("divisi");
+          const divisi_asal =
+            getLocal("divisi") === "ADMIN" ? "ADMIN PUSAT" : getLocal("divisi");
           const dataArr = [];
           const dataSave = {
             no_job_order: data.no_job_order,
@@ -384,7 +386,10 @@ const addDataLocalKirimJo =
           writeLocal("kirim_jo_head", dataArr);
         } else {
           if (dataLocal.length !== 0) {
-            const divisi_asal = getLocal("divisi");
+            const divisi_asal =
+              getLocal("divisi") === "ADMIN"
+                ? "ADMIN PUSAT"
+                : getLocal("divisi");
             const dataArr = dataLocal;
             const dataSave = {
               no_job_order: data.no_job_order,
@@ -412,7 +417,10 @@ const addDataLocalKirimJo =
             sweetalert.default.Success("Berhasil Menyimpan Data !");
             writeLocal("kirim_jo_head", dataArr);
           } else {
-            const divisi_asal = getLocal("divisi") || [];
+            const divisi_asal =
+              getLocal("divisi") === "ADMIN"
+                ? "ADMIN PUSAT"
+                : getLocal("divisi") || [];
             const dataArr = [];
             const dataSave = {
               no_job_order: data.no_job_order,
