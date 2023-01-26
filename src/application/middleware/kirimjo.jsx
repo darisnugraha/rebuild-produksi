@@ -114,7 +114,8 @@ const getDataDetailJOMidd =
     }
     if (action.type === GET_DATA_BY_NO_INDUK_JOB_ORDER) {
       const id = action.payload.data;
-      const divisi = getLocal("divisi");
+      const divisi =
+        getLocal("divisi") === "ADMIN" ? "ADMIN PUSAT" : getLocal("divisi");
       const dataKirim = {
         no_induk: id,
         divisi: divisi,
