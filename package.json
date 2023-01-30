@@ -99,7 +99,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.0",
     "gh-pages": "^3.2.3",
-    "node-sass": "^6.0.1",
+    "node-sass": "npm:sass@^1.57.1",
     "sass": "^1.50.0"
   }
 }

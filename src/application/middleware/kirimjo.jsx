@@ -77,7 +77,7 @@ const getDataDetailJOMidd =
             } else {
               sweetalert.default.SuccessNoReload("Berhasil !");
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
-              dispatch(setCountBeratKirimJO(res.value[0].berat_akhir));
+              dispatch(setCountBeratKirimJO(res.value[0].berat_akhir + (res.value[0].berat_batu)));
             }
           } else {
             sweetalert.default.Failed(
@@ -92,7 +92,7 @@ const getDataDetailJOMidd =
               dispatch(setDataDetailJOSuccess({ feedback: [] }));
             } else {
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
-              dispatch(setCountBeratKirimJO(res.value[0].berat_akhir));
+              dispatch(setCountBeratKirimJO(res.value[0].berat_akhir + res.value[0].berat_batu));
             }
           } else {
             dispatch(setDataDetailJOFailed({ error: res.error }));
@@ -190,29 +190,33 @@ const countberatbatu =
       let total = 0;
       const isEdit = getState().kirimjo.isEditJO;
       if (isEdit) {
-        const berat_kirim = parseFloat(action.payload);
+        const berat_kirim = parseFloat(action.payload) || 0;
         const berat_akhir = parseFloat(
           getState().kirimjo.dataEditJO.berat_akhir
         );
+        const berat_batu = parseFloat(getState().kirimjo.dataEditJO.berat_batu)
+        const beratBatuTakTerpakai = parseFloat(getState().kirimjo.beratBatuTakTerpakai)
 
         if (berat_kirim > berat_akhir) {
           sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
           dispatch(countBeratKirimJO({ beratKirim: 0 }));
         } else {
-          total = berat_akhir - berat_kirim;
+          total = (berat_akhir + (berat_batu - beratBatuTakTerpakai)) - berat_kirim;
           dispatch(setCountBeratKirimJO(total.toFixed(3)));
         }
       } else {
-        const berat_kirim = parseFloat(action.payload);
+        const berat_kirim = parseFloat(action.payload) || 0;
         const berat_akhir = parseFloat(
           getState().kirimjo.dataDetailJO[0].berat_akhir
         );
+        const berat_batu = parseFloat(getState().kirimjo.dataDetailJO[0].berat_batu)
+        const beratBatuTakTerpakai = parseFloat(getState().kirimjo.beratBatuTakTerpakai)
 
         if (berat_kirim > berat_akhir) {
           sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
           dispatch(countBeratKirimJO({ beratKirim: 0 }));
         } else {
-          total = berat_akhir - berat_kirim;
+          total = (berat_akhir + (berat_batu - beratBatuTakTerpakai)) - berat_kirim;
           dispatch(setCountBeratKirimJO(total.toFixed(3)));
         }
       }
@@ -232,7 +236,7 @@ const editFlow =
         (val) => val.no_job_order === noJobOrder
       );
       dispatch(setDataEditJobOrder(dataHeadFill));
-      dispatch(setCountBeratKirimJO(dataHeadFill.susut));
+      dispatch(setCountBeratKirimJO(dataHeadFill.susut - dataHeadFill.beratBatuTakTerpakai));
       dispatch(countBeratKirimJO({ beratKirim: dataHeadFill.berat_kirim }));
     }
     if (action.type === SAVE_EDIT_JOB_ORDER) {
