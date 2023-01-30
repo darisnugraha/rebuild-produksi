@@ -35,8 +35,7 @@ const maptostate = (state) => {
         jumlah_akhir: state.kirimjo.dataEditJO.jumlah_akhir,
         berat_akhir: state.kirimjo.dataEditJO.berat_akhir,
         berat_batu: state.kirimjo.dataEditJO.berat_batu,
-        jumlah_berat_batu_tak_terpakai:
-          state.kirimjo.dataEditJO.jumlah_berat_batu_tak_terpakai,
+        jumlah_berat_batu_tak_terpakai: state.kirimjo.beratBatuTakTerpakai,
         susut: state.kirimjo.beratSusut,
         jumlah_kirim: state.kirimjo.dataEditJO.jumlah_kirim,
         berat_kirim: state.kirimjo.beratKirim,
