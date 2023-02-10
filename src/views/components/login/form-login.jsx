@@ -35,7 +35,7 @@ const LoginForm = (prop) => {
       </Button>
       <hr />
       <p className="text-center text-grey-darker">
-        &copy; PRODUKSI MEDAN All Right Reserved 2021
+        &copy; PRODUKSI DEMO All Right Reserved 2021
       </p>
     </Form>
   );

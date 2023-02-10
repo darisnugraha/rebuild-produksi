@@ -33,7 +33,7 @@ class SidebarProfile extends React.Component {
 								<div className="info">
 									<b></b>
 									PRODUKSI
-									<small>MEDAN</small>
+									<small>DEMO</small>
 								</div>
 							</Link>
 						</li>

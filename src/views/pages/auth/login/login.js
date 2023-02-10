@@ -42,17 +42,17 @@ class Login extends React.Component {
           ></div>
           <div className="news-caption">
             <h4 className="caption-title">
-              <b>PRODUKSI</b> MEDAN
+              <b>PRODUKSI</b> DEMO
             </h4>
             <p>
-							PRODUKSI MEDAN
+							PRODUKSI DEMO
 						</p>
           </div>
         </div>
         <div className="right-content">
           <div className="login-header">
             <div className="brand">
-              <span className="logo"></span> <b>PRODUKSI</b> MEDAN
+              <span className="logo"></span> <b>PRODUKSI</b> DEMO
               {/* <small>responsive bootstrap 4 admin template</small> */}
             </div>
             <div className="icon">
