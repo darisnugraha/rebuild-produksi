@@ -99,6 +99,12 @@ let FormPembuatanJenisBahanDetail = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Nomor Pohon"
+              onKeyDown={(e) => {
+                var key = e.keyCode;
+                if (key === 32) {
+                  e.preventDefault();
+                }
+              }}
             />
           </Col>
         </Row>
