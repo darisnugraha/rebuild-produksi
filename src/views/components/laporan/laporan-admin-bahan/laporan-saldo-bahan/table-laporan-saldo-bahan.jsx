@@ -20,13 +20,13 @@ const TableLaporanSaldoBahan = () => {
     },
     {
       title: "Mutasi In",
-      dataIndex: "mutasi_in",
+      dataIndex: "berat_in",
       key: "mutasi_in",
       align: "right",
     },
     {
       title: "Mutasi Out",
-      dataIndex: "mutasi_out",
+      dataIndex: "berat_out",
       key: "mutasi_out",
       align: "right",
     },
@@ -36,7 +36,7 @@ const TableLaporanSaldoBahan = () => {
       align: "right",
       render: (text) => {
         let saldo_akhir = 0;
-        saldo_akhir = text.saldo_awal + text.mutasi_in - text.mutasi_out;
+        saldo_akhir = text.saldo_awal + text.berat_in - text.berat_out;
         return saldo_akhir.toFixed(3);
       },
     },
@@ -68,40 +68,46 @@ const TableLaporanSaldoBahan = () => {
       dataSource={dataLaporanSaldoBahan}
       columns={columns}
       scroll={{ x: 1500, y: 1000 }}
-      summary={() => (
-        <Table.Summary fixed>
-          <Table.Summary.Row>
-            <Table.Summary.Cell index={0} colSpan={2} align="right">
-              Total
-            </Table.Summary.Cell>
-            <Table.Summary.Cell index={1} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.saldo_awal), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
-            <Table.Summary.Cell index={1} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.mutasi_in), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
-            <Table.Summary.Cell index={2} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.mutasi_out), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
-            <Table.Summary.Cell index={3} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.saldo_awal), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
-            <Table.Summary.Cell index={3} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
-          </Table.Summary.Row>
-        </Table.Summary>
-      )}
+      summary={(row) => {
+        let karat24 = 0;
+        row.forEach((el) => {
+          const kadarkali = el.kadar / 100;
+          karat24 += el.saldo_awal * kadarkali;
+        });
+        return (
+          <Table.Summary fixed>
+            <Table.Summary.Row>
+              <Table.Summary.Cell index={0} align="right">
+                Total
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right">
+                {dataLaporanSaldoBahan
+                  .reduce((a, b) => a + parseFloat(b.saldo_awal), 0)
+                  .toFixed(3)}
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right">
+                {dataLaporanSaldoBahan
+                  .reduce((a, b) => a + parseFloat(b.berat_in), 0)
+                  .toFixed(3)}
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} align="right">
+                {dataLaporanSaldoBahan
+                  .reduce((a, b) => a + parseFloat(b.berat_out), 0)
+                  .toFixed(3)}
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={3} align="right">
+                {dataLaporanSaldoBahan
+                  .reduce((a, b) => a + parseFloat(b.saldo_awal || 0), 0)
+                  .toFixed(3)}
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={4} align="right"></Table.Summary.Cell>
+              <Table.Summary.Cell index={5} align="right">
+                {karat24.toFixed(3)}
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+          </Table.Summary>
+        );
+      }}
     />
   );
 };
