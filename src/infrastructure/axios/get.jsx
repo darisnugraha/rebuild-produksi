@@ -16,7 +16,7 @@ const AxiosGet = async ({ url }) => {
           (progressEvent.loaded * 100) / progressEvent.total
         );
       },
-      timeout: 4000,
+      // timeout: 4000,
     };
     const response = await axios.get(url, config);
     // const response = await axios.get(url);
