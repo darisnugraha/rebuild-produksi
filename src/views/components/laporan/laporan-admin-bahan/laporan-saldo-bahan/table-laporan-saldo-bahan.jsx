@@ -54,7 +54,7 @@ const TableLaporanSaldoBahan = () => {
         const kadarkali = text.kadar / 100;
         let karat24 = 0;
         karat24 = text.saldo_awal * kadarkali;
-        return karat24;
+        return karat24.toFixed(3);
       },
     },
   ];

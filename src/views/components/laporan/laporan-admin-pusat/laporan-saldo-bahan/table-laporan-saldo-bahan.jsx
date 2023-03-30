@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import laporansaldobahan from "../../../../../application/selectors/laporansaldobahanpusat";
 
 const TableLaporanSaldoBahan = () => {
-  
   const dataLaporanSaldoBahan = useSelector(
     laporansaldobahan.getAllLaporanSaldoBahanPusat
   );
@@ -65,7 +64,7 @@ const TableLaporanSaldoBahan = () => {
         const kadarkali = parseFloat(text.kadar) / 100;
         let karat24 = 0;
         karat24 = saldo_akhir * kadarkali;
-        return karat24;
+        return karat24.toFixed(3);
       },
     },
   ];
@@ -108,11 +107,7 @@ const TableLaporanSaldoBahan = () => {
             <Table.Summary.Cell index={2} align="right">
               {saldo_akhir.toFixed(3)}
             </Table.Summary.Cell>
-            <Table.Summary.Cell index={4} align="right">
-              {dataLaporanSaldoBahan
-                .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
+            <Table.Summary.Cell index={4} align="right"></Table.Summary.Cell>
             <Table.Summary.Cell index={5} align="right">
               {dataLaporanSaldoBahan
                 .reduce(
