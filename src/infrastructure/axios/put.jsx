@@ -9,6 +9,7 @@ const AxiosPut = async (url, dataKirim) => {
       headers: {
         Authorization: "Bearer " + token,
         language: "id-ID",
+        "ngrok-skip-browser-warning": 1,
       },
       timeout: 4000,
     };

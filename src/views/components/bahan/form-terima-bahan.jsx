@@ -10,110 +10,17 @@ import TerimaBahan from "../../../application/selectors/terimabahan";
 import {
   getSaldoKirimBahanOpenChange,
   addTerimaBahan,
-  getBahanbyDivisiAndStaff,
+  // getBahanbyDivisiAndStaff,
   getTukangAsalByDivisi,
+  getBahanByTukangTujuan,
+  getBahanByTukangAsal,
 } from "../../../application/actions/terimabahan";
 import TerimaBahanValidate from "../../../infrastructure/validate/TerimaBahanValidate";
 import getLocal from "../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
-const maptostate = (state) => {
-  const divisi = getLocal("divisi");
-  if (divisi !== null) {
-    if (divisi.toUpperCase() === "ADMIN") {
-      return {
-        initialValues: {
-          divisi: "ADMIN PUSAT",
-          staff_tujuan:
-            state.terimabahan.feedbackTukangByTukang[0]?.nama_tukang,
-          staff: state.terimabahan.tukangAsal[0]?.nama_tukang,
-          divisi_asal: state.terimabahan.divisiAsal
-            ? state.terimabahan.divisiAsal
-            : state.terimabahan.dataDivisi[0]?.divisi,
-          nama_bahan:
-            state.terimabahan.namaBahan !== null
-              ? state.terimabahan.namaBahan
-              : state.terimabahan.tukangAsal[0]?.nama_bahan,
-          berat_bahan: state.terimabahan.berat,
-        },
-      };
-    } else {
-      if (state.terimabahan.feedback.length !== 0) {
-        if (state.terimabahan.kodeStaff !== null) {
-          return {
-            initialValues: {
-              divisi:
-                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
-              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-              staff: state.terimabahan.kodeStaff,
-              divisi_asal:
-                getLocal("divisi").toUpperCase() === "ADMIN"
-                  ? "ADMIN BAHAN"
-                  : "ADMIN PUSAT",
-              nama_bahan:
-                state.terimabahan.namaBahan !== null
-                  ? state.terimabahan.namaBahan
-                  : state.terimabahan.feedbackTukangByTukang[0]?.nama_bahan,
-              berat_bahan: state.terimabahan.berat,
-            },
-          };
-        } else {
-          return {
-            initialValues: {
-              divisi:
-                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
-              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-              divisi_asal:
-                getLocal("divisi").toUpperCase() === "ADMIN"
-                  ? "ADMIN BAHAN"
-                  : "ADMIN PUSAT",
-              staff:
-                state.kirimbahanadmin.feedbackTukangByTukang[0]?.nama_tukang,
-              nama_bahan:
-                state.terimabahan.namaBahan !== null
-                  ? state.terimabahan.namaBahan
-                  : state.terimabahan.feedback[0]?.nama_bahan,
-              berat_bahan: state.terimabahan.berat,
-            },
-          };
-        }
-      } else {
-        if (state.terimabahan.kodeStaff !== null) {
-          return {
-            initialValues: {
-              divisi:
-                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
-              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-              staff: state.terimabahan.kodeStaff,
-              divisi_asal:
-                getLocal("divisi").toUpperCase() === "ADMIN"
-                  ? "ADMIN BAHAN"
-                  : "ADMIN PUSAT",
-              nama_bahan: "",
-              berat_bahan: state.terimabahan.berat,
-            },
-          };
-        } else {
-          return {
-            initialValues: {
-              divisi:
-                getLocal("divisi") === "Admin" ? "ADMIN PUSAT" : divisi || "",
-              staff_tujuan: state.terimabahan.feedbackTukang[0]?.nama_tukang,
-              staff: state.terimabahan.feedbackTukangByTukang[0]?.nama_tukang,
-              divisi_asal:
-                getLocal("divisi").toUpperCase() === "ADMIN"
-                  ? "ADMIN BAHAN"
-                  : "ADMIN PUSAT",
-              nama_bahan: "",
-              berat_bahan: state.terimabahan.berat,
-            },
-          };
-        }
-      }
-    }
-  }
-};
+const maptostate = () => {};
 
 let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
@@ -199,9 +106,9 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 component={styleAntd.ASelect}
                 placeholder="Pilih Tukang Asal"
                 onBlur={(e) => e.preventDefault()}
-                onChange={(val) => {
-                  dispatch(getBahanbyDivisiAndStaff({ staff: val }));
-                }}
+                // onChange={(val) => {
+                //   dispatch(getBahanbyDivisiAndStaff({ staff: val }));
+                // }}
               >
                 {dataStaffAsal.map((item) => {
                   return (
@@ -226,7 +133,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 placeholder="Pilih Tukang Asal"
                 onBlur={(e) => e.preventDefault()}
                 onChange={(val) => {
-                  dispatch(getBahanbyDivisiAndStaff({ staff: val }));
+                  dispatch(getBahanByTukangAsal({ staff: val }));
                 }}
               >
                 {dataStaffDivisi.map((item) => {
@@ -252,6 +159,9 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 component={styleAntd.ASelect}
                 placeholder="Pilih Tukang Tujuan"
                 onBlur={(e) => e.preventDefault()}
+                onChange={(val) => {
+                  dispatch(getBahanByTukangTujuan({ staff: val }));
+                }}
               >
                 {dataStaffTujuan.map((item) => {
                   return (
@@ -304,7 +214,7 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item._id} key={item._id}>
+                  <Option value={item.nama_bahan} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );

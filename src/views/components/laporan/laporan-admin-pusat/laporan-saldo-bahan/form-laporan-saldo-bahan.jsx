@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Select } from "antd";
 import { Field, reduxForm } from "redux-form";
@@ -9,7 +9,10 @@ import mastertukang from "../../../../../application/selectors/mastertukang";
 import kelompokbahan from "../../../../../application/selectors/groupbahan";
 import divisi from "../../../../../application/selectors/kirimbahanadmin";
 import "antd/dist/antd.css";
-import { getAllLaporanSaldoBahanPusat } from "../../../../../application/actions/laporansaldobahanpusat";
+import {
+  getAllLaporanSaldoBahanPusat,
+  setDivisiByTukang,
+} from "../../../../../application/actions/laporansaldobahanpusat";
 
 const { Option } = Select;
 const dateFormat = "DD/MM/YYYY";
@@ -19,9 +22,13 @@ const maptostate = (state) => {
   return {
     initialValues: {
       date: [moment(today, dateFormat), moment(today, dateFormat)],
-      tukang: state.mastertukang.feedback[0]?.nama_tukang,
+      tukang: state.mastertukang.feedback[0]?.kode_tukang,
+      namaTukang: state.mastertukang.feedback[0]?.nama_tukang,
       bahan: state.groupbahan.feedback[0]?.nama_bahan,
-      divisi: state.kirimbahanadmin.feedback[0]?.divisi,
+      // divisi:
+      //   state.kirimbahanadmin.feedback[0]?.divisi === "ADMIN BAHAN"
+      //     ? state.kirimbahanadmin.feedback[1]?.divisi
+      //     : state.kirimbahanadmin.feedback[0]?.divisi,
     },
   };
 };
@@ -33,6 +40,9 @@ let FormLaporanSaldoBahanPusat = (prop) => {
   const dataMasterTukang = useSelector(mastertukang.getAllMasterTukang);
   const dataKelompokBahan = useSelector(kelompokbahan.getAllGroupBahan);
   const dataDivisi = useSelector(divisi.getAllDivisi);
+  useEffect(() => {
+    dispatch(setDivisiByTukang({ tukang: dataMasterTukang[0]?.kode_tukang }));
+  }, [dispatch, dataMasterTukang]);
   return (
     <Form layout="vertical">
       <Row>
@@ -54,19 +64,34 @@ let FormLaporanSaldoBahanPusat = (prop) => {
             component={styleAntd.ASelect}
             placeholder="Pilih Tukang"
             onBlur={(e) => e.preventDefault()}
+            onChange={(e) => dispatch(setDivisiByTukang({ tukang: e }))}
           >
             {dataMasterTukang.map((item) => {
-              return (
-                <Option value={item.nama_tukang} key={item.kode_tukang}>
-                  <span style={{ fontSize: "13px" }}>
-                    {item.kode_tukang === item.nama_tukang
-                      ? item.nama_tukang
-                      : item.nama_tukang + " (" + item.kode_tukang + ")"}
-                  </span>
-                </Option>
-              );
+              if (item.nama_tukang !== "ADMIN BAHAN") {
+                return (
+                  <Option value={item.kode_tukang} key={item.kode_tukang}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                    </span>
+                  </Option>
+                );
+              } else {
+                return false;
+              }
             })}
           </Field>
+        </Col>
+        <Col style={{ display: "none" }}>
+          <Field
+            name="namaTukang"
+            type="text"
+            label={<span style={{ fontSize: "13px" }}>Nama Tukang</span>}
+            component={styleAntd.AInput}
+            className="form-item-group"
+            placeholder="Masukkan Nama Tukang"
+          />
         </Col>
         <Col offset={1} span={6}>
           <Field
@@ -96,12 +121,15 @@ let FormLaporanSaldoBahanPusat = (prop) => {
             onBlur={(e) => e.preventDefault()}
           >
             {dataDivisi.map((item) => {
-              console.log(item);
-              return (
-                <Option value={item.divisi} key={item.divisi}>
-                  <span style={{ fontSize: "13px" }}>{item.divisi}</span>
-                </Option>
-              );
+              if (item.divisi === "ADMIN BAHAN") {
+                return false;
+              } else {
+                return (
+                  <Option value={item.divisi} key={item.divisi}>
+                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
+                  </Option>
+                );
+              }
             })}
           </Field>
         </Col>

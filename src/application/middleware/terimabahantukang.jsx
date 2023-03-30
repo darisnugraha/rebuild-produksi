@@ -104,12 +104,13 @@ const bahanAsalTukangGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_BAHAN_ASAL_TUKANG) {
+      const form = getState().form.FormTerimaBahanTukang.values;
       const data = {
-        divisi:
-          getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
+        divisi: form.divisi_asal || null,
         staff: action.payload.data || null,
+        namaBahan: "ALL",
       };
-      api.TerimaBahanTukang.getBahanByStaff(data).then((res) => {
+      api.TerimaBahanTukang.getBahanTukangAsal(data).then((res) => {
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setDataBahanAsalTukangSuccess({ feedback: res.value }));

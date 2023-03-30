@@ -23,6 +23,14 @@ const TerimaBahanTukang = {
     });
     return response;
   },
+  getBahanTukangAsal: async (dataKirim) => {
+    const response = await get({
+      url:
+        word.URL_GET_BAHAN_KIRIM_NEW +
+        `divisi_asal=${dataKirim.divisi}&divisi_tujuan=ADMIN%20BAHAN&tukang_asal=${dataKirim.staff}&tukang_tujuan=ADMIN BAHAN&nama_bahan=${dataKirim.namaBahan}`,
+    });
+    return response;
+  },
   getSaldoKirimBahanTukangOpen: async (dataKirim) => {
     const response = await get({
       url:

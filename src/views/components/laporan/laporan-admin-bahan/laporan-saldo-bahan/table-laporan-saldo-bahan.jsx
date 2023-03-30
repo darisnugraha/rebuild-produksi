@@ -97,7 +97,11 @@ const TableLaporanSaldoBahan = () => {
               </Table.Summary.Cell>
               <Table.Summary.Cell index={3} align="right">
                 {dataLaporanSaldoBahan
-                  .reduce((a, b) => a + parseFloat(b.saldo_awal || 0), 0)
+                  .reduce(
+                    (a, b) =>
+                      a + parseFloat(b.saldo_awal + b.berat_in - b.berat_out),
+                    0
+                  )
                   .toFixed(3)}
               </Table.Summary.Cell>
               <Table.Summary.Cell index={4} align="right"></Table.Summary.Cell>

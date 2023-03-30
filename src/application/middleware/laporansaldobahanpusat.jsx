@@ -11,10 +11,12 @@ import {
   GET_ALL_LAPORAN_SALDO_BAHAN_PUSAT,
   setDataLaporanSaldoBahanPusatSuccess,
   setDataLaporanSaldoBahanPusatFailed,
+  SET_DIVISI_BY_TUKANG,
 } from "../actions/laporansaldobahanpusat";
 import { setLoadingButton } from "../actions/ui";
 import Moment from "moment";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const getAllDataLaporanSaldoBahanPusat =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -46,7 +48,7 @@ const getAllDataLaporanSaldoBahanPusat =
         );
         const dataOnsend = {
           kelompok: data.bahan,
-          staff: data.tukang,
+          staff: data.namaTukang,
           divisi: data.divisi,
           tgl_awal: tgl_dari_string,
           tgl_akhir: tgl_sampai_string,
@@ -76,6 +78,30 @@ const getAllDataLaporanSaldoBahanPusat =
           }
         });
       }
+    }
+    if (action.type === SET_DIVISI_BY_TUKANG) {
+      api.LaporanSaldoBahanPusat.getDataDivisiByTukang(
+        action.payload.data
+      ).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(
+              change(
+                "FormLaporanSaldoBahanPusat",
+                "namaTukang",
+                res.value[0].nama_tukang
+              )
+            );
+            dispatch(
+              change(
+                "FormLaporanSaldoBahanPusat",
+                "divisi",
+                res.value[0].divisi
+              )
+            );
+          }
+        }
+      });
     }
   };
 

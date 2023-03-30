@@ -151,6 +151,7 @@ const URL_GET_BAHAN_TERIMA_BAHAN = `${baseurl}saldo-bahan/get/bahan`;
 const URL_GET_SALDO_KIRIM_BAHAN_OPEN = `${baseurl}saldo-bahan/get/saldo-kirim-bahan-open`;
 const URL_GET_BAHAN = `${baseurl}saldo-murni-divisi/bahan/terima-bahan?`;
 const URL_GET_BAHAN_TUKANG = `${baseurl}saldo-murni-divisi/bahan?`;
+const URL_GET_BAHAN_KIRIM_NEW = `${baseurl}kirim-bahan/terima-bahan-open?`;
 const URL_GET_BAHAN_ADMIN_BAHAN = `${baseurl}saldo-murni-divisi/bahan?`;
 const URL_GET_DETAIL_BAHAN_TUKANG = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open?`;
 const URL_GET_BAHAN_PUSAT = `${baseurl}saldo-murni/bahan?`;
@@ -248,6 +249,7 @@ const URL_GET_LAPORAN_TERIMA_JO = `${baseurl}terima-jo/tgl/all`;
 const URL_GET_KARTU_JO = `${baseurl}admin-pusat-report/kartu-job-order?`;
 const URL_GET_OUTSTAND = `${baseurl}admin-pusat-report/outstand-admin?`;
 const URL_GET_LAPORAN_SALDO_BAHAN_PUSAT = `${baseurl}admin-pusat-report/saldo-bahan?`;
+const URL_GET_DIVISI_BY_TUKANG = `${baseurl}tukang/by-kode/`;
 
 const URL_GET_LAPORAN_SETOR_ABU_COR = `${baseurl}setor-abu-report/setor-abu-cor?`;
 const URL_GET_LAPORAN_SETOR_ABU_POTONG = `${baseurl}setor-abu-report/setor-abu-potong?`;
@@ -537,6 +539,7 @@ const data = {
   URL_GET_KARTU_JO,
   URL_GET_OUTSTAND,
   URL_GET_LAPORAN_SALDO_BAHAN_PUSAT,
+  URL_GET_DIVISI_BY_TUKANG,
 
   URL_GET_LAPORAN_SETOR_ABU_COR,
   URL_GET_LAPORAN_SETOR_ABU_POTONG,
@@ -585,6 +588,7 @@ const data = {
   URL_ADD_BATAL_PROSES_JO_TERIMA,
 
   URL_GET_DIVISI_SUSUT_TUKANG,
+  URL_GET_BAHAN_KIRIM_NEW,
 };
 
 export default data;

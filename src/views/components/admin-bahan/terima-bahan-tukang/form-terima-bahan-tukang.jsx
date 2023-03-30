@@ -16,7 +16,7 @@ import {
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.terimabahantukang.feedbackTukang.length !== 0) {
+  if (state.terimabahantukang.feedbackBahan.length !== 0) {
     return {
       initialValues: {
         divisi_asal: "ADMIN PUSAT",
@@ -29,7 +29,7 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi_asal: "ADMIN PUSAT",
-        tukang_asal: "",
+        tukang_asal: state.terimabahantukang.tukang_asal,
         bahan: "",
         berat_bahan: "",
       },

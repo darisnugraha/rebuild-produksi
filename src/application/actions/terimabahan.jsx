@@ -1,4 +1,9 @@
 export const GET_BAHAN = "[terimabahan] get bahan";
+export const GET_BAHAN_BY_TUKANG_TUJUAN =
+  "[terimabahan] get bahan by tukang tujuan";
+export const GET_BAHAN_BY_TUKANG_ASAL =
+  "[terimabahan] get bahan by tukang asal";
+
 export const SET_DATA_BAHAN_SUCCESS =
   "[terimabahan] get tukang terima bahan success";
 export const SET_DATA_BAHAN_FAILED =
@@ -73,6 +78,17 @@ export const getBahanbyDivisiAndStaff = ({ staff }) => ({
   type: GET_BAHAN,
   payload: { data: staff },
 });
+
+export const getBahanByTukangTujuan = ({ staff }) => ({
+  type: GET_BAHAN_BY_TUKANG_TUJUAN,
+  payload: { data: staff },
+});
+
+export const getBahanByTukangAsal = ({ staff }) => ({
+  type: GET_BAHAN_BY_TUKANG_ASAL,
+  payload: { data: staff },
+});
+
 export const setDataBahanSuccess = ({ feedback }) => ({
   type: SET_DATA_BAHAN_SUCCESS,
   payload: { data: feedback },

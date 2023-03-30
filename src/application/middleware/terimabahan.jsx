@@ -22,9 +22,15 @@ import {
   getTukangAsalByDivisi,
   GET_TUKANG_ASAL_BY_DIVISI,
   setTukangAsalByDivisi,
-  getBahanbyDivisiAndStaff,
+  // getBahanbyDivisiAndStaff,
+  GET_BAHAN_BY_TUKANG_TUJUAN,
+  getSaldoKirimBahanOpenChange,
+  // getBahanByTukangTujuan,
+  GET_BAHAN_BY_TUKANG_ASAL,
+  // getBahanByTukangAsal,
 } from "../actions/terimabahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const tukangDivisGetAll =
   ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
@@ -47,9 +53,9 @@ const tukangDivisGetAll =
       api.TerimaBahan.getTukangAsalTerimaDivisi(divisi).then((res) => {
         if (res.value !== null) {
           dispatch(setTukangAsalByDivisi({ feedback: res.value }));
-          dispatch(
-            getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
-          );
+          // dispatch(
+          //   getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
+          // );
         } else {
           dispatch(setTukangAsalByDivisi({ feedback: [] }));
         }
@@ -61,6 +67,13 @@ const tukangDivisGetAll =
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(setTukangDivisiSuccess({ feedback: res.value }));
+            dispatch(
+              change(
+                "FormTerimaBahan",
+                "staff_tujuan",
+                res.value[0]?.nama_tukang
+              )
+            );
           }
         } else {
           dispatch(setTukangDivisiFailed({ error: res.error }));
@@ -181,11 +194,30 @@ const setDataBeratBahan =
   async (action) => {
     next(action);
     if (action.type === GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE) {
-      const namaBahan = action.payload.data;
-      const dataBahan = getState().terimabahan.feedback;
-      const dataBahanFind = dataBahan.find((val) => val._id === namaBahan);
-      dispatch(setBahan({ namaBahan: dataBahanFind.nama_bahan }));
-      dispatch(setBeratBahan({ berat: dataBahanFind.berat }));
+      dispatch(change("FormTerimaBahan", "nama_bahan", action.payload.data));
+      const data = getState().form.FormTerimaBahan.values;
+      console.log(data.divisi);
+      const dataKirim = {
+        divisi: data.divisi_asal,
+        divisi_tujuan: data.divisi.toUpperCase(),
+        tukang_asal: data.staff,
+        tukang_tujuan: data.staff_tujuan,
+        nama_bahan: action.payload.data,
+      };
+      api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
+        console.log(res);
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(
+              change("FormTerimaBahan", "berat_bahan", res.value[0].berat)
+            );
+          } else {
+            dispatch(change("FormTerimaBahan", "berat_bahan", 0));
+          }
+        } else {
+          dispatch(change("FormTerimaBahan", "berat_bahan", 0));
+        }
+      });
     }
   };
 
@@ -197,7 +229,6 @@ const addTerimaTambahan =
     next(action);
     if (action.type === ADD_TERIMA_BAHAN) {
       const data = getState().form.FormTerimaBahan.values;
-      const bahan = getState().terimabahan.namaBahan;
       if (data.divisi_asal.toUpperCase() === "ADMIN BAHAN") {
         const onSendData = {
           divisi_asal: data.divisi_asal.toUpperCase(),
@@ -207,7 +238,7 @@ const addTerimaTambahan =
               : data.divisi.toUpperCase(),
           tukang_tujuan: data.staff_tujuan,
           tukang_asal: "ADMIN BAHAN",
-          nama_bahan: bahan,
+          nama_bahan: data.nama_bahan,
           berat: parseFloat(data.berat_bahan),
         };
         api.TerimaBahan.addTerimaBahan(onSendData).then((res) => {
@@ -227,7 +258,7 @@ const addTerimaTambahan =
           divisi_tujuan: data.divisi.toUpperCase(),
           tukang_tujuan: data.staff_tujuan,
           tukang_asal: data.staff,
-          nama_bahan: bahan,
+          nama_bahan: data.nama_bahan,
           berat: parseFloat(data.berat_bahan),
         };
         api.TerimaBahan.addTerimaBahan(onSendData).then((res) => {
@@ -245,12 +276,116 @@ const addTerimaTambahan =
     }
   };
 
+const getDataBahanByTukangTujuan =
+  ({ api, log, writeLocal, getLocal, toast, sweetalert }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === GET_BAHAN_BY_TUKANG_TUJUAN) {
+      dispatch(setKodeStaff({ staff: action.payload.data }));
+      const data = getState().form.FormTerimaBahan.values;
+      const dataKirim = {
+        divisi: data.divisi_asal,
+        divisi_tujuan: data.divisi.toUpperCase(),
+        tukang_asal: data.staff,
+        tukang_tujuan: action.payload.data,
+        nama_bahan: "ALL",
+      };
+      api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setDataBahanSuccess({ feedback: res.value }));
+            dispatch(setBeratBahan({ berat: res.value[0].berat }));
+            dispatch(setKodeStaff({ staff: res.value[0].tukang }));
+            dispatch(setBahan({ namaBahan: res.value[0].nama_bahan }));
+            dispatch(getDetailBahan(res.value[0].nama_bahan));
+            dispatch(
+              getSaldoKirimBahanOpenChange({
+                namaBahan: res.value[0].nama_bahan,
+              })
+            );
+          } else {
+            dispatch(setDataBahanFailed({ error: res.error }));
+            dispatch(setBeratBahan({ berat: 0 }));
+            dispatch(setKodeStaff({ staff: null }));
+            dispatch(setBahan({ namaBahan: null }));
+            dispatch(
+              getSaldoKirimBahanOpenChange({
+                namaBahan: "",
+              })
+            );
+          }
+        } else {
+          dispatch(setDataBahanFailed({ error: res.error }));
+          dispatch(setBeratBahan({ berat: 0 }));
+          dispatch(setKodeStaff({ staff: null }));
+          dispatch(setBahan({ namaBahan: null }));
+          dispatch(
+            getSaldoKirimBahanOpenChange({
+              namaBahan: "",
+            })
+          );
+        }
+      });
+    }
+    if (action.type === GET_BAHAN_BY_TUKANG_ASAL) {
+      dispatch(setKodeStaff({ staff: action.payload.data }));
+      const data = getState().form.FormTerimaBahan.values;
+      console.log(data);
+      const dataKirim = {
+        divisi: data.divisi_asal,
+        divisi_tujuan: data.divisi.toUpperCase(),
+        tukang_asal: action.payload.data,
+        tukang_tujuan: data.staff_tujuan,
+        nama_bahan: "ALL",
+      };
+      api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
+        if (res.value !== null) {
+          if (res.value.length !== 0) {
+            dispatch(setDataBahanSuccess({ feedback: res.value }));
+            dispatch(setBeratBahan({ berat: res.value[0].berat }));
+            dispatch(setKodeStaff({ staff: res.value[0].tukang }));
+            dispatch(setBahan({ namaBahan: res.value[0].nama_bahan }));
+            dispatch(getDetailBahan(res.value[0].nama_bahan));
+            dispatch(
+              getSaldoKirimBahanOpenChange({
+                namaBahan: res.value[0].nama_bahan,
+              })
+            );
+          } else {
+            dispatch(setDataBahanFailed({ error: res.error }));
+            dispatch(setBeratBahan({ berat: 0 }));
+            dispatch(setKodeStaff({ staff: null }));
+            dispatch(setBahan({ namaBahan: null }));
+            dispatch(
+              getSaldoKirimBahanOpenChange({
+                namaBahan: "",
+              })
+            );
+          }
+        } else {
+          dispatch(setDataBahanFailed({ error: res.error }));
+          dispatch(setBeratBahan({ berat: 0 }));
+          dispatch(setKodeStaff({ staff: null }));
+          dispatch(setBahan({ namaBahan: null }));
+          dispatch(
+            getSaldoKirimBahanOpenChange({
+              namaBahan: "",
+            })
+          );
+        }
+      });
+    }
+  };
+
 const data = [
   getDetailBahanMidd,
   tukangDivisGetAll,
   getDataBahan,
   setDataBeratBahan,
   addTerimaTambahan,
+  getDataBahanByTukangTujuan,
 ];
 
 export default data;

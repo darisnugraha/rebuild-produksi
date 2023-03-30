@@ -10,6 +10,12 @@ const LaporanSaldoBahanPusat = {
     });
     return response;
   },
+  getDataDivisiByTukang: async (tukang) => {
+    const response = await get({
+      url: word.URL_GET_DIVISI_BY_TUKANG + tukang,
+    });
+    return response;
+  },
 };
 
 export default LaporanSaldoBahanPusat;

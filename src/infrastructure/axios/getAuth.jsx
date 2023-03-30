@@ -9,6 +9,7 @@ const AxiosGetAuth = async ({ url }) => {
       headers: {
         Authorization: "Bearer " + token,
         language: "id-ID",
+        "ngrok-skip-browser-warning": 1,
       },
       onUploadProgress: (progressEvent) => {
         percentComplete = Math.floor(

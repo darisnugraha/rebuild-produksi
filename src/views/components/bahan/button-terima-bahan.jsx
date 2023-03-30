@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import FormTerimaBahan from "./form-terima-bahan";
 import {
   setDivisi,
   getTukangByDivisi,
-  getBahanbyDivisiAndStaff,
+  // getBahanbyDivisiAndStaff,
+  getBahanByTukangTujuan,
+  getBahanByTukangAsal,
 } from "../../../application/actions/terimabahan";
 import { useDispatch, useSelector } from "react-redux";
 import getLocal from "../../../infrastructure/services/local/get-local";
 import TerimaBahan from "../../../application/selectors/terimabahan";
+import { change } from "redux-form";
 
 const ModalTerimaBahan = () => {
   const dispatch = useDispatch();
@@ -16,11 +19,24 @@ const ModalTerimaBahan = () => {
   const divisi = getLocal("divisi");
   const dataStaffDivisi = useSelector(TerimaBahan.getTukangByDivisi);
   const dataTukangAsal = useSelector(TerimaBahan.getTukangAsal);
+  const dataDivisi = useSelector(TerimaBahan.getAllDivisi);
+  const dataStaff = useSelector(TerimaBahan.getTukangDivisi);
+  const staffAsal = useSelector(TerimaBahan.getTukangByDivisi);
+  console.log(dataStaff);
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
     setVisible(false);
   };
+
+  useEffect(() => {
+    const divisi = getLocal("divisi");
+    dispatch(
+      getTukangByDivisi(
+        divisi === "Admin" ? "ADMIN PUSAT" : divisi.toUpperCase()
+      )
+    );
+  }, [dispatch]);
 
   return (
     <div>
@@ -28,12 +44,26 @@ const ModalTerimaBahan = () => {
         <Button
           type="primary"
           onClick={() => {
-            setVisible(true);
+            dispatch(change("FormTerimaBahan", "divisi", "ADMIN PUSAT"));
             dispatch(
-              getBahanbyDivisiAndStaff({
-                staff: dataTukangAsal[0]?.nama_tukang,
+              change("FormTerimaBahan", "divisi_asal", dataDivisi[0]?.divisi)
+            );
+            dispatch(
+              change("FormTerimaBahan", "staff", dataTukangAsal[0]?.nama_tukang)
+            );
+            dispatch(
+              change(
+                "FormTerimaBahan",
+                "staff_tujuan",
+                dataStaff[0].nama_tukang
+              )
+            );
+            dispatch(
+              getBahanByTukangTujuan({
+                staff: dataStaffDivisi[0].nama_tukang,
               })
             );
+            setVisible(true);
           }}
         >
           + Data Terima
@@ -42,21 +72,26 @@ const ModalTerimaBahan = () => {
         <Button
           type="primary"
           onClick={() => {
-            setVisible(true);
+            dispatch(change("FormTerimaBahan", "divisi", divisi));
+            dispatch(change("FormTerimaBahan", "divisi_asal", "ADMIN PUSAT"));
             dispatch(
-              getTukangByDivisi(
-                divisi === "Admin" ? "ADMIN PUSAT" : divisi.toUpperCase()
-              )
+              change("FormTerimaBahan", "staff", staffAsal[0]?.nama_tukang)
             );
             dispatch(
-              getBahanbyDivisiAndStaff({
-                staff:
-                  divisi === "Admin"
-                    ? "ADMIN BAHAN"
-                    : dataStaffDivisi[0]?.nama_tukang,
+              getBahanByTukangAsal({
+                staff: staffAsal[0]?.nama_tukang,
               })
             );
             dispatch(setDivisi(divisi));
+            setVisible(true);
+            // dispatch(
+            //   getBahanbyDivisiAndStaff({
+            //     staff:
+            //       divisi === "Admin"
+            //         ? "ADMIN BAHAN"
+            //         : dataStaffDivisi[0]?.nama_tukang,
+            //   })
+            // );
           }}
         >
           + Data Terima

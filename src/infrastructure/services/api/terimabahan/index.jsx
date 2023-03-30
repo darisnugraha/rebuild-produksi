@@ -29,6 +29,14 @@ const TerimaBahan = {
       return response;
     }
   },
+  getBahanNew: async (data) => {
+    const response = await get({
+      url:
+        word.URL_GET_BAHAN_KIRIM_NEW +
+        `divisi_asal=${data.divisi}&divisi_tujuan=${data.divisi_tujuan}&tukang_asal=${data.tukang_asal}&tukang_tujuan=${data.tukang_tujuan}&nama_bahan=${data.nama_bahan}`,
+    });
+    return response;
+  },
   getTukangTerimaDivisi: async (divisi) => {
     const response = await get({ url: word.URL_GET_TUKANG_DIVISI + divisi });
     return response;
