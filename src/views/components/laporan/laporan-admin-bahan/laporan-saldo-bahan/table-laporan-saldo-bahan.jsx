@@ -17,18 +17,27 @@ const TableLaporanSaldoBahan = () => {
       dataIndex: "saldo_awal",
       key: "saldo_awal",
       align: "right",
+      render: (text) => {
+        return text.toFixed(3);
+      },
     },
     {
       title: "Mutasi In",
       dataIndex: "berat_in",
       key: "mutasi_in",
       align: "right",
+      render: (text) => {
+        return text.toFixed(3);
+      },
     },
     {
       title: "Mutasi Out",
       dataIndex: "berat_out",
       key: "mutasi_out",
       align: "right",
+      render: (text) => {
+        return text.toFixed(3);
+      },
     },
     {
       title: "Saldo Akhir",
