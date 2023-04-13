@@ -26,9 +26,12 @@ const TableLaporanPembuatanJenisBahan = () => {
     },
     {
       title: "Berat Pakai",
-      dataIndex: "berat_bahan",
-      key: "berat_bahan",
+      dataIndex: "berat",
+      key: "berat",
       align: "right",
+      render: (item) => {
+        return item.toFixed(3);
+      },
     },
     {
       title: "Kadar",
@@ -41,8 +44,7 @@ const TableLaporanPembuatanJenisBahan = () => {
       key: "karat_24",
       align: "right",
       render: (item) => {
-        const total =
-          parseFloat(item.berat_bahan) * (parseFloat(item.kadar) / 100);
+        const total = parseFloat(item.berat) * (parseFloat(item.kadar) / 100);
         return total.toFixed(3);
       },
     },
@@ -71,14 +73,10 @@ const TableLaporanPembuatanJenisBahan = () => {
             </Table.Summary.Cell>
             <Table.Summary.Cell index={3} align="right">
               {dataLaporanPembuatanJenisBahan
-                .reduce((a, b) => a + parseFloat(b.berat_bahan), 0)
+                .reduce((a, b) => a + parseFloat(b.berat), 0)
                 .toFixed(3)}
             </Table.Summary.Cell>
-            <Table.Summary.Cell index={3} align="right">
-              {dataLaporanPembuatanJenisBahan
-                .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                .toFixed(3)}
-            </Table.Summary.Cell>
+            <Table.Summary.Cell index={3} align="right"></Table.Summary.Cell>
             <Table.Summary.Cell index={3} align="right">
               {total24k.toFixed(3)}
             </Table.Summary.Cell>

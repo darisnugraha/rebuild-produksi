@@ -153,11 +153,7 @@ class ExcelReport extends Component {
                         .reduce((a, b) => a + parseFloat(b.berat), 0)
                         .toFixed(3)}
                     </td>
-                    <td style={{ textAlign: "right" }}>
-                      {element
-                        .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                        .toFixed(3)}
-                    </td>
+                    <td style={{ textAlign: "right" }}></td>
                     <td style={{ textAlign: "right" }}>
                       {karat24Total.toFixed(3)}
                     </td>
@@ -176,11 +172,7 @@ class ExcelReport extends Component {
                   .reduce((a, b) => a + parseFloat(b.berat), 0)
                   .toFixed(3)}
               </td>
-              <td style={{ textAlign: "right" }}>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                  .toFixed(3)}
-              </td>
+              <td style={{ textAlign: "right" }}></td>
               <td style={{ textAlign: "right" }}>{totalKarat24.toFixed(3)}</td>
             </tr>
           </tfoot>

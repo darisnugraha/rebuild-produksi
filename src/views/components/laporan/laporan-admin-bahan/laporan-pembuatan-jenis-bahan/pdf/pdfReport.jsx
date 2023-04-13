@@ -79,7 +79,7 @@ const pdfReport = (data = "") => {
           content: item.nama_bahan,
         },
         {
-          content: item.berat,
+          content: item.berat.toFixed(3),
           styles: {
             halign: "right",
           },
@@ -116,9 +116,7 @@ const pdfReport = (data = "") => {
         },
       },
       {
-        content: element
-          .reduce((a, b) => a + parseFloat(b.kadar), 0)
-          .toFixed(3),
+        content: "",
         styles: {
           halign: "right",
         },
@@ -148,7 +146,7 @@ const pdfReport = (data = "") => {
       },
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.kadar), 0).toFixed(3),
+      content: "",
       styles: {
         halign: "right",
       },

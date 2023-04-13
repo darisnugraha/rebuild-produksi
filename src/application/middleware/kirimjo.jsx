@@ -209,7 +209,7 @@ const countberatbatu =
           getState().kirimjo.beratBatuTakTerpakai
         );
 
-        if (berat_kirim > berat_akhir) {
+        if (berat_kirim > berat_akhir + (berat_batu - beratBatuTakTerpakai)) {
           sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
           dispatch(countBeratKirimJO({ beratKirim: 0 }));
         } else {
@@ -230,7 +230,7 @@ const countberatbatu =
           getState().kirimjo.beratBatuTakTerpakai
         );
 
-        if (berat_kirim > berat_akhir) {
+        if (berat_kirim > berat_akhir + (berat_batu - beratBatuTakTerpakai)) {
           sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
           dispatch(countBeratKirimJO({ beratKirim: 0 }));
         } else {
