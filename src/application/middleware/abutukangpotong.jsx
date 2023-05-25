@@ -58,7 +58,7 @@ const getDataSetorAbuTukangPotong =
           const totalabu = data.reduce((a, b) => a + b.abu, 0);
           const total24k = data.reduce((a, b) => a + parseFloat(b.karat_24), 0);
           const dataKirim = {
-            totalAbu: totalabu,
+            totalAbu: totalabu.toFixed(3),
             total24K: total24k.toFixed(3),
           };
           dispatch(setDataPotongSuccess({ feedback: dataKirim }));

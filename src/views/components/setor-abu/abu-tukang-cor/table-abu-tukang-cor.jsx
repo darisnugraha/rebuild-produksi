@@ -23,10 +23,10 @@ const TableAbuTukangCOR = () => {
       pohon: dataSetorOutstandCasting[i].no_pohon,
       kode_jenis_bahan: dataSetorOutstandCasting[i].kode_jenis_bahan,
       kadar: dataSetorOutstandCasting[i].kadar,
-      berat_casting: dataSetorOutstandCasting[i].berat_casting,
-      berat: dataSetorOutstandCasting[i].berat,
+      berat_casting: dataSetorOutstandCasting[i].berat_casting.toFixed(3),
+      berat: dataSetorOutstandCasting[i].berat.toFixed(3),
       karat_24: dataSetorOutstandCasting[i].karat_24.toFixed(3),
-      abu: dataSetorOutstandCasting[i].abu,
+      abu: dataSetorOutstandCasting[i].abu.toFixed(3),
     });
   }
 

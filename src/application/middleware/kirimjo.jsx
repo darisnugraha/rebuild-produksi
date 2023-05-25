@@ -208,19 +208,19 @@ const countberatbatu =
         const beratBatuTakTerpakai = parseFloat(
           getState().kirimjo.beratBatuTakTerpakai
         );
-        const totalAkhir = (
-          berat_akhir +
-          (berat_batu - beratBatuTakTerpakai)
-        ).toFixed(3);
-        if (berat_kirim > parseFloat(totalAkhir)) {
-          sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
-          dispatch(countBeratKirimJO({ beratKirim: 0 }));
-        } else {
-          total =
-            berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
-          console.log(berat_batu);
-          dispatch(setCountBeratKirimJO(total.toFixed(3)));
-        }
+        // const totalAkhir = (
+        //   berat_akhir +
+        //   (berat_batu - beratBatuTakTerpakai)
+        // ).toFixed(3);
+        // if (berat_kirim > parseFloat(totalAkhir)) {
+        //   sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
+        //   dispatch(countBeratKirimJO({ beratKirim: 0 }));
+        // } else {
+        // }
+        total =
+          berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
+        console.log(berat_batu);
+        dispatch(setCountBeratKirimJO(total.toFixed(3)));
       } else {
         const berat_kirim = parseFloat(action.payload) || 0;
         const berat_akhir = parseFloat(
@@ -232,18 +232,18 @@ const countberatbatu =
         const beratBatuTakTerpakai = parseFloat(
           getState().kirimjo.beratBatuTakTerpakai
         );
-        const totalAkhir = (
-          berat_akhir +
-          (berat_batu - beratBatuTakTerpakai)
-        ).toFixed(3);
-        if (berat_kirim > parseFloat(totalAkhir)) {
-          sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
-          dispatch(countBeratKirimJO({ beratKirim: 0 }));
-        } else {
-          total =
-            berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
-          dispatch(setCountBeratKirimJO(total.toFixed(3)));
-        }
+        // const totalAkhir = (
+        //   berat_akhir +
+        //   (berat_batu - beratBatuTakTerpakai)
+        // ).toFixed(3);
+        // if (berat_kirim > parseFloat(totalAkhir)) {
+        //   sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
+        //   dispatch(countBeratKirimJO({ beratKirim: 0 }));
+        // } else {
+        // }
+        total =
+          berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
+        dispatch(setCountBeratKirimJO(total.toFixed(3)));
       }
     }
     if (action.type === SAVE_BERAT_BATU_TAK_TERPAKAI) {
