@@ -139,7 +139,10 @@ const TablePembuatanJenisBahan = () => {
                   </Table.Summary.Cell>
                   <Table.Summary.Cell index={3} align="right">
                     {dataTableDetail
-                      .reduce((a, b) => a + Number(b.berat_susut), 0)
+                      .reduce(
+                        (a, b) => a + Number(parseFloat(b.berat_susut || 0)),
+                        0
+                      )
                       .toLocaleString()}
                   </Table.Summary.Cell>
                 </Table.Summary.Row>
