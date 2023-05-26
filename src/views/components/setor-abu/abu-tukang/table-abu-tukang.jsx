@@ -140,8 +140,8 @@ const TableAbuTukang = () => {
       <Divider orientation="left" style={{ fontSize: "14px" }}>
         Total Data Di Pilih
       </Divider>
-      <p>Total Abu : {totalAbu.toFixed(3)}</p>
-      <p>Total 24K : {total24k.toFixed(3)}</p>
+      <p>Total Abu : {parseFloat(totalAbu).toFixed(3)}</p>
+      <p>Total 24K : {parseFloat(total24k).toFixed(3)}</p>
     </>
   );
 };
