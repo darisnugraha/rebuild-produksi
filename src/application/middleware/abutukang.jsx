@@ -92,7 +92,7 @@ const getDataSetorAbuTukang =
       const dataKirim = {
         divisi: dataForm.divisi,
         kode_tukang: dataForm.staff,
-        total_abu: data.total_abu,
+        total_abu: parseFloat(data.total_abu),
         bahan_kembali: data.bahan_kembali.toString(),
         berat_kembali: parseFloat(data.berat_kotor),
         susut_bruto: parseFloat(data.berat_bruto.toFixed(3)),
