@@ -22,11 +22,11 @@ const TableAbuTukanPotong = () => {
       pohon: dataSetorAbuPotong[i].no_pohon,
       kode_jenis_bahan: dataSetorAbuPotong[i].kode_jenis_bahan,
       kadar: dataSetorAbuPotong[i].kadar,
-      berat_pentolan: dataSetorAbuPotong[i].berat_pentolan,
-      berat_barang: dataSetorAbuPotong[i].berat_barang,
-      berat_casting: dataSetorAbuPotong[i].berat_casting,
-      abu: dataSetorAbuPotong[i].abu,
-      karat_24: dataSetorAbuPotong[i].karat_24,
+      berat_pentolan: dataSetorAbuPotong[i].berat_pentolan.toFixed(3),
+      berat_barang: dataSetorAbuPotong[i].berat_barang.toFixed(3),
+      berat_casting: dataSetorAbuPotong[i].berat_casting.toFixed(3),
+      abu: dataSetorAbuPotong[i].abu.toFixed(3),
+      karat_24: dataSetorAbuPotong[i].karat_24.toFixed(3),
     });
   }
 

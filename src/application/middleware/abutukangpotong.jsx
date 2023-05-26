@@ -55,7 +55,7 @@ const getDataSetorAbuTukangPotong =
       const data = getLocal("data_select_potong");
       if (data !== null) {
         if (data.length !== 0) {
-          const totalabu = data.reduce((a, b) => a + b.abu, 0);
+          const totalabu = data.reduce((a, b) => a + parseFloat(b.abu), 0);
           const total24k = data.reduce((a, b) => a + parseFloat(b.karat_24), 0);
           const dataKirim = {
             totalAbu: totalabu.toFixed(3),

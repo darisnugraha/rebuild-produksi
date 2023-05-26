@@ -21,12 +21,13 @@ const TableAbuTukang = () => {
       no_spk: dataSetorAbuTukang[i].no_job_order,
       kode_barang: dataSetorAbuTukang[i].kode_barang,
       kode_jenis_bahan: dataSetorAbuTukang[i].kode_jenis_bahan,
-      abu: dataSetorAbuTukang[i].abu,
+      abu: parseFloat(dataSetorAbuTukang[i].abu).toFixed(3),
       kadar: dataSetorAbuTukang[i].kadar,
-      berat_susut: dataSetorAbuTukang[i].berat_susut,
-      karat_24: dataSetorAbuTukang[i].karat_24,
+      berat_susut: parseFloat(dataSetorAbuTukang[i].berat_susut).toFixed(3),
+      karat_24: parseFloat(dataSetorAbuTukang[i].karat_24).toFixed(3),
     });
   }
+  console.log(data);
 
   const [dataSource, setDataSource] = useState(data);
   const [value, setValue] = useState("");
