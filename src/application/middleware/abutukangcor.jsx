@@ -86,14 +86,18 @@ const getDataSetorAbuTukangCOR =
     }
     if (action.type === ADD_ABU_COR) {
       const data = getState().abutukangcor;
+      const dataFormDetail = getState().form.FormAbuTukangCOR.values;
       const dataKirim = {
-        bahan_kembali: data.bahan_kembali.toString(),
+        bahan_kembali:
+          data.bahan_kembali === ""
+            ? dataFormDetail.bahan_kembali
+            : data.bahan_kembali.toString(),
         berat_kembali: parseFloat(data.berat_kotor),
         susut_bruto: parseFloat(data.berat_bruto),
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
         susut_24: parseFloat(data.k_susut24),
-        keterangan: data.keterangan,
+        keterangan: data.keterangan === "" ? "-" : data.keterangan,
         detail_pohon: [],
       };
       const dataPohon = getLocal("data_select");

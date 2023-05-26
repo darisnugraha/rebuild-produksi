@@ -88,18 +88,22 @@ const getDataSetorAbuTukang =
     }
     if (action.type === ADD_ABU_TUKANG) {
       const data = getState().abutukang;
+      const dataFormDetail = getState().form.FormAbuTukang.values;
       const dataForm = getState().form.ButtonAbuTukang.values;
       const dataKirim = {
         divisi: dataForm.divisi,
         kode_tukang: dataForm.staff,
         total_abu: parseFloat(data.total_abu),
-        bahan_kembali: data.bahan_kembali.toString(),
+        bahan_kembali:
+          data.bahan_kembali === ""
+            ? dataFormDetail.bahan_kembali
+            : data.bahan_kembali.toString(),
         berat_kembali: parseFloat(data.berat_kotor),
         susut_bruto: parseFloat(data.berat_bruto.toFixed(3)),
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
         susut_24: parseFloat(data.k_susut24),
-        keterangan: data.keterangan,
+        keterangan: data.keterangan === "" ? "-" : data.keterangan,
         detail_no_kirim: [],
         detail_job_order: [],
       };
