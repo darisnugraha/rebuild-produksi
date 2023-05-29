@@ -102,6 +102,7 @@ const getDataSetorAbuTukangPotong =
             : data.bahan_kembali.toString(),
         berat_kembali: parseFloat(data.berat_kotor),
         susut_bruto: parseFloat(data.berat_bruto),
+        total_abu: parseFloat(data.total_abu),
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
         susut_24: parseFloat(data.k_susut24),

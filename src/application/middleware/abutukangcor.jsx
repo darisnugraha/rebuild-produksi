@@ -93,6 +93,7 @@ const getDataSetorAbuTukangCOR =
             ? dataFormDetail.bahan_kembali
             : data.bahan_kembali.toString(),
         berat_kembali: parseFloat(data.berat_kotor),
+        total_abu: parseFloat(data.total_abu),
         susut_bruto: parseFloat(data.berat_bruto),
         kadar_kembali: parseFloat(data.kadar),
         kembali_24: parseFloat(data.k24),
