@@ -35,8 +35,11 @@ import {
   setAllNoJobOrder,
   SAVE_BERAT_BATU_TAK_TERPAKAI,
   simpanBeratBatuTakTerpakai,
+  COUNT_BERAT_BALIK_JO,
+  countBeratBalik,
 } from "../actions/kirimjo";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const getDataDetailJOMidd =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -67,8 +70,8 @@ const getDataDetailJOMidd =
           ? "ADMIN PUSAT"
           : localStorage.getItem("divisi");
       api.KirimJO.getDetailJO(
-        noJO.toUpperCase(),
-        asalDivisi.toUpperCase()
+        noJO?.toUpperCase(),
+        asalDivisi?.toUpperCase()
       ).then((res) => {
         if (type === "CHANGE") {
           if (res.value !== null) {
@@ -81,7 +84,8 @@ const getDataDetailJOMidd =
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
               dispatch(
                 setCountBeratKirimJO(
-                  res.value[0].berat_akhir + res.value[0].berat_batu
+                  parseFloat(res.value[0].berat_akhir) +
+                    parseFloat(res.value[0].berat_batu)
                 )
               );
             }
@@ -100,7 +104,8 @@ const getDataDetailJOMidd =
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
               dispatch(
                 setCountBeratKirimJO(
-                  res.value[0].berat_akhir + res.value[0].berat_batu
+                  parseFloat(res.value[0].berat_akhir) +
+                    parseFloat(res.value[0].berat_batu)
                 )
               );
             }
@@ -199,8 +204,9 @@ const countberatbatu =
     if (action.type === COUNT_BERAT_KIRIM_JO) {
       let total = 0;
       const isEdit = getState().kirimjo.isEditJO;
+      const berat_balik = parseFloat(getState().kirimjo.beratBalik);
+      const berat_kirim = parseFloat(action.payload) || 0;
       if (isEdit) {
-        const berat_kirim = parseFloat(action.payload) || 0;
         const berat_akhir = parseFloat(
           getState().kirimjo.dataEditJO.berat_akhir
         );
@@ -218,11 +224,13 @@ const countberatbatu =
         // } else {
         // }
         total =
-          berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
+          berat_akhir +
+          (berat_batu - beratBatuTakTerpakai) -
+          berat_kirim -
+          berat_balik;
         console.log(berat_batu);
         dispatch(setCountBeratKirimJO(total.toFixed(3)));
       } else {
-        const berat_kirim = parseFloat(action.payload) || 0;
         const berat_akhir = parseFloat(
           getState().kirimjo.dataDetailJO[0].berat_akhir
         );
@@ -242,8 +250,77 @@ const countberatbatu =
         // } else {
         // }
         total =
-          berat_akhir + (berat_batu - beratBatuTakTerpakai) - berat_kirim;
+          berat_akhir +
+          (berat_batu - beratBatuTakTerpakai) -
+          berat_kirim -
+          berat_balik;
         dispatch(setCountBeratKirimJO(total.toFixed(3)));
+      }
+    }
+    if (action.type === COUNT_BERAT_BALIK_JO) {
+      let total = 0;
+      const isEdit = getState().kirimjo.isEditJO;
+      const berat_balik = parseFloat(action.payload) || 0;
+      const berat_kirim = parseFloat(getState().kirimjo.beratKirim);
+      if (berat_balik > berat_kirim) {
+        sweetalert.default.Failed(
+          "Berat Balik Tidak Boleh Lebih Dari Berat Kirim !"
+        );
+        dispatch(change("FormKirimJO", "berat_balik", 0));
+      } else {
+        if (isEdit) {
+          const berat_akhir = parseFloat(
+            getState().kirimjo.dataEditJO.berat_akhir
+          );
+          const berat_batu = parseFloat(
+            getState().kirimjo.dataEditJO.berat_batu
+          );
+          const beratBatuTakTerpakai = parseFloat(
+            getState().kirimjo.beratBatuTakTerpakai
+          );
+          // const totalAkhir = (
+          //   berat_akhir +
+          //   (berat_batu - beratBatuTakTerpakai)
+          // ).toFixed(3);
+          // if (berat_kirim > parseFloat(totalAkhir)) {
+          //   sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
+          //   dispatch(countBeratKirimJO({ beratKirim: 0 }));
+          // } else {
+          // }
+          total =
+            berat_akhir +
+            (berat_batu - beratBatuTakTerpakai) -
+            berat_kirim -
+            berat_balik;
+          console.log(total);
+          dispatch(setCountBeratKirimJO(total.toFixed(3)));
+        } else {
+          const berat_akhir = parseFloat(
+            getState().kirimjo.dataDetailJO[0].berat_akhir
+          );
+          const berat_batu = parseFloat(
+            getState().kirimjo.dataDetailJO[0].berat_batu
+          );
+          const beratBatuTakTerpakai = parseFloat(
+            getState().kirimjo.beratBatuTakTerpakai
+          );
+          // const totalAkhir = (
+          //   berat_akhir +
+          //   (berat_batu - beratBatuTakTerpakai)
+          // ).toFixed(3);
+          // if (berat_kirim > parseFloat(totalAkhir)) {
+          //   sweetalert.default.Failed("Berat Lebih Dari Berat Akhir !");
+          //   dispatch(countBeratKirimJO({ beratKirim: 0 }));
+          // } else {
+          // }
+          total =
+            berat_akhir +
+            (berat_batu - beratBatuTakTerpakai) -
+            berat_kirim -
+            berat_balik;
+          console.log(total);
+          dispatch(setCountBeratKirimJO(total.toFixed(3)));
+        }
       }
     }
     if (action.type === SAVE_BERAT_BATU_TAK_TERPAKAI) {
@@ -305,6 +382,7 @@ const editFlow =
       );
       dispatch(setDataEditJobOrder(dataHeadFill));
       dispatch(countBeratKirimJO({ beratKirim: dataHeadFill.berat_kirim }));
+      dispatch(countBeratBalik({ beratBalik: dataHeadFill.berat_balik }));
       dispatch(
         simpanBeratBatuTakTerpakai({
           beratBatuTakTerpakai: dataHeadFill.jumlah_berat_batu_tak_terpakai,
@@ -319,6 +397,10 @@ const editFlow =
       const dataHeadFill = dataHead.filter(
         (val) => val.no_job_order !== data.no_job_order
       );
+      const dataHeadFillFind = dataHead.find(
+        (val) => val.no_job_order === data.no_job_order
+      );
+      console.log(dataHeadFillFind);
       const dataArr = dataHeadFill;
       const dataSave = {
         no_job_order: data.no_job_order,
@@ -335,12 +417,14 @@ const editFlow =
         jumlah_berat_batu_tak_terpakai: parseFloat(
           data.jumlah_berat_batu_tak_terpakai
         ),
-        nama_bahan_tambahan: "",
-        jumlah_tambahan: 0,
-        berat_tambahan: 0,
+        nama_bahan_tambahan: dataHeadFillFind.nama_bahan_tambahan,
+        jumlah_tambahan: dataHeadFillFind.jumlah_tambahan,
+        berat_tambahan: dataHeadFillFind.berat_tambahan,
         no_induk_job_order: data.no_induk_job_order,
         jumlah_akhir: parseInt(data.jumlah_akhir),
         berat_akhir: parseFloat(data.berat_akhir),
+        berat_balik: parseFloat(data.berat_balik),
+        nama_bahan_balik: data.bahan_kembali,
       };
       dataArr.push(dataSave);
       writeLocal("kirim_jo_head", dataArr);
@@ -457,6 +541,8 @@ const addDataLocalKirimJo =
             jumlah_akhir: parseInt(data.jumlah_akhir),
             berat_akhir: parseFloat(data.berat_akhir),
             berat_batu: parseFloat(data.berat_batu),
+            berat_balik: parseFloat(data.berat_balik),
+            nama_bahan_balik: data.bahan_kembali,
           };
           dataArr.push(dataSave);
           writeLocal("kirim_jo_head", dataArr);
@@ -507,6 +593,8 @@ const addDataLocalKirimJo =
                 jumlah_akhir: parseInt(data.jumlah_akhir),
                 berat_akhir: parseFloat(data.berat_akhir),
                 berat_batu: parseFloat(data.berat_batu),
+                berat_balik: parseFloat(data.berat_balik),
+                nama_bahan_balik: data.bahan_kembali,
               };
               dataArr.push(dataSave);
               writeLocal("kirim_jo_head", dataArr);
@@ -551,6 +639,8 @@ const addDataLocalKirimJo =
               jumlah_akhir: parseInt(data.jumlah_akhir),
               berat_akhir: parseFloat(data.berat_akhir),
               berat_batu: parseFloat(data.berat_batu),
+              berat_balik: parseFloat(data.berat_balik),
+              nama_bahan_balik: data.bahan_kembali,
             };
             dataArr.push(dataSave);
             writeLocal("kirim_jo_head", dataArr);

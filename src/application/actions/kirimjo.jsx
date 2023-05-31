@@ -3,9 +3,12 @@ export const SET_DATA_DETAIL_JO_SUCCESS =
   "[kirimjo] get detail jo post method success";
 export const SET_DATA_DETAIL_JO_FAILED =
   "[kirimjo] get detail jo post method failed";
+export const SET_BAHAN_KEMBALI_KIRIM = "[kirimjo] set bahan kembali kirim jo";
 
+export const COUNT_BERAT_BALIK_JO = "[kirimjo] count berat balik jo";
 export const COUNT_BERAT_KIRIM_JO = "[kirimjo] count berat kirim jo";
 export const SET_COUNT_BERAT_KIRIM_JO = "[kirimjo] set count berat kirim jo";
+export const SET_TUKANG_TUJUAN = "[kirimjo] set tukang tujuan";
 export const SET_JUMLAH_KIRIM_JO = "[kirimjo] set jumlah kirim jo";
 export const SAVE_JUMLAH_KIRIM_JO = "[kirimjo] save jumlah kirim jo";
 export const SAVE_BERAT_BATU_TAK_TERPAKAI =
@@ -62,6 +65,15 @@ export const setDataDetailJOFailed = ({ error }) => ({
   payload: { data: error },
 });
 
+export const setBahanKembaliKirim = (bahan) => ({
+  type: SET_BAHAN_KEMBALI_KIRIM,
+  payload: { data: bahan },
+});
+
+export const countBeratBalik = ({ beratBalik }) => ({
+  type: COUNT_BERAT_BALIK_JO,
+  payload: beratBalik,
+});
 export const countBeratKirimJO = ({ beratKirim }) => ({
   type: COUNT_BERAT_KIRIM_JO,
   payload: beratKirim,
@@ -84,6 +96,11 @@ export const simpanBeratBatuTakTerpakai = ({ beratBatuTakTerpakai }) => ({
 export const setJumlahKirimJO = (jumlah) => ({
   type: SET_JUMLAH_KIRIM_JO,
   payload: { data: jumlah },
+});
+
+export const setTukangTujuan = (tukang) => ({
+  type: SET_TUKANG_TUJUAN,
+  payload: { data: tukang },
 });
 
 export const addLocalKirimJO = {

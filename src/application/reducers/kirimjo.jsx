@@ -21,6 +21,9 @@ import {
   SET_TUKANG_BY_DIVISI,
   GET_TUKANG_BY_DIVISI,
   SET_ALL_NO_JOB_ORDER,
+  COUNT_BERAT_BALIK_JO,
+  SET_BAHAN_KEMBALI_KIRIM,
+  SET_TUKANG_TUJUAN,
 } from "../actions/kirimjo";
 
 const initialState = {
@@ -29,6 +32,7 @@ const initialState = {
   isEdit: false,
   dataDetailJO: [],
   jumlahKirim: 0,
+  beratBalik: 0,
   beratKirim: 0,
   beratSusut: 0,
   beratBatuTakTerpakai: 0,
@@ -43,6 +47,8 @@ const initialState = {
   dataEditTambahan: undefined,
   dataTukang: [],
   divisiTujuan: undefined,
+  bahan_kembali: undefined,
+  tukangTujuan: undefined,
 };
 
 const kirimjo = (state = initialState, action) => {
@@ -62,6 +68,16 @@ const kirimjo = (state = initialState, action) => {
         ...state,
         beratSusut: action.payload.data,
       };
+    case SET_BAHAN_KEMBALI_KIRIM:
+      return {
+        ...state,
+        bahan_kembali: action.payload.data,
+      };
+    case COUNT_BERAT_BALIK_JO:
+      return {
+        ...state,
+        beratBalik: parseFloat(action.payload),
+      };
     case COUNT_BERAT_KIRIM_JO:
       return {
         ...state,
@@ -71,6 +87,11 @@ const kirimjo = (state = initialState, action) => {
       return {
         ...state,
         jumlahKirim: action.payload.data,
+      };
+    case SET_TUKANG_TUJUAN:
+      return {
+        ...state,
+        tukangTujuan: action.payload.data,
       };
     case SAVE_BERAT_BATU_TAK_TERPAKAI:
       return {

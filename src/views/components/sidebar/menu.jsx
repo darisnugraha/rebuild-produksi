@@ -540,6 +540,50 @@ Divisi.forEach((element) => {
       ],
     };
     Menu[6].children.push(row);
+  } else if (element.divisi.includes("QC")) {
+    const row = {
+      path: `/produksi/${element.divisi}`,
+      title: element.divisi,
+      is_show: true,
+      children: [
+        {
+          path: `/produksi/${element.divisi}/terima-barang`,
+          title: "Terima Job Order",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/kirim-barang`,
+          title: "Kirim Job Order",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-tambahan`,
+          title: "Terima Tambahan",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-batu`,
+          title: "Terima Batu",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/terima-bahan`,
+          title: "Terima Bahan",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/kirim-bahan`,
+          title: "Kirim Bahan",
+          is_show: true,
+        },
+        {
+          path: `/produksi/${element.divisi}/balik-bahan`,
+          title: "Balik Bahan",
+          is_show: true,
+        },
+      ],
+    };
+    Menu[6].children.push(row);
   } else {
     const row = {
       path: `/produksi/${element.divisi}`,

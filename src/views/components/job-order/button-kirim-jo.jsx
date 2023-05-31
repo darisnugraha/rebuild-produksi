@@ -29,7 +29,7 @@ const ModalKirimJO = () => {
         type="primary"
         onClick={() => {
           setVisible(true);
-          dispatch(getTukangByDivisi(dataDivisi[0]?.divisi));
+          dispatch(getTukangByDivisi(dataDivisi[1]?.divisi));
         }}
       >
         + Data JO

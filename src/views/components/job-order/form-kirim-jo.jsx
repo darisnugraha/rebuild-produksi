@@ -8,13 +8,17 @@ import ui from "../../../application/selectors/ui";
 import KirimBahanAdmin from "../../../application/selectors/kirimbahanadmin";
 // import Tukang from "../../../application/selectors/mastertukang";
 import KirimJO from "../../../application/selectors/kirimjo";
+import MasterBahan from "../../../application/selectors/masterbahan";
 import {
   addLocalKirimJO,
+  countBeratBalik,
   countBeratKirimJO,
   getDataByNoInduk,
   getDataDetailJO,
   getTukangByDivisi,
   saveEditJobOrder,
+  setBahanKembaliKirim,
+  setTukangTujuan,
   simpanBeratBatuTakTerpakai,
   simpanJumlahKirim,
 } from "../../../application/actions/kirimjo";
@@ -26,7 +30,10 @@ const maptostate = (state) => {
     return {
       initialValues: {
         divisi_tujuan: state.kirimjo.dataEditJO.divisi_tujuan,
-        tukang_tujuan: state.kirimjo.dataEditJO.tukang_tujuan,
+        tukang_tujuan:
+          state.kirimjo.tukangTujuan !== undefined
+            ? state.kirimjo.tukangTujuan
+            : state.kirimjo.dataEditJO.tukang_tujuan,
         no_job_order: state.kirimjo.dataEditJO.no_job_order,
         tukang_asal: state.kirimjo.dataEditJO.tukang_asal,
         kode_barang: state.kirimjo.dataEditJO.kode_barang,
@@ -39,7 +46,12 @@ const maptostate = (state) => {
         susut: state.kirimjo.beratSusut,
         jumlah_kirim: state.kirimjo.dataEditJO.jumlah_kirim,
         berat_kirim: state.kirimjo.beratKirim,
+        berat_balik: state.kirimjo.beratBalik,
         no_induk_job_order: state.kirimjo.dataEditJO.no_induk_job_order,
+        bahan_kembali:
+          state.kirimjo.bahan_kembali === undefined
+            ? state.masterbahan.feedback[0]?.nama_bahan
+            : state.kirimjo.bahan_kembali,
       },
     };
   } else {
@@ -49,7 +61,10 @@ const maptostate = (state) => {
           return {
             initialValues: {
               divisi_tujuan: state.kirimjo.divisiTujuan,
-              tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+              tukang_tujuan:
+                state.kirimjo.tukangTujuan !== undefined
+                  ? state.kirimjo.tukangTujuan
+                  : state.kirimjo.dataTukang[0]?.nama_tukang,
               no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -63,14 +78,22 @@ const maptostate = (state) => {
               susut: state.kirimjo.beratSusut,
               jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
               berat_kirim: state.kirimjo.beratKirim,
+              berat_balik: state.kirimjo.beratBalik,
               no_induk_job_order: state.kirimjo.NoIndukJO,
+              bahan_kembali:
+                state.kirimjo.bahan_kembali === undefined
+                  ? state.masterbahan.feedback[0]?.nama_bahan
+                  : state.kirimjo.bahan_kembali,
             },
           };
         } else {
           return {
             initialValues: {
               divisi_tujuan: state.kirimjo.divisiTujuan,
-              tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+              tukang_tujuan:
+                state.kirimjo.tukangTujuan !== undefined
+                  ? state.kirimjo.tukangTujuan
+                  : state.kirimjo.dataTukang[0]?.nama_tukang,
               no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
               tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
               kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -84,7 +107,12 @@ const maptostate = (state) => {
               susut: state.kirimjo.beratSusut,
               jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
               berat_kirim: state.kirimjo.beratKirim,
+              berat_balik: state.kirimjo.beratBalik,
               no_induk_job_order: state.kirimjo.NoIndukJO,
+              bahan_kembali:
+                state.kirimjo.bahan_kembali === undefined
+                  ? state.masterbahan.feedback[0]?.nama_bahan
+                  : state.kirimjo.bahan_kembali,
             },
           };
         }
@@ -92,7 +120,10 @@ const maptostate = (state) => {
         return {
           initialValues: {
             divisi_tujuan: state.kirimjo.divisiTujuan,
-            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+            tukang_tujuan:
+              state.kirimjo.tukangTujuan !== undefined
+                ? state.kirimjo.tukangTujuan
+                : state.kirimjo.dataTukang[0]?.nama_tukang,
             no_job_order: "",
             tukang_asal: "",
             kode_barang: "",
@@ -105,7 +136,12 @@ const maptostate = (state) => {
             susut: 0,
             jumlah_kirim: 0,
             berat_kirim: 0,
+            berat_balik: 0,
             no_induk_job_order: state.kirimjo.NoIndukJO,
+            bahan_kembali:
+              state.kirimjo.bahan_kembali === undefined
+                ? state.masterbahan.feedback[0]?.nama_bahan
+                : state.kirimjo.bahan_kembali,
           },
         };
       }
@@ -114,7 +150,10 @@ const maptostate = (state) => {
         return {
           initialValues: {
             divisi_tujuan: state.kirimjo.divisiTujuan,
-            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+            tukang_tujuan:
+              state.kirimjo.tukangTujuan !== undefined
+                ? state.kirimjo.tukangTujuan
+                : state.kirimjo.dataTukang[0]?.nama_tukang,
             no_job_order: state.kirimjo.dataDetailJO[0]?.no_job_order,
             tukang_asal: state.kirimjo.dataDetailJO[0]?.kode_tukang,
             kode_barang: state.kirimjo.dataDetailJO[0]?.kode_barang,
@@ -127,15 +166,23 @@ const maptostate = (state) => {
             susut: state.kirimjo.beratSusut,
             jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
             berat_kirim: state.kirimjo.beratKirim,
+            berat_balik: state.kirimjo.beratBalik,
             no_induk_job_order:
               state.kirimjo.dataDetailJO[0]?.no_induk_job_order,
+            bahan_kembali:
+              state.kirimjo.bahan_kembali === undefined
+                ? state.masterbahan.feedback[0]?.nama_bahan
+                : state.kirimjo.bahan_kembali,
           },
         };
       } else {
         return {
           initialValues: {
             divisi_tujuan: state.kirimjo.divisiTujuan,
-            tukang_tujuan: state.kirimjo.dataTukang[0]?.nama_tukang,
+            tukang_tujuan:
+              state.kirimjo.tukangTujuan !== undefined
+                ? state.kirimjo.tukangTujuan
+                : state.kirimjo.dataTukang[0]?.nama_tukang,
             no_job_order: state.kirimjo.detailJO[0]?.no_job_order,
             tukang_asal: "",
             kode_barang: "",
@@ -148,7 +195,12 @@ const maptostate = (state) => {
             susut: state.kirimjo.beratSusut,
             jumlah_kirim: state.kirimjo.dataDetailJO[0]?.stock_akhir,
             berat_kirim: state.kirimjo.beratKirim,
+            berat_balik: state.kirimjo.beratBalik,
             no_induk_job_order: "",
+            bahan_kembali:
+              state.kirimjo.bahan_kembali === undefined
+                ? state.masterbahan.feedback[0]?.nama_bahan
+                : state.kirimjo.bahan_kembali,
           },
         };
       }
@@ -166,6 +218,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
   const dataInduk = useSelector(KirimJO.getDataNoInduk);
   const dataJO = useSelector(KirimJO.getDataNoJO);
   const isEdit = useSelector(KirimJO.getIsEditJO);
+  const dataJenisBahan = useSelector(MasterBahan.getAllMasterBahan);
 
   return (
     <Modal
@@ -198,11 +251,15 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               onChange={(e) => dispatch(getTukangByDivisi(e))}
             >
               {dataDivisi.map((item) => {
-                return (
-                  <Option value={item.divisi} key={item.divisi}>
-                    <span style={{ fontSize: "13px" }}>{item.divisi}</span>
-                  </Option>
-                );
+                if (item.divisi !== "ADMIN BAHAN") {
+                  return (
+                    <Option value={item.divisi} key={item.divisi}>
+                      <span style={{ fontSize: "13px" }}>{item.divisi}</span>
+                    </Option>
+                  );
+                } else {
+                  return false;
+                }
               })}
             </Field>
           </Col>
@@ -216,6 +273,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setTukangTujuan(e))}
             >
               {dataTukang.map((item) => {
                 return (
@@ -429,6 +487,40 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
                 dispatch(countBeratKirimJO({ beratKirim: e.target.value }));
               }}
             />
+          </Col>
+          <Col span={12}>
+            <Field
+              name="berat_balik"
+              type="number"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>Berat Balik</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Berat Balik"
+              onChange={(e) => {
+                dispatch(countBeratBalik({ beratBalik: e.target.value }));
+              }}
+            />
+          </Col>
+          <Col span={12}>
+            <Field
+              showSearch
+              name="bahan_kembali"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Bahan Kembali"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setBahanKembaliKirim(e))}
+            >
+              {dataJenisBahan.map((item) => {
+                return (
+                  <Option value={item.nama_bahan} key={item.nama_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
+            </Field>
           </Col>
           <Col span={12}>
             <Field

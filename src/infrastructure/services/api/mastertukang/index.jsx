@@ -30,8 +30,8 @@ const MasterTukang = {
     const response = await deleteAxios(word.URL_DELETE_MASTER_TUKANG, data);
     return response;
   },
-  editMasterTukang: async (data) => {
-    const response = await put(word.URL_UPDATE_MASTER_TUKANG, data);
+  editMasterTukang: async (url, data) => {
+    const response = await put(word.URL_UPDATE_MASTER_TUKANG + url, data);
     return response;
   },
 };
