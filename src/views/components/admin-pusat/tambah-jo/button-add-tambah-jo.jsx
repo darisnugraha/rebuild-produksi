@@ -23,6 +23,10 @@ const ModalTambahJO = () => {
         type="primary"
         onClick={() => {
           setVisibleDataStaff(true);
+          const dataLocal = getLocal("data_staff");
+          if (dataLocal !== null) {
+            dispatch(getDataByPohon({ pohon: dataLocal[0].no_buat }));
+          }
         }}
       >
         + Data Staff
