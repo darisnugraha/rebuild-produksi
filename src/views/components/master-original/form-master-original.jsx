@@ -78,7 +78,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan ID"
             />
           </Col>
-          <Col offset={12}>
+          <Col offset={2}>
             <Field
               name="kode_barang"
               type="text"
@@ -89,7 +89,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               disabled={isEdit ? true : false}
             />
           </Col>
-          <Col offset={12}>
+          <Col offset={2}>
             <Field
               name="nama_barang"
               type="text"
@@ -99,7 +99,7 @@ let FormTambahMasterOriginal = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Nama Barang"
             />
           </Col>
-          <Col offset={12}>
+          <Col offset={2}>
             <Field
               showSearch
               name="kode_jenis"

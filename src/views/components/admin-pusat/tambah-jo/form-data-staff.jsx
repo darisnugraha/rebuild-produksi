@@ -118,6 +118,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Pohon"
+              disabled={localStorage.getItem("berat_awal") ? true : false}
               onChange={(e) => {
                 dispatch(getDataByPohon({ pohon: e.target.value }));
               }}
