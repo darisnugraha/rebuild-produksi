@@ -576,11 +576,11 @@ Divisi.forEach((element) => {
           title: "Kirim Bahan",
           is_show: true,
         },
-        {
-          path: `/produksi/${element.divisi}/balik-bahan`,
-          title: "Balik Bahan",
-          is_show: true,
-        },
+        // {
+        //   path: `/produksi/${element.divisi}/balik-bahan`,
+        //   title: "Balik Bahan",
+        //   is_show: true,
+        // },
       ],
     };
     Menu[6].children.push(row);
