@@ -57,7 +57,7 @@ const setBeratSusut =
       susut_24k = susut * (kadar / 100);
       dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
       dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
-      dispatch(setDataSusut24K({ feedback: susut_24k }));
+      dispatch(setDataSusut24K({ feedback: susut_24k.toFixed(3) }));
     }
   };
 
