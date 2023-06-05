@@ -11,7 +11,7 @@ import moment from "moment";
 const ModalTerimaJO = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  const today = moment().format("YYYY-MM-D");
+  const today = moment().format("YYYY-MM-DD");
 
   return (
     <div>
