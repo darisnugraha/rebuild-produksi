@@ -76,7 +76,7 @@ const kirimjo = (state = initialState, action) => {
     case COUNT_BERAT_BALIK_JO:
       return {
         ...state,
-        beratBalik: parseFloat(action.payload),
+        beratBalik: action.payload,
       };
     case COUNT_BERAT_KIRIM_JO:
       return {
