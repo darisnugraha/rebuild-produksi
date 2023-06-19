@@ -147,6 +147,7 @@ let FormAbuTukangPotong = (prop) => {
             component={styleAntd.AInput}
             className="form-item-group"
             placeholder="Masukkan Susut 24K"
+            disabled
           />
         </Col>
       </Row>

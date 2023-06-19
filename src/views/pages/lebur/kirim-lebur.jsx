@@ -19,14 +19,20 @@ import {
 import styleAntd from "../../../infrastructure/shared/styleAntd";
 import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
 import MasterBahan from "../../../application/selectors/masterbahan";
+import getLocal from "../../../infrastructure/services/local/get-local.jsx";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
+  const dataLebur = getLocal("data_kirim_lebur");
   return {
     initialValues: {
       kadar: 0,
       bahan_kembali: state.masterbahan.feedback[0]?.nama_bahan,
+      berat_kirim:
+        dataLebur?.reduce((a, b) => a + parseFloat(b?.berat || 0), 0) || 0,
+      karat_24:
+        dataLebur?.reduce((a, b) => a + parseFloat(b?.karat || 0), 0) || 0,
     },
   };
 };
@@ -79,7 +85,35 @@ let KirimLebur = () => {
               </div>
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-3">
+                    <Field
+                      name="berat_kirim"
+                      type="text"
+                      addonBefore={
+                        <span style={{ fontSize: "13px" }}>Berat Kirim</span>
+                      }
+                      component={styleAntd.AInput}
+                      className="form-item-group"
+                      placeholder="Masukkan Berat Kirim"
+                      disabled
+                      // onChange={(e) => dispatch(getKadar(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-3">
+                    <Field
+                      name="karat_24"
+                      type="text"
+                      addonBefore={
+                        <span style={{ fontSize: "13px" }}>24K</span>
+                      }
+                      component={styleAntd.AInput}
+                      className="form-item-group"
+                      placeholder="Masukkan 24k"
+                      disabled
+                      // onChange={(e) => dispatch(getKadar(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-3">
                     <Field
                       name="kadar"
                       type="text"
@@ -92,7 +126,7 @@ let KirimLebur = () => {
                       // onChange={(e) => dispatch(getKadar(e.target.value))}
                     />
                   </div>
-                  <div className="col-4">
+                  <div className="col-3">
                     <Field
                       showSearch
                       name="bahan_kembali"
