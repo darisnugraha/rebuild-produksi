@@ -71,11 +71,11 @@ const getDataSetorAbuTukangPotong =
     }
     if (action.type === GET_BERAT_KOTOR_KEMBALI) {
       const totalabu = getState().abutukangpotong.total_abu;
-      const berat = action.payload.data;
+      const berat = action.payload.data || 0;
       const beratbruto = parseFloat(totalabu) - parseFloat(berat);
       const dataKirim = {
-        beratBruto: beratbruto,
-        beratKotor: berat,
+        beratBruto: beratbruto.toFixed(3),
+        beratKotor: action.payload.data,
       };
       dispatch(setBeratSusutBruto(dataKirim));
     }

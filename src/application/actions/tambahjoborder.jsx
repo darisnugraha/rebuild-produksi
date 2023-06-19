@@ -22,6 +22,8 @@ export const SET_KODE_BARANG = "[tambahjoborder] set kode barang";
 export const SET_SPK = "[tambahjoborder] set spk";
 export const SET_NAMA_BARANG = "[tambahjoborder] set nama barang";
 export const SET_JUMLAH_BARANG = "[tambahjoborder] set jumlah barang";
+export const SET_TYPE_POHON_MANUAL = "[tambahjoborder] set type pohon manual";
+export const SET_KODE_JENIS_BAHAN = "[tambahjoborder] set kode jenis bahan";
 
 export const addDataStaff = {
   type: ADD_DATA_STAFF,
@@ -109,4 +111,14 @@ export const setNamaBarang = (namaBarang) => ({
 export const setJumlahBarang = (jumlahBarang) => ({
   type: SET_JUMLAH_BARANG,
   payload: { data: jumlahBarang },
+});
+
+export const setTypePohonManual = (type) => ({
+  type: SET_TYPE_POHON_MANUAL,
+  payload: { data: type },
+});
+
+export const setKodeJenisBahan = (kodeJenisBahan) => ({
+  type: SET_KODE_JENIS_BAHAN,
+  payload: { data: kodeJenisBahan },
 });

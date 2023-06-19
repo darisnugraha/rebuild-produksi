@@ -15,6 +15,8 @@ import {
   SET_SPK,
   SET_NAMA_BARANG,
   SET_JUMLAH_BARANG,
+  SET_TYPE_POHON_MANUAL,
+  SET_KODE_JENIS_BAHAN,
 } from "../actions/tambahjoborder";
 
 const initialState = {
@@ -35,6 +37,8 @@ const initialState = {
   spk: undefined,
   namaBarang: undefined,
   jumlahBarang: 0,
+  pohonManual: false,
+  kodeJenisBahan: undefined,
 };
 
 const tambahjoborder = (state = initialState, action) => {
@@ -113,6 +117,16 @@ const tambahjoborder = (state = initialState, action) => {
       return {
         ...state,
         jumlahBarang: action.payload.data,
+      };
+    case SET_TYPE_POHON_MANUAL:
+      return {
+        ...state,
+        pohonManual: action.payload.data,
+      };
+    case SET_KODE_JENIS_BAHAN:
+      return {
+        ...state,
+        kodeJenisBahan: action.payload.data,
       };
     default:
       return state;

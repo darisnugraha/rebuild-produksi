@@ -52,7 +52,7 @@ const getDataSaldoBahanOpen =
             if (res.value.length !== 0) {
               const kadarkali = parseFloat(res.value[0].kadar) / 100;
               const karat = parseFloat(res.value[0].berat) * kadarkali;
-              dispatch(setData24K({ karat24: karat.toFixed(4) }));
+              dispatch(setData24K({ karat24: karat.toFixed(3) }));
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
               dispatch(getAllSaldoBahan({ idBahan: res.value[0].keterangan }));
             } else {
@@ -74,7 +74,7 @@ const getDataSaldoBahanOpen =
             if (res.value.length !== 0) {
               const kadarkali = parseFloat(res.value[0].kadar) / 100;
               const karat = parseFloat(res.value[0].berat) * kadarkali;
-              dispatch(setData24K({ karat24: karat.toFixed(4) }));
+              dispatch(setData24K({ karat24: karat.toFixed(3) }));
               dispatch(setDataSaldoBahanOpenSuccess({ feedback: res.value }));
               dispatch(getAllSaldoBahan({ idBahan: res.value[0].keterangan }));
             } else {
@@ -120,7 +120,7 @@ const getDataSaldoBahan =
           if (res.value.length !== 0) {
             const kadarkali = parseFloat(res.value[0].kadar) / 100;
             const karat = parseFloat(res.value[0].berat) * kadarkali;
-            dispatch(setData24K({ karat24: karat.toFixed(4) }));
+            dispatch(setData24K({ karat24: karat.toFixed(3) }));
             dispatch(setDataSaldoBahanSuccess({ feedback: res.value }));
           } else {
             dispatch(setData24K({ karat24: 0 }));
@@ -222,8 +222,6 @@ const setDataLocalKirimLebur =
             data.keterangan_lebur === undefined
           ) {
             sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
-          } else if (data.kadar !== dataLocal[0].kadar) {
-            sweetalert.default.Failed("Kadar Harus Sama !");
           } else {
             const dataCheck = dataLocal.filter(
               (item) => item.no_abu === data.no_abu
@@ -248,39 +246,46 @@ const addKirimLebur =
   async (action) => {
     next(action);
     if (action.type === ADD_KIRIM_LEBUR) {
+      let dataHead = getState().form.KirimLebur.values;
       const data = getLocal("data_kirim_lebur");
       const newArr = [];
-      if (data !== null) {
-        data.forEach((element) => {
-          const row = {
-            asal_bahan: element.asal_bahan,
-            no_abu: element.no_abu,
-            jenis_bahan: element.jenis_bahan,
-            keterangan: element.keterangan,
-            keterangan_lebur: element.keterangan_lebur,
-            berat: parseFloat(element.berat),
-            kadar: parseFloat(element.kadar),
-            karat: parseFloat(element.karat),
+      if (dataHead.kadar === 0) {
+        sweetalert.default.Failed("Kadar tidak boleh 0 !");
+      } else {
+        if (data !== null) {
+          data.forEach((element) => {
+            const row = {
+              asal_bahan: element.asal_bahan,
+              no_abu: element.no_abu,
+              jenis_bahan: element.jenis_bahan,
+              keterangan: element.keterangan,
+              keterangan_lebur: element.keterangan_lebur,
+              berat: parseFloat(element.berat),
+              kadar: parseFloat(element.kadar),
+              karat: parseFloat(element.karat),
+            };
+            newArr.push(row);
+          });
+          const onSend = {
+            detail_kirim_lebur: newArr,
+            kadar: parseFloat(dataHead.kadar),
+            jenis_bahan: dataHead.bahan_kembali,
           };
-          newArr.push(row);
-        });
-        const onSend = {
-          detail_kirim_lebur: newArr,
-        };
-        api.KirimLebur.addDataKirimLebur({
-          dataKirim: onSend,
-        }).then((res) => {
-          if (res.value !== null) {
-            sweetalert.default.Success(
-              res.value.message || "Berhasil Mengirim Data !"
-            );
-            localStorage.removeItem("data_kirim_lebur");
-          } else {
-            sweetalert.default.Failed(
-              res.error?.data.message || "Gagal Mengirim Data !"
-            );
-          }
-        });
+          api.KirimLebur.addDataKirimLebur({
+            dataKirim: onSend,
+          }).then((res) => {
+            if (res.value !== null) {
+              sweetalert.default.Success(
+                res.value.message || "Berhasil Mengirim Data !"
+              );
+              localStorage.removeItem("data_kirim_lebur");
+            } else {
+              sweetalert.default.Failed(
+                res.error?.data.message || "Gagal Mengirim Data !"
+              );
+            }
+          });
+        }
       }
     }
   };

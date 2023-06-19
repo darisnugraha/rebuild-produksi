@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
 import {
   Panel,
   PanelHeader,
   PanelBody,
 } from "./../../components/panel/panel.jsx";
-import { Card, Divider, Button } from "antd";
+import { Card, Divider, Button, Select } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
 import FormKirimLebur from "../../components/lebur/kirim-lebur/button-add-kirim-lebur";
 import TableKirimLebur from "../../components/lebur/kirim-lebur/table-kirim-lebur";
@@ -15,12 +16,27 @@ import {
   addKirimLebur,
   getAllHistoryKirimLebur,
 } from "../../../application/actions/kirimlebur.jsx";
+import styleAntd from "../../../infrastructure/shared/styleAntd";
+import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
+import MasterBahan from "../../../application/selectors/masterbahan";
 
-const KirimLebur = () => {
+const { Option } = Select;
+
+const maptostate = (state) => {
+  return {
+    initialValues: {
+      kadar: 0,
+      bahan_kembali: state.masterbahan.feedback[0]?.nama_bahan,
+    },
+  };
+};
+let KirimLebur = () => {
   const dispatch = useDispatch();
+  const dataJenisBahan = useSelector(MasterBahan.getAllMasterBahan);
   useEffect(() => {
     dispatch(pageLoadedLogin);
     dispatch(getAllHistoryKirimLebur);
+    dispatch(getAllMasterBahan);
     document.title = "Kirim Lebur";
   }, [dispatch]);
 
@@ -63,6 +79,44 @@ const KirimLebur = () => {
               </div>
               <div className="col-12" style={{ marginTop: "10px" }}>
                 <div className="row">
+                  <div className="col-4">
+                    <Field
+                      name="kadar"
+                      type="text"
+                      addonBefore={
+                        <span style={{ fontSize: "13px" }}>Kadar</span>
+                      }
+                      component={styleAntd.AInput}
+                      className="form-item-group"
+                      placeholder="Masukkan Kadar"
+                      // onChange={(e) => dispatch(getKadar(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-4">
+                    <Field
+                      showSearch
+                      name="bahan_kembali"
+                      label={
+                        <span style={{ fontSize: "13px" }}>Jenis Bahan</span>
+                      }
+                      component={styleAntd.ASelect}
+                      placeholder="Pilih Jenis Bahan"
+                      onBlur={(e) => e.preventDefault()}
+                      // onChange={(e) => dispatch(setBahanKembali(e))}
+                    >
+                      {dataJenisBahan.map((item) => {
+                        return (
+                          <Option value={item.nama_bahan} key={item.nama_bahan}>
+                            <span style={{ fontSize: "13px" }}>
+                              {item.nama_bahan}
+                            </span>
+                          </Option>
+                        );
+                      })}
+                    </Field>
+                  </div>
+                </div>
+                <div className="row">
                   <div className="col-1">
                     <Button
                       type="primary"
@@ -102,4 +156,8 @@ const KirimLebur = () => {
   );
 };
 
-export default KirimLebur;
+KirimLebur = reduxForm({
+  form: "KirimLebur",
+  enableReinitialize: true,
+})(KirimLebur);
+export default connect(maptostate, null)(KirimLebur);

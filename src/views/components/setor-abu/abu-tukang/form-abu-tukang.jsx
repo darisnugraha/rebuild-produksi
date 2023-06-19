@@ -20,7 +20,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           keterangan: state.abutukang.keterangan,
-          susut_bruto: state.abutukang.berat_bruto.toFixed(3),
+          susut_bruto: state.abutukang.berat_bruto,
           berat_kotor_kembali: state.abutukang.berat_kotor,
           kadar: state.abutukang.kadar,
           k_24: state.abutukang.k24,
@@ -32,7 +32,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           keterangan: state.abutukang.keterangan,
-          susut_bruto: state.abutukang.berat_bruto.toFixed(3),
+          susut_bruto: state.abutukang.berat_bruto,
           berat_kotor_kembali: state.abutukang.berat_kotor,
           kadar: state.abutukang.kadar,
           k_24: state.abutukang.k24,
@@ -97,7 +97,7 @@ let FormAbuTukang = (prop) => {
         <Col offset={1} span={8}>
           <Field
             name="berat_kotor_kembali"
-            type="text"
+            type="number"
             addonBefore={
               <span style={{ fontSize: "13px" }}>Berat Kotor Kembali</span>
             }
@@ -110,7 +110,7 @@ let FormAbuTukang = (prop) => {
         <Col offset={1} span={8}>
           <Field
             name="susut_bruto"
-            type="text"
+            type="number"
             addonBefore={<span style={{ fontSize: "13px" }}>Susut Bruto</span>}
             component={styleAntd.AInput}
             className="form-item-group"
@@ -121,7 +121,7 @@ let FormAbuTukang = (prop) => {
         <Col offset={1} span={8}>
           <Field
             name="kadar"
-            type="text"
+            type="number"
             addonBefore={<span style={{ fontSize: "13px" }}>Kadar</span>}
             onChange={(e) => dispatch(getKadar(e.target.value))}
             component={styleAntd.AInput}
@@ -132,7 +132,7 @@ let FormAbuTukang = (prop) => {
         <Col offset={1} span={8}>
           <Field
             name="k_24"
-            type="text"
+            type="number"
             addonBefore={<span style={{ fontSize: "13px" }}>24K</span>}
             component={styleAntd.AInput}
             className="form-item-group"
@@ -143,7 +143,7 @@ let FormAbuTukang = (prop) => {
         <Col offset={1} span={8}>
           <Field
             name="susut_24k"
-            type="text"
+            type="number"
             addonBefore={<span style={{ fontSize: "13px" }}>Susut 24K</span>}
             component={styleAntd.AInput}
             className="form-item-group"

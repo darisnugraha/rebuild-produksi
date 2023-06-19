@@ -15,6 +15,7 @@ import {
   setJumlahBarang,
   setKodeBarang,
   setKodeCustomer,
+  setKodeJenisBahan,
   setKodeMarketing,
   setKodeStatusJO,
   setNamaBarang,
@@ -26,7 +27,8 @@ const { Option } = Select;
 
 const maptostate = (state) => {
   const beratAwal = getLocal("berat_awal");
-  if (state.tambahjoborder.dataPohon !== undefined) {
+  const dataStaff = getLocal("data_staff");
+  if (dataStaff !== null && dataStaff[0].pohon_manual) {
     return {
       initialValues: {
         marketing:
@@ -41,7 +43,10 @@ const maptostate = (state) => {
           state.tambahjoborder.kodeBarang !== undefined
             ? state.tambahjoborder.kodeBarang
             : state.masteroriginal.feedback[0]?.kode_barang,
-        kode_jenis_bahan: state.tambahjoborder.dataPohon.kode_jenis_bahan,
+        kode_jenis_bahan:
+          state.tambahjoborder.kodeJenisBahan !== undefined
+            ? state.tambahjoborder.kodeJenisBahan
+            : state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
         kode_status_job_order:
           state.tambahjoborder.kodeStatusJO !== undefined
             ? state.tambahjoborder.kodeStatusJO
@@ -61,19 +66,56 @@ const maptostate = (state) => {
       },
     };
   } else {
-    return {
-      initialValues: {
-        kode_marketing: state.mastermarketing.feedback[0]?.kode_marketing,
-        kode_customer: state.mastercustomer.feedback[0]?.kode_customer,
-        kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
-        kode_jenis_bahan: state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
-        kode_status_job_order:
-          state.masterstatus.feedback[0]?.kode_status_job_order,
-        berat_potong: 0,
-        berat: state.tambahjoborder.beratBahan,
-        berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
-      },
-    };
+    if (state.tambahjoborder.dataPohon !== undefined) {
+      return {
+        initialValues: {
+          marketing:
+            state.tambahjoborder.kodeMarketing !== undefined
+              ? state.tambahjoborder.kodeMarketing
+              : state.mastermarketing.feedback[0]?.kode_marketing,
+          customer:
+            state.tambahjoborder.kodeCustomer !== undefined
+              ? state.tambahjoborder.kodeCustomer
+              : state.mastercustomer.feedback[0]?.kode_customer,
+          kode_barang:
+            state.tambahjoborder.kodeBarang !== undefined
+              ? state.tambahjoborder.kodeBarang
+              : state.masteroriginal.feedback[0]?.kode_barang,
+          kode_jenis_bahan: state.tambahjoborder.dataPohon.kode_jenis_bahan,
+          kode_status_job_order:
+            state.tambahjoborder.kodeStatusJO !== undefined
+              ? state.tambahjoborder.kodeStatusJO
+              : state.masterstatus.feedback[0]?.kode_status_job_order,
+          berat_potong: beratAwal,
+          berat: state.tambahjoborder.beratBahan,
+          berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
+          no_job_order:
+            state.tambahjoborder.spk !== undefined
+              ? state.tambahjoborder.spk
+              : "",
+          nama_barang:
+            state.tambahjoborder.namaBarang !== undefined
+              ? state.tambahjoborder.namaBarang
+              : "",
+          jumlah: state.tambahjoborder.jumlahBarang,
+        },
+      };
+    } else {
+      return {
+        initialValues: {
+          kode_marketing: state.mastermarketing.feedback[0]?.kode_marketing,
+          kode_customer: state.mastercustomer.feedback[0]?.kode_customer,
+          kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
+          kode_jenis_bahan:
+            state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
+          kode_status_job_order:
+            state.masterstatus.feedback[0]?.kode_status_job_order,
+          berat_potong: 0,
+          berat: state.tambahjoborder.beratBahan,
+          berat_balik: state.tambahjoborder.beratBalik.toFixed(3),
+        },
+      };
+    }
   }
 };
 
@@ -192,6 +234,7 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Kode Jenis Bahan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setKodeJenisBahan(e))}
             >
               {dataJenisBahan.map((item) => {
                 return (

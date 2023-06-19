@@ -8,6 +8,7 @@ import {
   addDataStaff,
   getDataByPohon,
   setDataByPohon,
+  setTypePohonManual,
 } from "../../../../application/actions/tambahjoborder";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 
@@ -26,6 +27,9 @@ const ModalTambahJO = () => {
           const dataLocal = getLocal("data_staff");
           if (dataLocal !== null) {
             dispatch(getDataByPohon({ pohon: dataLocal[0].no_buat }));
+            if (dataLocal[0].pohon_manual) {
+              dispatch(setTypePohonManual(dataLocal[0].pohon_manual));
+            }
           }
         }}
       >

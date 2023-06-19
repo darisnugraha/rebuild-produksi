@@ -7,10 +7,12 @@ import {
   GET_DATA_BY_POHON,
   setDataByPohon,
   COUNT_BERAT_BALIK,
-  countBeratBalik,
   setBeratBalik,
+  SET_TYPE_POHON_MANUAL,
+  getDataByPohon,
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const addCheckoutJobOrder =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -97,6 +99,13 @@ const addDataStaff =
         writeLocal("data_staff", dataLocal);
       }
     }
+    if (action.type === SET_TYPE_POHON_MANUAL) {
+      if (action.payload.data) {
+        dispatch(getDataByPohon({ pohon: "-" }));
+      } else {
+        dispatch(change("FormDataStaff", "no_buat", ""));
+      }
+    }
   };
 
 const addDataDetailJO =
@@ -181,6 +190,7 @@ const countDataBeratBalik =
   async (action) => {
     next(action);
     if (action.type === COUNT_BERAT_BALIK) {
+      console.log('test');
       const beratBahan = parseFloat(action.payload.data || 0);
       const data = getState().form.FormDetailJobOrder.values;
       const beratBarang = parseFloat(data.berat_potong || 0);
@@ -188,7 +198,6 @@ const countDataBeratBalik =
         sweetalert.default.Failed(
           "Berat Bahan Tidak Boleh Melebihi Berat Potong !"
         );
-        dispatch(countBeratBalik(0));
       } else {
         const beratBalik = beratBarang - beratBahan;
         dispatch(setBeratBalik(beratBalik));

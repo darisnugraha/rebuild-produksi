@@ -11,6 +11,7 @@ import TambahJobOrder from "../../../../application/selectors/tambahjoborder";
 import {
   getDataByPohon,
   setTukang,
+  setTypePohonManual,
 } from "../../../../application/actions/tambahjoborder";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 
@@ -18,51 +19,68 @@ const { Option } = Select;
 
 const maptostate = (state) => {
   const beratAwal = getLocal("berat_awal");
-  if (state.tambahjoborder.dataPohon !== undefined) {
-    if (state.tambahjoborder.tukang !== undefined) {
-      return {
-        initialValues: {
-          staff: state.tambahjoborder.tukang,
-          nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal:
-            beratAwal !== null
-              ? beratAwal
-              : state.tambahjoborder.dataPohon?.berat_sisa,
-          no_buat: state.tambahjoborder.noPohon,
-        },
-      };
-    } else {
-      return {
-        initialValues: {
-          staff: state.mastertukang.feedback[0]?.nama_tukang,
-          nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-          berat_awal:
-            beratAwal !== null
-              ? beratAwal
-              : state.tambahjoborder.dataPohon?.berat_sisa,
-          no_buat: state.tambahjoborder.noPohon,
-        },
-      };
-    }
+  const dataStaff = getLocal("data_staff");
+  if (dataStaff !== null) {
+    return {
+      initialValues: {
+        staff: dataStaff[0].staff,
+        nama_bahan: dataStaff[0].nama_bahan,
+        berat_awal: parseFloat(dataStaff[0].berat_awal),
+        no_buat: dataStaff[0].no_buat,
+        pohon_manual: dataStaff[0].pohon_manual,
+      },
+    };
   } else {
-    if (state.tambahjoborder.tukang !== undefined) {
-      return {
-        initialValues: {
-          staff: state.tambahjoborder.tukang,
-          nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
-          berat_awal: 0,
-          no_buat: state.tambahjoborder.noPohon,
-        },
-      };
+    if (state.tambahjoborder.dataPohon !== undefined) {
+      if (state.tambahjoborder.tukang !== undefined) {
+        return {
+          initialValues: {
+            staff: state.tambahjoborder.tukang,
+            nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+            berat_awal:
+              beratAwal !== null
+                ? beratAwal
+                : state.tambahjoborder.dataPohon?.berat_sisa,
+            pohon_manual: state.tambahjoborder.pohonManual,
+            no_buat: state.tambahjoborder.noPohon,
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            staff: state.mastertukang.feedback[0]?.nama_tukang,
+            nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+            berat_awal:
+              beratAwal !== null
+                ? beratAwal
+                : state.tambahjoborder.dataPohon?.berat_sisa,
+            pohon_manual: state.tambahjoborder.pohonManual,
+            no_buat: state.tambahjoborder.noPohon,
+          },
+        };
+      }
     } else {
-      return {
-        initialValues: {
-          staff: state.mastertukang.feedback[0]?.nama_tukang,
-          nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
-          berat_awal: 0,
-          no_buat: state.tambahjoborder.noPohon,
-        },
-      };
+      if (state.tambahjoborder.tukang !== undefined) {
+        return {
+          initialValues: {
+            staff: state.tambahjoborder.tukang,
+            nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+            berat_awal: 0,
+            pohon_manual: state.tambahjoborder.pohonManual,
+            no_buat: state.tambahjoborder.noPohon,
+          },
+        };
+      } else {
+        return {
+          initialValues: {
+            staff: state.mastertukang.feedback[0]?.nama_tukang,
+            nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+            berat_awal: 0,
+            pohon_manual: state.tambahjoborder.pohonManual,
+            no_buat: state.tambahjoborder.noPohon,
+          },
+        };
+      }
     }
   }
 };
@@ -76,6 +94,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const dataBahan = useSelector(DataBahan.getAllMasterBahan);
   const data = useSelector(TambahJobOrder.getDataPohon);
   const dataBahanPohon = data?.detail_bahan;
+  const typePohon = useSelector(TambahJobOrder.getTypePohonManual);
 
   return (
     <Modal
@@ -89,7 +108,19 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row gutter={[8, 8]}>
-          <Col span={12}>
+          <Col span={6}>
+            <Field
+              label="Pohon Manual"
+              name="pohon_manual"
+              id="pohon_manual"
+              component={styleAntd.ACheckBox}
+              type="checkbox"
+              onChange={(e) => {
+                dispatch(setTypePohonManual(e.target.checked));
+              }}
+            />
+          </Col>
+          <Col span={18}>
             <Field
               showSearch
               name="staff"
@@ -118,7 +149,13 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan No Pohon"
-              disabled={localStorage.getItem("berat_awal") ? true : false}
+              disabled={
+                typePohon
+                  ? true
+                  : localStorage.getItem("berat_awal")
+                  ? true
+                  : false
+              }
               onChange={(e) => {
                 dispatch(getDataByPohon({ pohon: e.target.value }));
               }}
@@ -163,7 +200,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Awal"
-              disabled
+              disabled={!typePohon}
             />
           </Col>
         </Row>
