@@ -8,6 +8,8 @@ import {
   SET_DATA_SALDO_BAHAN_FAILED,
   SET_DATA_24K,
   SET_DATA_ASAL_BAHAN,
+  SET_COUNT_24,
+  COUNT_24,
 } from "../actions/kirimlebur";
 
 const initialState = {
@@ -20,6 +22,8 @@ const initialState = {
   isEdit: false,
   karat24: "",
   asalBahan: "",
+  karat24Total: 0,
+  kadarTotal: 0,
 };
 
 const kirimlebur = (state = initialState, action) => {
@@ -63,6 +67,16 @@ const kirimlebur = (state = initialState, action) => {
       return {
         ...state,
         asalBahan: action.payload.data,
+      };
+    case SET_COUNT_24:
+      return {
+        ...state,
+        karat24Total: action.payload.data,
+      };
+    case COUNT_24:
+      return {
+        ...state,
+        kadarTotal: action.payload.data,
       };
     default:
       return state;

@@ -22,6 +22,8 @@ export const SET_DATA_ASAL_BAHAN = "[kirimlebur] set data asal bahan";
 export const SET_LOCAL_DATA_KIRIM_LEBUR =
   "[kirimlebur] set data local kirim lebur";
 export const ADD_KIRIM_LEBUR = "[kirimlebur] add kirim lebur";
+export const COUNT_24 = "[kirimlebur] count 24 karat total";
+export const SET_COUNT_24 = "[kirimlebur] set count 24 karat total";
 
 export const getAllHistoryKirimLebur = {
   type: GET_ALL_HISTORY_KIRIM_LEBUR,
@@ -78,3 +80,13 @@ export const simpanDataLocalKirimLebur = {
 export const addKirimLebur = {
   type: ADD_KIRIM_LEBUR,
 };
+
+export const count24 = (kadar) => ({
+  type: COUNT_24,
+  payload: { data: kadar },
+});
+
+export const setcount24 = (k24) => ({
+  type: SET_COUNT_24,
+  payload: { data: k24 },
+});

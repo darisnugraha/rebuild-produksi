@@ -14,6 +14,7 @@ import TableKirimLebur from "../../components/lebur/kirim-lebur/table-kirim-lebu
 import TableHistoryKirimLebur from "../../components/lebur/kirim-lebur/table-history-kirim-lebur";
 import {
   addKirimLebur,
+  count24,
   getAllHistoryKirimLebur,
 } from "../../../application/actions/kirimlebur.jsx";
 import styleAntd from "../../../infrastructure/shared/styleAntd";
@@ -25,14 +26,14 @@ const { Option } = Select;
 
 const maptostate = (state) => {
   const dataLebur = getLocal("data_kirim_lebur");
+  const berat =
+    dataLebur?.reduce((a, b) => a + parseFloat(b?.berat || 0), 0) || 0;
   return {
     initialValues: {
-      kadar: 0,
+      kadar: state.kirimlebur.kadarTotal,
       bahan_kembali: state.masterbahan.feedback[0]?.nama_bahan,
-      berat_kirim:
-        dataLebur?.reduce((a, b) => a + parseFloat(b?.berat || 0), 0) || 0,
-      karat_24:
-        dataLebur?.reduce((a, b) => a + parseFloat(b?.karat || 0), 0) || 0,
+      berat_kirim: berat,
+      karat_24: state.kirimlebur.karat24Total,
     },
   };
 };
@@ -96,7 +97,19 @@ let KirimLebur = () => {
                       className="form-item-group"
                       placeholder="Masukkan Berat Kirim"
                       disabled
-                      // onChange={(e) => dispatch(getKadar(e.target.value))}
+                    />
+                  </div>
+                  <div className="col-3">
+                    <Field
+                      name="kadar"
+                      type="text"
+                      addonBefore={
+                        <span style={{ fontSize: "13px" }}>Kadar</span>
+                      }
+                      component={styleAntd.AInput}
+                      className="form-item-group"
+                      placeholder="Masukkan Kadar"
+                      onChange={(e) => dispatch(count24(e.target.value))}
                     />
                   </div>
                   <div className="col-3">
@@ -110,20 +123,6 @@ let KirimLebur = () => {
                       className="form-item-group"
                       placeholder="Masukkan 24k"
                       disabled
-                      // onChange={(e) => dispatch(getKadar(e.target.value))}
-                    />
-                  </div>
-                  <div className="col-3">
-                    <Field
-                      name="kadar"
-                      type="text"
-                      addonBefore={
-                        <span style={{ fontSize: "13px" }}>Kadar</span>
-                      }
-                      component={styleAntd.AInput}
-                      className="form-item-group"
-                      placeholder="Masukkan Kadar"
-                      // onChange={(e) => dispatch(getKadar(e.target.value))}
                     />
                   </div>
                   <div className="col-3">

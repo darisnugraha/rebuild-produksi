@@ -13,6 +13,8 @@ import {
   SET_LOCAL_DATA_KIRIM_LEBUR,
   ADD_KIRIM_LEBUR,
   getAllSaldoBahan,
+  COUNT_24,
+  setcount24,
 } from "../actions/kirimlebur";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 
@@ -166,6 +168,7 @@ const setDataLocalKirimLebur =
             sweetalert.default.Success("Berhasil Menyimpan Data !");
             data.no_abu = "-";
             data.jenis_bahan = "-";
+            data.keterangan_lebur = "-";
             dataLocal.push(data);
             writeLocal("data_kirim_lebur", dataLocal);
           }
@@ -181,9 +184,10 @@ const setDataLocalKirimLebur =
           ) {
             sweetalert.default.Failed("Mohon Lengkapi Form Terlebih Dahulu !");
           } else {
-            sweetalert.default.Success("Berhasil Menyimpan Data !");
+            data.keterangan_lebur = "-";
             dataLocal.push(data);
             writeLocal("data_kirim_lebur", dataLocal);
+            sweetalert.default.Success("Berhasil Menyimpan Data !");
           }
         }
       } else {
@@ -208,6 +212,7 @@ const setDataLocalKirimLebur =
             sweetalert.default.Success("Berhasil Menyimpan Data !");
             data.no_abu = "-";
             data.jenis_bahan = "-";
+            data.keterangan_lebur = "-";
             dataLocal.push(data);
             writeLocal("data_kirim_lebur", dataLocal);
           }
@@ -229,9 +234,10 @@ const setDataLocalKirimLebur =
             if (dataCheck.length !== 0) {
               sweetalert.default.Failed("Data Sudah Ada di Tabel !");
             } else {
-              sweetalert.default.Success("Berhasil Menyimpan Data !");
+              data.keterangan_lebur = "-";
               dataLocal.push(data);
               writeLocal("data_kirim_lebur", dataLocal);
+              sweetalert.default.Success("Berhasil Menyimpan Data !");
             }
           }
         }
@@ -245,6 +251,14 @@ const addKirimLebur =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === COUNT_24) {
+      const dataLebur = getLocal("data_kirim_lebur");
+      const berat =
+        dataLebur?.reduce((a, b) => a + parseFloat(b?.berat || 0), 0) || 0;
+      const kadar = action.payload.data;
+      const total24 = berat * (kadar / 100);
+      dispatch(setcount24(total24));
+    }
     if (action.type === ADD_KIRIM_LEBUR) {
       let dataHead = getState().form.KirimLebur.values;
       const data = getLocal("data_kirim_lebur");
