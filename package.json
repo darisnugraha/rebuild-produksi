@@ -85,6 +85,7 @@
     "start-devlocal": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7777/api/v1/&& react-scripts start",
     "build-qc": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7779/api/v1/&& react-scripts build",
     "build-pameran": "export REACT_APP_BACKEND_URL=https://8.215.69.186:7779/api/v1/&& react-scripts build",
+    "build-qc-produksi": "export REACT_APP_BACKEND_URL=http://149.129.246.85:7799/api/v1/&& react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
