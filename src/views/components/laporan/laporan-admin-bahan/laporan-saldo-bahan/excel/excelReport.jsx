@@ -8,6 +8,16 @@ class ExcelReport extends Component {
   }
 
   render() {
+    let karat24Total = 0;
+    this.props.dataExel.forEach((element) => {
+      const saldoakhir =
+        parseFloat(element.saldo_awal) +
+        parseFloat(element.berat_in) -
+        parseFloat(element.berat_out);
+      const karat24 =
+        parseFloat(saldoakhir) * (parseFloat(element.kadar) / 100);
+      karat24Total = karat24Total + karat24;
+    });
     return (
       <>
         <ReactHTMLTableToExcel
@@ -115,19 +125,27 @@ class ExcelReport extends Component {
             {this.props.dataExel.map((item) => {
               const saldoakhir =
                 parseFloat(item.saldo_awal) +
-                parseFloat(item.mutasi_in) -
-                parseFloat(item.mutasi_out);
+                parseFloat(item.berat_in) -
+                parseFloat(item.berat_out);
               const karat24 =
-                parseFloat(item.saldo_awal) * (parseFloat(item.kadar) / 100);
+                parseFloat(saldoakhir) * (parseFloat(item.kadar) / 100);
               return (
                 <tr>
                   <td>{item.nama_bahan}</td>
-                  <td style={{ textAlign: "right" }}>{item.saldo_awal}</td>
-                  <td style={{ textAlign: "right" }}>{item.mutasi_in}</td>
-                  <td style={{ textAlign: "right" }}>{item.mutasi_out}</td>
-                  <td style={{ textAlign: "right" }}>{saldoakhir}</td>
+                  <td style={{ textAlign: "right" }}>
+                    {item.saldo_awal.toFixed(3)}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    {item.berat_in.toFixed(3)}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    {item.berat_out.toFixed(3)}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    {saldoakhir.toFixed(3)}
+                  </td>
                   <td style={{ textAlign: "right" }}>{item.kadar}</td>
-                  <td style={{ textAlign: "right" }}>{karat24}</td>
+                  <td style={{ textAlign: "right" }}>{karat24.toFixed(3)}</td>
                 </tr>
               );
             })}
@@ -142,12 +160,12 @@ class ExcelReport extends Component {
               </td>
               <td>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.mutasi_in), 0)
+                  .reduce((a, b) => a + parseFloat(b.berat_in), 0)
                   .toFixed(3)}
               </td>
               <td>
                 {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.mutasi_out), 0)
+                  .reduce((a, b) => a + parseFloat(b.berat_out), 0)
                   .toFixed(3)}
               </td>
               <td>
@@ -156,27 +174,14 @@ class ExcelReport extends Component {
                     (a, b) =>
                       a +
                       (parseFloat(b.saldo_awal) +
-                        parseFloat(b.mutasi_in) -
-                        parseFloat(b.mutasi_out)),
+                        parseFloat(b.berat_in) -
+                        parseFloat(b.berat_out)),
                     0
                   )
                   .toFixed(3)}
               </td>
-              <td>
-                {this.props.dataExel
-                  .reduce((a, b) => a + parseFloat(b.kadar), 0)
-                  .toFixed(3)}
-              </td>
-              <td>
-                {this.props.dataExel
-                  .reduce(
-                    (a, b) =>
-                      a +
-                      parseFloat(b.saldo_awal) * (parseFloat(b.kadar) / 100),
-                    0
-                  )
-                  .toFixed(3)}
-              </td>
+              <td>{}</td>
+              <td>{karat24Total.toFixed(3)}</td>
             </tr>
           </tfoot>
         </table>

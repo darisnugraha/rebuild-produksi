@@ -62,7 +62,8 @@ const TableLaporanSaldoBahan = () => {
       render: (text) => {
         const kadarkali = text.kadar / 100;
         let karat24 = 0;
-        karat24 = text.saldo_awal * kadarkali;
+        const saldo_akhir = text.saldo_awal + text.berat_in - text.berat_out;
+        karat24 = saldo_akhir * kadarkali;
         return karat24.toFixed(3);
       },
     },
@@ -80,8 +81,9 @@ const TableLaporanSaldoBahan = () => {
       summary={(row) => {
         let karat24 = 0;
         row.forEach((el) => {
+          const saldoakhir = el.saldo_awal + el.berat_in - el.berat_out;
           const kadarkali = el.kadar / 100;
-          karat24 += el.saldo_awal * kadarkali;
+          karat24 += saldoakhir * kadarkali;
         });
         return (
           <Table.Summary fixed>

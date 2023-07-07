@@ -48,36 +48,35 @@ const pdfReport = (data = "") => {
   let saldoakhirTotal = 0;
   data.forEach((element) => {
     const kadarkali = element.kadar / 100;
-    let karat24 = element.saldo_awal * kadarkali;
-    let saldo_akhir =
-      element.saldo_awal + element.mutasi_in - element.mutasi_out;
-    karat24Total = karat24Total + karat24;
+    let saldo_akhir = element.saldo_awal + element.berat_in - element.berat_out;
     saldoakhirTotal = saldoakhirTotal + saldo_akhir;
+    let karat24 = saldo_akhir * kadarkali;
+    karat24Total = karat24Total + karat24;
 
     const row = [
       {
         content: element.nama_bahan,
       },
       {
-        content: element.saldo_awal,
+        content: element.saldo_awal.toFixed(3),
         styles: {
           halign: "right",
         },
       },
       {
-        content: element.mutasi_in,
+        content: element.berat_in.toFixed(3),
         styles: {
           halign: "right",
         },
       },
       {
-        content: element.mutasi_out,
+        content: element.berat_out.toFixed(3),
         styles: {
           halign: "right",
         },
       },
       {
-        content: saldo_akhir,
+        content: saldo_akhir.toFixed(3),
         styles: {
           halign: "right",
         },
@@ -89,7 +88,7 @@ const pdfReport = (data = "") => {
         },
       },
       {
-        content: karat24,
+        content: karat24.toFixed(3),
         styles: {
           halign: "right",
         },
@@ -114,15 +113,13 @@ const pdfReport = (data = "") => {
       },
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.mutasi_in), 0).toFixed(3),
+      content: data.reduce((a, b) => a + parseFloat(b.berat_in), 0).toFixed(3),
       styles: {
         halign: "right",
       },
     },
     {
-      content: data
-        .reduce((a, b) => a + parseFloat(b.mutasi_out), 0)
-        .toFixed(3),
+      content: data.reduce((a, b) => a + parseFloat(b.berat_out), 0).toFixed(3),
       styles: {
         halign: "right",
       },
@@ -134,7 +131,7 @@ const pdfReport = (data = "") => {
       },
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.kadar), 0).toFixed(3),
+      content: "",
       styles: {
         halign: "right",
       },
