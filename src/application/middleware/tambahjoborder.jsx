@@ -140,7 +140,8 @@ const addDataDetailJO =
           } else {
             const beratAwal = parseFloat(getLocal("berat_awal"));
             data.staff = kodestaff;
-            data.berat = parseFloat(data.berat);
+            data.berat = parseFloat(data.berat).toFixed(3);
+            data.berat_potong = parseFloat(data.berat_potong).toFixed(3);
             data.jumlah = parseFloat(data.jumlah);
             data.catatan = data.catatan.toUpperCase();
             data.nama_barang = data.nama_barang.toUpperCase();
@@ -148,8 +149,8 @@ const addDataDetailJO =
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);
-            const beratAwalAkhir = beratAwal - data.berat;
-            writeLocal("berat_awal", beratAwalAkhir);
+            const beratAwalAkhir = parseFloat(beratAwal) - data.berat;
+            writeLocal("berat_awal", beratAwalAkhir.toFixed(3));
             writeLocal("data_detail_jo", dataLocal);
           }
         } else {
@@ -166,7 +167,8 @@ const addDataDetailJO =
           } else {
             const beratAwal = parseFloat(getLocal("berat_awal"));
             data.staff = kodestaff;
-            data.berat = parseFloat(data.berat);
+            data.berat = parseFloat(data.berat).toFixed(3);
+            data.berat_potong = parseFloat(data.berat_potong).toFixed(3);
             data.jumlah = parseFloat(data.jumlah);
             data.catatan = data.catatan.toUpperCase();
             data.nama_barang = data.nama_barang.toUpperCase();
@@ -174,8 +176,8 @@ const addDataDetailJO =
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);
-            const beratAwalAkhir = beratAwal - data.berat;
-            writeLocal("berat_awal", beratAwalAkhir);
+            const beratAwalAkhir = parseFloat(beratAwal) - data.berat;
+            writeLocal("berat_awal", beratAwalAkhir.toFixed(3));
             writeLocal("data_detail_jo", dataLocal);
           }
         }
@@ -190,7 +192,7 @@ const countDataBeratBalik =
   async (action) => {
     next(action);
     if (action.type === COUNT_BERAT_BALIK) {
-      console.log('test');
+      console.log("test");
       const beratBahan = parseFloat(action.payload.data || 0);
       const data = getState().form.FormDetailJobOrder.values;
       const beratBarang = parseFloat(data.berat_potong || 0);
