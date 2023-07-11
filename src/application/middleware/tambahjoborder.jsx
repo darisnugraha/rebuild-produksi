@@ -53,16 +53,20 @@ const addCheckoutJobOrder =
           };
           dataKirim.job_order.push(onSend);
         });
-        api.TambahJobOrder.addTambahJobOrderCheckOut(dataKirim).then((res) => {
-          if (res.value !== null) {
-            sweetalert.default.Success(res.value.message);
-            localStorage.removeItem("data_staff");
-            localStorage.removeItem("data_detail_jo");
-            localStorage.removeItem("berat_awal");
-          } else {
-            sweetalert.default.Failed(res.error?.data.message);
-          }
-        });
+        api.TambahJobOrder.addTambahJobOrderCheckOut(dataKirim)
+          .then((res) => {
+            if (res.value !== null) {
+              sweetalert.default.Success(res.value.message);
+              localStorage.removeItem("data_staff");
+              localStorage.removeItem("data_detail_jo");
+              localStorage.removeItem("berat_awal");
+            } else {
+              sweetalert.default.Failed(res.error?.data.message);
+            }
+          })
+          .catch((er) => {
+            console.log(er);
+          });
       }
     }
   };

@@ -10,7 +10,7 @@ const AxiosPost = async ({ url, data }) => {
         language: "id-ID",
         "ngrok-skip-browser-warning": 1,
       },
-      timeout: 4000,
+      // timeout: 4000,
     };
     const response = await axios.post(url, data, config);
     // const response = await axios.post(url, data);
