@@ -13,6 +13,7 @@ import {
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { change } from "redux-form";
+import { setLoadingButton } from "../actions/ui";
 
 const addCheckoutJobOrder =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -21,6 +22,7 @@ const addCheckoutJobOrder =
   async (action) => {
     next(action);
     if (action.type === ADD_JOB_ORDER_CHECKOUT) {
+      dispatch(setLoadingButton(true));
       const data = getLocal("data_staff");
       const dataDetail = getLocal("data_detail_jo");
       if (
@@ -63,9 +65,11 @@ const addCheckoutJobOrder =
             } else {
               sweetalert.default.Failed(res.error?.data.message);
             }
+            dispatch(setLoadingButton(false));
           })
           .catch((er) => {
             console.log(er);
+            dispatch(setLoadingButton(false));
           });
       }
     }

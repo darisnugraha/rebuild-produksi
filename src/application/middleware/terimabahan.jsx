@@ -196,13 +196,14 @@ const setDataBeratBahan =
     if (action.type === GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE) {
       dispatch(change("FormTerimaBahan", "nama_bahan", action.payload.data));
       const data = getState().form.FormTerimaBahan.values;
-      console.log(data.divisi);
+      // console.log(data.divisi);
+      const namaBahan = action.payload.data.replace("+", "-");
       const dataKirim = {
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi.toUpperCase(),
         tukang_asal: data.staff,
         tukang_tujuan: data.staff_tujuan,
-        nama_bahan: action.payload.data,
+        nama_bahan: namaBahan,
       };
       api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
         console.log(res);

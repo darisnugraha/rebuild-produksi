@@ -33,7 +33,7 @@ const ModalTerimaBahan = () => {
     const divisi = getLocal("divisi");
     dispatch(
       getTukangByDivisi(
-        divisi === "Admin" ? "ADMIN PUSAT" : divisi.toUpperCase()
+        divisi === "Admin" ? "ADMIN PUSAT" : divisi?.toUpperCase()
       )
     );
   }, [dispatch]);

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Panel,
@@ -23,6 +23,7 @@ import {
   getDataByPohon,
 } from "../../../application/actions/tambahjoborder.jsx";
 import getLocal from "../../../infrastructure/services/local/get-local";
+import ui from "../../../application/selectors/ui";
 
 const TambahJO = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,8 @@ const TambahJO = () => {
 
     document.title = "Tambah Job Order";
   }, [dispatch]);
+
+  const isLoading = useSelector(ui.getBtnLoading);
 
   return (
     <div>
@@ -92,6 +95,7 @@ const TambahJO = () => {
                 onClick={() => {
                   dispatch(addCheckOutJO);
                 }}
+                loading={isLoading}
               >
                 Simpan
               </Button>

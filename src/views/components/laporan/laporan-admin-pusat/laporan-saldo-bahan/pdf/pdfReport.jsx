@@ -138,7 +138,7 @@ const pdfReport = (data = "") => {
       },
     },
     {
-      content: data.reduce((a, b) => a + parseFloat(b.kadar), 0).toFixed(3),
+      content: "",
       styles: {
         halign: "right",
       },
