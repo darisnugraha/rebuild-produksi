@@ -114,28 +114,39 @@ const addDataGabungJO =
         writeLocal("gabung_jo_head", newArr);
         sweetalert.default.Success("Berhasil Menambahkan Data !");
       } else {
-        const check = dataLocal.filter((val) => {
-          if (val.no_induk_job_order === data.no_induk_job_order) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-        if (check.length === 0) {
-          sweetalert.default.Failed("No Induk Berbeda !");
-        } else {
-          newArr = dataLocal;
-          const onSend = {
-            asal_divisi: data.asal_divisi,
-            berat_out: parseFloat(data.berat_akhir),
-            kode_jenis_bahan: data.kode_jenis_bahan,
-            no_job_order: data.no_job_order,
-            no_induk_job_order: data.no_induk_job_order,
-          };
-          newArr.push(onSend);
-          writeLocal("gabung_jo_head", newArr);
-          sweetalert.default.Success("Berhasil Menambahkan Data !");
-        }
+        // const check = dataLocal.filter((val) => {
+        //   if (val.no_induk_job_order === data.no_induk_job_order) {
+        //     return 1;
+        //   } else {
+        //     return 0;
+        //   }
+        // });
+        // if (check.length === 0) {
+        //   sweetalert.default.Failed("No Induk Berbeda !");
+        // } else {
+        //   newArr = dataLocal;
+        //   const onSend = {
+        //     asal_divisi: data.asal_divisi,
+        //     berat_out: parseFloat(data.berat_akhir),
+        //     kode_jenis_bahan: data.kode_jenis_bahan,
+        //     no_job_order: data.no_job_order,
+        //     no_induk_job_order: data.no_induk_job_order,
+        //   };
+        //   newArr.push(onSend);
+        //   writeLocal("gabung_jo_head", newArr);
+        //   sweetalert.default.Success("Berhasil Menambahkan Data !");
+        // }
+        newArr = dataLocal;
+        const onSend = {
+          asal_divisi: data.asal_divisi,
+          berat_out: parseFloat(data.berat_akhir),
+          kode_jenis_bahan: data.kode_jenis_bahan,
+          no_job_order: data.no_job_order,
+          no_induk_job_order: data.no_induk_job_order,
+        };
+        newArr.push(onSend);
+        writeLocal("gabung_jo_head", newArr);
+        sweetalert.default.Success("Berhasil Menambahkan Data !");
       }
     }
     if (action.type === ADD_GABUNG_JO) {

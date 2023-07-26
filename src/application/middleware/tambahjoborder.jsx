@@ -35,7 +35,10 @@ const addCheckoutJobOrder =
           "Isi Data Staff dan Detail JO Terlebih Dahulu !"
         );
       } else {
-        const dataKirim = { job_order: [] };
+        const dataKirim = {
+          berat_balik: parseFloat(getLocal("berat_awal")),
+          job_order: [],
+        };
         dataDetail.forEach((element) => {
           const onSend = {
             no_job_order: element.no_job_order,
