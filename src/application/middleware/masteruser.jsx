@@ -67,7 +67,7 @@ const addDataMasterUser =
       const data = getState().form.FormTambahMasterUser.values;
       const dataKirim = {
         user_name: data.nama_lkp,
-        user_id: data.user_id,
+        user_id: data.nama_lkp,
         password: data.password,
         level: data.type,
       };

@@ -15,7 +15,7 @@ const maptostate = (state) => {
   if (state.masteruser.dataEdit.length !== 0) {
     return {
       initialValues: {
-        user_id: state.masteruser.dataEdit[0]?.user_id,
+        // user_id: state.masteruser.dataEdit[0]?.user_id,
         nama_lkp: state.masteruser.dataEdit[0]?.user_name,
         password: state.masteruser.dataEdit[0]?.password,
         retype_password: state.masteruser.dataEdit[0]?.password,
@@ -25,7 +25,7 @@ const maptostate = (state) => {
   } else {
     return {
       initialValues: {
-        user_id: "",
+        // user_id: "",
         nama_lkp: "",
         password: "",
         retype_password: "",
@@ -64,7 +64,7 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row>
-          <Col offset={1}>
+          {/* <Col offset={1}>
             <Field
               name="user_id"
               type="text"
@@ -74,7 +74,7 @@ let FormTambahMasterUser = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan User ID"
               disabled={isEdit}
             />
-          </Col>
+          </Col> */}
           <Col offset={1}>
             <Field
               name="nama_lkp"
