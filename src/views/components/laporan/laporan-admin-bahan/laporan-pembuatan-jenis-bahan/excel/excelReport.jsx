@@ -135,7 +135,7 @@ class ExcelReport extends Component {
                     return (
                       <tr>
                         <td>{item.tanggal_mutasi}</td>
-                        <td>{item.nama_bahan}</td>
+                        <td>{item.nama_jenis_bahan}</td>
                         <td style={{ textAlign: "right" }}>{item.berat}</td>
                         <td style={{ textAlign: "right" }}>{item.kadar}</td>
                         <td style={{ textAlign: "right" }}>

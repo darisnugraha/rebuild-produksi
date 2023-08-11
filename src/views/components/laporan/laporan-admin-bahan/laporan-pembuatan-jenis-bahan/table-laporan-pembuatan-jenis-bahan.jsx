@@ -20,8 +20,8 @@ const TableLaporanPembuatanJenisBahan = () => {
     },
     {
       title: "Bahan Pakai",
-      dataIndex: "nama_bahan",
-      key: "nama_bahan",
+      dataIndex: "nama_jenis_bahan",
+      key: "nama_jenis_bahan",
       align: "center",
     },
     {

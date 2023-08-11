@@ -76,7 +76,7 @@ const pdfReport = (data = "") => {
           content: item.tanggal_mutasi,
         },
         {
-          content: item.nama_bahan,
+          content: item.nama_jenis_bahan,
         },
         {
           content: item.berat.toFixed(3),
