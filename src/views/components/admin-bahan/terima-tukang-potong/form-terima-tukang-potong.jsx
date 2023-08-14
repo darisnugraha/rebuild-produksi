@@ -6,7 +6,7 @@ import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
 import JenisBahan from "../../../../application/selectors/masterbahan";
-import TerimaTukangPotong from "../../../../application/selectors/terimatukangpotong";
+// import TerimaTukangPotong from "../../../../application/selectors/terimatukangpotong";
 import {
   addDataTerimaTukangPotong,
   countSusut,
@@ -58,8 +58,8 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
-  const data = useSelector(TerimaTukangPotong.getTerimaTukangPotong);
-  const detailBahan = data[0]?.detail_bahan;
+  // const data = useSelector(TerimaTukangPotong.getTerimaTukangPotong);
+  // const detailBahan = data[0]?.detail_bahan;
 
   return (
     <Modal
@@ -98,9 +98,16 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
-              disabled={data.length !== 0}
+              // disabled={data.length !== 0}
             >
-              {data.length === 0
+              {dataJenisBahan.map((item) => {
+                return (
+                  <Option value={item.nama_bahan} key={item.kode_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
+              {/* {data.length === 0
                 ? dataJenisBahan.map((item) => {
                     return (
                       <Option value={item.nama_bahan} key={item.kode_bahan}>
@@ -118,7 +125,7 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
                         </span>
                       </Option>
                     );
-                  })}
+                  })} */}
             </Field>
           </Col>
           <Col span={12} style={{ display: "none" }}>

@@ -13,6 +13,12 @@ const TableLaporanPembuatanJenisBahan = () => {
       align: "center",
     },
     {
+      title: "No Pohon",
+      dataIndex: "no_pohon",
+      key: "no_pohon",
+      align: "center",
+    },
+    {
       title: "Tgl Transaksi",
       dataIndex: "tanggal_mutasi",
       key: "tanggal_mutasi",

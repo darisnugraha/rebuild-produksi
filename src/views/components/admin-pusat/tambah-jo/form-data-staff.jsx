@@ -92,8 +92,8 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const [form] = Form.useForm();
   const dataStaff = useSelector(DataStaff.getAllMasterTukang);
   const dataBahan = useSelector(DataBahan.getAllMasterBahan);
-  const data = useSelector(TambahJobOrder.getDataPohon);
-  const dataBahanPohon = data?.detail_bahan;
+  // const data = useSelector(TambahJobOrder.getDataPohon);
+  // const dataBahanPohon = data?.detail_bahan;
   const typePohon = useSelector(TambahJobOrder.getTypePohonManual);
 
   return (
@@ -169,9 +169,16 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Bahan Kembali"
               onBlur={(e) => e.preventDefault()}
-              disabled={data !== undefined ? true : false}
+              // disabled={data !== undefined ? true : false}
             >
-              {data !== undefined
+              {dataBahan.map((item) => {
+                return (
+                  <Option value={item.nama_bahan} key={item._id}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
+              {/* {data !== undefined
                 ? dataBahanPohon.map((item) => {
                     return (
                       <Option value={item.nama_bahan} key={item._id}>
@@ -189,7 +196,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                         </span>
                       </Option>
                     );
-                  })}
+                  })} */}
             </Field>
           </Col>
           <Col span={12}>
