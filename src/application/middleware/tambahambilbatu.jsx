@@ -102,7 +102,7 @@ const countberatbatu =
       let total = 0;
       const berat = action.payload;
       total = berat * 0.2;
-      dispatch(setKonversiBerat(total));
+      dispatch(setKonversiBerat(total.toFixed(3)));
     }
   };
 

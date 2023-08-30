@@ -69,10 +69,10 @@ const countberatbatu =
       const data = getState().kirimbatuproduksi.dataBatu[0].status_sintetis;
       const berat = action.payload;
       if (data) {
-        dispatch(setCountBeratKirimBatuProduksi(berat));
+        dispatch(setCountBeratKirimBatuProduksi(berat.toFixed(3)));
       } else {
         total = berat * 0.2;
-        dispatch(setCountBeratKirimBatuProduksi(total));
+        dispatch(setCountBeratKirimBatuProduksi(total.toFixed(3)));
       }
     }
   };
