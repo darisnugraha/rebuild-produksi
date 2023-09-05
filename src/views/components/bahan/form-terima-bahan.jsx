@@ -185,6 +185,9 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 component={styleAntd.ASelect}
                 placeholder="Pilih Tukang Tujuan"
                 onBlur={(e) => e.preventDefault()}
+                onChange={(val) => {
+                  dispatch(getBahanByTukangTujuan({ staff: val }));
+                }}
               >
                 {dataStaff.map((item) => {
                   return (

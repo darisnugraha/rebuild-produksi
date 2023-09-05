@@ -22,7 +22,6 @@ const ModalTerimaBahan = () => {
   const dataDivisi = useSelector(TerimaBahan.getAllDivisi);
   const dataStaff = useSelector(TerimaBahan.getTukangDivisi);
   const staffAsal = useSelector(TerimaBahan.getTukangByDivisi);
-  console.log(dataStaff);
 
   const onCreate = (values) => {
     console.log("Received values of form: ", values);
@@ -30,13 +29,12 @@ const ModalTerimaBahan = () => {
   };
 
   useEffect(() => {
-    const divisi = getLocal("divisi");
     dispatch(
       getTukangByDivisi(
         divisi === "Admin" ? "ADMIN PUSAT" : divisi?.toUpperCase()
       )
     );
-  }, [dispatch]);
+  }, [dispatch, divisi]);
 
   return (
     <div>
