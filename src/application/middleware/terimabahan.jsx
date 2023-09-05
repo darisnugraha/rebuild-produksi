@@ -53,6 +53,9 @@ const tukangDivisGetAll =
       api.TerimaBahan.getTukangAsalTerimaDivisi(divisi).then((res) => {
         if (res.value !== null) {
           dispatch(setTukangAsalByDivisi({ feedback: res.value }));
+          dispatch(
+            change("FormTerimaBahan", "staff", res.value[0]?.nama_tukang)
+          );
           // dispatch(
           //   getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
           // );
