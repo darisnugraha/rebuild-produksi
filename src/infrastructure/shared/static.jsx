@@ -138,6 +138,7 @@ const URL_GET_STAFF_BY_DIVISI_NEW = `${baseurl}tukang/by-divisi/`;
 const URL_GET_PERIODE_BY_TUKANG = `${baseurl}susut-tukang-report/by-tukang/`;
 const URL_GET_BAHAN_BY_STAFF = `${baseurl}saldo-murni/bahan?`;
 const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open?`;
+const URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN_NEW = `${baseurl}saldo-murni-divisi/saldo-kirim-bahan-open-v2?`;
 
 const URL_GET_DETAIL_JO_BY_POST = `${baseurl}kirim-jo/get/detail-jo`;
 const URL_GET_NO_KIRIM_BATU_BY_TANGGAL = `${baseurl}admin-pusat-terima-batu/kirim-batu-open/`;
@@ -432,6 +433,7 @@ const data = {
   URL_GET_PERIODE_BY_TUKANG,
   URL_GET_BAHAN_BY_STAFF,
   URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN,
+  URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN_NEW,
 
   URL_GET_DETAIL_JO_BY_POST,
   URL_GET_NO_KIRIM_BATU_BY_TANGGAL,

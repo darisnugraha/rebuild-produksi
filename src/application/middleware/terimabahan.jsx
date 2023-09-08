@@ -199,7 +199,6 @@ const setDataBeratBahan =
     if (action.type === GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE) {
       dispatch(change("FormTerimaBahan", "nama_bahan", action.payload.data));
       const data = getState().form.FormTerimaBahan.values;
-      // console.log(data.divisi);
       const namaBahan = action.payload.data.replace("+", "-");
       const dataKirim = {
         divisi: data.divisi_asal,
@@ -209,7 +208,6 @@ const setDataBeratBahan =
         nama_bahan: namaBahan,
       };
       api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
-        console.log(res);
         if (res.value !== null) {
           if (res.value.length !== 0) {
             dispatch(
@@ -336,7 +334,6 @@ const getDataBahanByTukangTujuan =
     if (action.type === GET_BAHAN_BY_TUKANG_ASAL) {
       dispatch(setKodeStaff({ staff: action.payload.data }));
       const data = getState().form.FormTerimaBahan.values;
-      console.log(data);
       const dataKirim = {
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi.toUpperCase(),

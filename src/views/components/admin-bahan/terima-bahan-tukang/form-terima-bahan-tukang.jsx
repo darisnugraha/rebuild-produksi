@@ -78,6 +78,18 @@ let FormTerimaBahanTukang = ({ visible, onCreate, onCancel }, prop) => {
               })}
             </Field>
           </Col> */}
+          <Col offset={1} className="d-none">
+            <Field
+              name="id"
+              type="text"
+              style={{ width: 250 }}
+              label={<span style={{ fontSize: "13px" }}>ID</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan ID"
+              disabled
+            />
+          </Col>
           <Col offset={1}>
             <Field
               name="divisi_asal"

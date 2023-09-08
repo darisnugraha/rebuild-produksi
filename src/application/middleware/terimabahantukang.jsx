@@ -17,6 +17,7 @@ import {
   ADD_TERIMA_BAHAN_TUKANG,
 } from "../actions/terimabahantukang";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const addTerimaBahanTukang =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -27,10 +28,12 @@ const addTerimaBahanTukang =
     if (action.type === ADD_TERIMA_BAHAN_TUKANG) {
       const data = getState().form.FormTerimaBahanTukang.values;
       const id = data.bahan;
+      const realid = data.id;
       const dataBahan = getState().terimabahantukang.feedbackBahan;
       const dataBahanFill = dataBahan.find((item) => item._id === id);
       const nama_bahan = dataBahanFill.nama_bahan;
       const dataKirim = {
+        _id: realid,
         divisi_asal: data.divisi_asal,
         divisi_tujuan: "ADMIN BAHAN",
         tukang_asal: data.tukang_asal,
@@ -167,16 +170,31 @@ const beratBahanAsalGetByStaffAll =
         nama_bahan: nama_bahan,
         divisi_tujuan: "ADMIN BAHAN",
       };
-      const response = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
+      const res = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
         data
       );
+      const cek = res.value.filter((el) => el.nama_bahan === nama_bahan);
+      let resfill = "";
+      console.log(cek.length);
+      if (cek.length === 1) {
+        resfill = res.value.find((el) => el.nama_bahan === nama_bahan);
+      } else {
+        resfill = res.value.find(
+          (el) =>
+            el.berat === dataBahanFill.berat && el.nama_bahan === nama_bahan
+        );
+      }
+      const dataSend = { id: resfill?._id };
+      const response =
+        await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpenNew(dataSend);
       if (response.value !== null) {
         dispatch(
           setDataBeratBahanSuccess({
             feedback: response.value,
-            berat: response.value[0]?.berat,
+            berat: response.value?.berat,
           })
         );
+        dispatch(change("FormTerimaBahanTukang", "id", response.value._id));
       } else {
         dispatch(setDataBeratBahanFailed({ error: response.error }));
       }

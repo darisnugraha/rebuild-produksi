@@ -12,7 +12,7 @@ import {
   setBahan,
 } from "../../../../application/actions/terimacor";
 import JenisBahan from "../../../../application/selectors/masterbahan";
-import TerimaCOR from "../../../../application/selectors/terimacor";
+// import TerimaCOR from "../../../../application/selectors/terimacor";
 
 const maptostate = (state) => {
   if (state.terimacor.feedback.length !== 0) {
@@ -48,8 +48,8 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataJenisBahan = useSelector(JenisBahan.getAllMasterBahan);
-  const data = useSelector(TerimaCOR.getDetailPohon);
-  const detailBahan = data[0]?.detail_bahan;
+  // const data = useSelector(TerimaCOR.getDetailPohon);
+  // const detailBahan = data[0]?.detail_bahan;
 
   return (
     <Modal
@@ -89,7 +89,7 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
               onBlur={(e) => e.preventDefault()}
               onChange={(e) => dispatch(setBahan(e))}
             >
-              {data.length === 0
+              {/* {data.length === 0
                 ? dataJenisBahan.map((item) => {
                     return (
                       <Option value={item.nama_bahan} key={item.kode_bahan}>
@@ -107,7 +107,14 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
                         </span>
                       </Option>
                     );
-                  })}
+                  })} */}
+              {dataJenisBahan.map((item) => {
+                return (
+                  <Option value={item.nama_bahan} key={item.kode_bahan}>
+                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
+                  </Option>
+                );
+              })}
             </Field>
           </Col>
 

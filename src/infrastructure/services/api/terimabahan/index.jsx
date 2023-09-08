@@ -30,7 +30,6 @@ const TerimaBahan = {
     }
   },
   getBahanNew: async (data) => {
-    console.log(data);
     const response = await get({
       url:
         word.URL_GET_BAHAN_KIRIM_NEW +

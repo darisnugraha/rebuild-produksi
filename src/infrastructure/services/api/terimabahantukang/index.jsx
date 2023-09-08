@@ -39,6 +39,13 @@ const TerimaBahanTukang = {
     });
     return response;
   },
+  getSaldoKirimBahanTukangOpenNew: async (dataKirim) => {
+    const response = await get({
+      url:
+        word.URL_GET_SALDO_KIRIM_BAHAN_TUKANG_OPEN_NEW + `_id=${dataKirim.id}`,
+    });
+    return response;
+  },
   addTerimaBahanTukang: async (dataKirim) => {
     const response = await post.AxiosPost({
       url: word.URL_ADD_TERIMA_BAHAN_TUKANG,
