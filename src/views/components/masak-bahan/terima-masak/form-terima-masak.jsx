@@ -20,7 +20,8 @@ const maptostate = (state) => {
     return {
       initialValues: {
         no_kirim: state.terimamasak.feedback[0]?.no_kirim_masak,
-        berat_tot_kirim: state.terimamasak.feedback[0]?.total_berat_murni,
+        // berat_tot_kirim: state.terimamasak.feedback[0]?.total_berat_murni,
+        berat_tot_kirim: state.terimamasak.feedback[0]?.total_24k,
         berat_jadi: state.terimamasak.beratTerima,
         kode_bahan: state.masterbahan.feedback[0]?.kode_bahan,
         berat_susut: state.terimamasak.susut,
