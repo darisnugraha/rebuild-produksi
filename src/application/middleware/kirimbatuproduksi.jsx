@@ -69,10 +69,10 @@ const countberatbatu =
       const data = getState().kirimbatuproduksi.dataBatu[0].status_sintetis;
       const berat = action.payload;
       if (data) {
-        dispatch(setCountBeratKirimBatuProduksi(berat.toFixed(3)));
+        dispatch(setCountBeratKirimBatuProduksi(parseFloat(berat)?.toFixed(3)));
       } else {
         total = berat * 0.2;
-        dispatch(setCountBeratKirimBatuProduksi(total.toFixed(3)));
+        dispatch(setCountBeratKirimBatuProduksi(parseFloat(total)?.toFixed(3)));
       }
     }
   };
@@ -154,7 +154,10 @@ const simpanDataKirimBatuLocal =
         let datalocal = [];
         if (data.kode_batu === undefined) {
           sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
-        } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
+        } else if (
+          parseFloat(data.jumlah_kirim) === 0 ||
+          parseFloat(data.berat_kirim) === 0
+        ) {
           sweetalert.default.Failed("Jumlah Kirim Minimal 1");
         } else {
           sweetalert.default.Success("Berhasil Menambahkan Data !");

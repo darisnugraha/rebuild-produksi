@@ -78,7 +78,7 @@
     "start-joe": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8049/api/v1/&& react-scripts start",
     "build-local": "set REACT_APP_BACKEND_URL=http://localhost:5757/api/v1/&& react-scripts build",
     "start-dede": "export REACT_APP_BACKEND_URL=http://192.168.0.107:7777/api/&& react-scripts start",
-    "start-ngrok": "export REACT_APP_BACKEND_URL=https://df59-103-78-217-67.ngrok-free.app/api/v1/&& react-scripts start",
+    "start-ngrok": "export REACT_APP_BACKEND_URL=https://ad38-125-164-23-137.ngrok-free.app/api/v1/&& react-scripts start",
     "start-local": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7777/api/v1/&& react-scripts start",
     "start-dede-rebuild": "export REACT_APP_BACKEND_URL=http://192.168.0.109:7777/api/v1/&& react-scripts start",
     "start-dede-new": "export REACT_APP_BACKEND_URL=http://192.168.3.22:3757/api/&& react-scripts start",
