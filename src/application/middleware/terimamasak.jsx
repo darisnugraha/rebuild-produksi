@@ -45,8 +45,9 @@ const setBeratSusut =
   async (action) => {
     next(action);
     if (action.type === SET_SUSUT) {
-      let berat_murni =
-        getState().terimamasak.feedback[0]?.total_berat_murni || 0;
+      // let berat_murni =
+      //   getState().terimamasak.feedback[0]?.total_berat_murni || 0;
+      let berat_murni = getState().terimamasak.feedback[0]?.total_24k || 0;
       let berat_terima = action.payload.data || 0;
       let susut = 0;
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
