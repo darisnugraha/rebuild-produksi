@@ -9,8 +9,9 @@ import ui from "../../../../application/selectors/ui";
 import DataBahan from "../../../../application/selectors/masterbahan";
 import {
   getTerimaMasak,
-  countSusut,
+  // countSusut,
   addTerimaMasak,
+  count24K,
 } from "../../../../application/actions/terimamasak";
 
 const { Option } = Select;
@@ -22,9 +23,9 @@ const maptostate = (state) => {
         no_kirim: state.terimamasak.feedback[0]?.no_kirim_masak,
         // berat_tot_kirim: state.terimamasak.feedback[0]?.total_berat_murni,
         berat_tot_kirim: state.terimamasak.feedback[0]?.total_24k,
-        berat_jadi: state.terimamasak.beratTerima,
+        // berat_jadi: state.terimamasak.beratTerima,
         kode_bahan: state.masterbahan.feedback[0]?.kode_bahan,
-        berat_susut: state.terimamasak.susut,
+        // berat_susut: state.terimamasak.susut,
       },
     };
   } else {
@@ -113,9 +114,39 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Bahan Jadi"
-              onBlur={(e) => {
-                dispatch(countSusut({ beratTerima: e.target.value }));
+              // onBlur={(e) => {
+              //   dispatch(countSusut({ beratTerima: e.target.value }));
+              // }}
+              onBlur={() => {
+                dispatch(count24K());
               }}
+            />
+          </Col>
+          <Col span={12}>
+            <Field
+              name="kadar"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>Kadar</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan Kadar"
+              // onBlur={(e) => {
+              //   dispatch(countSusut({ beratTerima: e.target.value }));
+              // }}
+              onBlur={() => {
+                dispatch(count24K());
+              }}
+            />
+          </Col>
+          <Col span={12}>
+            <Field
+              name="k24"
+              type="text"
+              label={<span style={{ fontSize: "13px" }}>24 K</span>}
+              component={styleAntd.AInput}
+              className="form-item-group"
+              placeholder="Masukkan 24 K"
+              disabled
             />
           </Col>
           <Col span={12}>

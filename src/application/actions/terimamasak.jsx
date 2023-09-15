@@ -8,6 +8,8 @@ export const SET_SUSUT = "[terimamasak] set susut";
 export const SET_SUSUT_SUCCESS = "[terimamasak] set susut success";
 export const SET_BERAT_TERIMA = "[terimamasak] set berat terima";
 
+export const SET_24K = "[terimamasak] set 24k";
+
 export const ADD_TERIMA_MASAK = "[terimamasak] add terima masak";
 
 export const getTerimaMasak = ({ noKirim }) => ({
@@ -21,6 +23,10 @@ export const setDataTerimaMasakSuccess = ({ feedback }) => ({
 export const setDataTerimaMasakFailed = ({ error }) => ({
   type: SET_DATA_TERIMA_MASAK_FAILED,
   payload: { data: error },
+});
+
+export const count24K = () => ({
+  type: SET_24K,
 });
 
 export const countSusut = ({ beratTerima }) => ({

@@ -6,8 +6,11 @@ import {
   setDataSusutSuccess,
   setDataBeratTerima,
   ADD_TERIMA_MASAK,
+  SET_24K,
+  countSusut,
 } from "../actions/terimamasak";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const getDataTerimaMasak =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -53,6 +56,28 @@ const setBeratSusut =
       susut = parseFloat(berat_murni) - parseFloat(berat_terima);
       dispatch(setDataSusutSuccess({ feedback: susut.toFixed(3) }));
       dispatch(setDataBeratTerima({ beratTerima: berat_terima }));
+      dispatch(change("FormTerimaMasak", "berat_susut", susut.toFixed(3)));
+    }
+  };
+const set24K =
+  ({ api, log, writeLocal, getLocal, toast }) =>
+  ({ dispatch, getState }) =>
+  (next) =>
+  async (action) => {
+    next(action);
+    if (action.type === SET_24K) {
+      console.log("MASUK SINI YAK");
+      const brutoJadi = parseFloat(
+        getState().form.FormTerimaMasak.values.berat_jadi
+      );
+
+      const kadar = parseFloat(
+        getState().form.FormTerimaMasak.values.kadar || 0
+      );
+
+      const k24 = brutoJadi * (kadar / 100);
+      dispatch(change("FormTerimaMasak", "k24", k24.toFixed(3)));
+      dispatch(countSusut({ beratTerima: k24 }));
     }
   };
 
@@ -69,6 +94,8 @@ const addDataTerimaMasak =
         nama_bahan: data.kode_bahan,
         berat_jadi: parseFloat(data.berat_jadi),
         berat_susut: parseFloat(data.berat_susut),
+        // kadar: parseFloat(data.kadar),
+        // karat_24: parseFloat(data.k24),
       };
 
       const dataBahan = getState().masterbahan.feedback;
@@ -90,6 +117,6 @@ const addDataTerimaMasak =
     }
   };
 
-const data = [getDataTerimaMasak, setBeratSusut, addDataTerimaMasak];
+const data = [getDataTerimaMasak, setBeratSusut, addDataTerimaMasak, set24K];
 
 export default data;
