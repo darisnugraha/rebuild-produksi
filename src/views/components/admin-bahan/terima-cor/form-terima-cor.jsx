@@ -110,7 +110,7 @@ let FormTerimaCOR = ({ visible, onCancel }, prop) => {
                   })} */}
               {dataJenisBahan.map((item) => {
                 return (
-                  <Option value={item.nama_bahan} key={item.kode_bahan}>
+                  <Option value={item.nama_bahan} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );

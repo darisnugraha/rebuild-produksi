@@ -99,7 +99,7 @@ let FormTerimaMasak = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.kode_bahan} key={item.kode_bahan}>
+                  <Option value={item.kode_bahan} key={item._id}>
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );
