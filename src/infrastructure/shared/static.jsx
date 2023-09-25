@@ -295,6 +295,8 @@ const URL_ADD_BATAL_PROSES_JO_TERIMA = `${baseurl}terima-job-order/cancel`;
 const URL_ADD_TERIMA_BAHAN_TUKANG = `${baseurl}saldo-bahan/admin-bahan/terima-bahan-tukang`;
 
 const URL_GET_DIVISI_SUSUT_TUKANG = `${baseurl}divisi/tukang-susut`;
+//newEndpoint
+const URL_GET_TP_SYSTEM = `${baseurl}system`;
 
 const data = {
   URL_GET_JO_ALL,
@@ -591,6 +593,7 @@ const data = {
 
   URL_GET_DIVISI_SUSUT_TUKANG,
   URL_GET_BAHAN_KIRIM_NEW,
+  URL_GET_TP_SYSTEM,
 };
 
 export default data;

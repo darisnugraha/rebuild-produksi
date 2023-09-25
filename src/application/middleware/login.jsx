@@ -41,8 +41,9 @@ const handleLoginFlow =
           const dataKirim = {
             divisi: "ADMIN BAHAN",
           };
-          api.login.createDivisi(dataKirim).then((res) => {
-            if (res.value !== null) {
+          api.login.createDivisi(dataKirim).then(() => {
+            api.System.getSystem().then((res) => {
+              writeLocal("tp_system", res.value[0]);
               dispatch(setLoadingButton(false));
               dispatch(loginSuccess(response?.value));
               writeLocal("userInfo", response?.value);
@@ -55,20 +56,7 @@ const handleLoginFlow =
               dispatch(getAllMasterDivisi);
               window.history.pushState(null, "", "/dashboard");
               window.history.go(0);
-            } else {
-              dispatch(setLoadingButton(false));
-              dispatch(loginSuccess(response?.value));
-              writeLocal("userInfo", response?.value);
-              writeLocal("isLogin", true);
-              message.success({
-                content: "Login Berhasil!",
-                key,
-                duration: 2,
-              });
-              dispatch(getAllMasterDivisi);
-              window.history.pushState(null, "", "/dashboard");
-              window.history.go(0);
-            }
+            });
           });
         });
       } else {

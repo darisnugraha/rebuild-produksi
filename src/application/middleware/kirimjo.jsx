@@ -69,10 +69,7 @@ const getDataDetailJOMidd =
         localStorage.getItem("divisi") === "ADMIN"
           ? "ADMIN PUSAT"
           : localStorage.getItem("divisi");
-      api.KirimJO.getDetailJO(
-        noJO?.toUpperCase(),
-        asalDivisi?.toUpperCase()
-      ).then((res) => {
+      api.KirimJO.getDetailJO(noJO, asalDivisi?.toUpperCase()).then((res) => {
         if (type === "CHANGE") {
           if (res.value !== null) {
             if (res.value.length === 0) {

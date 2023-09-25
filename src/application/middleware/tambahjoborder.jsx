@@ -126,6 +126,7 @@ const addDataDetailJO =
   async (action) => {
     next(action);
     if (action.type === ADD_DATA_DETAIL_JO) {
+      const dataSystem = getLocal("tp_system");
       if (
         getLocal("data_staff") === undefined ||
         getLocal("data_staff") === null
@@ -156,7 +157,8 @@ const addDataDetailJO =
             data.jumlah = parseFloat(data.jumlah);
             data.catatan = data.catatan.toUpperCase();
             data.nama_barang = data.nama_barang.toUpperCase();
-            data.no_job_order = data.no_job_order.toUpperCase();
+            data.no_job_order =
+              dataSystem.kode_toko + "-" + data.no_job_order.toUpperCase();
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);
@@ -183,7 +185,8 @@ const addDataDetailJO =
             data.jumlah = parseFloat(data.jumlah);
             data.catatan = data.catatan.toUpperCase();
             data.nama_barang = data.nama_barang.toUpperCase();
-            data.no_job_order = data.no_job_order.toUpperCase();
+            data.no_job_order =
+              dataSystem.kode_toko + "-" + data.no_job_order.toUpperCase();
             sweetalert.default.Success("Berhasil Menambahkan Data !");
             dispatch(setDataDetailJOSuccess({ feedback: data }));
             dataLocal.push(data);

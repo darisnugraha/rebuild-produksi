@@ -72,6 +72,7 @@ import MasterBillOfMaterials from "./masterbillofmaterials";
 import MasterStatus from "./masterstatus";
 import BatalProsesJO from "./batalprosesjo";
 import CetakBarcode from "./cetakbarcode";
+import System from "./system";
 
 const api = {
   login,
@@ -148,6 +149,7 @@ const api = {
   MasterStatus,
   BatalProsesJO,
   CetakBarcode,
+  System,
 };
 
 export default api;
