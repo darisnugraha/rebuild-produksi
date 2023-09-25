@@ -4,10 +4,15 @@ export const SET_LOGIN_STATE = "[login] set login state";
 export const LOGIN_SUCCESS = "[login] login success";
 export const LOGIN_FAILED = "[login] login failed";
 export const LOGOUT = "[logout] logout";
+export const GET_SYSTEM = "[system] get system";
 
 export const sendLogin = {
   type: SEND_LOGIN,
 };
+
+export const getSystem = () => ({
+  type: GET_SYSTEM,
+});
 
 export const doLogout = (userinfo) => ({
   type: LOGOUT,

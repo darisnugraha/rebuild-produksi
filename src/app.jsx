@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { getMasterDivisi } from "./application/actions/masterdivisi";
 import { checkLogin } from "./application/actions/login";
+import { getSystem } from "./application/actions/login";
 
 class App extends React.Component {
   constructor(props) {
@@ -361,6 +362,7 @@ class App extends React.Component {
     window.addEventListener("online", this.updateStatus);
     window.addEventListener("offline", this.updateStatus);
     this.props.getMasterDivisi();
+    this.props.getSystem();
     const dataUserLocal = getLocal("userInfo");
     if (dataUserLocal !== null) {
       this.props.checkLogin(dataUserLocal);
@@ -466,4 +468,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { getMasterDivisi, checkLogin })(App);
+export default connect(null, { getMasterDivisi, checkLogin, getSystem })(App);

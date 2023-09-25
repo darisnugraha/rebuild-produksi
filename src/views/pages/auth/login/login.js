@@ -2,13 +2,17 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { PageSettings } from "../../../../infrastructure/config/page-settings";
 import FormLogin from "../../../components/login/form-login";
+import AxiosGet from "../../../../infrastructure/axios/get";
 
 class Login extends React.Component {
   static contextType = PageSettings;
 
   constructor(props) {
     super(props);
-
+    this.state = {
+      namaTokoDepan: "",
+      namaTokoBelakang: "",
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -16,6 +20,14 @@ class Login extends React.Component {
     this.context.handleSetPageSidebar(false);
     this.context.handleSetPageHeader(false);
     this.context.handleSetBodyWhiteBg(true);
+    const baseurl = process.env.REACT_APP_BACKEND_URL;
+    AxiosGet({ url: baseurl + "system" }).then((res) => {
+      const namaToko = res.value[0].nama_toko.split(" ");
+      this.setState({
+        namaTokoDepan: namaToko[0],
+        namaTokoBelakang: namaToko[1],
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -42,17 +54,16 @@ class Login extends React.Component {
           ></div>
           <div className="news-caption">
             <h4 className="caption-title">
-              <b>PRODUKSI</b> DEMO
+              <b>{this.state.namaTokoDepan}</b> {this.state.namaTokoBelakang}
             </h4>
-            <p>
-							PRODUKSI DEMO
-						</p>
+            <p>{`${this.state.namaTokoDepan} ${this.state.namaTokoBelakang}`}</p>
           </div>
         </div>
         <div className="right-content">
           <div className="login-header">
             <div className="brand">
-              <span className="logo"></span> <b>PRODUKSI</b> DEMO
+              <span className="logo"></span> <b>{this.state.namaTokoDepan}</b>{" "}
+              {this.state.namaTokoBelakang}
               {/* <small>responsive bootstrap 4 admin template</small> */}
             </div>
             <div className="icon">
@@ -60,7 +71,10 @@ class Login extends React.Component {
             </div>
           </div>
           <div className="login-content">
-            <FormLogin />
+            <FormLogin
+              namaTokoDepan={this.state.namaTokoDepan}
+              namaTokoBelakang={this.state.namaTokoBelakang}
+            />
           </div>
         </div>
       </div>
