@@ -159,6 +159,16 @@ const Menu = [
         is_show: true,
       },
       {
+        path: "/admin-pusat/kirim-jo-cabang",
+        title: "Kirim Job Order Cabang",
+        is_show: true,
+      },
+      {
+        path: "/admin-pusat/terima-jo-cabang",
+        title: "Terima Job Order Cabang",
+        is_show: true,
+      },
+      {
         path: "/admin-pusat/kirim-jo",
         title: "Kirim Job Order",
         is_show: true,

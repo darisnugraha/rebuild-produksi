@@ -9,7 +9,10 @@ import DataStaff from "../../../../application/selectors/mastertukang";
 import DataBahan from "../../../../application/selectors/masterbahan";
 import TambahJobOrder from "../../../../application/selectors/tambahjoborder";
 import {
+  countBeratManual,
   getDataByPohon,
+  getTukangByBahan,
+  setBeratManual,
   setTukang,
   setTypePohonManual,
 } from "../../../../application/actions/tambahjoborder";
@@ -31,16 +34,12 @@ const maptostate = (state) => {
       },
     };
   } else {
-    if (state.tambahjoborder.dataPohon !== undefined) {
-      if (state.tambahjoborder.tukang !== undefined) {
+    if (state.tambahjoborder.pohonManual) {
+      if (state.tambahjoborder.tukangAvail.length === 0) {
         return {
           initialValues: {
-            staff: state.tambahjoborder.tukang,
-            nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-            berat_awal:
-              beratAwal !== null
-                ? beratAwal
-                : state.tambahjoborder.dataPohon?.berat_sisa,
+            nama_bahan: state.tambahjoborder.bahanManual,
+            berat_awal: 0,
             pohon_manual: state.tambahjoborder.pohonManual,
             no_buat: state.tambahjoborder.noPohon,
           },
@@ -48,38 +47,65 @@ const maptostate = (state) => {
       } else {
         return {
           initialValues: {
-            staff: state.mastertukang.feedback[0]?.nama_tukang,
-            nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
-            berat_awal:
-              beratAwal !== null
-                ? beratAwal
-                : state.tambahjoborder.dataPohon?.berat_sisa,
+            staff: state.tambahjoborder.tukang,
+            nama_bahan: state.tambahjoborder.bahanManual,
+            berat_awal: 0,
             pohon_manual: state.tambahjoborder.pohonManual,
             no_buat: state.tambahjoborder.noPohon,
           },
         };
       }
     } else {
-      if (state.tambahjoborder.tukang !== undefined) {
-        return {
-          initialValues: {
-            staff: state.tambahjoborder.tukang,
-            nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
-            berat_awal: 0,
-            pohon_manual: state.tambahjoborder.pohonManual,
-            no_buat: state.tambahjoborder.noPohon,
-          },
-        };
+      if (state.tambahjoborder.dataPohon !== undefined) {
+        if (state.tambahjoborder.tukang !== undefined) {
+          return {
+            initialValues: {
+              staff: state.tambahjoborder.tukang,
+              nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+              berat_awal:
+                beratAwal !== null
+                  ? beratAwal
+                  : state.tambahjoborder.dataPohon?.berat_sisa,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              staff: state.mastertukang.feedback[0]?.nama_tukang,
+              nama_bahan: state.tambahjoborder.dataPohon?.nama_bahan,
+              berat_awal:
+                beratAwal !== null
+                  ? beratAwal
+                  : state.tambahjoborder.dataPohon?.berat_sisa,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        }
       } else {
-        return {
-          initialValues: {
-            staff: state.mastertukang.feedback[0]?.nama_tukang,
-            nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
-            berat_awal: 0,
-            pohon_manual: state.tambahjoborder.pohonManual,
-            no_buat: state.tambahjoborder.noPohon,
-          },
-        };
+        if (state.tambahjoborder.tukang !== undefined) {
+          return {
+            initialValues: {
+              staff: state.tambahjoborder.tukang,
+              nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              staff: state.mastertukang.feedback[0]?.nama_tukang,
+              nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        }
       }
     }
   }
@@ -91,6 +117,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataStaff = useSelector(DataStaff.getAllMasterTukang);
+  const dataStaffByBahan = useSelector(TambahJobOrder.getTukangByBahan);
   const dataBahan = useSelector(DataBahan.getAllMasterBahan);
   // const data = useSelector(TambahJobOrder.getDataPohon);
   // const dataBahanPohon = data?.detail_bahan;
@@ -120,65 +147,31 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               }}
             />
           </Col>
-          <Col span={18}>
-            <Field
-              showSearch
-              name="staff"
-              label={<span style={{ fontSize: "13px" }}>Kode Staff</span>}
-              component={styleAntd.ASelect}
-              placeholder="Pilih Kode Staff"
-              onBlur={(e) => e.preventDefault()}
-              onChange={(e) => dispatch(setTukang(e))}
-            >
-              {dataStaff.map((item) => {
-                return (
-                  <Option value={item.nama_tukang} key={item._id}>
-                    <span style={{ fontSize: "13px" }}>
-                      {item.nama_tukang + " (" + item.kode_tukang + ")"}
-                    </span>
-                  </Option>
-                );
-              })}
-            </Field>
-          </Col>
-          <Col span={12}>
-            <Field
-              name="no_buat"
-              type="text"
-              label={<span style={{ fontSize: "13px" }}>No Pohon</span>}
-              component={styleAntd.AInput}
-              className="form-item-group"
-              placeholder="Masukkan No Pohon"
-              disabled={
-                typePohon
-                  ? true
-                  : localStorage.getItem("berat_awal")
-                  ? true
-                  : false
-              }
-              onChange={(e) => {
-                dispatch(getDataByPohon({ pohon: e.target.value }));
-              }}
-            />
-          </Col>
-          <Col span={12}>
-            <Field
-              showSearch
-              name="nama_bahan"
-              label={<span style={{ fontSize: "13px" }}>Bahan Kembali</span>}
-              component={styleAntd.ASelect}
-              placeholder="Pilih Bahan Kembali"
-              onBlur={(e) => e.preventDefault()}
-              // disabled={data !== undefined ? true : false}
-            >
-              {dataBahan.map((item) => {
-                return (
-                  <Option value={item.nama_bahan} key={item._id}>
-                    <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
-                  </Option>
-                );
-              })}
-              {/* {data !== undefined
+          {typePohon ? (
+            <>
+              <Col span={18}>
+                <Field
+                  showSearch
+                  name="nama_bahan"
+                  label={
+                    <span style={{ fontSize: "13px" }}>Bahan Kembali</span>
+                  }
+                  component={styleAntd.ASelect}
+                  placeholder="Pilih Bahan Kembali"
+                  onBlur={(e) => e.preventDefault()}
+                  onChange={(e) => dispatch(getTukangByBahan({ bahan: e }))}
+                  // disabled={data !== undefined ? true : false}
+                >
+                  {dataBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })}
+                  {/* {data !== undefined
                 ? dataBahanPohon.map((item) => {
                     return (
                       <Option value={item.nama_bahan} key={item._id}>
@@ -197,8 +190,142 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                       </Option>
                     );
                   })} */}
-            </Field>
-          </Col>
+                </Field>
+              </Col>
+              <Col span={12} className="d-none">
+                <Field
+                  name="no_buat"
+                  type="text"
+                  label={<span style={{ fontSize: "13px" }}>No Pohon</span>}
+                  component={styleAntd.AInput}
+                  className="form-item-group"
+                  placeholder="Masukkan No Pohon"
+                  disabled={
+                    typePohon
+                      ? true
+                      : localStorage.getItem("berat_awal")
+                      ? true
+                      : false
+                  }
+                  onChange={(e) => {
+                    dispatch(getDataByPohon({ pohon: e.target.value }));
+                  }}
+                />
+              </Col>
+              <Col span={12}>
+                <Field
+                  showSearch
+                  name="staff"
+                  label={<span style={{ fontSize: "13px" }}>Kode Staff</span>}
+                  component={styleAntd.ASelect}
+                  placeholder="Pilih Kode Staff"
+                  onBlur={(e) => e.preventDefault()}
+                  onChange={(e) => {
+                    dispatch(setTukang(e.split("|")[0]));
+                    dispatch(setBeratManual(e.split("|")[1]));
+                  }}
+                >
+                  {dataStaffByBahan.map((item) => {
+                    return (
+                      <Option
+                        value={item.tukang + "|" + item.berat}
+                        key={item._id}
+                      >
+                        <span style={{ fontSize: "13px" }}>{item.tukang}</span>
+                      </Option>
+                    );
+                  })}
+                </Field>
+              </Col>
+            </>
+          ) : (
+            <>
+              <Col span={18}>
+                <Field
+                  showSearch
+                  name="staff"
+                  label={<span style={{ fontSize: "13px" }}>Kode Staff</span>}
+                  component={styleAntd.ASelect}
+                  placeholder="Pilih Kode Staff"
+                  onBlur={(e) => e.preventDefault()}
+                  onChange={(e) => dispatch(setTukang(e))}
+                >
+                  {dataStaff.map((item) => {
+                    return (
+                      <Option value={item.nama_tukang} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_tukang + " (" + item.kode_tukang + ")"}
+                        </span>
+                      </Option>
+                    );
+                  })}
+                </Field>
+              </Col>
+              <Col span={12}>
+                <Field
+                  name="no_buat"
+                  type="text"
+                  label={<span style={{ fontSize: "13px" }}>No Pohon</span>}
+                  component={styleAntd.AInput}
+                  className="form-item-group"
+                  placeholder="Masukkan No Pohon"
+                  disabled={
+                    typePohon
+                      ? true
+                      : localStorage.getItem("berat_awal")
+                      ? true
+                      : false
+                  }
+                  onChange={(e) => {
+                    dispatch(getDataByPohon({ pohon: e.target.value }));
+                  }}
+                />
+              </Col>
+              <Col span={12}>
+                <Field
+                  showSearch
+                  name="nama_bahan"
+                  label={
+                    <span style={{ fontSize: "13px" }}>Bahan Kembali</span>
+                  }
+                  component={styleAntd.ASelect}
+                  placeholder="Pilih Bahan Kembali"
+                  onBlur={(e) => e.preventDefault()}
+                  // disabled={data !== undefined ? true : false}
+                >
+                  {dataBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })}
+                  {/* {data !== undefined
+                ? dataBahanPohon.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })
+                : dataBahan.map((item) => {
+                    return (
+                      <Option value={item.nama_bahan} key={item._id}>
+                        <span style={{ fontSize: "13px" }}>
+                          {item.nama_bahan}
+                        </span>
+                      </Option>
+                    );
+                  })} */}
+                </Field>
+              </Col>
+            </>
+          )}
+
           <Col span={12}>
             <Field
               name="berat_awal"
@@ -207,6 +334,7 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.AInput}
               className="form-item-group"
               placeholder="Masukkan Berat Awal"
+              onChange={(e) => dispatch(countBeratManual(e.target.value))}
               disabled={!typePohon}
             />
           </Col>

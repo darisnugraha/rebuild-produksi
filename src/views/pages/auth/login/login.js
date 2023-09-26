@@ -22,10 +22,9 @@ class Login extends React.Component {
     this.context.handleSetBodyWhiteBg(true);
     const baseurl = process.env.REACT_APP_BACKEND_URL;
     AxiosGet({ url: baseurl + "system" }).then((res) => {
-      const namaToko = res.value[0].nama_toko.split(" ");
+      const namaToko = res.value[0].nama_toko;
       this.setState({
-        namaTokoDepan: namaToko[0],
-        namaTokoBelakang: namaToko[1],
+        namaTokoBelakang: namaToko,
       });
     });
   }
@@ -54,15 +53,15 @@ class Login extends React.Component {
           ></div>
           <div className="news-caption">
             <h4 className="caption-title">
-              <b>{this.state.namaTokoDepan}</b> {this.state.namaTokoBelakang}
+              <b>PRODUKSI</b> {this.state.namaTokoBelakang}
             </h4>
-            <p>{`${this.state.namaTokoDepan} ${this.state.namaTokoBelakang}`}</p>
+            <p>{`PRODUKSI ${this.state.namaTokoBelakang}`}</p>
           </div>
         </div>
         <div className="right-content">
           <div className="login-header">
             <div className="brand">
-              <span className="logo"></span> <b>{this.state.namaTokoDepan}</b>{" "}
+              <span className="logo"></span> <b>PRODUKSI</b>{" "}
               {this.state.namaTokoBelakang}
               {/* <small>responsive bootstrap 4 admin template</small> */}
             </div>
@@ -72,7 +71,7 @@ class Login extends React.Component {
           </div>
           <div className="login-content">
             <FormLogin
-              namaTokoDepan={this.state.namaTokoDepan}
+              namaTokoDepan="PRODUKSI"
               namaTokoBelakang={this.state.namaTokoBelakang}
             />
           </div>

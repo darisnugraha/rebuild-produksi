@@ -92,6 +92,8 @@ import BatalProsesJO from "../../views/pages/admin-pusat/batal-proses-job-order"
 import LaporanSusutProduksi from "../../views/pages/laporan/laporan-produksi/laporan-susut-produksi";
 import CetakBarcode from "../../views/pages/utility/cetak-barcode";
 import getLocal from "../services/local/get-local";
+import KirimJOCabang from "../../views/pages/admin-pusat/kirim-jo-cabang";
+import TerimaJOCabang from "../../views/pages/admin-pusat/terima-jo-cabang";
 
 const routes = [
   {
@@ -234,6 +236,20 @@ const routes = [
     path: "/admin-pusat/tambah-jo",
     title: "Tambah Job Order",
     component: () => <TambahJobOrder />,
+  },
+  {
+    path: "/admin-pusat/kirim-jo-cabang",
+    title: "Kirim Job Order Cabang",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <KirimJOCabang />,
+  },
+  {
+    path: "/admin-pusat/terima-jo-cabang",
+    title: "Terima Job Order Cabang",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <TerimaJOCabang />,
   },
   {
     path: "/admin-pusat/kirim-jo",

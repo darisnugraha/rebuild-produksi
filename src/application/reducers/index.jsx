@@ -73,6 +73,8 @@ import masterbillofmaterials from "./masterbillofmaterials";
 import masterstatus from "./masterstatus";
 import batalprosesjo from "./bataprosesjo";
 import cetakbarcode from "./cetakbarcode";
+import kirimjocabang from "./kirimjocabang";
+import terimajocabang from "./terimajocabang";
 
 export default combineReducers({
   login,
@@ -148,5 +150,7 @@ export default combineReducers({
   masterstatus,
   batalprosesjo,
   cetakbarcode,
+  kirimjocabang,
+  terimajocabang,
   form: formReducer,
 });

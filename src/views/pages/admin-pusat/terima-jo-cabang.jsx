@@ -7,24 +7,18 @@ import {
   PanelBody,
   PanelFooter,
 } from "./../../components/panel/panel.jsx";
-import { Button, Card, Divider } from "antd";
+import { Button, Card } from "antd";
 import { pageLoadedLogin } from "../../../application/actions/ui";
-import FormKirimJOCabang from "../../components/admin-pusat/kirim-jo-cabang/button-kirim-jo-cabang.jsx";
+import FormTerimaJOCabang from "../../components/admin-pusat/terima-jo-cabang/button-terima-jo-cabang.jsx";
 import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
-import { getAllDivisi } from "../../../application/actions/kirimbahanadmin.jsx";
-import { getAllMasterTukang } from "../../../application/actions/mastertukang.jsx";
-import { getAllMasterBahan } from "../../../application/actions/masterbahan.jsx";
-import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
-import TableKirimJOCabang from "../../components/admin-pusat/kirim-jo-cabang/table-kirim-jo-cabang.jsx";
 import {
-  addLocalTambahan,
-  getAllNoJobOrder,
+  addTerimaJO,
   getNoIndukJobOrder,
-} from "../../../application/actions/kirimjocabang.jsx";
-import { getAllCabang } from "../../../application/actions/kirimjocabang.jsx";
+} from "../../../application/actions/terimajocabang.jsx";
+import TableTerimaJOCabang from "../../components/admin-pusat/terima-jo-cabang/table-terima-jo-cabang.jsx";
 
-const KirimJOCabang = () => {
+const TerimaJOCabang = () => {
   const dispatch = useDispatch();
   let locationLink = useLocation();
   const [pageTitleDisplay, setTitle] = useState("");
@@ -34,23 +28,13 @@ const KirimJOCabang = () => {
       return list.path === pathLocation.pathname;
     });
     setTitle(dataLocation[0].menu);
-    if (dataLocation[0].divisi === "Admin") {
-      localStorage.setItem("divisi", dataLocation[0].divisi.toUpperCase());
-    } else {
-      localStorage.setItem("divisi", dataLocation[0].divisi);
-    }
-    document.title = dataLocation[0].menu + " Kirim JO Cabang";
+    localStorage.setItem("divisi", dataLocation[0].divisi);
+    document.title = dataLocation[0].menu + " Terima JO";
   }, []);
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getAllDivisi);
-    dispatch(getAllMasterTukang);
-    dispatch(getAllMasterBahan);
-    dispatch(getAllMasterBatu);
     dispatch(getNoIndukJobOrder);
-    dispatch(getAllNoJobOrder);
-    dispatch(getAllCabang);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -65,26 +49,21 @@ const KirimJOCabang = () => {
         <li className="breadcrumb-item">
           <Link to={locationLink}>{pageTitleDisplay}</Link>
         </li>
-        <li className="breadcrumb-item active">Kirim JO Cabang</li>
+        <li className="breadcrumb-item active">Terima JO Cabang</li>
       </ol>
       <h1 className="page-header">
-        {pageTitleDisplay} <small>Kirim JO Cabang</small>
+        {pageTitleDisplay} <small>Terima JO Cabang</small>
       </h1>
       <Panel>
-        <PanelHeader>Kirim JO Cabang</PanelHeader>
+        <PanelHeader>Terima JO Cabang</PanelHeader>
         <PanelBody>
           <Card bordered={false}>
             <div className="row">
               <div className="col-12">
-                <FormKirimJOCabang />
+                <FormTerimaJOCabang />
               </div>
-              <div className="col-12">
-                <Divider orientation="left" style={{ fontSize: "14px" }}>
-                  Tabel Job Order
-                </Divider>
-              </div>
-              <div className="col-12">
-                <TableKirimJOCabang />
+              <div className="col-12" style={{ paddingTop: 10 }}>
+                <TableTerimaJOCabang />
               </div>
             </div>
           </Card>
@@ -95,7 +74,7 @@ const KirimJOCabang = () => {
               <Button
                 type="primary"
                 onClick={() => {
-                  dispatch(addLocalTambahan);
+                  dispatch(addTerimaJO);
                 }}
               >
                 Simpan
@@ -105,9 +84,7 @@ const KirimJOCabang = () => {
               <Button
                 type="danger"
                 onClick={() => {
-                  localStorage.removeItem("kirim_jo_head");
-                  localStorage.removeItem("detail_batu");
-                  localStorage.removeItem("detail_tambahan");
+                  localStorage.removeItem("terima_jo_head");
                   window.location.reload();
                 }}
               >
@@ -121,4 +98,4 @@ const KirimJOCabang = () => {
   );
 };
 
-export default KirimJOCabang;
+export default TerimaJOCabang;

@@ -10,6 +10,9 @@ import {
   setBeratBalik,
   SET_TYPE_POHON_MANUAL,
   getDataByPohon,
+  setTukangByBahan,
+  GET_TUKANG_BY_BAHAN,
+  COUNT_BERAT_MANUAL,
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { change } from "redux-form";
@@ -36,6 +39,8 @@ const addCheckoutJobOrder =
         );
       } else {
         const dataKirim = {
+          berat_awal: parseFloat(data[0].berat_awal),
+          pohon_manual: data[0].pohon_manual,
           berat_balik: parseFloat(getLocal("berat_awal")),
           job_order: [],
         };
@@ -50,7 +55,7 @@ const addCheckoutJobOrder =
             berat: parseFloat(element.berat),
             jumlah: parseInt(element.jumlah),
             berat_balik: parseFloat(element.berat_balik),
-            tukang: data[0].staff,
+            tukang: data[0].staff.split("|")[0],
             kode_marketing: element.marketing,
             kode_customer: element.customer,
             catatan: element.catatan,
@@ -84,6 +89,17 @@ const addDataStaff =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === GET_TUKANG_BY_BAHAN) {
+      const bahan = action.payload.data;
+      api.TambahJobOrder.getDataTukangByBahan(bahan).then((res) => {
+        if (res.value !== null) {
+          dispatch(setTukangByBahan({ feedback: res.value }));
+        } else {
+          dispatch(setTukangByBahan({ feedback: [] }));
+          dispatch(change("FormDataStaff", "staff", ""));
+        }
+      });
+    }
     if (action.type === GET_DATA_BY_POHON) {
       const pohon = action.payload.data;
       api.TambahJobOrder.getDataPohon(pohon).then((res) => {
@@ -205,8 +221,18 @@ const countDataBeratBalik =
   (next) =>
   async (action) => {
     next(action);
+    if (action.type === COUNT_BERAT_MANUAL) {
+      const berat_awal = parseFloat(action.payload.data || 0);
+      const berat_stock = parseFloat(getState().tambahjoborder.beratManual);
+      console.log(berat_stock);
+      if (berat_awal > berat_stock) {
+        sweetalert.default.Failed(
+          "Berat Awal Tidak Boleh Melebihi Berat Tukang !"
+        );
+        dispatch(change("FormDataStaff", "berat_awal", 0));
+      }
+    }
     if (action.type === COUNT_BERAT_BALIK) {
-      console.log("test");
       const beratBahan = parseFloat(action.payload.data || 0);
       const data = getState().form.FormDetailJobOrder.values;
       const beratBarang = parseFloat(data.berat_potong || 0);

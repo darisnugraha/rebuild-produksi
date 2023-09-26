@@ -23,10 +23,9 @@ class Header extends React.Component {
     this.setState({ collapseMegaMenu: !this.state.collapseMegaMenu });
   }
   componentDidMount() {
-    const namaToko = getLocal("tp_system").nama_toko.split(" ");
+    const namaToko = getLocal("tp_system").nama_toko;
     this.setState({
-      namaTokoDepan: namaToko[0],
-      namaTokoBelakang: namaToko[1],
+      namaTokoBelakang: namaToko,
     });
   }
   render() {
@@ -57,8 +56,7 @@ class Header extends React.Component {
                 </button>
               )}
               <Link to="/" className="navbar-brand">
-                <span className="navbar-logo"></span>{" "}
-                <b>{this.state.namaTokoDepan} &nbsp;</b>{" "}
+                <span className="navbar-logo"></span> <b>PRODUKSI &nbsp;</b>{" "}
                 {this.state.namaTokoBelakang}
               </Link>
 

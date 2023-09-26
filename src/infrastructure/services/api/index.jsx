@@ -73,6 +73,8 @@ import MasterStatus from "./masterstatus";
 import BatalProsesJO from "./batalprosesjo";
 import CetakBarcode from "./cetakbarcode";
 import System from "./system";
+import KirimJOCabang from "./kirimjocabang";
+import TerimaJOCabang from "./terimajocabang";
 
 const api = {
   login,
@@ -150,6 +152,8 @@ const api = {
   BatalProsesJO,
   CetakBarcode,
   System,
+  KirimJOCabang,
+  TerimaJOCabang,
 };
 
 export default api;

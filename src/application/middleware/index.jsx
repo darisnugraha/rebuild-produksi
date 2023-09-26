@@ -72,6 +72,8 @@ import masterbillofmaterials from "./masterbillofmaterials";
 import masterstatus from "./masterstatus";
 import batalprosesjo from "./batalprosesjo";
 import cetakbarcode from "./cetakbarcode";
+import kirimjocabang from "./kirimjocabang";
+import terimajocabang from "./terimajocabang";
 
 const midd = [
   ...ui,
@@ -148,6 +150,8 @@ const midd = [
   ...masterstatus,
   ...batalprosesjo,
   ...cetakbarcode,
+  ...kirimjocabang,
+  ...terimajocabang,
 ];
 
 export default midd;
