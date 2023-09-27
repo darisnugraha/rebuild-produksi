@@ -126,7 +126,7 @@ const addDataDetailJO =
   async (action) => {
     next(action);
     if (action.type === ADD_DATA_DETAIL_JO) {
-      const dataSystem = getLocal("tp_system");
+      // const dataSystem = getLocal("tp_system");
       if (
         getLocal("data_staff") === undefined ||
         getLocal("data_staff") === null
