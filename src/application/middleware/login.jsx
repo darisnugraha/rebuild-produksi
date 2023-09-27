@@ -7,7 +7,7 @@ import {
   loginSuccess,
   LOGOUT,
   SEND_LOGIN,
-  GET_SYSTEM,
+  // GET_SYSTEM,
 } from "../actions/login";
 import { getAllMasterDivisi } from "../actions/masterdivisi.jsx";
 import { setLoadingButton } from "../actions/ui";
@@ -86,11 +86,11 @@ const handleCheckLoginFlow =
         }
       });
     }
-    if (action.type === GET_SYSTEM) {
-      api.System.getSystem().then((res) => {
-        writeLocal("tp_system", res.value[0]);
-      });
-    }
+    // if (action.type === GET_SYSTEM) {
+    //   api.System.getSystem().then((res) => {
+    //     writeLocal("tp_system", res.value[0]);
+    //   });
+    // }
   };
 
 const handleLogout =
