@@ -27,6 +27,7 @@ import {
   getSaldoKirimBahanOpenChange,
   // getBahanByTukangTujuan,
   GET_BAHAN_BY_TUKANG_ASAL,
+  getBahanByTukangTujuan,
   // getBahanByTukangAsal,
 } from "../actions/terimabahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
@@ -59,6 +60,12 @@ const tukangDivisGetAll =
           // dispatch(
           //   getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
           // );
+          const data = getState().form.FormTerimaBahan.values;
+          dispatch(
+            getBahanByTukangTujuan({
+              staff: data.staff_tujuan,
+            })
+          );
         } else {
           dispatch(setTukangAsalByDivisi({ feedback: [] }));
         }
@@ -108,9 +115,9 @@ const getDetailBahanMidd =
       const bahan = action.payload.data;
       const dataKirim = {
         divisi:
-          data.divisi.toUpperCase() === "ADMIN"
+          data.divisi?.toUpperCase() === "ADMIN"
             ? "ADMIN PUSAT"
-            : data.divisi.toUpperCase(),
+            : data.divisi?.toUpperCase(),
         tukang: data.staff,
         divisi_asal: data.divisi_asal,
         nama_bahan: bahan,
@@ -136,7 +143,7 @@ const getDataBahan =
         const data = getState().form.FormTerimaBahan.values;
         const dataKirim = {
           divisi: data.divisi_asal,
-          divisi_tujuan: data.divisi.toUpperCase(),
+          divisi_tujuan: data.divisi?.toUpperCase(),
           tukang_asal: data.staff,
         };
         api.TerimaBahan.getBahan(dataKirim).then((res) => {
@@ -165,7 +172,7 @@ const getDataBahan =
         const data = getState().form.FormTerimaBahan.values;
         const dataKirim = {
           divisi: data.divisi_asal,
-          divisi_tujuan: data.divisi.toUpperCase(),
+          divisi_tujuan: data.divisi?.toUpperCase(),
           tukang_asal: action.payload.data,
         };
         api.TerimaBahan.getBahan(dataKirim).then((res) => {
@@ -202,7 +209,7 @@ const setDataBeratBahan =
       const namaBahan = action.payload.data.replace("+", "-");
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: data.staff,
         tukang_tujuan: data.staff_tujuan,
         nama_bahan: namaBahan,
@@ -231,13 +238,13 @@ const addTerimaTambahan =
     next(action);
     if (action.type === ADD_TERIMA_BAHAN) {
       const data = getState().form.FormTerimaBahan.values;
-      if (data.divisi_asal.toUpperCase() === "ADMIN BAHAN") {
+      if (data.divisi_asal?.toUpperCase() === "ADMIN BAHAN") {
         const onSendData = {
-          divisi_asal: data.divisi_asal.toUpperCase(),
+          divisi_asal: data.divisi_asal?.toUpperCase(),
           divisi_tujuan:
-            data.divisi.toUpperCase() === "ADMIN"
+            data.divisi?.toUpperCase() === "ADMIN"
               ? "ADMIN PUSAT"
-              : data.divisi.toUpperCase(),
+              : data.divisi?.toUpperCase(),
           tukang_tujuan: data.staff_tujuan,
           tukang_asal: "ADMIN BAHAN",
           nama_bahan: data.nama_bahan,
@@ -256,8 +263,8 @@ const addTerimaTambahan =
         });
       } else {
         const onSendData = {
-          divisi_asal: data.divisi_asal.toUpperCase(),
-          divisi_tujuan: data.divisi.toUpperCase(),
+          divisi_asal: data.divisi_asal?.toUpperCase(),
+          divisi_tujuan: data.divisi?.toUpperCase(),
           tukang_tujuan: data.staff_tujuan,
           tukang_asal: data.staff,
           nama_bahan: data.nama_bahan,
@@ -289,7 +296,7 @@ const getDataBahanByTukangTujuan =
       const data = getState().form.FormTerimaBahan.values;
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: data.staff,
         tukang_tujuan: action.payload.data,
         nama_bahan: "ALL",
@@ -336,7 +343,7 @@ const getDataBahanByTukangTujuan =
       const data = getState().form.FormTerimaBahan.values;
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: action.payload.data,
         tukang_tujuan: data.staff_tujuan,
         nama_bahan: "ALL",

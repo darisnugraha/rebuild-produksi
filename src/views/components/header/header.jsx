@@ -6,7 +6,6 @@ import DropdownProfile from "./dropdown/profile.jsx";
 import SearchForm from "./search/form.jsx";
 import DropdownMegaMenu from "./dropdown/mega.jsx";
 import { PageSettings } from "../../../infrastructure/config/page-settings";
-import getLocal from "../../../infrastructure/services/local/get-local.jsx";
 
 class Header extends React.Component {
   constructor(props) {
@@ -14,20 +13,11 @@ class Header extends React.Component {
     this.toggleMegaMenu = this.toggleMegaMenu.bind(this);
     this.state = {
       collapseMegaMenu: false,
-      namaTokoDepan: "",
-      namaTokoBelakang: "",
     };
   }
 
   toggleMegaMenu() {
     this.setState({ collapseMegaMenu: !this.state.collapseMegaMenu });
-  }
-  componentDidMount() {
-    const namaToko = getLocal("tp_system").nama_toko.split(" ");
-    this.setState({
-      namaTokoDepan: namaToko[0],
-      namaTokoBelakang: namaToko[1],
-    });
   }
   render() {
     return (
@@ -57,9 +47,8 @@ class Header extends React.Component {
                 </button>
               )}
               <Link to="/" className="navbar-brand">
-                <span className="navbar-logo"></span>{" "}
-                <b>{this.state.namaTokoDepan} &nbsp;</b>{" "}
-                {this.state.namaTokoBelakang}
+                <span className="navbar-logo"></span> <b>PRODUKSI &nbsp;</b>{" "}
+                DEMO
               </Link>
 
               {pageHeaderMegaMenu && (
