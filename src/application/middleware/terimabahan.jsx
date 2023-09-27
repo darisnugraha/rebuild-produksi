@@ -144,7 +144,7 @@ const getDataBahan =
         const dataKirim = {
           divisi: data.divisi_asal,
           divisi_tujuan: data.divisi?.toUpperCase(),
-          tukang_asal: data.staff,
+          tukang_asal: data.staff.split("|")[0],
         };
         api.TerimaBahan.getBahan(dataKirim).then((res) => {
           if (res.value !== null) {
@@ -210,7 +210,7 @@ const setDataBeratBahan =
       const dataKirim = {
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi?.toUpperCase(),
-        tukang_asal: data.staff,
+        tukang_asal: data.staff.split("|")[0],
         tukang_tujuan: data.staff_tujuan,
         nama_bahan: namaBahan,
       };
@@ -266,7 +266,7 @@ const addTerimaTambahan =
           divisi_asal: data.divisi_asal?.toUpperCase(),
           divisi_tujuan: data.divisi?.toUpperCase(),
           tukang_tujuan: data.staff_tujuan,
-          tukang_asal: data.staff,
+          tukang_asal: data.staff.split("|")[0],
           nama_bahan: data.nama_bahan,
           berat: parseFloat(data.berat_bahan),
         };
@@ -297,7 +297,7 @@ const getDataBahanByTukangTujuan =
       const dataKirim = {
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi?.toUpperCase(),
-        tukang_asal: data.staff,
+        tukang_asal: data.staff.split("|")[0],
         tukang_tujuan: action.payload.data,
         nama_bahan: "ALL",
       };
