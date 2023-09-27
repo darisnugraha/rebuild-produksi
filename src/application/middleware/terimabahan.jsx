@@ -27,6 +27,7 @@ import {
   getSaldoKirimBahanOpenChange,
   // getBahanByTukangTujuan,
   GET_BAHAN_BY_TUKANG_ASAL,
+  getBahanByTukangTujuan,
   // getBahanByTukangAsal,
 } from "../actions/terimabahan";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
@@ -59,6 +60,12 @@ const tukangDivisGetAll =
           // dispatch(
           //   getBahanbyDivisiAndStaff({ staff: res.value[0]?.nama_tukang })
           // );
+          const data = getState().form.FormTerimaBahan.values;
+          dispatch(
+            getBahanByTukangTujuan({
+              staff: data.staff_tujuan,
+            })
+          );
         } else {
           dispatch(setTukangAsalByDivisi({ feedback: [] }));
         }
@@ -202,7 +209,7 @@ const setDataBeratBahan =
       const namaBahan = action.payload.data.replace("+", "-");
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: data.staff,
         tukang_tujuan: data.staff_tujuan,
         nama_bahan: namaBahan,
@@ -289,7 +296,7 @@ const getDataBahanByTukangTujuan =
       const data = getState().form.FormTerimaBahan.values;
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: data.staff,
         tukang_tujuan: action.payload.data,
         nama_bahan: "ALL",
@@ -336,7 +343,7 @@ const getDataBahanByTukangTujuan =
       const data = getState().form.FormTerimaBahan.values;
       const dataKirim = {
         divisi: data.divisi_asal,
-        divisi_tujuan: data.divisi.toUpperCase(),
+        divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: action.payload.data,
         tukang_tujuan: data.staff_tujuan,
         nama_bahan: "ALL",
