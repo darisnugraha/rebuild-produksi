@@ -145,6 +145,16 @@ const Menu = [
         title: "Terima Bahan Tukang",
         is_show: true,
       },
+      {
+        path: "/admin-bahan/kirim-bahan-cabang",
+        title: "Kirim Bahan ke Cabang",
+        is_show: true,
+      },
+      // {
+      //   path: "/admin-bahan/terima-bahan-tukang",
+      //   title: "Terima Bahan Tukang",
+      //   is_show: true,
+      // },
     ],
   },
   {

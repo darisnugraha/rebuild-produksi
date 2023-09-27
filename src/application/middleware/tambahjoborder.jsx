@@ -13,6 +13,7 @@ import {
   setTukangByBahan,
   GET_TUKANG_BY_BAHAN,
   COUNT_BERAT_MANUAL,
+  setBeratManual,
 } from "../actions/tambahjoborder";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
 import { change } from "redux-form";
@@ -94,7 +95,9 @@ const addDataStaff =
       api.TambahJobOrder.getDataTukangByBahan(bahan).then((res) => {
         if (res.value !== null) {
           dispatch(setTukangByBahan({ feedback: res.value }));
+          dispatch(setBeratManual(res.value[0]?.berat));
         } else {
+          dispatch(setBeratManual(0));
           dispatch(setTukangByBahan({ feedback: [] }));
           dispatch(change("FormDataStaff", "staff", ""));
         }

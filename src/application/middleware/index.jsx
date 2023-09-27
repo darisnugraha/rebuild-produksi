@@ -74,6 +74,7 @@ import batalprosesjo from "./batalprosesjo";
 import cetakbarcode from "./cetakbarcode";
 import kirimjocabang from "./kirimjocabang";
 import terimajocabang from "./terimajocabang";
+import kirimbahancabang from "./kirimbahancabang";
 
 const midd = [
   ...ui,
@@ -152,6 +153,7 @@ const midd = [
   ...cetakbarcode,
   ...kirimjocabang,
   ...terimajocabang,
+  ...kirimbahancabang,
 ];
 
 export default midd;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import { Form, Row, Col, Select, Modal } from "antd";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -36,24 +36,54 @@ const maptostate = (state) => {
   } else {
     if (state.tambahjoborder.pohonManual) {
       if (state.tambahjoborder.tukangAvail.length === 0) {
-        return {
-          initialValues: {
-            nama_bahan: state.tambahjoborder.bahanManual,
-            berat_awal: 0,
-            pohon_manual: state.tambahjoborder.pohonManual,
-            no_buat: state.tambahjoborder.noPohon,
-          },
-        };
+        if (state.tambahjoborder.bahanManual === undefined) {
+          return {
+            initialValues: {
+              nama_bahan: state.masterbahan.feedback[0]?.nama_bahan,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+              staff:
+                state.tambahjoborder.tukangAvail[0]?.tukang +
+                "|" +
+                state.tambahjoborder.tukangAvail[0]?.berat,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              nama_bahan: state.tambahjoborder.bahanManual,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        }
       } else {
-        return {
-          initialValues: {
-            staff: state.tambahjoborder.tukang,
-            nama_bahan: state.tambahjoborder.bahanManual,
-            berat_awal: 0,
-            pohon_manual: state.tambahjoborder.pohonManual,
-            no_buat: state.tambahjoborder.noPohon,
-          },
-        };
+        if (state.tambahjoborder.tukang === undefined) {
+          return {
+            initialValues: {
+              staff:
+                state.tambahjoborder.tukangAvail[0]?.tukang +
+                "|" +
+                state.tambahjoborder.tukangAvail[0]?.berat,
+              nama_bahan: state.tambahjoborder.bahanManual,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        } else {
+          return {
+            initialValues: {
+              staff: state.tambahjoborder.tukang,
+              nama_bahan: state.tambahjoborder.bahanManual,
+              berat_awal: 0,
+              pohon_manual: state.tambahjoborder.pohonManual,
+              no_buat: state.tambahjoborder.noPohon,
+            },
+          };
+        }
       }
     } else {
       if (state.tambahjoborder.dataPohon !== undefined) {
@@ -122,6 +152,9 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
   // const data = useSelector(TambahJobOrder.getDataPohon);
   // const dataBahanPohon = data?.detail_bahan;
   const typePohon = useSelector(TambahJobOrder.getTypePohonManual);
+  useEffect(() => {
+    dispatch(getTukangByBahan({ bahan: dataBahan[0]?.nama_bahan }));
+  }, [dispatch, dataBahan]);
 
   return (
     <Modal

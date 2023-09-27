@@ -94,6 +94,7 @@ import CetakBarcode from "../../views/pages/utility/cetak-barcode";
 import getLocal from "../services/local/get-local";
 import KirimJOCabang from "../../views/pages/admin-pusat/kirim-jo-cabang";
 import TerimaJOCabang from "../../views/pages/admin-pusat/terima-jo-cabang";
+import KirimBahanCabang from "../../views/pages/admin-bahan/kirim-bahan-cabang";
 
 const routes = [
   {
@@ -225,6 +226,11 @@ const routes = [
     path: "/admin-bahan/kirim-bahan-admin",
     title: "Kirim Bahan Admin",
     component: () => <KirimBahanAdmin />,
+  },
+  {
+    path: "/admin-bahan/kirim-bahan-cabang",
+    title: "Kirim Bahan Cabang",
+    component: () => <KirimBahanCabang />,
   },
   {
     path: "/admin-bahan/terima-bahan-tukang",
