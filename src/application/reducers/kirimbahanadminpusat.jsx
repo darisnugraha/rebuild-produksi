@@ -15,6 +15,7 @@ import {
   GET_STAFF_BY_DIVISI,
   SET_BAHAN_BY_TUKANG_ASAL,
   GET_ALL_STOCK_BAHAN_BY_STAFF,
+  SET_STAFF_TUJUAN,
 } from "../actions/kirimbahanadminpusat";
 
 const initialState = {
@@ -31,10 +32,16 @@ const initialState = {
   divisi: undefined,
   bahan: undefined,
   tukang: undefined,
+  tukangtujuan: undefined,
 };
 
 const kirimbahanadminpusat = (state = initialState, action) => {
   switch (action.type) {
+    case SET_STAFF_TUJUAN:
+      return {
+        ...state,
+        tukangtujuan: action.payload.data,
+      };
     case SET_DATA_STOCK_BAHAN_DIVISI_SUCCESS:
       return {
         ...state,

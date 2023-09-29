@@ -75,7 +75,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-joecollin": "export REACT_APP_BACKEND_URL=https://103.150.120.35:8049/api/v1/&& react-scripts start",
-    "start-qc": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8051/api/v1/&& react-scripts start",
+    "start-vc": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8051/api/v1/&& react-scripts start",
     "start-dede-rebuild": "export REACT_APP_BACKEND_URL=http://192.168.0.117:7777/api/v1/&& react-scripts start",
     "start-dede-ngrok": "export REACT_APP_BACKEND_URL=https://51da-125-164-16-246.ngrok-free.app/api/v1/&& react-scripts start",
     "==========": "==================================================== Data Toko Client =============================================================================================================================================================================",

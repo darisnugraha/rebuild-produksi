@@ -211,7 +211,7 @@ const setDataBeratBahan =
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: data.staff.split("|")[0],
-        tukang_tujuan: data.staff_tujuan,
+        tukang_tujuan: data.staff_tujuan.split("|")[0],
         nama_bahan: namaBahan,
       };
       api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
@@ -245,9 +245,9 @@ const addTerimaTambahan =
             data.divisi?.toUpperCase() === "ADMIN"
               ? "ADMIN PUSAT"
               : data.divisi?.toUpperCase(),
-          tukang_tujuan: data.staff_tujuan,
+          tukang_tujuan: data.staff_tujuan.split("|")[0],
           tukang_asal: "ADMIN BAHAN",
-          nama_bahan: data.nama_bahan,
+          nama_bahan: data.nama_bahan.split("|")[0],
           berat: parseFloat(data.berat_bahan),
         };
         api.TerimaBahan.addTerimaBahan(onSendData).then((res) => {
@@ -265,9 +265,9 @@ const addTerimaTambahan =
         const onSendData = {
           divisi_asal: data.divisi_asal?.toUpperCase(),
           divisi_tujuan: data.divisi?.toUpperCase(),
-          tukang_tujuan: data.staff_tujuan,
+          tukang_tujuan: data.staff_tujuan.split("|")[0],
           tukang_asal: data.staff.split("|")[0],
-          nama_bahan: data.nama_bahan,
+          nama_bahan: data.nama_bahan.split("|")[0],
           berat: parseFloat(data.berat_bahan),
         };
         api.TerimaBahan.addTerimaBahan(onSendData).then((res) => {
@@ -345,7 +345,7 @@ const getDataBahanByTukangTujuan =
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi?.toUpperCase(),
         tukang_asal: action.payload.data,
-        tukang_tujuan: data.staff_tujuan,
+        tukang_tujuan: data.staff_tujuan.split("|")[0],
         nama_bahan: "ALL",
       };
       api.TerimaBahan.getBahanNew(dataKirim).then((res) => {
