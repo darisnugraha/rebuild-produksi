@@ -51,7 +51,7 @@ let FormDetailBatuCabang = ({ visible, onCreate, onCancel }, prop) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const dataBatu = useSelector(Batu.getAllMasterBatu);
-  const dataJO = getLocal("kirim_jo_head") || [];
+  const dataJO = getLocal("kirim_jo_head_cabang") || [];
   const isEdit = useSelector(KirimJO.getIsEditBatu);
 
   return (

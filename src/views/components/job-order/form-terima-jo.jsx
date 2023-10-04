@@ -39,7 +39,7 @@ const maptostate = (state) => {
         kode_jenis_bahan: "",
         jumlah_akhir: "",
         berat_akhir: "",
-        no_induk_job_order: state.terimajo.dataNoInduk[1]?.no_induk_job_order,
+        no_induk_job_order: state.terimajo.NoIndukJO,
         no_job_order: state.terimajo.detailJO[0]?.no_job_order,
       },
     };

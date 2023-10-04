@@ -14,7 +14,8 @@ import { useLocation } from "react-router";
 import routes from "../../../infrastructure/config/page-route.jsx";
 import {
   addTerimaJO,
-  getNoIndukJobOrder,
+  getAllCabang,
+  getTukangByDivisi,
 } from "../../../application/actions/terimajocabang.jsx";
 import TableTerimaJOCabang from "../../components/admin-pusat/terima-jo-cabang/table-terima-jo-cabang.jsx";
 
@@ -34,7 +35,8 @@ const TerimaJOCabang = () => {
 
   useEffect(() => {
     dispatch(pageLoadedLogin);
-    dispatch(getNoIndukJobOrder);
+    dispatch(getAllCabang);
+    dispatch(getTukangByDivisi("ADMIN PUSAT"));
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
     /* eslint-disable-next-line */
@@ -84,7 +86,7 @@ const TerimaJOCabang = () => {
               <Button
                 type="danger"
                 onClick={() => {
-                  localStorage.removeItem("terima_jo_head");
+                  localStorage.removeItem("terima_jo_head_cabang");
                   window.location.reload();
                 }}
               >

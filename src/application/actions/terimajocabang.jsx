@@ -17,6 +17,12 @@ export const SET_DATA_BY_NO_INDUK_JOB_ORDER =
 
 export const DELETE_DATA_LOCAL_TERIMA_JO = "[terimajocabang] delete data local";
 
+export const GET_ALL_CABANG = "[terimajocabang] get all cabang";
+export const SET_ALL_CABANG = "[terimajocabang] set all cabang";
+
+export const GET_TUKANG_BY_DIVISI = "[terimajocabang] get tukang by divisi";
+export const SET_TUKANG_BY_DIVISI = "[terimajocabang] set tukang by divisi";
+
 export const getAllDetailJO = ({ noJobOrder, type }) => ({
   type: GET_ALL_DETAIL_JO,
   payload: { data: noJobOrder, dataType: type },
@@ -38,9 +44,10 @@ export const addTerimaJOLocal = {
   type: ADD_TERIMA_JO_LOCAL,
 };
 
-export const getNoIndukJobOrder = {
+export const getNoIndukJobOrder = (kodeTokoAsal) => ({
   type: GET_NO_INDUK_JOB_ORDER,
-};
+  payload: { data: kodeTokoAsal },
+});
 export const setNoIndukJobOrder = (feedback) => ({
   type: SET_NO_INDUK_JOB_ORDER,
   payload: { data: feedback },
@@ -59,4 +66,22 @@ export const setDataByNoInduk = (feedback) => ({
 export const deleteDataLocal = (id) => ({
   type: DELETE_DATA_LOCAL_TERIMA_JO,
   payload: { data: id },
+});
+
+export const getAllCabang = {
+  type: GET_ALL_CABANG,
+};
+export const setAllCabang = (feedback) => ({
+  type: SET_ALL_CABANG,
+  payload: { data: feedback },
+});
+
+export const getTukangByDivisi = (divisi) => ({
+  type: GET_TUKANG_BY_DIVISI,
+  payload: { data: divisi },
+});
+
+export const setTukangByDivisi = (feedback) => ({
+  type: SET_TUKANG_BY_DIVISI,
+  payload: { data: feedback },
 });

@@ -5,6 +5,8 @@ const getDataNoInduk = (state) => state.terimajocabang.dataNoInduk;
 const getDataNoJO = (state) => state.terimajocabang.detailJO;
 const getIsEditJO = (state) => state.terimajocabang.isEditJO;
 const getDataJO = (state) => state.terimajocabang.feedback;
+const getAllCAbang = (state) => state.terimajocabang.cabang;
+const getDataTukang = (state) => state.terimajocabang.tukang;
 
 const data = {
   getDataDetailJO,
@@ -14,5 +16,7 @@ const data = {
   getDataNoJO,
   getIsEditJO,
   getDataJO,
+  getAllCAbang,
+  getDataTukang,
 };
 export default data;

@@ -10,41 +10,17 @@ import {
   addTerimaJOLocal,
   getAllDetailJO,
   getDataByNoInduk,
+  getNoIndukJobOrder,
 } from "../../../../application/actions/terimajocabang";
 import TerimaJOCabang from "../../../../application/selectors/terimajocabang";
 
 const { Option } = Select;
 const maptostate = (state) => {
-  if (state.terimajocabang.feedback.length !== 0) {
-    return {
-      initialValues: {
-        divisi_terima: localStorage.getItem("divisi") || "",
-        no_job_order: state.terimajocabang.feedback[0]?.no_job_order,
-        tukang_terima: state.terimajocabang.feedback[0]?.kode_tukang,
-        kode_barang: state.terimajocabang.feedback[0]?.kode_barang,
-        nama_barang: state.terimajocabang.feedback[0]?.nama_barang,
-        kode_jenis_bahan: state.terimajocabang.feedback[0]?.kode_jenis_bahan,
-        jumlah_akhir: state.terimajocabang.feedback[0]?.stock_akhir,
-        berat_akhir: state.terimajocabang.feedback[0]?.berat_akhir,
-        no_induk_job_order: state.terimajocabang.NoIndukJO,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        divisi_terima: localStorage.getItem("divisi") || "",
-        tukang_terima: "",
-        kode_barang: "",
-        nama_barang: "",
-        kode_jenis_bahan: "",
-        jumlah_akhir: "",
-        berat_akhir: "",
-        no_induk_job_order:
-          state.terimajocabang.dataNoInduk[1]?.no_induk_job_order,
-        no_job_order: state.terimajocabang.detailJO[0]?.no_job_order,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      divisi_terima: localStorage.getItem("divisi") || "",
+    },
+  };
 };
 
 let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
@@ -54,6 +30,8 @@ let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
   const [form] = Form.useForm();
   const dataInduk = useSelector(TerimaJOCabang.getDataNoInduk);
   const dataJO = useSelector(TerimaJOCabang.getDataDetailJO);
+  const dataCabang = useSelector(TerimaJOCabang.getAllCAbang);
+  const dataTukang = useSelector(TerimaJOCabang.getDataTukang);
 
   return (
     <Modal
@@ -69,6 +47,28 @@ let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row gutter={[8, 8]}>
+          <Col span={12}>
+            <Field
+              showSearch
+              name="cabang_asal"
+              label={<span style={{ fontSize: "13px" }}>Cabang Asal</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Cabang Asal"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getNoIndukJobOrder(e))}
+            >
+              {dataCabang.map((item) => {
+                return (
+                  <Option
+                    value={`${item.kode_toko}|${item.portal}`}
+                    key={item._id}
+                  >
+                    <span style={{ fontSize: "13px" }}>{item.nama_toko}</span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
           <Col span={12}>
             <Field
               name="divisi_terima"
@@ -145,7 +145,7 @@ let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col span={12}>
+          {/* <Col span={12}>
             <Field
               name="tukang_terima"
               type="text"
@@ -155,6 +155,28 @@ let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Tukang Terima"
               disabled
             />
+          </Col> */}
+          <Col span={12}>
+            <Field
+              showSearch
+              name="tukang_terima"
+              label={<span style={{ fontSize: "13px" }}>Tukang Terima</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Tukang Terima"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataTukang.map((item) => {
+                return (
+                  <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
           </Col>
           <Col span={12}>
             <Field

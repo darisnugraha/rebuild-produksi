@@ -22,10 +22,12 @@ class Login extends React.Component {
     this.context.handleSetBodyWhiteBg(true);
     const baseurl = process.env.REACT_APP_BACKEND_URL;
     AxiosGet({ url: baseurl + "system" }).then((res) => {
-      const namaToko = res.value[0].nama_toko;
-      this.setState({
-        namaTokoBelakang: namaToko,
-      });
+      if (res.value !== null) {
+        const namaToko = res.value[0]?.nama_toko;
+        this.setState({
+          namaTokoBelakang: namaToko || "",
+        });
+      }
     });
   }
 

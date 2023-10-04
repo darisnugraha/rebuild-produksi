@@ -76,6 +76,7 @@ import cetakbarcode from "./cetakbarcode";
 import kirimjocabang from "./kirimjocabang";
 import terimajocabang from "./terimajocabang";
 import kirimbahancabang from "./kirimbahancabang";
+import terimabahancabang from "./terimabahancabang";
 
 export default combineReducers({
   login,
@@ -154,5 +155,6 @@ export default combineReducers({
   kirimjocabang,
   terimajocabang,
   kirimbahancabang,
+  terimabahancabang,
   form: formReducer,
 });

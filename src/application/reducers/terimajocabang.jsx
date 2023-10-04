@@ -5,6 +5,8 @@ import {
   SET_NO_INDUK_JOB_ORDER,
   GET_DATA_BY_NO_INDUK_JOB_ORDER,
   SET_DATA_BY_NO_INDUK_JOB_ORDER,
+  SET_ALL_CABANG,
+  SET_TUKANG_BY_DIVISI,
 } from "../actions/terimajocabang";
 
 const initialState = {
@@ -14,10 +16,22 @@ const initialState = {
   dataNoInduk: [],
   NoIndukJO: undefined,
   detailJO: [],
+  cabang: [],
+  tukang: [],
 };
 
 const terimajocabang = (state = initialState, action) => {
   switch (action.type) {
+    case SET_TUKANG_BY_DIVISI:
+      return {
+        ...state,
+        tukang: action.payload.data,
+      };
+    case SET_ALL_CABANG:
+      return {
+        ...state,
+        cabang: action.payload.data,
+      };
     case SET_DATA_DETAIL_JO_SUCCESS:
       return {
         ...state,

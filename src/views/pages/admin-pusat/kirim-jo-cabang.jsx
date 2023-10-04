@@ -19,10 +19,11 @@ import { getAllMasterBatu } from "../../../application/actions/masterbatu.jsx";
 import TableKirimJOCabang from "../../components/admin-pusat/kirim-jo-cabang/table-kirim-jo-cabang.jsx";
 import {
   addLocalTambahan,
-  getAllNoJobOrder,
+  // getAllNoJobOrder,
   getNoIndukJobOrder,
+  getAllCabang,
 } from "../../../application/actions/kirimjocabang.jsx";
-import { getAllCabang } from "../../../application/actions/kirimjocabang.jsx";
+// import { getAllCabang } from "../../../application/actions/kirimjocabang.jsx";
 
 const KirimJOCabang = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const KirimJOCabang = () => {
     dispatch(getAllMasterBahan);
     dispatch(getAllMasterBatu);
     dispatch(getNoIndukJobOrder);
-    dispatch(getAllNoJobOrder);
+    // dispatch(getAllNoJobOrder);
     dispatch(getAllCabang);
     /* eslint-disable-next-line */
     PageTitle(locationLink, routes);
@@ -105,9 +106,10 @@ const KirimJOCabang = () => {
               <Button
                 type="danger"
                 onClick={() => {
-                  localStorage.removeItem("kirim_jo_head");
-                  localStorage.removeItem("detail_batu");
-                  localStorage.removeItem("detail_tambahan");
+                  localStorage.removeItem("kirim_jo_head_cabang");
+                  localStorage.removeItem("detail_batu_cabang");
+                  localStorage.removeItem("detail_tambahan_cabang");
+                  localStorage.removeItem("kode_toko_tujuan");
                   window.location.reload();
                 }}
               >

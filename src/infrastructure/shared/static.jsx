@@ -300,6 +300,16 @@ const URL_GET_DIVISI_SUSUT_TUKANG = `${baseurl}divisi/tukang-susut`;
 //newEndpoint
 const URL_GET_TP_SYSTEM = `${baseurl}system`;
 const URL_GET_ALL_CABANG = `${baseurl}cabang`;
+const URL_ADD_KIRIM_JOB_ORDER_CABANG = `${baseurl}kirim-job-order/cabang`;
+const URL_GET_NO_INDUK_JO_CABANG = `${baseurl}kirim-job-order/no-induk-job-order`;
+const URL_GET_JO_BY_NO_INDUK_CABANG = `${baseurl}kirim-job-order/by-no-induk-job-order-cabang/`;
+const URL_GET_NO_INDUK_JO_TERIMA_CABANG = `api/v1/terima-job-order/no-induk-job-order-cabang?`;
+const URL_GET_JO_BY_NO_INDUK_TERIMA_CABANG = `api/v1/terima-job-order/by-no-induk-job-order`;
+const URL_GET_DETAIL_JO_CABANG = `api/v1/terima-job-order/detail-jo/`;
+const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT_CABANG = `${baseurl}terima-job-order/cabang`;
+const URL_ADD_KIRIM_BAHAN_ADMIN_CABANG = `${baseurl}saldo-bahan/admin-bahan/kirim-bahan-cabang`;
+const URL_GET_SALDO_KIRIM_BAHAN_CABANG = `api/v1/saldo-murni/saldo-kirim-bahan-cabang`;
+const URL_GET_DETAIL_KIRIM_BAHAN_CABANG = `api/v1/saldo-murni/by-no-mutasi/`;
 
 const data = {
   URL_GET_JO_ALL,
@@ -600,6 +610,16 @@ const data = {
   URL_GET_BAHAN_KIRIM_NEW,
   URL_GET_TP_SYSTEM,
   URL_GET_ALL_CABANG,
+  URL_ADD_KIRIM_JOB_ORDER_CABANG,
+  URL_GET_NO_INDUK_JO_CABANG,
+  URL_GET_JO_BY_NO_INDUK_CABANG,
+  URL_GET_NO_INDUK_JO_TERIMA_CABANG,
+  URL_GET_JO_BY_NO_INDUK_TERIMA_CABANG,
+  URL_GET_DETAIL_JO_CABANG,
+  URL_ADD_TERIMA_JOB_ORDER_CHECKOUT_CABANG,
+  URL_ADD_KIRIM_BAHAN_ADMIN_CABANG,
+  URL_GET_SALDO_KIRIM_BAHAN_CABANG,
+  URL_GET_DETAIL_KIRIM_BAHAN_CABANG,
 };
 
 export default data;

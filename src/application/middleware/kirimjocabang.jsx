@@ -53,7 +53,10 @@ const getDataDetailJOMidd =
     if (action.type === GET_ALL_CABANG) {
       api.KirimJOCabang.getAllCabang().then((res) => {
         if (res.value !== undefined) {
-          dispatch(setAllCabang(res.value));
+          const kodeToko = getLocal("tp_system").kode_toko;
+          dispatch(
+            setAllCabang(res.value.filter((val) => val.kode_toko !== kodeToko))
+          );
         } else {
           dispatch(setAllCabang([]));
         }
@@ -291,6 +294,7 @@ const countberatbatu =
           (berat_batu - beratBatuTakTerpakai) -
           berat_kirim -
           berat_balik;
+        console.log(total);
         dispatch(change("FormKirimJOCabang", "susut", total.toFixed(3)));
         dispatch(setCountBeratKirimJO(total.toFixed(3)));
       } else {
@@ -514,7 +518,7 @@ const editFlow =
       );
     }
     if (action.type === SAVE_EDIT_JOB_ORDER) {
-      const data = getState().form.FormKirimJO.values;
+      const data = getState().form.FormKirimJOCabang.values;
       const divisi_asal =
         getLocal("divisi") === "ADMIN" ? "ADMIN PUSAT" : getLocal("divisi");
       const dataHead = getLocal("kirim_jo_head_cabang");
@@ -557,15 +561,15 @@ const editFlow =
     if (action.type === EDIT_BATU) {
       const noJobOrder = action.payload.data;
       const batu = action.payload.batu;
-      const dataBatu = getLocal("detail_batu");
+      const dataBatu = getLocal("detail_batu_cabang");
       const dataBatuFill = dataBatu.find(
         (val) => val.no_job_order === noJobOrder && val.kode_batu === batu
       );
       dispatch(setDataEditBatu(dataBatuFill));
     }
     if (action.type === SAVE_EDIT_BATU) {
-      const data = getState().form.FormDetailBatu.values;
-      const dataBatu = getLocal("detail_batu");
+      const data = getState().form.FormDetailBatuCabang.values;
+      const dataBatu = getLocal("detail_batu_cabang");
       const dataBatuFill = dataBatu.filter(
         (val) =>
           val.no_job_order === data.no_job_order &&
@@ -575,13 +579,13 @@ const editFlow =
       data.jumlah_tak_terpakai = parseInt(data.jumlah_tak_terpakai);
       data.berat_tak_terpakai = parseFloat(data.berat_tak_terpakai);
       dataArr.push(data);
-      writeLocal("detail_batu", dataArr);
+      writeLocal("detail_batu_cabang", dataArr);
       sweetalert.default.Success("Berhasil Merubah Data !");
     }
     if (action.type === EDIT_TAMBAHAN) {
       const noJobOrder = action.payload.data;
       const tambahan = action.payload.tambahan;
-      const dataTambahan = getLocal("detail_tambahan");
+      const dataTambahan = getLocal("detail_tambahan_cabang");
       const dataTambahanFill = dataTambahan.find(
         (val) =>
           val.no_job_order === noJobOrder &&
@@ -590,7 +594,7 @@ const editFlow =
       dispatch(setDataEditTambahan(dataTambahanFill));
     }
     if (action.type === SAVE_EDIT_TAMBAHAN) {
-      const data = getState().form.FormDetailTambahan.values;
+      const data = getState().form.FormDetailTambahanCabang.values;
       const dataTambahan = getLocal("kirim_jo_head_cabang");
       dataTambahan.forEach((element) => {
         if (
@@ -602,7 +606,7 @@ const editFlow =
         }
       });
       writeLocal("kirim_jo_head_cabang", dataTambahan);
-      writeLocal("detail_tambahan", dataTambahan);
+      writeLocal("detail_tambahan_cabang", dataTambahan);
       sweetalert.default.Success("Berhasil Merubah Data !");
     }
   };
@@ -634,7 +638,7 @@ const addDataLocalKirimJo =
   async (action) => {
     next(action);
     if (action.type === ADD_LOCAL_KIRIM_JO) {
-      const data = getState().form.FormKirimJO.values;
+      const data = getState().form.FormKirimJOCabang.values;
       if (data.berat_kirim === 0 || data.jumlah_kirim === 0) {
         sweetalert.default.Failed("Isi Berat dan Jumlah Terlebih Dahulu !");
       } else {
@@ -644,9 +648,9 @@ const addDataLocalKirimJo =
         const dataSave = {
           no_job_order: data.no_job_order,
           divisi_asal: divisi_asal.toUpperCase(),
-          divisi_tujuan: data.divisi_tujuan,
+          divisi_tujuan: "ADMIN PUSAT",
           tukang_asal: data.tukang_asal,
-          tukang_tujuan: data.tukang_tujuan,
+          tukang_tujuan: "-",
           kode_barang: data.kode_barang,
           nama_barang: data.nama_barang,
           kode_jenis_bahan: data.kode_jenis_bahan,
@@ -667,7 +671,20 @@ const addDataLocalKirimJo =
           nama_bahan_balik: data.bahan_kembali,
         };
         dataArr.push(dataSave);
+        if (dataSave.jumlah_berat_batu_tak_terpakai === 0) {
+          const arrBatu = [
+            {
+              no_job_order: data.no_job_order,
+              kode_batu: "TIDAK ADA",
+              jumlah_tak_terpakai: 0,
+              berat_tak_terpakai: 0,
+            },
+          ];
+          writeLocal("detail_batu_cabang", arrBatu);
+        }
+        writeLocal("kode_toko_tujuan", data.cabang_tujuan.split("|")[0]);
         writeLocal("kirim_jo_head_cabang", dataArr);
+        sweetalert.default.Success("Berhasil Menyimpan Data !");
       }
     }
   };
@@ -680,7 +697,7 @@ const addLocalDataTambahan =
     next(action);
     if (action.type === ADD_LOCAL_TAMBAHAN) {
       const dataHead = getLocal("kirim_jo_head_cabang") || [];
-      const dataDetailBatu = getLocal("detail_batu") || [];
+      const dataDetailBatu = getLocal("detail_batu_cabang") || [];
       if (
         dataHead.length === 0 ||
         dataHead === undefined ||
@@ -709,12 +726,16 @@ const addLocalDataTambahan =
           delete element.jumlah_akhir;
           delete element.berat_akhir;
         });
-        const dataKirim = { detail_job_order: dataHead };
+        const kodeToko = getLocal("kode_toko_tujuan");
+        const dataKirim = {
+          kode_toko_tujuan: kodeToko,
+          detail_job_order: dataHead,
+        };
         api.KirimJOCabang.addKirimJOCart(dataKirim).then((res) => {
           if (res.value !== null) {
             localStorage.removeItem("kirim_jo_head_cabang");
-            localStorage.removeItem("detail_batu");
-            localStorage.removeItem("detail_tambahan");
+            localStorage.removeItem("detail_batu_cabang");
+            localStorage.removeItem("detail_tambahan_cabang");
             sweetalert.default.Success(
               res.value.message || "Berhasil Mengirim Data !"
             );
@@ -728,15 +749,15 @@ const addLocalDataTambahan =
     }
     if (action.type === ADD_LOCAL_TAMBAHAN_BAHAN) {
       const dataHead = getLocal("kirim_jo_head_cabang") || [];
-      const data = getState().form.FormDetailTambahan.values;
+      const data = getState().form.FormDetailTambahanCabang.values;
       if (dataHead === undefined || dataHead === null) {
         sweetalert.default.Failed("Isi Detail Kirim Jo Terlebih Dahulu !");
       } else {
         dataHead.forEach((element) => {
           if (element.no_job_order === data.no_job_order) {
             element.nama_bahan_tambahan = data.nama_bahan;
-            element.jumlah_tambahan = parseInt(data.jumlah_bahan);
-            element.berat_tambahan = parseFloat(data.berat_bahan);
+            element.jumlah_tambahan = parseInt(data.jumlah_bahan || 0);
+            element.berat_tambahan = parseFloat(data.berat_bahan || 0);
           }
         });
         const arrTambahan = [];
@@ -746,18 +767,18 @@ const addLocalDataTambahan =
           }
         });
         writeLocal("kirim_jo_head_cabang", dataHead);
-        writeLocal("detail_tambahan", arrTambahan);
+        writeLocal("detail_tambahan_cabang", arrTambahan);
         sweetalert.default.Success("Berhasil Menyimpan Data !");
       }
     }
     if (action.type === ADD_LOCAL_BATU) {
-      const detailBatu = getLocal("detail_batu") || [];
+      const detailBatu = getLocal("detail_batu_cabang") || [];
       const dataHead = getLocal("kirim_jo_head_cabang") || [];
       const totalBeratBatuTakTerpakai = dataHead.reduce(
         (a, b) => a + b.jumlah_berat_batu_tak_terpakai,
         0
       );
-      const data = getState().form.FormDetailBatu.values;
+      const data = getState().form.FormDetailBatuCabang.values;
       if (detailBatu === null || detailBatu === undefined) {
         if (totalBeratBatuTakTerpakai < data.berat_tak_terpakai) {
           sweetalert.default.Failed(
@@ -768,7 +789,7 @@ const addLocalDataTambahan =
           data.jumlah_tak_terpakai = parseInt(data.jumlah_tak_terpakai);
           data.berat_tak_terpakai = parseFloat(data.berat_tak_terpakai);
           arr.push(data);
-          writeLocal("detail_batu", arr);
+          writeLocal("detail_batu_cabang", arr);
           sweetalert.default.Success("Berhasil Menyimpan Data !");
         }
       } else {
@@ -793,7 +814,7 @@ const addLocalDataTambahan =
             data.jumlah_tak_terpakai = parseInt(data.jumlah_tak_terpakai);
             data.berat_tak_terpakai = parseFloat(data.berat_tak_terpakai);
             arr.push(data);
-            writeLocal("detail_batu", arr);
+            writeLocal("detail_batu_cabang", arr);
             sweetalert.default.Success("Berhasil Menyimpan Data !");
           }
         }
@@ -802,8 +823,8 @@ const addLocalDataTambahan =
     if (action.type === DELETE_JOB_ORDER) {
       const noJobOrder = action.payload.data;
       const dataHead = getLocal("kirim_jo_head_cabang") || [];
-      const dataDetailBatu = getLocal("detail_batu") || [];
-      const dataDetailTambahan = getLocal("detail_tambahan") || [];
+      const dataDetailBatu = getLocal("detail_batu_cabang") || [];
+      const dataDetailTambahan = getLocal("detail_tambahan_cabang") || [];
       const dataHeadFill = dataHead.filter(
         (val) => val.no_job_order !== noJobOrder
       );
@@ -814,25 +835,25 @@ const addLocalDataTambahan =
         (val) => val.no_job_order !== noJobOrder
       );
       writeLocal("kirim_jo_head_cabang", dataHeadFill);
-      writeLocal("detail_batu", dataDetailBatuFill);
-      writeLocal("detail_tambahan", dataDetailTambahanFill);
+      writeLocal("detail_batu_cabang", dataDetailBatuFill);
+      writeLocal("detail_tambahan_cabang", dataDetailTambahanFill);
       sweetalert.default.Success("Berhasil Menghapus Data !");
     }
     if (action.type === DELETE_DETAIL_BATU) {
       const noJobOrder = action.payload.data;
       const kodeBatu = action.payload.batu;
-      const dataDetailBatu = getLocal("detail_batu") || [];
+      const dataDetailBatu = getLocal("detail_batu_cabang") || [];
       const dataDetailBatuFill = dataDetailBatu.filter(
         (val) => val.no_job_order !== noJobOrder && val.kode_batu !== kodeBatu
       );
-      writeLocal("detail_batu", dataDetailBatuFill);
+      writeLocal("detail_batu_cabang", dataDetailBatuFill);
       sweetalert.default.Success("Berhasil Menghapus Data !");
     }
     if (action.type === DELETE_DETAIL_TAMBAHAN) {
       const noJobOrder = action.payload.data;
       const namaBahan = action.payload.tambahan;
       const dataHead = getLocal("kirim_jo_head_cabang") || [];
-      const dataDetailTambahan = getLocal("detail_tambahan");
+      const dataDetailTambahan = getLocal("detail_tambahan_cabang");
       dataHead.forEach((element) => {
         if (element.no_job_order === noJobOrder) {
           element.nama_bahan_tambahan = "";
@@ -846,7 +867,7 @@ const addLocalDataTambahan =
           val.no_job_order !== noJobOrder &&
           val.nama_bahan_tambahan === namaBahan
       );
-      writeLocal("detail_tambahan", dataDetailTambahanFill);
+      writeLocal("detail_tambahan_cabang", dataDetailTambahanFill);
       sweetalert.default.Success("Berhasil Menghapus Data !");
     }
   };

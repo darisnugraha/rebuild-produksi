@@ -95,6 +95,7 @@ import getLocal from "../services/local/get-local";
 import KirimJOCabang from "../../views/pages/admin-pusat/kirim-jo-cabang";
 import TerimaJOCabang from "../../views/pages/admin-pusat/terima-jo-cabang";
 import KirimBahanCabang from "../../views/pages/admin-bahan/kirim-bahan-cabang";
+import TerimaBahanCabang from "../../views/pages/admin-bahan/terima-bahan-cabang";
 
 const routes = [
   {
@@ -231,6 +232,11 @@ const routes = [
     path: "/admin-bahan/kirim-bahan-cabang",
     title: "Kirim Bahan Cabang",
     component: () => <KirimBahanCabang />,
+  },
+  {
+    path: "/admin-bahan/terima-bahan-cabang",
+    title: "Terima Bahan Cabang",
+    component: () => <TerimaBahanCabang />,
   },
   {
     path: "/admin-bahan/terima-bahan-tukang",

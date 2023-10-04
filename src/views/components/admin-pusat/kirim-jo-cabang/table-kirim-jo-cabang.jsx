@@ -261,8 +261,8 @@ const TableKirimJOCabang = () => {
     },
   ];
   const data = getLocal("kirim_jo_head_cabang");
-  const dataDetailBatu = getLocal("detail_batu");
-  const dataDetailTambahan = getLocal("detail_tambahan");
+  const dataDetailBatu = getLocal("detail_batu_cabang");
+  const dataDetailTambahan = getLocal("detail_tambahan_cabang");
 
   const visibleJO = useSelector(KirimJO.getIsEditJO);
   const visibleBatu = useSelector(KirimJO.getIsEditBatu);

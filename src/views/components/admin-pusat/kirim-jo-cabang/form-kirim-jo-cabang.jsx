@@ -5,7 +5,7 @@ import { connect, useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import styleAntd from "../../../../infrastructure/shared/styleAntd";
 import ui from "../../../../application/selectors/ui";
-import KirimJO from "../../../../application/selectors/kirimjocabang";
+import KirimJOCabang from "../../../../application/selectors/kirimjocabang";
 import MasterBahan from "../../../../application/selectors/masterbahan";
 import {
   addLocalKirimJO,
@@ -28,10 +28,10 @@ let FormKirimJOCabang = ({ visible, onCancel }, prop) => {
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataCabang = useSelector(KirimJO.getAllCAbang);
-  const dataInduk = useSelector(KirimJO.getDataNoInduk);
-  const dataJO = useSelector(KirimJO.getDataNoJO);
-  const isEdit = useSelector(KirimJO.getIsEditJO);
+  const dataCabang = useSelector(KirimJOCabang.getAllCAbang);
+  const dataInduk = useSelector(KirimJOCabang.getDataNoInduk);
+  const dataJO = useSelector(KirimJOCabang.getDataNoJO);
+  const isEdit = useSelector(KirimJOCabang.getIsEditJO);
   const dataJenisBahan = useSelector(MasterBahan.getAllMasterBahan);
 
   return (

@@ -20,18 +20,19 @@ const KirimJO = {
     return response;
   },
   getNoIndulJO: async () => {
-    const response = await get({ url: word.URL_GET_NO_INDUK_JO });
+    const response = await get({ url: word.URL_GET_NO_INDUK_JO_CABANG });
     return response;
   },
   getJobOrderDetail: async (data) => {
     const response = await get({
-      url: word.URL_GET_JO_BY_NO_INDUK + `/${data.no_induk}/${data.divisi}`,
+      url:
+        word.URL_GET_JO_BY_NO_INDUK_CABANG + `${data.no_induk}/${data.divisi}`,
     });
     return response;
   },
   addKirimJOCart: async (dataKirim) => {
     const response = await post.AxiosPost({
-      url: word.URL_ADD_KIRIM_JOB_ORDER_CART,
+      url: word.URL_ADD_KIRIM_JOB_ORDER_CABANG,
       data: dataKirim,
     });
     return response;

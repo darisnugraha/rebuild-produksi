@@ -48,7 +48,7 @@ let FormDetailTambahanCabang = ({ visible, onCreate, onCancel }, prop) => {
   const [form] = Form.useForm();
   const dataBahan = useSelector(Bahan.getAllMasterBahan);
   const isEdit = useSelector(KirimJO.getIsEditTambahan);
-  const dataJO = getLocal("kirim_jo_head") || [];
+  const dataJO = getLocal("kirim_jo_head_cabang") || [];
 
   return (
     <Modal

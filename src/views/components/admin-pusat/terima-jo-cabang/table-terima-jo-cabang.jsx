@@ -96,7 +96,7 @@ const TableTerimaJOCabang = () => {
     },
   ];
 
-  const data = getLocal("terima_jo_head");
+  const data = getLocal("terima_jo_head_cabang");
   //   const dataDetailBatu = getLocal("detail_batu");
   //   const dataDetailTambahan = getLocal("detail_tambahan");
 

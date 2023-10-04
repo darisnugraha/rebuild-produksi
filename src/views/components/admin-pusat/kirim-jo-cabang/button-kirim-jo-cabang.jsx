@@ -19,9 +19,9 @@ const ModalKirimJOCabang = () => {
     setVisible(false);
   };
 
-  const dataHead = getLocal("kirim_jo_head") || [];
+  const dataHead = getLocal("kirim_jo_head_cabang") || [];
   const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
-  const dataTambahan = getLocal("detail_tambahan") || [];
+  const dataTambahan = getLocal("detail_tambahan_cabang") || [];
 
   return (
     <div>

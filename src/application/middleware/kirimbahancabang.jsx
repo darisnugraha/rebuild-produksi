@@ -17,7 +17,7 @@ const tukangDivisGetAll =
     next(action);
     if (action.type === GET_TUKANG_DIVISI) {
       const divisi = action.payload.data;
-      api.KirimBahanAdmin.getTukangDivisi(divisi).then((res) => {
+      api.KirimBahanCabang.getTukangDivisi(divisi).then((res) => {
         if (res.value !== null) {
           dispatch(setTukangDivisiSuccess({ feedback: res.value }));
         } else {
@@ -34,7 +34,7 @@ const divisGetAll =
   async (action) => {
     next(action);
     if (action.type === GET_ALL_DIVISI) {
-      api.KirimBahanAdmin.getAllDivisi().then((res) => {
+      api.KirimBahanCabang.getAllDivisi().then((res) => {
         if (res.value !== null) {
           dispatch(setDataDivisiSuccess({ feedback: res.value }));
         } else {
@@ -51,10 +51,15 @@ const addDataKirimBahanAdminBahan =
   async (action) => {
     next(action);
     if (action.type === ADD_KIRIM_BAHAN_ADMIN_BAHAN) {
-      const data = getState().form.FormKirimBahanAdmin.values;
+      const data = getState().form.FormKirimBahanCabang.values;
       if (data !== undefined) {
         data.berat = parseFloat(data.berat);
-        api.KirimBahanAdmin.addKirimBahanAdmin(data).then((res) => {
+        const onSend = {
+          kode_toko_tujuan: data.cabang_tujuan.split("|")[0],
+          nama_bahan: data.nama_bahan,
+          berat: parseFloat(data.berat),
+        };
+        api.KirimBahanCabang.addKirimBahanCabang(onSend).then((res) => {
           if (res.value !== null) {
             sweetalert.default.Success(
               res.value?.message || "Berhasil Mengirim Data !"
