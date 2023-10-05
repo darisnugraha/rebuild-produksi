@@ -52,10 +52,10 @@ let FormTerimaBahanCabang = ({ visible, onCreate, onCancel }, prop) => {
           <Col span={12}>
             <Field
               showSearch
-              name="cabang_tujuan"
-              label={<span style={{ fontSize: "13px" }}>Cabang Tujuan</span>}
+              name="cabang_asal"
+              label={<span style={{ fontSize: "13px" }}>Cabang Asal</span>}
               component={styleAntd.ASelect}
-              placeholder="Pilih Cabang Tujuan"
+              placeholder="Pilih Cabang Asal"
               onBlur={(e) => e.preventDefault()}
               onChange={(e) => dispatch(getSaldoKirimBahanCabang(e))}
             >

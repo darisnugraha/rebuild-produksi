@@ -8,6 +8,8 @@ import {
   setDetailKirimBahanCabang,
   setSaldoKirimBahanCabang,
 } from "../actions/terimabahancabang";
+import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { setLoadingButton } from "../actions/ui";
 
 const get =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -64,8 +66,25 @@ const post =
   async (action) => {
     next(action);
     if (action.type === SEND_TERIMA_BAHAN_CABANG) {
+      dispatch(setLoadingButton(true));
       const dataForm = getState().form.FormTerimaBahanCabang.values;
-      console.log(dataForm);
+      const onSend = {
+        kode_toko_asal: dataForm.cabang_asal.split("|")[0],
+        no_mutasi: dataForm.no_kirim,
+        nama_bahan: dataForm.nama_bahan,
+        berat: dataForm.berat_bahan,
+      };
+      api.TerimaBahanCabang.addTerimaBahanCabang(onSend).then((res) => {
+        if (res.value !== null) {
+          dispatch(setLoadingButton(false));
+          sweetalert.default.Success("Berhasil Menambahkan Data !");
+        } else {
+          dispatch(setLoadingButton(false));
+          sweetalert.default.Failed(
+            res.error.data.message || "Gagal Menambahkan Data !"
+          );
+        }
+      });
     }
   };
 

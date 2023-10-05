@@ -310,6 +310,7 @@ const URL_ADD_TERIMA_JOB_ORDER_CHECKOUT_CABANG = `${baseurl}terima-job-order/cab
 const URL_ADD_KIRIM_BAHAN_ADMIN_CABANG = `${baseurl}saldo-bahan/admin-bahan/kirim-bahan-cabang`;
 const URL_GET_SALDO_KIRIM_BAHAN_CABANG = `api/v1/saldo-murni/saldo-kirim-bahan-cabang`;
 const URL_GET_DETAIL_KIRIM_BAHAN_CABANG = `api/v1/saldo-murni/by-no-mutasi/`;
+const URL_ADD_TERIMA_BAHAN_CABANG = `${baseurl}saldo-bahan/admin-bahan/terima-bahan-cabang`;
 
 const data = {
   URL_GET_JO_ALL,
@@ -620,6 +621,7 @@ const data = {
   URL_ADD_KIRIM_BAHAN_ADMIN_CABANG,
   URL_GET_SALDO_KIRIM_BAHAN_CABANG,
   URL_GET_DETAIL_KIRIM_BAHAN_CABANG,
+  URL_ADD_TERIMA_BAHAN_CABANG,
 };
 
 export default data;
