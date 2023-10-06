@@ -7,7 +7,7 @@ import {
   loginSuccess,
   LOGOUT,
   SEND_LOGIN,
-  // GET_SYSTEM,
+  GET_SYSTEM,
 } from "../actions/login";
 import { getAllMasterDivisi } from "../actions/masterdivisi.jsx";
 import { setLoadingButton } from "../actions/ui";
