@@ -61,7 +61,7 @@ const handleLoginFlow =
         dispatch(setLoadingButton(false));
         dispatch(loginFailed(response?.error));
         sweetalert.default.Failed(
-          response?.error?.data?.message || "Coba Check Email Dan Passwordnya.."
+          response?.error?.data?.message || "Terjadi Kesalahan!"
         );
       }
     }
@@ -86,11 +86,13 @@ const handleCheckLoginFlow =
         }
       });
     }
-    // if (action.type === GET_SYSTEM) {
-    //   api.System.getSystem().then((res) => {
-    //     writeLocal("tp_system", res.value[0]);
-    //   });
-    // }
+    if (action.type === GET_SYSTEM) {
+      api.System.getSystem().then((res) => {
+        if (res.value !== null) {
+          writeLocal("tp_system", res.value[0]);
+        }
+      });
+    }
   };
 
 const handleLogout =

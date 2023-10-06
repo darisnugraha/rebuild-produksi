@@ -19,6 +19,12 @@ class Header extends React.Component {
   toggleMegaMenu() {
     this.setState({ collapseMegaMenu: !this.state.collapseMegaMenu });
   }
+  componentDidMount() {
+    const namaToko = getLocal("tp_system").nama_toko;
+    this.setState({
+      namaTokoBelakang: namaToko,
+    });
+  }
   render() {
     return (
       <PageSettings.Consumer>
@@ -48,7 +54,7 @@ class Header extends React.Component {
               )}
               <Link to="/" className="navbar-brand">
                 <span className="navbar-logo"></span> <b>PRODUKSI &nbsp;</b>{" "}
-                DEMO
+                {this.state.namaTokoBelakang}
               </Link>
 
               {pageHeaderMegaMenu && (

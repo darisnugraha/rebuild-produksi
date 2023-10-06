@@ -4,55 +4,34 @@ import { Form, Row, Col, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import "antd/dist/antd.css";
-import styleAntd from "../../../infrastructure/shared/styleAntd";
-import ui from "../../../application/selectors/ui";
+import styleAntd from "../../../../infrastructure/shared/styleAntd";
+import ui from "../../../../application/selectors/ui";
 import {
   addTerimaJOLocal,
   getAllDetailJO,
   getDataByNoInduk,
-} from "../../../application/actions/terimajo";
-import TerimaJO from "../../../application/selectors/terimajo";
+  getNoIndukJobOrder,
+} from "../../../../application/actions/terimajocabang";
+import TerimaJOCabang from "../../../../application/selectors/terimajocabang";
 
 const { Option } = Select;
 const maptostate = (state) => {
-  if (state.terimajo.feedback.length !== 0) {
-    return {
-      initialValues: {
-        divisi_terima: localStorage.getItem("divisi") || "",
-        no_job_order: state.terimajo.feedback[0]?.no_job_order,
-        tukang_terima: state.terimajo.feedback[0]?.kode_tukang,
-        kode_barang: state.terimajo.feedback[0]?.kode_barang,
-        nama_barang: state.terimajo.feedback[0]?.nama_barang,
-        kode_jenis_bahan: state.terimajo.feedback[0]?.kode_jenis_bahan,
-        jumlah_akhir: state.terimajo.feedback[0]?.stock_akhir,
-        berat_akhir: state.terimajo.feedback[0]?.berat_akhir,
-        no_induk_job_order: state.terimajo.NoIndukJO,
-      },
-    };
-  } else {
-    return {
-      initialValues: {
-        divisi_terima: localStorage.getItem("divisi") || "",
-        tukang_terima: "",
-        kode_barang: "",
-        nama_barang: "",
-        kode_jenis_bahan: "",
-        jumlah_akhir: "",
-        berat_akhir: "",
-        no_induk_job_order: state.terimajo.NoIndukJO,
-        no_job_order: state.terimajo.detailJO[0]?.no_job_order,
-      },
-    };
-  }
+  return {
+    initialValues: {
+      divisi_terima: localStorage.getItem("divisi") || "",
+    },
+  };
 };
 
-let FormTerimaJO = ({ visible, onCancel }, prop) => {
+let FormTerimaJOCabang = ({ visible, onCancel }, prop) => {
   const btnLoading = useSelector(ui.getBtnLoading);
   // eslint-disable-next-line
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const dataInduk = useSelector(TerimaJO.getDataNoInduk);
-  const dataJO = useSelector(TerimaJO.getDataDetailJO);
+  const dataInduk = useSelector(TerimaJOCabang.getDataNoInduk);
+  const dataJO = useSelector(TerimaJOCabang.getDataDetailJO);
+  const dataCabang = useSelector(TerimaJOCabang.getAllCAbang);
+  const dataTukang = useSelector(TerimaJOCabang.getDataTukang);
 
   return (
     <Modal
@@ -68,6 +47,28 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
     >
       <Form layout="vertical" form={form}>
         <Row gutter={[8, 8]}>
+          <Col span={12}>
+            <Field
+              showSearch
+              name="cabang_asal"
+              label={<span style={{ fontSize: "13px" }}>Cabang Asal</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Cabang Asal"
+              onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(getNoIndukJobOrder(e))}
+            >
+              {dataCabang.map((item) => {
+                return (
+                  <Option
+                    value={`${item.kode_toko}|${item.portal}`}
+                    key={item._id}
+                  >
+                    <span style={{ fontSize: "13px" }}>{item.nama_toko}</span>
+                  </Option>
+                );
+              })}
+            </Field>
+          </Col>
           <Col span={12}>
             <Field
               name="divisi_terima"
@@ -144,7 +145,7 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               }}
             />
           </Col> */}
-          <Col span={12}>
+          {/* <Col span={12}>
             <Field
               name="tukang_terima"
               type="text"
@@ -154,6 +155,28 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
               placeholder="Masukkan Tukang Terima"
               disabled
             />
+          </Col> */}
+          <Col span={12}>
+            <Field
+              showSearch
+              name="tukang_terima"
+              label={<span style={{ fontSize: "13px" }}>Tukang Terima</span>}
+              component={styleAntd.ASelect}
+              placeholder="Pilih Tukang Terima"
+              onBlur={(e) => e.preventDefault()}
+            >
+              {dataTukang.map((item) => {
+                return (
+                  <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <span style={{ fontSize: "13px" }}>
+                      {item.kode_tukang === item.nama_tukang
+                        ? item.nama_tukang
+                        : item.nama_tukang + " (" + item.kode_tukang + ")"}
+                    </span>
+                  </Option>
+                );
+              })}
+            </Field>
           </Col>
           <Col span={12}>
             <Field
@@ -216,8 +239,8 @@ let FormTerimaJO = ({ visible, onCancel }, prop) => {
   );
 };
 
-FormTerimaJO = reduxForm({
-  form: "FormTerimaJO",
+FormTerimaJOCabang = reduxForm({
+  form: "FormTerimaJOCabang",
   enableReinitialize: true,
-})(FormTerimaJO);
-export default connect(maptostate, null)(FormTerimaJO);
+})(FormTerimaJOCabang);
+export default connect(maptostate, null)(FormTerimaJOCabang);
