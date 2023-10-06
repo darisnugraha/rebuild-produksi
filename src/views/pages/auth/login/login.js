@@ -2,8 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { PageSettings } from "../../../../infrastructure/config/page-settings";
 import FormLogin from "../../../components/login/form-login";
-import AxiosGet from "../../../../infrastructure/axios/get";
-
 class Login extends React.Component {
   static contextType = PageSettings;
 

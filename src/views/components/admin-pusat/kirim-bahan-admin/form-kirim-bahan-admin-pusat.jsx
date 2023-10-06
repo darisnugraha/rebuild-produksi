@@ -13,6 +13,7 @@ import {
   getAllStockBahanByStaff,
   getDataStaffByDivisi,
   setBahanByTukangAsal,
+  setStaffTujuan,
 } from "../../../../application/actions/kirimbahanadminpusat";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 
@@ -28,7 +29,9 @@ const maptostate = (state) => {
             divisi_tujuan: state.kirimbahanadminpusat.divisi,
             staff: state.kirimbahanadminpusat.tukang,
             staff_tujuan:
-              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+              state.kirimbahanadminpusat.tukangtujuan !== undefined
+                ? state.kirimbahanadminpusat.tukangtujuan
+                : state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
             nama_bahan: state.kirimbahanadminpusat.bahan,
           },
         };
@@ -52,8 +55,7 @@ const maptostate = (state) => {
             divisi: getLocal("divisi"),
             divisi_tujuan: state.kirimbahanadminpusat.divisi,
             staff: state.kirimbahanadminpusat.dataStaff[0]?._id,
-            staff_tujuan:
-              state.kirimbahanadminpusat.dataStaffDivisi[0]?.nama_tukang,
+            staff_tujuan: state.kirimbahanadminpusat.tukangtujuan,
             nama_bahan: state.kirimbahanadminpusat.bahan,
           },
         };
@@ -169,6 +171,7 @@ let FormKirimBahanAdminPusat = ({ visible, onCreate, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Tukang Tujuan"
               onBlur={(e) => e.preventDefault()}
+              onChange={(e) => dispatch(setStaffTujuan({ staff: e }))}
             >
               {dataStaffAll.map((item) => {
                 return (

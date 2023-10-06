@@ -166,15 +166,15 @@ const simpanDataKirimBatuLocal =
           writeLocal("data_detail_kirim_batu", datalocal);
         }
       } else {
-        const data = getState().form.FormTambahKirimBatuProduksi.values;
+        const data = getState().form.FormDetailBatuProduksi.values;
         let datalocal = getLocal("data_detail_kirim_batu");
         const datalocalFill = datalocal.filter((item) => {
-          return item.no_job_order === data.no_job_order;
+          return item.kode_batu === data.kode_batu;
         });
-        if (datalocalFill.length === 0) {
-          sweetalert.default.Failed("No Job Order Harus Sama !");
+        if (datalocalFill.length > 0) {
+          sweetalert.default.Failed("Batu Sudah Ada Pada Tabel");
         } else {
-          if (data.no_job_order === undefined) {
+          if (data.kode_batu === undefined) {
             sweetalert.default.Failed("Lengkapi Form Terlebih Dahulu !");
           } else if (data.jumlah_kirim === 0 || data.berat_kirim === 0) {
             sweetalert.default.Failed("Jumlah Kirim Minimal 1");
