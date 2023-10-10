@@ -82,6 +82,7 @@
     "start-ngrok2": "export REACT_APP_BACKEND_URL=https://99dc-125-164-23-158.ngrok-free.app/api/v1/&& react-scripts start",
     "==========": "==================================================== Data Toko Client =============================================================================================================================================================================",
     "build-qc": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7779/api/v1/&& react-scripts build",
+    "build-qc-cabang": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7999/api/v1/&& react-scripts build",
     "build-pameran": "export REACT_APP_BACKEND_URL=https://149.129.246.85:7779/api/v1/&& react-scripts build",
     "build-qc-produksi": "export REACT_APP_BACKEND_URL=http://149.129.246.85:7799/api/v1/&& react-scripts build",
     "build-produksi-joecollin": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8049/api/v1/&& react-scripts build",
