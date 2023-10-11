@@ -165,6 +165,72 @@ const getDataDetailJOMidd =
               dispatch(setDataDetailJOFailed({ feedback: [] }));
               dispatch(setDataDetailJOSuccess({ feedback: [] }));
             } else {
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "no_job_order",
+                  res.value[0]?.no_job_order
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "tukang_asal",
+                  res.value[0].kode_tukang
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "kode_barang",
+                  res.value[0].kode_barang
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "nama_barang",
+                  res.value[0].nama_barang
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "kode_jenis_bahan",
+                  res.value[0].kode_jenis_bahan
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "jumlah_akhir",
+                  res.value[0].stock_akhir
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "berat_batu",
+                  res.value[0].berat_batu
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "berat_akhir",
+                  res.value[0].berat_akhir
+                )
+              );
+              dispatch(
+                change(
+                  "FormKirimJOCabang",
+                  "jumlah_kirim",
+                  res.value[0].stock_akhir
+                )
+              );
+              dispatch(
+                change("FormKirimJOCabang", "susut", res.value[0].berat_akhir)
+              );
               dispatch(setDataDetailJOSuccess({ feedback: res.value }));
               dispatch(
                 setCountBeratKirimJO(
@@ -508,6 +574,72 @@ const editFlow =
       const dataHeadFill = dataHead.find(
         (val) => val.no_job_order === noJobOrder
       );
+      dispatch(
+        change(
+          "FormKirimJOCabang",
+          "cabang_tujuan",
+          dataHeadFill?.cabang_tujuan
+        )
+      );
+      dispatch(
+        change(
+          "FormKirimJOCabang",
+          "no_induk_job_order",
+          dataHeadFill?.no_induk_job_order
+        )
+      );
+      dispatch(
+        change("FormKirimJOCabang", "no_job_order", dataHeadFill?.no_job_order)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "tukang_asal", dataHeadFill?.kode_tukang)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "kode_barang", dataHeadFill?.kode_barang)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "nama_barang", dataHeadFill?.nama_barang)
+      );
+      dispatch(
+        change(
+          "FormKirimJOCabang",
+          "kode_jenis_bahan",
+          dataHeadFill?.kode_jenis_bahan
+        )
+      );
+      dispatch(
+        change("FormKirimJOCabang", "jumlah_akhir", dataHeadFill?.jumlah_akhir)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "berat_batu", dataHeadFill?.berat_batu)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "berat_akhir", dataHeadFill?.berat_akhir)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "jumlah_kirim", dataHeadFill?.jumlah_kirim)
+      );
+      dispatch(change("FormKirimJOCabang", "susut", dataHeadFill?.susut));
+      dispatch(
+        change("FormKirimJOCabang", "berat_kirim", dataHeadFill?.berat_kirim)
+      );
+      dispatch(
+        change("FormKirimJOCabang", "berat_balik", dataHeadFill?.berat_balik)
+      );
+      dispatch(
+        change(
+          "FormKirimJOCabang",
+          "jumlah_berat_batu_tak_terpakai",
+          dataHeadFill?.jumlah_berat_batu_tak_terpakai
+        )
+      );
+      dispatch(
+        change(
+          "FormKirimJOCabang",
+          "bahan_kembali",
+          dataHeadFill?.nama_bahan_balik
+        )
+      );
       dispatch(setDataEditJobOrder(dataHeadFill));
       dispatch(countBeratKirimJO({ beratKirim: dataHeadFill.berat_kirim }));
       dispatch(countBeratBalik({ beratBalik: dataHeadFill.berat_balik }));
@@ -528,9 +660,9 @@ const editFlow =
       const dataHeadFillFind = dataHead.find(
         (val) => val.no_job_order === data.no_job_order
       );
-      console.log(dataHeadFillFind);
       const dataArr = dataHeadFill;
       const dataSave = {
+        cabang_tujuan: data.cabang_tujuan,
         no_job_order: data.no_job_order,
         divisi_asal: divisi_asal.toUpperCase(),
         divisi_tujuan: data.divisi_tujuan,
@@ -646,6 +778,7 @@ const addDataLocalKirimJo =
           getLocal("divisi") === "ADMIN" ? "ADMIN PUSAT" : getLocal("divisi");
         const dataArr = [];
         const dataSave = {
+          cabang_tujuan: data.cabang_tujuan,
           no_job_order: data.no_job_order,
           divisi_asal: divisi_asal.toUpperCase(),
           divisi_tujuan: "ADMIN PUSAT",
@@ -660,7 +793,7 @@ const addDataLocalKirimJo =
           jumlah_berat_batu_tak_terpakai: parseFloat(
             data.jumlah_berat_batu_tak_terpakai || 0
           ),
-          nama_bahan_tambahan: "",
+          nama_bahan_tambahan: "TIDAK ADA",
           jumlah_tambahan: 0,
           berat_tambahan: 0,
           no_induk_job_order: data.no_induk_job_order,
@@ -713,6 +846,7 @@ const addLocalDataTambahan =
       } else {
         dataHead.forEach((element) => {
           const batuData = [];
+          delete element.cabang_tujuan;
           delete element.no_induk_job_order;
           dataDetailBatu.forEach((item) => {
             if (element.no_job_order === item.no_job_order) {

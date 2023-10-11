@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { Button } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { change } from "redux-form";
 import FormKirimJO from "./form-kirim-jo-cabang";
 import FormDetailTambahan from "./form-detail-tambahan-cabang";
 import FormDetailBatu from "./form-detail-batu-cabang";
 import getLocal from "../../../../infrastructure/services/local/get-local";
 import KirimBahanAdmin from "../../../../application/selectors/kirimbahanadmin";
-import { useDispatch, useSelector } from "react-redux";
-import { getTukangByDivisi } from "../../../../application/actions/kirimjocabang";
+import {
+  getTukangByDivisi,
+  setBahanKembaliKirim,
+  getDataByNoInduk,
+  // getDataDetailJO,
+} from "../../../../application/actions/kirimjocabang";
+import KirimJOCabang from "../../../../application/selectors/kirimjocabang";
+import MasterBahan from "../../../../application/selectors/masterbahan";
 
 const ModalKirimJOCabang = () => {
   const dispatch = useDispatch();
@@ -22,6 +30,10 @@ const ModalKirimJOCabang = () => {
   const dataHead = getLocal("kirim_jo_head_cabang") || [];
   const dataDivisi = useSelector(KirimBahanAdmin.getAllDivisi);
   const dataTambahan = getLocal("detail_tambahan_cabang") || [];
+  const dataInduk = useSelector(KirimJOCabang.getDataNoInduk);
+  // const dataJO = useSelector(KirimJOCabang.getDataNoJO);
+  const dataJenisBahan = useSelector(MasterBahan.getAllMasterBahan);
+  const dataCabang = useSelector(KirimJOCabang.getAllCAbang);
 
   return (
     <div>
@@ -30,6 +42,40 @@ const ModalKirimJOCabang = () => {
         onClick={() => {
           setVisible(true);
           dispatch(getTukangByDivisi(dataDivisi[1]?.divisi));
+          dispatch(getDataByNoInduk(dataInduk[0]?.no_induk_job_order));
+          dispatch(
+            change(
+              "FormKirimJOCabang",
+              "cabang_tujuan",
+              `${dataCabang[0]?.kode_toko}|${dataCabang[0]?.portal}`
+            )
+          );
+          dispatch(
+            change(
+              "FormKirimJOCabang",
+              "no_induk_job_order",
+              dataInduk[0]?.no_induk_job_order
+            )
+          );
+          // dispatch(
+          //   getDataDetailJO({ noJO: dataJO[0]?.no_job_order, type: "CHANGE" })
+          // );
+          // dispatch(
+          //   change("FormKirimJOCabang", "no_job_order", dataJO[0]?.no_job_order)
+          // );
+          dispatch(
+            change("FormKirimJOCabang", "jumlah_berat_batu_tak_terpakai", 0)
+          );
+          dispatch(setBahanKembaliKirim(dataJenisBahan[0]?.nama_bahan));
+          dispatch(
+            change(
+              "FormKirimJOCabang",
+              "bahan_kembali",
+              dataJenisBahan[0]?.nama_bahan
+            )
+          );
+          dispatch(change("FormKirimJOCabang", "berat_kirim", 0));
+          dispatch(change("FormKirimJOCabang", "berat_balik", 0));
         }}
       >
         + Data JO

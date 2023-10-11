@@ -62,6 +62,7 @@ let FormKirimJOCabang = ({ visible, onCancel }, prop) => {
               component={styleAntd.ASelect}
               placeholder="Pilih Cabang Tujuan"
               onBlur={(e) => e.preventDefault()}
+              disabled={isEdit}
             >
               {dataCabang.map((item) => {
                 return (
