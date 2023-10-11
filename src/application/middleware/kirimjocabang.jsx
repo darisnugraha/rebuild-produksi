@@ -640,6 +640,9 @@ const editFlow =
           dataHeadFill?.nama_bahan_balik
         )
       );
+      dispatch(
+        change("FormKirimJOCabang", "tukang_asal", dataHeadFill?.tukang_asal)
+      );
       dispatch(setDataEditJobOrder(dataHeadFill));
       dispatch(countBeratKirimJO({ beratKirim: dataHeadFill.berat_kirim }));
       dispatch(countBeratBalik({ beratBalik: dataHeadFill.berat_balik }));
@@ -665,9 +668,9 @@ const editFlow =
         cabang_tujuan: data.cabang_tujuan,
         no_job_order: data.no_job_order,
         divisi_asal: divisi_asal.toUpperCase(),
-        divisi_tujuan: data.divisi_tujuan,
+        divisi_tujuan: "ADMIN PUSAT",
         tukang_asal: data.tukang_asal,
-        tukang_tujuan: data.tukang_tujuan,
+        tukang_tujuan: "-",
         kode_barang: data.kode_barang,
         nama_barang: data.nama_barang,
         kode_jenis_bahan: data.kode_jenis_bahan,
@@ -675,7 +678,7 @@ const editFlow =
         berat_kirim: parseFloat(data.berat_kirim || 0),
         susut: parseFloat(data.susut || 0),
         jumlah_berat_batu_tak_terpakai: parseFloat(
-          data.jumlah_berat_batu_tak_terpakai
+          data.jumlah_berat_batu_tak_terpakai || 0
         ),
         nama_bahan_tambahan: dataHeadFillFind.nama_bahan_tambahan,
         jumlah_tambahan: dataHeadFillFind.jumlah_tambahan,
@@ -683,6 +686,7 @@ const editFlow =
         no_induk_job_order: data.no_induk_job_order,
         jumlah_akhir: parseInt(data.jumlah_akhir),
         berat_akhir: parseFloat(data.berat_akhir),
+        berat_batu: parseFloat(data.berat_batu),
         berat_balik: parseFloat(data.berat_balik),
         nama_bahan_balik: data.bahan_kembali,
       };
