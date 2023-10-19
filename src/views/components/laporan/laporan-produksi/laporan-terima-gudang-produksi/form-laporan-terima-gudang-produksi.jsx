@@ -54,7 +54,8 @@ let FormLaporanTerimaGudangProduksi = (prop) => {
               if (
                 item.divisi === "GUDANG QC JC" ||
                 item.divisi === "GUDANG QC VV" ||
-                item.divisi.includes("GUDANG")
+                item.divisi.includes("GUDANG") ||
+                item.divisi.includes("QC")
               ) {
                 return (
                   <Option value={item.divisi} key={item.divisi}>
