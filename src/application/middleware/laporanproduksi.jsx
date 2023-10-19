@@ -329,7 +329,7 @@ const getAllDataTerimaGudangProduksi =
           if (res.value.length !== 0) {
             const newArr = [];
             res.value.forEach((val) => {
-              if (val.divisi.includes("GUDANG")) {
+              if (val.divisi.includes("GUDANG") || val.divisi.includes("QC")) {
                 newArr.push(val);
               }
             });
