@@ -167,7 +167,7 @@ const beratBahanAsalGetByStaffAll =
         divisi:
           getState().form.FormTerimaBahanTukang.values.divisi_asal || null,
         staff: getState().form.FormTerimaBahanTukang.values.tukang_asal || null,
-        nama_bahan: nama_bahan,
+        nama_bahan: nama_bahan.replace("+", "~"),
         divisi_tujuan: "ADMIN BAHAN",
       };
       const res = await api.TerimaBahanTukang.getSaldoKirimBahanTukangOpen(
@@ -175,7 +175,6 @@ const beratBahanAsalGetByStaffAll =
       );
       const cek = res.value.filter((el) => el.nama_bahan === nama_bahan);
       let resfill = "";
-      console.log(cek.length);
       if (cek.length === 1) {
         resfill = res.value.find((el) => el.nama_bahan === nama_bahan);
       } else {
