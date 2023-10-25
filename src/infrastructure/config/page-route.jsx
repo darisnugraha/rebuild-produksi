@@ -92,6 +92,10 @@ import BatalProsesJO from "../../views/pages/admin-pusat/batal-proses-job-order"
 import LaporanSusutProduksi from "../../views/pages/laporan/laporan-produksi/laporan-susut-produksi";
 import CetakBarcode from "../../views/pages/utility/cetak-barcode";
 import getLocal from "../services/local/get-local";
+import KirimJOCabang from "../../views/pages/admin-pusat/kirim-jo-cabang";
+import TerimaJOCabang from "../../views/pages/admin-pusat/terima-jo-cabang";
+import KirimBahanCabang from "../../views/pages/admin-bahan/kirim-bahan-cabang";
+import TerimaBahanCabang from "../../views/pages/admin-bahan/terima-bahan-cabang";
 
 const routes = [
   {
@@ -225,6 +229,16 @@ const routes = [
     component: () => <KirimBahanAdmin />,
   },
   {
+    path: "/admin-bahan/kirim-bahan-cabang",
+    title: "Kirim Bahan Cabang",
+    component: () => <KirimBahanCabang />,
+  },
+  {
+    path: "/admin-bahan/terima-bahan-cabang",
+    title: "Terima Bahan Cabang",
+    component: () => <TerimaBahanCabang />,
+  },
+  {
     path: "/admin-bahan/terima-bahan-tukang",
     title: "Terima Bahan Tukang",
     component: () => <TerimaBahanTukang />,
@@ -234,6 +248,20 @@ const routes = [
     path: "/admin-pusat/tambah-jo",
     title: "Tambah Job Order",
     component: () => <TambahJobOrder />,
+  },
+  {
+    path: "/admin-pusat/kirim-jo-cabang",
+    title: "Kirim Job Order Cabang",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <KirimJOCabang />,
+  },
+  {
+    path: "/admin-pusat/terima-jo-cabang",
+    title: "Terima Job Order Cabang",
+    menu: "Admin Pusat",
+    divisi: "Admin",
+    component: () => <TerimaJOCabang />,
   },
   {
     path: "/admin-pusat/kirim-jo",

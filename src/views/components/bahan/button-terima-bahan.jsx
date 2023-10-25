@@ -23,11 +23,6 @@ const ModalTerimaBahan = () => {
   const dataStaff = useSelector(TerimaBahan.getTukangDivisi);
   const staffAsal = useSelector(TerimaBahan.getTukangByDivisi);
 
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
-
   useEffect(() => {
     dispatch(
       getTukangByDivisi(
@@ -42,25 +37,31 @@ const ModalTerimaBahan = () => {
         <Button
           type="primary"
           onClick={() => {
-            dispatch(change("FormTerimaBahan", "divisi", "ADMIN PUSAT"));
-            dispatch(
-              change("FormTerimaBahan", "divisi_asal", dataDivisi[0]?.divisi)
-            );
-            dispatch(
-              change("FormTerimaBahan", "staff", dataTukangAsal[0]?.nama_tukang)
-            );
-            dispatch(
-              change(
-                "FormTerimaBahan",
-                "staff_tujuan",
-                dataStaff[0].nama_tukang
-              )
-            );
-            dispatch(
-              getBahanByTukangTujuan({
-                staff: dataStaffDivisi[0].nama_tukang,
-              })
-            );
+            if (dataTukangAsal.length !== 0 || dataStaff.length !== 0) {
+              dispatch(change("FormTerimaBahan", "divisi", "ADMIN PUSAT"));
+              dispatch(
+                change("FormTerimaBahan", "divisi_asal", dataDivisi[0]?.divisi)
+              );
+              dispatch(
+                change(
+                  "FormTerimaBahan",
+                  "staff",
+                  dataTukangAsal[0]?.nama_tukang
+                )
+              );
+              dispatch(
+                change(
+                  "FormTerimaBahan",
+                  "staff_tujuan",
+                  dataStaff[0].nama_tukang
+                )
+              );
+              dispatch(
+                getBahanByTukangTujuan({
+                  staff: dataStaffDivisi[0].nama_tukang,
+                })
+              );
+            }
             setVisible(true);
           }}
         >
@@ -98,7 +99,6 @@ const ModalTerimaBahan = () => {
 
       <FormTerimaBahan
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

@@ -145,6 +145,21 @@ const Menu = [
         title: "Terima Bahan Tukang",
         is_show: true,
       },
+      {
+        path: "/admin-bahan/kirim-bahan-cabang",
+        title: "Kirim Bahan ke Cabang",
+        is_show: true,
+      },
+      {
+        path: "/admin-bahan/terima-bahan-cabang",
+        title: "Terima Bahan ke Cabang",
+        is_show: true,
+      },
+      // {
+      //   path: "/admin-bahan/terima-bahan-tukang",
+      //   title: "Terima Bahan Tukang",
+      //   is_show: true,
+      // },
     ],
   },
   {
@@ -156,6 +171,16 @@ const Menu = [
       {
         path: "/admin-pusat/tambah-jo",
         title: "Tambah Job Order",
+        is_show: true,
+      },
+      {
+        path: "/admin-pusat/kirim-jo-cabang",
+        title: "Kirim Job Order Cabang",
+        is_show: true,
+      },
+      {
+        path: "/admin-pusat/terima-jo-cabang",
+        title: "Terima Job Order Cabang",
         is_show: true,
       },
       {
