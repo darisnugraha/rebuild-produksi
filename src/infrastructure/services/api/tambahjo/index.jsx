@@ -12,7 +12,8 @@ const TambahJobOrder = {
   },
   addTambahJobOrderCheckOut: async (dataKirim) => {
     const response = await post.AxiosPost({
-      url: word.URL_ADD_JOB_ORDER_CHECKOUT,
+      // url: word.URL_ADD_JOB_ORDER_CHECKOUT,
+      url: word.URL_ADD_JOB_ORDER_CHECKOUT_V2,
       data: dataKirim,
     });
     return response;
@@ -20,6 +21,12 @@ const TambahJobOrder = {
   getDataPohon: async (dataKirim) => {
     const response = await get({
       url: word.URL_GET_DATA_POHON + dataKirim,
+    });
+    return response;
+  },
+  getDataTukangByBahan: async (dataKirim) => {
+    const response = await get({
+      url: word.URL_GET_TUKANG_BY_BAHAN + dataKirim,
     });
     return response;
   },

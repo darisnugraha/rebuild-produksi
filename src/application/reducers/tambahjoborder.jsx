@@ -17,6 +17,9 @@ import {
   SET_JUMLAH_BARANG,
   SET_TYPE_POHON_MANUAL,
   SET_KODE_JENIS_BAHAN,
+  SET_TUKANG_BY_BAHAN,
+  SET_BERAT_MANUAL,
+  GET_TUKANG_BY_BAHAN,
 } from "../actions/tambahjoborder";
 
 const initialState = {
@@ -39,10 +42,28 @@ const initialState = {
   jumlahBarang: 0,
   pohonManual: false,
   kodeJenisBahan: undefined,
+  tukangAvail: [],
+  beratManual: 0,
+  bahanManual: undefined,
 };
 
 const tambahjoborder = (state = initialState, action) => {
   switch (action.type) {
+    case GET_TUKANG_BY_BAHAN:
+      return {
+        ...state,
+        bahanManual: action.payload.data,
+      };
+    case SET_BERAT_MANUAL:
+      return {
+        ...state,
+        beratManual: action.payload.data,
+      };
+    case SET_TUKANG_BY_BAHAN:
+      return {
+        ...state,
+        tukangAvail: action.payload.data,
+      };
     case SET_DATA_STAFF_SUCCESS:
       return {
         ...state,

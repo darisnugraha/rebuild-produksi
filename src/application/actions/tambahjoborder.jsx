@@ -25,6 +25,12 @@ export const SET_JUMLAH_BARANG = "[tambahjoborder] set jumlah barang";
 export const SET_TYPE_POHON_MANUAL = "[tambahjoborder] set type pohon manual";
 export const SET_KODE_JENIS_BAHAN = "[tambahjoborder] set kode jenis bahan";
 
+export const GET_TUKANG_BY_BAHAN = "[tambahjoborder] get tukang by bahan";
+export const SET_TUKANG_BY_BAHAN = "[tambahjoborder] set tukang by bahan";
+
+export const SET_BERAT_MANUAL = "[tambahjoborder] set berat manual";
+export const COUNT_BERAT_MANUAL = "[tambahjoborder] count berat manual";
+
 export const addDataStaff = {
   type: ADD_DATA_STAFF,
 };
@@ -53,6 +59,14 @@ export const addCheckOutJO = {
   type: ADD_JOB_ORDER_CHECKOUT,
 };
 
+export const getTukangByBahan = ({ bahan }) => ({
+  type: GET_TUKANG_BY_BAHAN,
+  payload: { data: bahan },
+});
+export const setTukangByBahan = ({ feedback }) => ({
+  type: SET_TUKANG_BY_BAHAN,
+  payload: { data: feedback },
+});
 export const getDataByPohon = ({ pohon }) => ({
   type: GET_DATA_BY_POHON,
   payload: { data: pohon },
@@ -66,6 +80,16 @@ export const setDataByPohon = ({ feedback }) => ({
 export const setTukang = (tukang) => ({
   type: SET_TUKANG,
   payload: { data: tukang },
+});
+
+export const setBeratManual = (berat) => ({
+  type: SET_BERAT_MANUAL,
+  payload: { data: berat },
+});
+
+export const countBeratManual = (berat) => ({
+  type: COUNT_BERAT_MANUAL,
+  payload: { data: berat },
 });
 
 export const countBeratBalik = (beratBahan) => ({
