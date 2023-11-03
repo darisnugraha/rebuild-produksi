@@ -259,14 +259,20 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                   }}
                 >
                   {dataStaffByBahan.map((item) => {
-                    return (
-                      <Option
-                        value={item.tukang + "|" + item.berat}
-                        key={item._id}
-                      >
-                        <span style={{ fontSize: "13px" }}>{item.tukang}</span>
-                      </Option>
-                    );
+                    if (item.divisi === "ADMIN PUSAT") {
+                      return (
+                        <Option
+                          value={item.tukang + "|" + item.berat}
+                          key={item._id}
+                        >
+                          <span style={{ fontSize: "13px" }}>
+                            {item.tukang}
+                          </span>
+                        </Option>
+                      );
+                    } else {
+                      return false;
+                    }
                   })}
                 </Field>
               </Col>
@@ -284,13 +290,17 @@ let FormDataStaff = ({ visible, onCreate, onCancel }, prop) => {
                   onChange={(e) => dispatch(setTukang(e))}
                 >
                   {dataStaff.map((item) => {
-                    return (
-                      <Option value={item.nama_tukang} key={item._id}>
-                        <span style={{ fontSize: "13px" }}>
-                          {item.nama_tukang + " (" + item.kode_tukang + ")"}
-                        </span>
-                      </Option>
-                    );
+                    if (item.divisi === "ADMIN PUSAT") {
+                      return (
+                        <Option value={item.nama_tukang} key={item._id}>
+                          <span style={{ fontSize: "13px" }}>
+                            {item.nama_tukang + " (" + item.kode_tukang + ")"}
+                          </span>
+                        </Option>
+                      );
+                    } else {
+                      return false;
+                    }
                   })}
                 </Field>
               </Col>
