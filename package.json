@@ -87,6 +87,7 @@
     "build-qc-produksi": "export REACT_APP_BACKEND_URL=http://149.129.246.85:7799/api/v1/&& react-scripts build",
     "build-produksi-joecollin": "export REACT_APP_BACKEND_URL=https://103.196.146.28:10015/api/v1/&& react-scripts build",
     "build-victoeria-qc": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8051/api/v1/&& react-scripts build",
+    "build-auvagold": "export REACT_APP_BACKEND_URL=https://103.196.146.28:10152/api/v1/&& react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
