@@ -66,6 +66,15 @@ class ExcelReport extends Component {
                   textAlign: "center",
                 }}
               >
+                NAMA BATU
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
                 JUMLAH
               </td>
               <td
@@ -95,6 +104,7 @@ class ExcelReport extends Component {
                   <td>{item.no_mutasi}</td>
                   <td>{item.tanggal_mutasi}</td>
                   <td>{item.kode_batu}</td>
+                  <td>{item?.nama_batu}</td>
                   <td style={{ textAlign: "right" }}>{item.jumlah}</td>
                   <td style={{ textAlign: "right" }}>{item.berat}</td>
                   <td>{item.keterangan}</td>
@@ -104,7 +114,7 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={3}>Total :</td>
+              <td colSpan={4}>Total :</td>
               <td>
                 {this.props.dataExel.reduce(
                   (a, b) => a + parseFloat(b.jumlah),
