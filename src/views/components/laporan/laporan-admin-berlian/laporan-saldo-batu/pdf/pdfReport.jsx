@@ -18,23 +18,17 @@ const pdfReport = (data = "") => {
 
   tableColumn = [
     [
-      {
-        content: `KODE BATU`,
-      },
-      {
-        content: `JUMLAH`,
-      },
-      {
-        content: `BERAT`,
-      },
+      { content: `KODE BATU` },
+      { content: `NAMA BATU` },
+      { content: `JUMLAH` },
+      { content: `BERAT` },
     ],
   ];
 
   data.forEach((element) => {
     const row = [
-      {
-        content: element.kode_batu,
-      },
+      { content: element.kode_batu },
+      { content: element.nama_batu },
       {
         content: element.jumlah,
         styles: {
@@ -54,6 +48,7 @@ const pdfReport = (data = "") => {
   const footer = [
     {
       content: "Total",
+      colSpan: 2,
       styles: {
         halign: "center",
       },
