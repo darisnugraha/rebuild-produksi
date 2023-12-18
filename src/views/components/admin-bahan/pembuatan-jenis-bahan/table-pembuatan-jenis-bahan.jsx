@@ -106,7 +106,7 @@ const TablePembuatanJenisBahan = () => {
                 type="primary"
                 htmltype="button"
                 danger
-                onClick={() => onDelete(text.nama_bahan, "BAHAN")}
+                onClick={() => onDelete(text.kode_bahan, "BAHAN")}
               >
                 DELETE
               </Button>

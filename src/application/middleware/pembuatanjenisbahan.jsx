@@ -244,7 +244,7 @@ const deleteBahan =
     if (action.type === DELETE_BAHAN) {
       const id = action.payload.data;
       const data = getLocal("data_detail_bahan");
-      const dataFill = data.filter((val) => val.nama_bahan !== id);
+      const dataFill = data.filter((val) => val.kode_bahan !== id);
       writeLocal("data_detail_bahan", dataFill);
       sweetalert.default.Success("Berhasil Menghapus Data !");
     }
