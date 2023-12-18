@@ -68,6 +68,12 @@ const TableMasterTambahAmbilBatu = () => {
           align: "center",
         },
         {
+          title: "Nama Batu",
+          dataIndex: "nama_batu",
+          key: "nama_batu",
+          align: "center",
+        },
+        {
           title: "Jumlah Batu",
           dataIndex: "jumlah",
           key: "jumlah",
