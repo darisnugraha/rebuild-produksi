@@ -17,6 +17,7 @@ import {
   checkoutKirimBatuFailed,
 } from "../actions/kirimbatupusat";
 import * as sweetalert from "../../infrastructure/shared/sweetalert";
+import { change } from "redux-form";
 
 const getDataJOKirimBatuPusat =
   ({ api, log, writeLocal, getLocal, toast }) =>
@@ -34,6 +35,27 @@ const getDataJOKirimBatuPusat =
             dispatch(setDataJOKirimBatuPusatSuccess({ feedback: res.value }));
             dispatch(
               getAllDetailBatu({ noJO: res.value[0].no_admin_terima_batu })
+            );
+            dispatch(
+              change(
+                "FormDetailJOKirimBatu",
+                "kode_barang",
+                res.value[0]?.kode_barang
+              )
+            );
+            dispatch(
+              change(
+                "FormDetailJOKirimBatu",
+                "nama_barang",
+                res.value[0]?.nama_barang
+              )
+            );
+            dispatch(
+              change(
+                "FormDetailJOKirimBatu",
+                "kode_jenis_bahan",
+                res.value[0]?.kode_jenis_bahan
+              )
             );
           } else {
             sweetalert.default.Failed("Data yg Anda Cari Tidak Ada !");
@@ -59,6 +81,7 @@ const setDataDetailJOLocal =
       if (dataform.no_job_order === undefined) {
         sweetalert.default.Failed("Mohon Lengkapi Form !");
       } else {
+        window.location.reload();
         writeLocal("data_jo_kirim_batu_head", dataform);
         sweetalert.default.SuccessNoReload("Berhasil Menyimpan Data !");
       }

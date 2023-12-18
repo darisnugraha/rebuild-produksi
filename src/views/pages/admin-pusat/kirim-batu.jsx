@@ -93,6 +93,7 @@ const KirimBatu = () => {
               <Button
                 type="danger"
                 onClick={() => {
+                  localStorage.removeItem("data_jo_kirim_batu_head");
                   window.location.reload();
                 }}
               >
