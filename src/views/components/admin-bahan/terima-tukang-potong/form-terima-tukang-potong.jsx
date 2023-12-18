@@ -165,10 +165,10 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
             <Field
               name="berat_terima"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Berat Pentolan</span>}
+              label={<span style={{ fontSize: "13px" }}>Berat Pohon</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Berat Pentolan"
+              placeholder="Masukkan Berat Pohon"
               onChange={(e) =>
                 dispatch(countSusutPentolan({ beratPentolan: e.target.value }))
               }
@@ -191,10 +191,10 @@ let FormTerimaTukangPotong = ({ visible, onCancel }, prop) => {
             <Field
               name="berat_susut"
               type="text"
-              label={<span style={{ fontSize: "13px" }}>Berat Susut</span>}
+              label={<span style={{ fontSize: "13px" }}>Berat Katekan</span>}
               component={styleAntd.AInput}
               className="form-item-group"
-              placeholder="Masukkan Berat Susut"
+              placeholder="Masukkan Berat Katekan"
               disabled
             />
           </Col>
