@@ -28,7 +28,7 @@ const getDataPohon =
           if (res.value.length !== 0) {
             dispatch(setDataTerimaTukangPotongSuccess({ feedback: res.value }));
             api.TerimaTukangPotong.getTerimaTukangPotongJenisBahan({
-              data: res.value[0].kode_jenis_bahan.replace("+", "-"),
+              data: res.value[0].kode_jenis_bahan.replaceAll("+", "-"),
             }).then((res) => {
               if (res.value !== null) {
                 dispatch(setDataJenisBahan({ feedback: res.value }));
