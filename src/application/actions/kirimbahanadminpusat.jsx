@@ -43,6 +43,8 @@ export const SET_STAFF_BY_DIVISI = "[kirimbahanadminpusat] set staff by divisi";
 export const SET_BAHAN_BY_TUKANG_ASAL =
   "[kirimbahanadminpusat] set get bahan by tukang asal";
 
+export const SET_STAFF_TUJUAN = "[kirimbahanadminpusat] set staff tujuan";
+
 export const getAllDivisi = {
   type: GET_DIVISI,
 };
@@ -95,6 +97,10 @@ export const setDataStaffStockBahanDivisiProdFailed = ({ error }) => ({
 
 export const getAllStockBahanByStaff = ({ staff }) => ({
   type: GET_ALL_STOCK_BAHAN_BY_STAFF,
+  payload: { data: staff },
+});
+export const setStaffTujuan = ({ staff }) => ({
+  type: SET_STAFF_TUJUAN,
   payload: { data: staff },
 });
 

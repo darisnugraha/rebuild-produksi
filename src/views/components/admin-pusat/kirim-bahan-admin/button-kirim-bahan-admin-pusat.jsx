@@ -9,20 +9,13 @@ import { getDataStaffByDivisi } from "../../../../application/actions/kirimbahan
 const ModalKirimBahanAdminPusat = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-
   const dataDivisi = useSelector(KirimBahanAdminPusat.getAllDivisi);
-
-  const onCreate = (values) => {
-    console.log("Received values of form: ", values);
-    setVisible(false);
-  };
 
   return (
     <div>
       <Button
         type="primary"
         onClick={() => {
-          // dispatch(getAllStockBahanByStaff({ staff: dataStaff[0]?.staff }));
           dispatch(getDataStaffByDivisi(dataDivisi[0]?.divisi));
           setVisible(true);
         }}
@@ -31,7 +24,6 @@ const ModalKirimBahanAdminPusat = () => {
       </Button>
       <FormKirimBahanAdminPusat
         visible={visible}
-        onCreate={onCreate}
         onCancel={() => {
           setVisible(false);
         }}

@@ -112,7 +112,10 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               >
                 {dataStaffAsal.map((item) => {
                   return (
-                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <Option
+                      value={`${item.nama_tukang}|${item.kode_tukang}`}
+                      key={item.kode_tukang}
+                    >
                       <span style={{ fontSize: "13px" }}>
                         {item.kode_tukang === item.nama_tukang
                           ? item.nama_tukang
@@ -133,12 +136,15 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 placeholder="Pilih Tukang Asal"
                 onBlur={(e) => e.preventDefault()}
                 onChange={(val) => {
-                  dispatch(getBahanByTukangAsal({ staff: val }));
+                  dispatch(getBahanByTukangAsal({ staff: val.split("|")[0] }));
                 }}
               >
                 {dataStaffDivisi.map((item) => {
                   return (
-                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <Option
+                      value={`${item.nama_tukang}|${item.kode_tukang}`}
+                      key={item.kode_tukang}
+                    >
                       <span style={{ fontSize: "13px" }}>
                         {item.kode_tukang === item.nama_tukang
                           ? item.nama_tukang
@@ -160,12 +166,17 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 placeholder="Pilih Tukang Tujuan"
                 onBlur={(e) => e.preventDefault()}
                 onChange={(val) => {
-                  dispatch(getBahanByTukangTujuan({ staff: val }));
+                  dispatch(
+                    getBahanByTukangTujuan({ staff: val.split("|")[0] })
+                  );
                 }}
               >
                 {dataStaffTujuan.map((item) => {
                   return (
-                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <Option
+                      value={`${item.nama_tukang}|${item.kode_tukang}`}
+                      key={item.kode_tukang}
+                    >
                       <span style={{ fontSize: "13px" }}>
                         {item.kode_tukang === item.nama_tukang
                           ? item.nama_tukang
@@ -186,12 +197,17 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
                 placeholder="Pilih Tukang Tujuan"
                 onBlur={(e) => e.preventDefault()}
                 onChange={(val) => {
-                  dispatch(getBahanByTukangTujuan({ staff: val }));
+                  dispatch(
+                    getBahanByTukangTujuan({ staff: val.split("|")[0] })
+                  );
                 }}
               >
                 {dataStaff.map((item) => {
                   return (
-                    <Option value={item.nama_tukang} key={item.kode_tukang}>
+                    <Option
+                      value={`${item.nama_tukang}|${item.kode_tukang}`}
+                      key={item.kode_tukang}
+                    >
                       <span style={{ fontSize: "13px" }}>
                         {item.kode_tukang === item.nama_tukang
                           ? item.nama_tukang
@@ -212,12 +228,17 @@ let FormTerimaBahan = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Pilih Bahan"
               onBlur={(e) => e.preventDefault()}
               onChange={(e) =>
-                dispatch(getSaldoKirimBahanOpenChange({ namaBahan: e }))
+                dispatch(
+                  getSaldoKirimBahanOpenChange({ namaBahan: e.split("|")[0] })
+                )
               }
             >
               {dataBahan.map((item) => {
                 return (
-                  <Option value={item.nama_bahan} key={item._id}>
+                  <Option
+                    value={`${item.nama_bahan}|${item._id}`}
+                    key={item._id}
+                  >
                     <span style={{ fontSize: "13px" }}>{item.nama_bahan}</span>
                   </Option>
                 );
