@@ -277,7 +277,10 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
             >
               {dataTukang.map((item) => {
                 return (
-                  <Option value={item.nama_tukang} key={item.kode_tukang}>
+                  <Option
+                    value={`${item.nama_tukang}|${item.kode_tukang}`}
+                    key={item._id}
+                  >
                     <span style={{ fontSize: "13px" }}>
                       {item.kode_tukang === item.nama_tukang
                         ? item.nama_tukang
