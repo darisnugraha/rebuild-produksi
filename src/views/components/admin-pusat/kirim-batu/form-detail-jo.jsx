@@ -10,18 +10,20 @@ import {
   getAllJOKirimBatuPusat,
   simpanDetailJOLokal,
 } from "../../../../application/actions/kirimbatupusat";
+import getLocal from "../../../../infrastructure/services/local/get-local";
 
 const { Option } = Select;
 
 const maptostate = (state) => {
-  if (state.kirimbatupusat.feedback.length !== 0) {
+  const local = getLocal("data_jo_kirim_batu_head");
+  if (local !== null) {
     return {
       initialValues: {
-        divisi: state.kirimbahanadmin.feedback[0]?.divisi,
-        no_job_order: state.kirimbatupusat.no_job_order,
-        kode_barang: state.kirimbatupusat.feedback[0]?.kode_barang,
-        nama_barang: state.kirimbatupusat.feedback[0]?.nama_barang,
-        kode_jenis_bahan: state.kirimbatupusat.feedback[0]?.kode_jenis_bahan,
+        divisi: local.divisi,
+        no_job_order: local.no_job_order,
+        kode_barang: local.kode_barang,
+        nama_barang: local.nama_barang,
+        kode_jenis_bahan: local.kode_jenis_bahan,
       },
     };
   } else {

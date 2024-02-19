@@ -17,7 +17,7 @@ import getLocal from "../../../../infrastructure/services/local/get-local";
 const { Option } = Select;
 
 const maptostate = (state) => {
-  const dataJO = getLocal("kirim_jo_head");
+  const dataJO = getLocal("kirim_jo_head_cabang");
   if (state.kirimjocabang.dataEditTambahan !== undefined) {
     return {
       initialValues: {

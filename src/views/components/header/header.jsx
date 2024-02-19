@@ -6,6 +6,7 @@ import DropdownProfile from "./dropdown/profile.jsx";
 import SearchForm from "./search/form.jsx";
 import DropdownMegaMenu from "./dropdown/mega.jsx";
 import { PageSettings } from "../../../infrastructure/config/page-settings";
+import getLocal from "../../../infrastructure/services/local/get-local.jsx";
 
 class Header extends React.Component {
   constructor(props) {

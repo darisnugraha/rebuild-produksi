@@ -120,7 +120,7 @@ const getDetailBahanMidd =
             : data.divisi?.toUpperCase(),
         tukang: data.staff,
         divisi_asal: data.divisi_asal,
-        nama_bahan: bahan,
+        nama_bahan: bahan.replaceAll("+", "~"),
       };
       api.TerimaBahan.getDetailBahan(dataKirim).then((res) => {
         if (res.value !== null) {
@@ -206,7 +206,7 @@ const setDataBeratBahan =
     if (action.type === GET_SALDO_KIRIM_BAHAN_OPEN_CHANGE) {
       dispatch(change("FormTerimaBahan", "nama_bahan", action.payload.data));
       const data = getState().form.FormTerimaBahan.values;
-      const namaBahan = action.payload.data.replace("+", "-");
+      const namaBahan = action.payload.data.replaceAll("+", "-");
       const dataKirim = {
         divisi: data.divisi_asal,
         divisi_tujuan: data.divisi?.toUpperCase(),

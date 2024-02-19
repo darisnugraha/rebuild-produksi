@@ -22,38 +22,22 @@ const pdfReport = (data = "") => {
 
   tableColumn = [
     [
-      {
-        content: `NO TRANSAKSI`,
-      },
-      {
-        content: `TGL TRANSAKSI`,
-      },
-      {
-        content: `KODE BATU`,
-      },
-      {
-        content: `JUMLAH`,
-      },
-      {
-        content: `BERAT`,
-      },
-      {
-        content: `KETERANGAN`,
-      },
+      { content: `NO TRANSAKSI` },
+      { content: `TGL TRANSAKSI` },
+      { content: `KODE BATU` },
+      { content: `NAMA BATU` },
+      { content: `JUMLAH` },
+      { content: `BERAT` },
+      { content: `KETERANGAN` },
     ],
   ];
 
   data.forEach((element) => {
     const row = [
-      {
-        content: element.no_mutasi,
-      },
-      {
-        content: element.tanggal_mutasi,
-      },
-      {
-        content: element.kode_batu,
-      },
+      { content: element.no_mutasi },
+      { content: element.tanggal_mutasi },
+      { content: element.kode_batu },
+      { content: element?.nama_batu },
       {
         content: element.jumlah,
         styles: {
@@ -79,7 +63,7 @@ const pdfReport = (data = "") => {
       styles: {
         halign: "right",
       },
-      colSpan: 3,
+      colSpan: 4,
     },
     {
       content: data.reduce((a, b) => a + parseFloat(b.jumlah), 0),
