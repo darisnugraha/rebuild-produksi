@@ -46,13 +46,14 @@ const TableLaporanSaldoBatu = () => {
             <Table.Summary.Cell index={0} align="center">
               Total
             </Table.Summary.Cell>
-            <Table.Summary.Cell index={1} align="right">
+            <Table.Summary.Cell index={1} align="center"></Table.Summary.Cell>
+            <Table.Summary.Cell index={2} align="right">
               {dataLaporanSaldoBatu.reduce(
                 (a, b) => a + parseFloat(b.jumlah),
                 0
               )}
             </Table.Summary.Cell>
-            <Table.Summary.Cell index={2} align="right">
+            <Table.Summary.Cell index={3} align="right">
               {dataLaporanSaldoBatu
                 .reduce((a, b) => a + parseFloat(b.berat), 0)
                 .toFixed(3)}

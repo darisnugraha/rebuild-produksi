@@ -2,25 +2,25 @@ import { reset } from "redux-form";
 import { NotifError, NotifReactif } from "./notification";
 import React, { forwardRef } from "react";
 // import compress from "compress-base64";
-import Resizer from "react-image-file-resizer";
-import firebase from "../../firebase";
+// import Resizer from "react-image-file-resizer";
+// import firebase from "../../firebase";
 
-export function postImage(file, name) {
-  return new Promise((resolve, reject) => {
-    const storage = firebase.storage();
-    let stoageRef = storage.ref("NSIPIC/KRESNO/" + name + ".jpg");
-    stoageRef
-      .put(file)
-      .then((res) => {
-        stoageRef.getDownloadURL().then(function (url) {
-          resolve(url);
-        });
-      })
-      .catch((err) => {
-        reject(JSON.parse(err));
-      });
-  });
-}
+// export function postImage(file, name) {
+//   return new Promise((resolve, reject) => {
+//     const storage = firebase.storage();
+//     let stoageRef = storage.ref("NSIPIC/KRESNO/" + name + ".jpg");
+//     stoageRef
+//       .put(file)
+//       .then((res) => {
+//         stoageRef.getDownloadURL().then(function (url) {
+//           resolve(url);
+//         });
+//       })
+//       .catch((err) => {
+//         reject(JSON.parse(err));
+//       });
+//   });
+// }
 export function isBase64(str) {
   try {
     return btoa(atob(str)) === str;
@@ -28,34 +28,34 @@ export function isBase64(str) {
     return false;
   }
 }
-export function deleteImage(name) {
-  return new Promise((resolve, reject) => {
-    let storage = firebase.storage();
-    let storageRef = storage.ref();
-    let desertRef = storageRef.child(`NSIPIC/KRESNO/${name}.jpg`);
-    desertRef
-      .delete()
-      .then(function () {})
-      .catch(function (error) {
-        reject(error);
-      });
-  });
-}
+// export function deleteImage(name) {
+//   return new Promise((resolve, reject) => {
+//     let storage = firebase.storage();
+//     let storageRef = storage.ref();
+//     let desertRef = storageRef.child(`NSIPIC/KRESNO/${name}.jpg`);
+//     desertRef
+//       .delete()
+//       .then(function () {})
+//       .catch(function (error) {
+//         reject(error);
+//       });
+//   });
+// }
 
-export function getImage(file) {
-  return new Promise((resolve, reject) => {
-    const storage = firebase.storage();
-    let stoageRef = storage.ref("NSIPIC/KRESNO/" + file + ".jpg");
-    stoageRef
-      .getDownloadURL()
-      .then(function (url) {
-        resolve(url);
-      })
-      .catch((err) => {
-        reject(JSON.parse(err.customData.serverResponse).error);
-      });
-  });
-}
+// export function getImage(file) {
+//   return new Promise((resolve, reject) => {
+//     const storage = firebase.storage();
+//     let stoageRef = storage.ref("NSIPIC/KRESNO/" + file + ".jpg");
+//     stoageRef
+//       .getDownloadURL()
+//       .then(function (url) {
+//         resolve(url);
+//       })
+//       .catch((err) => {
+//         reject(JSON.parse(err.customData.serverResponse).error);
+//       });
+//   });
+// }
 export const CustomeInputDate = forwardRef(({ value, onClick }, ref) => (
   <>
     <div className="input-group mb-3">
@@ -82,21 +82,21 @@ export const CustomeInputDate = forwardRef(({ value, onClick }, ref) => (
   </>
 ));
 
-export const resizeFile = (file) =>
-  new Promise((resolve, reject) => {
-    Resizer.imageFileResizer(
-      file,
-      720,
-      1366,
-      "JPEG",
-      50,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "base64"
-    );
-  });
+// export const resizeFile = (file) =>
+//   new Promise((resolve, reject) => {
+//     Resizer.imageFileResizer(
+//       file,
+//       720,
+//       1366,
+//       "JPEG",
+//       50,
+//       0,
+//       (uri) => {
+//         resolve(uri);
+//       },
+//       "base64"
+//     );
+//   });
 
 export const dataURLtoFile = (dataurl, filename) => {
   // export const dataURLtoFile = (dataurl, filename) =>

@@ -1,5 +1,7 @@
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { getToday } from "../../../../helpers/function";
+import moment from "moment";
 
 const pdfReport = (data = "") => {
   const doc = new jsPDF("l", "mm", [297, 210]);
@@ -15,6 +17,7 @@ const pdfReport = (data = "") => {
   doc.setProperties({
     title: "Saldo Batu",
   });
+  doc.text(`Tanggal : ${moment(getToday()).format("DD-MM-YYYY")}`, 14, 25);
 
   tableColumn = [
     [

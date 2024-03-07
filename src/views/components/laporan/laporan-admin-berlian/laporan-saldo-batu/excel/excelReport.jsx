@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { getToday } from "../../../../helpers/function";
+import moment from "moment";
 
 class ExcelReport extends Component {
   constructor(props) {
@@ -14,8 +16,8 @@ class ExcelReport extends Component {
           id="test-table-xls-button"
           className="ant-btn ant-btn-primary ant-btn-block ant-btn-success"
           table="table-to-xls"
-          filename="LAPORAN KIRIM BATU"
-          sheet="LAPORAN KIRIM BATU"
+          filename="LAPORAN SALDO BATU"
+          sheet="LAPORAN SALDO BATU"
           buttonText="Export Excel"
         />
         <table id="table-to-xls" style={{ display: "none" }}>
@@ -26,9 +28,20 @@ class ExcelReport extends Component {
                   color: "#000",
                   textAlign: "center",
                 }}
-                colSpan="3"
+                colSpan="4"
               >
-                LAPORAN KIRIM BATU
+                LAPORAN SALDO BATU
+              </td>
+            </tr>
+            <tr>
+              <td
+                style={{
+                  color: "#000",
+                  textAlign: "center",
+                }}
+                colSpan="4"
+              >
+                TANGGAL : {moment(getToday()).format("DD-MM-YYYY")}
               </td>
             </tr>
             <tr>
@@ -40,6 +53,15 @@ class ExcelReport extends Component {
                 }}
               >
                 KODE BATU
+              </td>
+              <td
+                style={{
+                  backgroundColor: "#99CCFF",
+                  color: "#000",
+                  textAlign: "center",
+                }}
+              >
+                NAMA BATU
               </td>
               <td
                 style={{
@@ -66,6 +88,7 @@ class ExcelReport extends Component {
               return (
                 <tr>
                   <td>{item.kode_batu}</td>
+                  <td>{item.nama_batu}</td>
                   <td style={{ textAlign: "right" }}>{item.jumlah}</td>
                   <td style={{ textAlign: "right" }}>{item.berat}</td>
                 </tr>
@@ -74,7 +97,9 @@ class ExcelReport extends Component {
           </tbody>
           <tfoot>
             <tr>
-              <td style={{ textAlign: "center" }}>Total :</td>
+              <td style={{ textAlign: "center" }} colSpan={2}>
+                Total :
+              </td>
               <td style={{ textAlign: "right" }}>
                 {this.props.dataExel.reduce(
                   (a, b) => a + parseFloat(b.jumlah),
