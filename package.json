@@ -85,7 +85,7 @@
     "build-qc-cabang": "export REACT_APP_BACKEND_URL=http://103.119.55.52:7999/api/v1/&& react-scripts build",
     "build-pameran": "export REACT_APP_BACKEND_URL=https://149.129.246.85:7779/api/v1/&& react-scripts build",
     "build-qc-produksi": "export REACT_APP_BACKEND_URL=http://149.129.246.85:7799/api/v1/&& react-scripts build",
-    "build-trial-produksi": "export REACT_APP_BACKEND_URL=http://103.196.146.28:3718/api/v1/&& react-scripts build",
+    "build-trial-produksi": "export REACT_APP_BACKEND_URL=https://103.196.146.28:3718/api/v1/&& react-scripts build",
     "build-ngtc-produksi": "export REACT_APP_BACKEND_URL=https://103.196.146.28:4335/api/v1/&& react-scripts build",
     "build-produksi-joecollin": "export REACT_APP_BACKEND_URL=https://149.129.246.85:8049/api/v1/&& react-scripts build",
     "build-produksi-joecollin-biznet-1": "export REACT_APP_BACKEND_URL=https://103.196.146.28:10015/api/v1/&& react-scripts build",
