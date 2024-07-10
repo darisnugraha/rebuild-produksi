@@ -57,8 +57,8 @@ const addCheckoutJobOrder =
             jumlah: parseInt(element.jumlah),
             berat_balik: parseFloat(element.berat_balik),
             tukang: data[0].staff.split("|")[0],
-            kode_marketing: element.marketing,
-            kode_customer: element.customer,
+            kode_marketing: element.marketing.split("|")[1],
+            kode_customer: element.customer.split("|")[1],
             catatan: element.catatan,
             kode_status_job_order: element.kode_status_job_order,
           };

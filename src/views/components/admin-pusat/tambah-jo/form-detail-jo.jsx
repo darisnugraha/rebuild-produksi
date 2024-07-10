@@ -38,7 +38,7 @@ const maptostate = (state) => {
         customer:
           state.tambahjoborder.kodeCustomer !== undefined
             ? state.tambahjoborder.kodeCustomer
-            : state.mastercustomer.feedback[0]?.kode_customer,
+            : `${state.mastercustomer.feedback[0]?.kode_customer}|${state.mastercustomer.feedback[0]?.nama_customer}`,
         kode_barang:
           state.tambahjoborder.kodeBarang !== undefined
             ? state.tambahjoborder.kodeBarang
@@ -76,7 +76,7 @@ const maptostate = (state) => {
           customer:
             state.tambahjoborder.kodeCustomer !== undefined
               ? state.tambahjoborder.kodeCustomer
-              : state.mastercustomer.feedback[0]?.kode_customer,
+              : `${state.mastercustomer.feedback[0]?.kode_customer}|${state.mastercustomer.feedback[0]?.nama_customer}`,
           kode_barang:
             state.tambahjoborder.kodeBarang !== undefined
               ? state.tambahjoborder.kodeBarang
@@ -104,7 +104,7 @@ const maptostate = (state) => {
       return {
         initialValues: {
           kode_marketing: state.mastermarketing.feedback[0]?.kode_marketing,
-          kode_customer: state.mastercustomer.feedback[0]?.kode_customer,
+          kode_customer: `${state.mastercustomer.feedback[0]?.kode_customer}|${state.mastercustomer.feedback[0]?.nama_customer}`,
           kode_barang: state.masteroriginal.feedback[0]?.kode_barang,
           kode_jenis_bahan:
             state.masterjenisbahan.feedback[0]?.kode_jenis_bahan,
@@ -129,6 +129,22 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
   const dataBarang = useSelector(DataBarang.getAllMasterOriginal);
   const dataJenisBahan = useSelector(DataJenisBahan.getAllMasterJenisBahan);
   const dataStatus = useSelector(DataStatus.getAllMasterStatus);
+
+  // const handleKeyDown = (event) => {
+  //   if (event.key === "Tab") {
+  //     // Prevent the default tab behavior to allow selection
+  //     event.preventDefault();
+  //     const customerfind = dataCustomer.find(
+  //       (elemant) => elemant.nama_customer === event.target.value?.toUpperCase()
+  //     );
+
+  //     dispatch(
+  //       setKodeCustomer(
+  //         `${customerfind?.nama_customer}|${customerfind?.kode_customer}`
+  //       )
+  //     );
+  //   }
+  // };
 
   return (
     <Modal
@@ -155,7 +171,10 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
             >
               {dataMarketing.map((item) => {
                 return (
-                  <Option value={item.kode_marketing} key={item.kode_marketing}>
+                  <Option
+                    value={`${item.nama_marketing}|${item.kode_marketing}`}
+                    key={item.kode_marketing}
+                  >
                     <span style={{ fontSize: "13px" }}>
                       {item.nama_marketing}
                     </span>
@@ -173,10 +192,14 @@ let FormDetailJobOrder = ({ visible, onCreate, onCancel }, prop) => {
               placeholder="Pilih Kode Customer"
               onBlur={(e) => e.preventDefault()}
               onChange={(e) => dispatch(setKodeCustomer(e))}
+              // onKeyDown={handleKeyDown}
             >
               {dataCustomer.map((item) => {
                 return (
-                  <Option value={item.kode_customer} key={item.kode_customer}>
+                  <Option
+                    value={`${item.nama_customer}|${item.kode_customer}`}
+                    key={item.kode_customer}
+                  >
                     <span style={{ fontSize: "13px" }}>
                       {item.nama_customer}
                     </span>

@@ -220,6 +220,14 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
   const isEdit = useSelector(KirimJO.getIsEditJO);
   const dataJenisBahan = useSelector(MasterBahan.getAllMasterBahan);
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Tab") {
+      // Prevent the default tab behavior to allow selection
+      event.preventDefault();
+      dispatch(getDataByNoInduk(event.target.value));
+    }
+  };
+
   return (
     <Modal
       visible={visible}
@@ -305,6 +313,7 @@ let FormKirimJO = ({ visible, onCancel }, prop) => {
               onBlur={(e) => e.preventDefault()}
               onChange={(e) => dispatch(getDataByNoInduk(e))}
               disabled={isEdit}
+              onKeyDown={handleKeyDown}
             >
               {dataInduk.map((item) => {
                 return (
